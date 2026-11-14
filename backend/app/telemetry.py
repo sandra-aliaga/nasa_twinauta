@@ -3,16 +3,13 @@
 from math import isfinite
 
 from app import catalog
-from app.errors import DomainError, not_found
+from app.errors import DomainError
 from app.schemas import TelemetryRecording, TelemetryWindow
 
 
 def recording_metadata(recording_id: str) -> TelemetryRecording:
     """Resolve the recording before playback."""
-    metadata = catalog.recording()
-    if recording_id != metadata.recording_id:
-        raise not_found("la grabación")
-    return metadata
+    return catalog.recording(recording_id)
 
 
 def recording_window(recording_id: str, start_s: float, end_s: float) -> TelemetryWindow:
@@ -24,12 +21,15 @@ def recording_window(recording_id: str, start_s: float, end_s: float) -> Telemet
         raise DomainError(422, "invalid_window", "La ventana supera los 120 segundos.")
     effective_end = min(end_s, metadata.end_s)
     points = [
-        point for point in catalog.telemetry().points if start_s <= point.time_s < effective_end
+        point
+        for point in catalog.telemetry_points(recording_id)
+        if start_s <= point.time_s < effective_end
     ]
     if len(points) > metadata.max_points:
         raise DomainError(422, "invalid_window", "Solicita una ventana más pequeña.")
-    return catalog.telemetry().model_copy(
-        update={
+    return TelemetryWindow.model_validate(
+        {
+            **metadata.model_dump(exclude={"start_s", "end_s", "max_window_seconds", "max_points"}),
             "start_s": start_s,
             "end_s": end_s,
             "points": points,

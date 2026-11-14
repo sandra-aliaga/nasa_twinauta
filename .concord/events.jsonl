@@ -1,0 +1,67 @@
+{"task_id":"BE-PLAN","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:41:44.406Z"}
+{"task_id":"BE-01","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:42:29.380Z"}
+{"task_id":"BE-01","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:42:38.439Z"}
+{"task_id":"BE-04","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:43:21.665Z"}
+{"task_id":"BE-04","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:43:24.665Z"}
+{"task_id":"BE-05","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:43:27.142Z"}
+{"task_id":"BE-05","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:43:29.497Z"}
+{"task_id":"BE-06","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:43:33.030Z"}
+{"task_id":"BE-06","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:43:35.996Z"}
+{"task_id":"BE-07","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:43:38.336Z"}
+{"task_id":"BE-07","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:43:40.241Z"}
+{"task_id":"BE-08","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:43:41.933Z"}
+{"task_id":"BE-08","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:43:44.480Z"}
+{"task_id":"BE-09","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:43:55.303Z"}
+{"task_id":"BE-09","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:43:57.925Z"}
+{"task_id":"BE-10","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:44:01.275Z"}
+{"task_id":"BE-10","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:44:04.551Z"}
+{"task_id":"BE-11","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:44:11.230Z"}
+{"task_id":"BE-11","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:44:15.649Z"}
+{"task_id":"BE-12","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:44:49.787Z"}
+{"task_id":"BE-12","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:44:53.657Z"}
+{"task_id":"BE-13","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:45:03.134Z"}
+{"task_id":"BE-13","tool":"release_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:45:07.449Z"}
+{"task_id":"BE-PLAN","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T19:46:15.934Z"}
+{"task_id":"BE-02","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:47:32.688Z"}
+{"task_id":"BE-03","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:47:36.543Z"}
+{"task_id":"BE-02","tool":"update_task","status":"success","detail":"progress","created_at":"2026-11-14T19:48:05.711Z"}
+{"task_id":"BE-03","tool":"update_task","status":"success","detail":"progress","created_at":"2026-11-14T19:48:10.007Z"}
+{"task_id":"BE-PLAN","tool":"handoff","status":"success","detail":"complete","created_at":"2026-11-14T19:48:33.206Z"}
+{"task_id":"BE-PLAN","tool":"close_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T19:48:33.207Z"}
+{"task_id":"BE-COORD-02","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:51:23.529Z"}
+{"task_id":"BE-01","tool":"assign_task","status":"success","detail":"2 -> 3","created_at":"2026-11-14T19:52:05.362Z"}
+{"task_id":"BE-01","tool":"accept_task","status":"success","detail":"3 -> 4","created_at":"2026-11-14T19:52:05.363Z"}
+{"task_id":"BE-01","tool":"claim_work","status":"success","detail":"1 overlap(s)","created_at":"2026-11-14T19:52:05.367Z"}
+{"task_id":"BE-01","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T19:52:31.173Z"}
+{"task_id":"BE-03","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T19:52:37.627Z"}
+{"task_id":"BE-01","tool":"update_task","status":"success","detail":"progress","created_at":"2026-11-14T19:53:49.611Z"}
+{"task_id":"BE-01","tool":"update_task","status":"success","detail":"progress","created_at":"2026-11-14T19:55:45.474Z"}
+{"task_id":"BE-COORD-02","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:56:11.332Z"}
+{"task_id":"BE-01","tool":"handoff","status":"success","detail":"complete","created_at":"2026-11-14T19:57:59.913Z"}
+{"task_id":"BE-01","tool":"close_task","status":"success","detail":"5 -> 6","created_at":"2026-11-14T19:57:59.913Z"}
+{"task_id":"BE-COORD-02","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T19:58:18.365Z"}
+{"task_id":"BE-COORD-02","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:59:13.787Z"}
+{"task_id":"BE-14","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T19:59:16.392Z"}
+{"task_id":"BE-16","tool":"claim_work","status":"success","detail":"2 overlap(s)","created_at":"2026-11-14T20:02:10.316Z"}
+{"task_id":"BE-COORD-02","tool":"claim_work","status":"success","detail":"1 overlap(s)","created_at":"2026-11-14T20:02:37.181Z"}
+{"task_id":"BE-16","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T20:02:39.683Z"}
+{"task_id":"BE-14","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T20:03:14.705Z"}
+{"task_id":"BE-16","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T20:14:40.049Z"}
+{"task_id":"BE-03","tool":"claim_work","status":"success","detail":null,"created_at":"2026-11-14T20:15:13.360Z"}
+{"task_id":"BE-03","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T20:16:52.727Z"}
+{"task_id":"BE-03","tool":"handoff","status":"success","detail":"complete","created_at":"2026-11-14T20:18:13.387Z"}
+{"task_id":"BE-03","tool":"close_task","status":"success","detail":"2 -> 3","created_at":"2026-11-14T20:18:13.388Z"}
+{"task_id":"BE-14","tool":"handoff","status":"success","detail":"complete","created_at":"2026-11-14T20:18:15.628Z"}
+{"task_id":"BE-14","tool":"close_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T20:18:15.629Z"}
+{"task_id":"BE-16","tool":"handoff","status":"success","detail":"review_ready","created_at":"2026-11-14T20:18:17.707Z"}
+{"task_id":"BE-16","tool":"review_ready","status":"success","detail":"0 open question(s)","created_at":"2026-11-14T20:18:17.711Z"}
+{"task_id":"BE-16","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T20:20:14.059Z"}
+{"task_id":"BE-COORD-02","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T20:20:17.933Z"}
+{"task_id":"BE-COORD-02","tool":"handoff","status":"success","detail":"handoff","created_at":"2026-11-14T20:20:23.190Z"}
+{"task_id":"BE-02","tool":"handoff","status":"success","detail":"review_ready","created_at":"2026-11-14T20:21:05.198Z"}
+{"task_id":"BE-02","tool":"review_ready","status":"success","detail":"0 open question(s)","created_at":"2026-11-14T20:21:05.199Z"}
+{"task_id":"BE-HANDOFF","tool":"claim_work","status":"success","detail":"1 overlap(s)","created_at":"2026-11-14T20:22:49.921Z"}
+{"task_id":"BE-COORD-02","tool":"release_task","status":"success","detail":"3 -> 4","created_at":"2026-11-14T20:23:06.154Z"}
+{"task_id":"BE-HANDOFF","tool":"update_task","status":"success","detail":"decision","created_at":"2026-11-14T20:28:57.208Z"}
+{"task_id":"BE-HANDOFF","tool":"handoff","status":"success","detail":"complete","created_at":"2026-11-14T20:29:45.112Z"}
+{"task_id":"BE-HANDOFF","tool":"close_task","status":"success","detail":"1 -> 2","created_at":"2026-11-14T20:29:45.113Z"}

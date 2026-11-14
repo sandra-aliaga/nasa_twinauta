@@ -1,0 +1,456 @@
+{
+  "papers": {
+    "corpus_version": "example-0.3-001",
+    "items": [
+      {
+        "id": "paper_scott_2020",
+        "title": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study",
+        "authors": [
+          "Jessica M. Scott",
+          "Meghan Downs",
+          "Roxanne Buxton",
+          "Elizabeth Goetchius",
+          "Brent Crowell",
+          "Robert Ploutz-Snyder",
+          "Kyle J. Hackney",
+          "Jeffrey Ryder",
+          "Kirk English",
+          "Lori L. Ploutz-Snyder"
+        ],
+        "year": 2020,
+        "identifiers": {
+          "doi": "10.1097/CCE.0000000000000269",
+          "pmid": "33251515",
+          "pmcid": "PMC7688251"
+        },
+        "sections": [
+          "evidence",
+          "scenario"
+        ],
+        "region_ids": [
+          "quadriceps"
+        ],
+        "study_design": "Prespecified analysis of a randomized controlled trial",
+        "environment": "bed_rest",
+        "review_status": "pending",
+        "access": {
+          "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/",
+          "full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/",
+          "pdf_url": null,
+          "availability": "open_access",
+          "license": null,
+          "full_text_cached": false,
+          "pdf_cached": false,
+          "local_document_url": null
+        },
+        "indicator_ids": [
+          "quadriceps_csa_relative"
+        ]
+      },
+      {
+        "id": "paper_trappe_2024",
+        "title": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
+        "authors": [
+          "Todd A. Trappe",
+          "Kiril Minchev",
+          "Ryan K. Perkins",
+          "Kaleen M. Lavin",
+          "Bozena Jemiolo",
+          "Stephen M. Ratchford",
+          "Alex Claiborne",
+          "Gary A. Lee",
+          "W. Holmes Finch",
+          "Jeffrey W. Ryder",
+          "Lori Ploutz-Snyder",
+          "Scott W. Trappe"
+        ],
+        "year": 2024,
+        "identifiers": {
+          "doi": "10.1152/japplphysiol.00489.2023",
+          "pmid": "38328821",
+          "pmcid": "PMC11365553"
+        },
+        "sections": [
+          "evidence",
+          "actions"
+        ],
+        "region_ids": [
+          "quadriceps"
+        ],
+        "study_design": null,
+        "environment": "bed_rest",
+        "review_status": "pending",
+        "access": {
+          "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+          "full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+          "pdf_url": null,
+          "availability": "open_access",
+          "license": null,
+          "full_text_cached": false,
+          "pdf_cached": false,
+          "local_document_url": null
+        },
+        "indicator_ids": [
+          "knee_extension_torque"
+        ]
+      }
+    ],
+    "total_matching": 2,
+    "page": {
+      "next_cursor": null,
+      "has_more": false
+    }
+  },
+  "paper_detail": {
+    "paper": {
+      "id": "paper_trappe_2024",
+      "title": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
+      "authors": [
+        "Todd A. Trappe",
+        "Kiril Minchev",
+        "Ryan K. Perkins",
+        "Kaleen M. Lavin",
+        "Bozena Jemiolo",
+        "Stephen M. Ratchford",
+        "Alex Claiborne",
+        "Gary A. Lee",
+        "W. Holmes Finch",
+        "Jeffrey W. Ryder",
+        "Lori Ploutz-Snyder",
+        "Scott W. Trappe"
+      ],
+      "year": 2024,
+      "identifiers": {
+        "doi": "10.1152/japplphysiol.00489.2023",
+        "pmid": "38328821",
+        "pmcid": "PMC11365553"
+      },
+      "sections": [
+        "evidence",
+        "actions"
+      ],
+      "region_ids": [
+        "quadriceps"
+      ],
+      "study_design": null,
+      "environment": "bed_rest",
+      "review_status": "pending",
+      "access": {
+        "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+        "full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+        "pdf_url": null,
+        "availability": "open_access",
+        "license": null,
+        "full_text_cached": false,
+        "pdf_cached": false,
+        "local_document_url": null
+      },
+      "indicator_ids": [
+        "knee_extension_torque"
+      ]
+    },
+    "abstract": null,
+    "summary": {
+      "status": "available",
+      "text": "Se estudian respuestas del vasto lateral y sóleo tras 70 días de reposo en cama con distintas condiciones de ejercicio. La tabla 1 permite consultar resultados agregados de fuerza antes y después.",
+      "basis": "full_text",
+      "method": "editorial",
+      "review_status": "pending",
+      "source_locators": [
+        "Abstract",
+        "Table 1"
+      ],
+      "limitations": [
+        "Resumen de ejemplo pendiente de revisión de Medicina.",
+        "No autoriza cambios individuales de ejercicio."
+      ]
+    },
+    "population_description": "Groups BR n=9, BRE n=9 and BRE+T n=8; 70 days of head-down bed rest.",
+    "cohort_ids": [],
+    "cohort_overlap_status": "possible_overlap",
+    "statistics": [
+      {
+        "id": "stat_trappe_2024_br_torque_pre",
+        "outcome": "Quadriceps strength",
+        "anatomy": "quadriceps",
+        "group_label": "BR (bed rest only)",
+        "timepoint_label": "Pre",
+        "sample_size": 9,
+        "value": 200,
+        "unit": "N.m",
+        "statistic_type": "group_mean",
+        "dispersion": {
+          "kind": "sd",
+          "value": 47,
+          "unit": "N.m"
+        },
+        "interval": null,
+        "source_locator": "Table 1; Quadriceps strength, Nm; BR column; Pre row. Footnote: means ± SD.",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+        "extraction_review_status": "pending",
+        "limitations": [
+          "Aggregate published result; not a virtual astronaut baseline.",
+          "No daily torque curve or conversion from muscle area."
+        ]
+      },
+      {
+        "id": "stat_trappe_2024_br_torque_post",
+        "outcome": "Quadriceps strength",
+        "anatomy": "quadriceps",
+        "group_label": "BR (bed rest only)",
+        "timepoint_label": "Post",
+        "sample_size": 9,
+        "value": 148,
+        "unit": "N.m",
+        "statistic_type": "group_mean",
+        "dispersion": {
+          "kind": "sd",
+          "value": 42,
+          "unit": "N.m"
+        },
+        "interval": null,
+        "source_locator": "Table 1; Quadriceps strength, Nm; BR column; Post row. Footnote: means ± SD.",
+        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+        "extraction_review_status": "pending",
+        "limitations": [
+          "Aggregate published result; not a virtual astronaut baseline.",
+          "No daily torque curve or conversion from muscle area."
+        ]
+      }
+    ],
+    "limitations": [
+      "Puede compartir participantes con otros trabajos del programa NASA; no asumir independencia."
+    ],
+    "corpus_version": "example-0.3-001",
+    "analysis": {
+      "status": "not_requested",
+      "input_basis": "not_prepared",
+      "input_sha256": null,
+      "prompt_version": null,
+      "model_id": null,
+      "generated_at": null,
+      "items": [],
+      "failure_reason": null
+    },
+    "applicability": {
+      "assessment_id": null,
+      "status": "not_evaluated",
+      "explanation": "La ficha bibliográfica no está vinculada a una evaluación; no se ha valorado aplicabilidad individual.",
+      "considered_observation_ids": [],
+      "checks": [],
+      "rule_id": null,
+      "rule_version": null,
+      "review_status": "pending"
+    }
+  },
+  "graph": {
+    "corpus_version": "example-0.3-001",
+    "assessment_id": null,
+    "view": "evidence",
+    "nodes": [
+      {
+        "id": "paper_scott_2020",
+        "kind": "paper",
+        "label": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study",
+        "paper_id": "paper_scott_2020",
+        "entity_id": null,
+        "review_status": "pending"
+      },
+      {
+        "id": "paper_trappe_2024",
+        "kind": "paper",
+        "label": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
+        "paper_id": "paper_trappe_2024",
+        "entity_id": null,
+        "review_status": "pending"
+      },
+      {
+        "id": "indicator_quadriceps_csa_relative",
+        "kind": "indicator",
+        "label": "Área transversal relativa del cuádriceps",
+        "paper_id": null,
+        "entity_id": "quadriceps_csa_relative",
+        "review_status": "pending"
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_scott_topic_csa",
+        "source": "paper_scott_2020",
+        "target": "indicator_quadriceps_csa_relative",
+        "relation": "addresses",
+        "basis": "editorial_classification",
+        "source_paper_ids": [
+          "paper_scott_2020"
+        ],
+        "source_locators": [
+          "Abstract: muscle cross-sectional area"
+        ],
+        "review_status": "pending"
+      }
+    ],
+    "page": {
+      "next_cursor": null,
+      "has_more": false
+    },
+    "scope_description": "Fixture de interfaz con dos publicaciones reales; relación temática editorial, no grafo científico revisado ni corpus completo.",
+    "counts": {
+      "papers_matching": 2,
+      "papers_returned": 2,
+      "papers_reviewed_returned": 0
+    }
+  },
+  "knowledge_base": {
+    "corpus_version": "example-0.3-001",
+    "published_at": "2026-11-14T00:00:00Z",
+    "last_sync_at": null,
+    "runtime_mode": "local_bundle",
+    "external_services_required_for_consultation": false,
+    "paper_count": 2,
+    "reviewed_paper_count": 0,
+    "analysis_policy": "not_configured",
+    "rules_version": null
+  },
+  "modules": {
+    "catalog_version": "example-modules-0.3-001",
+    "modules": [
+      {
+        "id": "quadriceps_health",
+        "version": "0.1-draft",
+        "label": "Salud muscular del cuádriceps",
+        "region_ids": [
+          "quadriceps"
+        ],
+        "indicator_ids": [
+          "quadriceps_csa_relative",
+          "knee_extension_torque"
+        ],
+        "implementation_status": "prototype",
+        "interpretation_status": "review_pending",
+        "coverage_description": "Módulo inicial propuesto; el motor contextual aún no está implementado.",
+        "limitations": [
+          "No cubre otras regiones.",
+          "Los parámetros y reglas científicas requieren revisión."
+        ]
+      }
+    ]
+  },
+  "guidance": {
+    "assessment_id": "assessment_fixture_0_3",
+    "module_id": "quadriceps_health",
+    "module_version": "0.1-draft",
+    "status": "review_pending",
+    "attention": "unknown",
+    "summary": "Las observaciones pueden consultarse; la interpretación del módulo espera reglas revisadas.",
+    "reason": "No hay reglas clínicas habilitadas.",
+    "observation_ids": [],
+    "paper_ids": [
+      "paper_scott_2020",
+      "paper_trappe_2024"
+    ],
+    "applicability": [],
+    "steps": [],
+    "limitations": [
+      "Fixture de interfaz: no evaluación clínica real."
+    ],
+    "corpus_version": "example-0.3-001",
+    "rules_version": null,
+    "created_at": "2026-11-14T00:00:00Z"
+  },
+  "guidance_states": [
+    {
+      "assessment_id": "assessment_fixture_missing_data",
+      "module_id": "quadriceps_health",
+      "module_version": "0.1-draft",
+      "status": "insufficient_data",
+      "attention": "unknown",
+      "summary": "Falta una medición basal compatible.",
+      "reason": "Falta una medición basal compatible.",
+      "observation_ids": [],
+      "paper_ids": [],
+      "applicability": [],
+      "steps": [],
+      "limitations": [
+        "Fixture de interfaz: no evaluación clínica real."
+      ],
+      "corpus_version": "example-0.3-001",
+      "rules_version": null,
+      "created_at": "2026-11-14T00:00:00Z"
+    },
+    {
+      "assessment_id": "assessment_fixture_incompatible_method",
+      "module_id": "quadriceps_health",
+      "module_version": "0.1-draft",
+      "status": "insufficient_data",
+      "attention": "unknown",
+      "summary": "Las evaluaciones usan métodos diferentes; no hay comparación habilitada.",
+      "reason": "Las evaluaciones usan métodos diferentes; no hay comparación habilitada.",
+      "observation_ids": [
+        "observation_fixture_a",
+        "observation_fixture_b"
+      ],
+      "paper_ids": [],
+      "applicability": [],
+      "steps": [],
+      "limitations": [
+        "Fixture de interfaz: no evaluación clínica real."
+      ],
+      "corpus_version": "example-0.3-001",
+      "rules_version": null,
+      "created_at": "2026-11-14T00:00:00Z"
+    },
+    {
+      "assessment_id": "assessment_fixture_equipment_unavailable",
+      "module_id": "quadriceps_health",
+      "module_version": "0.1-draft",
+      "status": "partial",
+      "attention": "unknown",
+      "summary": "El equipo previsto no está disponible; revisar el plan autorizado.",
+      "reason": "El equipo previsto no está disponible; revisar el plan autorizado.",
+      "observation_ids": [
+        "observation_fixture_a"
+      ],
+      "paper_ids": [],
+      "applicability": [],
+      "steps": [
+        {
+          "id": "candidate_review_plan",
+          "title": "Solicitar revisión del plan",
+          "description": "Propuesta ilustrativa ante una restricción de equipo.",
+          "kind": "operational_review",
+          "eligibility": "unknown",
+          "eligibility_reason": "Regla y condiciones pendientes de revisión; no ejecutable desde esta fixture.",
+          "rule_id": null,
+          "rule_version": null,
+          "paper_ids": [],
+          "review_status": "pending"
+        }
+      ],
+      "limitations": [
+        "Fixture de interfaz: no evaluación clínica real."
+      ],
+      "corpus_version": "example-0.3-001",
+      "rules_version": null,
+      "created_at": "2026-11-14T00:00:00Z"
+    },
+    {
+      "assessment_id": "assessment_fixture_unsupported_region",
+      "module_id": null,
+      "module_version": null,
+      "status": "not_supported",
+      "attention": "unknown",
+      "summary": "La región seleccionada no tiene un módulo implementado.",
+      "reason": "La región seleccionada no tiene un módulo implementado.",
+      "observation_ids": [],
+      "paper_ids": [],
+      "applicability": [],
+      "steps": [],
+      "limitations": [
+        "Fixture de interfaz: no evaluación clínica real."
+      ],
+      "corpus_version": null,
+      "rules_version": null,
+      "created_at": "2026-11-14T00:00:00Z"
+    }
+  ]
+}

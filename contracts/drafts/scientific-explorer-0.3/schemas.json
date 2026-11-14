@@ -1,0 +1,1267 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "Identifiers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "doi",
+        "pmid",
+        "pmcid"
+      ],
+      "properties": {
+        "doi": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pmid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pmcid": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Access": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "landing_url",
+        "full_text_url",
+        "pdf_url",
+        "availability",
+        "license",
+        "full_text_cached",
+        "pdf_cached",
+        "local_document_url"
+      ],
+      "properties": {
+        "landing_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "full_text_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "pdf_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "availability": {
+          "type": "string",
+          "enum": [
+            "open_access",
+            "landing_only",
+            "unknown"
+          ]
+        },
+        "license": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "full_text_cached": {
+          "type": "boolean"
+        },
+        "pdf_cached": {
+          "type": "boolean"
+        },
+        "local_document_url": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "Summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "text",
+        "basis",
+        "method",
+        "review_status",
+        "source_locators",
+        "limitations"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "available",
+            "pending",
+            "unavailable"
+          ]
+        },
+        "text": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "full_text",
+            "abstract",
+            "metadata_only",
+            "not_prepared"
+          ]
+        },
+        "method": {
+          "type": "string",
+          "enum": [
+            "editorial",
+            "llm_assisted",
+            "not_prepared"
+          ]
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        },
+        "source_locators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PaperCard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "authors",
+        "year",
+        "identifiers",
+        "sections",
+        "region_ids",
+        "study_design",
+        "environment",
+        "review_status",
+        "access",
+        "indicator_ids"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "authors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "year": {
+          "type": "integer",
+          "minimum": 1800
+        },
+        "identifiers": {
+          "$ref": "#/$defs/Identifiers"
+        },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "evidence",
+              "scenario",
+              "actions"
+            ]
+          }
+        },
+        "region_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "study_design": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "environment": {
+          "type": "string",
+          "enum": [
+            "spaceflight",
+            "bed_rest",
+            "terrestrial_exercise",
+            "other",
+            "mixed",
+            "unknown"
+          ]
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        },
+        "access": {
+          "$ref": "#/$defs/Access"
+        },
+        "indicator_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Statistic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "outcome",
+        "anatomy",
+        "group_label",
+        "timepoint_label",
+        "sample_size",
+        "value",
+        "unit",
+        "statistic_type",
+        "dispersion",
+        "interval",
+        "source_locator",
+        "source_url",
+        "extraction_review_status",
+        "limitations"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "anatomy": {
+          "type": "string"
+        },
+        "group_label": {
+          "type": "string"
+        },
+        "timepoint_label": {
+          "type": "string"
+        },
+        "sample_size": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "minimum": 1
+        },
+        "value": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string"
+        },
+        "statistic_type": {
+          "type": "string",
+          "enum": [
+            "group_mean",
+            "individual_value",
+            "change_rate",
+            "effect_estimate"
+          ]
+        },
+        "dispersion": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "value",
+                "unit"
+              ],
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "sd",
+                    "se"
+                  ]
+                },
+                "value": {
+                  "type": "number",
+                  "minimum": 0
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "interval": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind",
+                "level",
+                "lower",
+                "upper",
+                "unit"
+              ],
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "confidence_interval",
+                    "credible_interval",
+                    "reported_range"
+                  ]
+                },
+                "level": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "exclusiveMinimum": 0,
+                  "exclusiveMaximum": 1
+                },
+                "lower": {
+                  "type": "number"
+                },
+                "upper": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "source_locator": {
+          "type": "string"
+        },
+        "source_url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "extraction_review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "PaperDetail": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "paper",
+        "abstract",
+        "summary",
+        "population_description",
+        "cohort_ids",
+        "cohort_overlap_status",
+        "statistics",
+        "limitations",
+        "corpus_version",
+        "analysis",
+        "applicability"
+      ],
+      "properties": {
+        "paper": {
+          "$ref": "#/$defs/PaperCard"
+        },
+        "abstract": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "summary": {
+          "$ref": "#/$defs/Summary"
+        },
+        "population_description": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "cohort_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "cohort_overlap_status": {
+          "type": "string",
+          "enum": [
+            "unknown",
+            "possible_overlap",
+            "documented"
+          ]
+        },
+        "statistics": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Statistic"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "corpus_version": {
+          "type": "string"
+        },
+        "analysis": {
+          "$ref": "#/$defs/Analysis"
+        },
+        "applicability": {
+          "$ref": "#/$defs/Applicability"
+        }
+      }
+    },
+    "Page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "next_cursor",
+        "has_more"
+      ],
+      "properties": {
+        "next_cursor": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "has_more": {
+          "type": "boolean"
+        }
+      }
+    },
+    "PaperPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corpus_version",
+        "items",
+        "total_matching",
+        "page"
+      ],
+      "properties": {
+        "corpus_version": {
+          "type": "string"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/PaperCard"
+          }
+        },
+        "total_matching": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "page": {
+          "$ref": "#/$defs/Page"
+        }
+      }
+    },
+    "KnowledgeNode": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "paper_id",
+        "entity_id",
+        "review_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "paper",
+            "indicator",
+            "claim",
+            "action",
+            "topic",
+            "intervention"
+          ]
+        },
+        "label": {
+          "type": "string"
+        },
+        "paper_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "entity_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        }
+      }
+    },
+    "KnowledgeEdge": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "source",
+        "target",
+        "relation",
+        "basis",
+        "source_paper_ids",
+        "source_locators",
+        "review_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "source": {
+          "type": "string"
+        },
+        "target": {
+          "type": "string"
+        },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "cites",
+            "addresses",
+            "reports",
+            "supports",
+            "contradicts",
+            "qualifies",
+            "same_cohort",
+            "possible_cohort_overlap"
+          ]
+        },
+        "basis": {
+          "type": "string",
+          "enum": [
+            "provider_metadata",
+            "editorial_classification",
+            "reviewed_extraction",
+            "llm_suggestion"
+          ]
+        },
+        "source_paper_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "source_locators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        }
+      }
+    },
+    "GraphPage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corpus_version",
+        "assessment_id",
+        "view",
+        "nodes",
+        "edges",
+        "page",
+        "scope_description",
+        "counts"
+      ],
+      "properties": {
+        "corpus_version": {
+          "type": "string"
+        },
+        "assessment_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "view": {
+          "type": "string",
+          "enum": [
+            "evidence",
+            "scenario",
+            "actions"
+          ]
+        },
+        "nodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/KnowledgeNode"
+          }
+        },
+        "edges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/KnowledgeEdge"
+          }
+        },
+        "page": {
+          "$ref": "#/$defs/Page"
+        },
+        "scope_description": {
+          "type": "string"
+        },
+        "counts": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "papers_matching",
+            "papers_returned",
+            "papers_reviewed_returned"
+          ],
+          "properties": {
+            "papers_matching": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "papers_returned": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "papers_reviewed_returned": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        }
+      }
+    },
+    "AnalysisItem": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "kind",
+        "text",
+        "source_locator",
+        "source_excerpt",
+        "review_status",
+        "limitations"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "finding",
+            "implication",
+            "studied_intervention"
+          ]
+        },
+        "text": {
+          "type": "string"
+        },
+        "source_locator": {
+          "type": "string"
+        },
+        "source_excerpt": {
+          "type": "string",
+          "maxLength": 500
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "input_basis",
+        "input_sha256",
+        "prompt_version",
+        "model_id",
+        "generated_at",
+        "items",
+        "failure_reason"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_requested",
+            "queued",
+            "running",
+            "ready",
+            "failed"
+          ]
+        },
+        "input_basis": {
+          "type": "string",
+          "enum": [
+            "abstract",
+            "full_text",
+            "not_prepared"
+          ]
+        },
+        "input_sha256": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "prompt_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "model_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "generated_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "items": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/AnalysisItem"
+          }
+        },
+        "failure_reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "ContextCheck": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "dimension",
+        "match",
+        "reason",
+        "source_locators"
+      ],
+      "properties": {
+        "dimension": {
+          "type": "string",
+          "enum": [
+            "measurement_method",
+            "population",
+            "environment",
+            "exposure_duration",
+            "measurement_timepoint",
+            "available_resources"
+          ]
+        },
+        "match": {
+          "type": "string",
+          "enum": [
+            "match",
+            "mismatch",
+            "unknown"
+          ]
+        },
+        "reason": {
+          "type": "string"
+        },
+        "source_locators": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "Applicability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessment_id",
+        "status",
+        "explanation",
+        "considered_observation_ids",
+        "checks",
+        "rule_id",
+        "rule_version",
+        "review_status"
+      ],
+      "properties": {
+        "assessment_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "not_evaluated",
+            "context_match",
+            "analog_only",
+            "not_comparable",
+            "insufficient_data"
+          ]
+        },
+        "explanation": {
+          "type": "string"
+        },
+        "considered_observation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "checks": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ContextCheck"
+          }
+        },
+        "rule_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rule_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        }
+      }
+    },
+    "KnowledgeBaseMetadata": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "corpus_version",
+        "published_at",
+        "last_sync_at",
+        "runtime_mode",
+        "external_services_required_for_consultation",
+        "paper_count",
+        "reviewed_paper_count",
+        "analysis_policy",
+        "rules_version"
+      ],
+      "properties": {
+        "corpus_version": {
+          "type": "string"
+        },
+        "published_at": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "last_sync_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "runtime_mode": {
+          "type": "string",
+          "enum": [
+            "local_bundle",
+            "hosted_catalog"
+          ]
+        },
+        "external_services_required_for_consultation": {
+          "type": "boolean"
+        },
+        "paper_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "reviewed_paper_count": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "analysis_policy": {
+          "type": "string",
+          "enum": [
+            "precomputed",
+            "local_model",
+            "not_configured"
+          ]
+        },
+        "rules_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      }
+    },
+    "HealthModule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "version",
+        "label",
+        "region_ids",
+        "indicator_ids",
+        "implementation_status",
+        "interpretation_status",
+        "coverage_description",
+        "limitations"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "version": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "region_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "indicator_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "implementation_status": {
+          "type": "string",
+          "enum": [
+            "planned",
+            "prototype",
+            "available"
+          ]
+        },
+        "interpretation_status": {
+          "type": "string",
+          "enum": [
+            "unavailable",
+            "review_pending",
+            "reviewed"
+          ]
+        },
+        "coverage_description": {
+          "type": "string"
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "ModuleCatalog": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "catalog_version",
+        "modules"
+      ],
+      "properties": {
+        "catalog_version": {
+          "type": "string"
+        },
+        "modules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/HealthModule"
+          }
+        }
+      }
+    },
+    "GuidanceStep": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "description",
+        "kind",
+        "eligibility",
+        "eligibility_reason",
+        "rule_id",
+        "rule_version",
+        "paper_ids",
+        "review_status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "title": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "operational_review",
+            "studied_intervention"
+          ]
+        },
+        "eligibility": {
+          "type": "string",
+          "enum": [
+            "eligible",
+            "ineligible",
+            "unknown"
+          ]
+        },
+        "eligibility_reason": {
+          "type": "string"
+        },
+        "rule_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rule_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "paper_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "review_status": {
+          "type": "string",
+          "enum": [
+            "pending",
+            "reviewed"
+          ]
+        }
+      }
+    },
+    "Guidance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "assessment_id",
+        "module_id",
+        "module_version",
+        "status",
+        "attention",
+        "summary",
+        "reason",
+        "observation_ids",
+        "paper_ids",
+        "applicability",
+        "steps",
+        "limitations",
+        "corpus_version",
+        "rules_version",
+        "created_at"
+      ],
+      "properties": {
+        "assessment_id": {
+          "type": "string"
+        },
+        "module_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "module_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "complete",
+            "partial",
+            "insufficient_data",
+            "not_supported",
+            "review_pending"
+          ]
+        },
+        "attention": {
+          "type": "string",
+          "enum": [
+            "informational",
+            "review_needed",
+            "unknown"
+          ]
+        },
+        "summary": {
+          "type": "string"
+        },
+        "reason": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "observation_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "paper_ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "applicability": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Applicability"
+          }
+        },
+        "steps": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/GuidanceStep"
+          }
+        },
+        "limitations": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "corpus_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "rules_version": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "created_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

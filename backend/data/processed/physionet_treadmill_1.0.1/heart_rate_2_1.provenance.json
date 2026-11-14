@@ -1,0 +1,52 @@
+{
+  "preparation_version": "1.0.0",
+  "dataset_id": "physionet_treadmill_1.0.1",
+  "test_id": "2_1",
+  "participant_id": "2",
+  "origin": "human_dataset",
+  "context": "terrestrial_exercise",
+  "review_status": "pending",
+  "source": {
+    "doi": "10.13026/7ezk-j442",
+    "url": "https://physionet.org/content/treadmill-exercise-cardioresp/1.0.1/",
+    "version": "1.0.1",
+    "license_file": "LICENSE.txt",
+    "sha256": {
+      "subject-info.csv": "e9ca5ba20eb1272df56c11d3e584ec3997d5484454812bd94966e58082415f16",
+      "test_measure.csv": "3b5ed5586dc7412ccdfb26f804e29c06482a2a1df2060399c2731ebc68d4613d",
+      "LICENSE.txt": "92905d58fa4b1d55f2ad00ece3a8282073565d228ce888a18274ca6e556e7361"
+    }
+  },
+  "selection": "Explicit test ID; adult participant; demonstration only, no clinical ranking",
+  "transformations": [
+    "Filter ID_test; verify participant ID against subject-info.csv",
+    "Rename time to time_s, HR to heart_rate and Speed to speed_kmh",
+    "Parse numeric values; retain original times and speed",
+    "Keep missing HR as an empty CSV cell with an explicit reason",
+    "No interpolation, resampling, imputation or mission-time conversion"
+  ],
+  "units": {
+    "time_s": "s",
+    "heart_rate": "beats/min",
+    "speed_kmh": "km/h"
+  },
+  "sample_count": 602,
+  "missing_hr": 2,
+  "first_sample_s": 0.0,
+  "last_sample_s": 1046.0,
+  "source_row_numbering": "One-based CSV line, including the header",
+  "audit": {
+    "dataset_rows": 575087,
+    "dataset_missing_hr": 981
+  },
+  "output": {
+    "file": "heart_rate_2_1.csv",
+    "sha256": "c38370f95173a2839d5f0eabc669cdb7e66eb854f4f1831c2b5d1ce86622ebf6"
+  },
+  "limitations": [
+    "The participant is not the virtual astronaut",
+    "This recording does not validate an individual response in microgravity",
+    "No clinical thresholds or recommendations are derived",
+    "Files are preparation artifacts, not API responses or a database import"
+  ]
+}

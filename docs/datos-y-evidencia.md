@@ -13,7 +13,11 @@ El área absoluta, si se importa, requiere `cm2` y su propio indicador. No conve
 
 ## Fuentes candidatas y estado
 
-La conversación incluye una auditoría compartida por la usuaria. Sus cifras exactas y el conteo de faltantes no se han vuelto a calcular en esta entrega documental. No se incorporaron datos descargados al repositorio.
+Los originales descargados están en [`backend/data/raw/`](../backend/data/raw/README.md). El README principal recoge las referencias formales. Se verificaron los checksums de PhysioNet y se inspeccionó el Excel de SPRINT. La descarga no equivale a integración con la API ni a validación fisiológica.
+
+La preparación reproducible de PhysioNet recuenta **575 087 filas y 981 valores ausentes de HR**. La sesión `2_1`, seleccionada explícitamente para una demostración con participante adulto, contiene 602 muestras y dos ausencias de HR. El CSV derivado y su ficha de procedencia están en [`processed/`](../backend/data/processed/README.md); no se interpolaron valores.
+
+También se descargaron doce CSV de NASA MR079G: nueve de CFT70 y tres de Campaign 11. El [inventario](../backend/data/raw/nasa_mr079g/README.md) conserva las advertencias sobre grupos, unidades y calendario pendientes de interpretación; todavía no alimentan cálculos del modelo.
 
 | Fuente | Material utilizable propuesto | Comprobación antes de programar el cálculo |
 | --- | --- | --- |

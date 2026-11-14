@@ -1,0 +1,344 @@
+{
+  "retrieved_on": "2026-11-14",
+  "source": "https://nlsp.nasa.gov/api/v1/data/experiments/f97392b8-b9dd-5bae-af9e-dd76a33bf049/full",
+  "files": [
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/a527c1d0-a689-5805-aab2-ab8594a496e3/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_POST1_verifiers_ALL.csv",
+      "file_id": "a527c1d0-a689-5805-aab2-ab8594a496e3",
+      "dataset": "MR079G_CFT70",
+      "bytes": 4175,
+      "sha256": "d113c9d3cb86c59e9dac5857adaf0736cdb9d60248973e5ddcea6a274aa535dd",
+      "rows": 100,
+      "columns": [
+        "ID",
+        "Subject",
+        "GROUP",
+        "Ver_Num",
+        "Verifier_Initials",
+        "Ver_Date"
+      ],
+      "subjects": 37,
+      "publisher_md5": "c38ed41a572a35a26cf966a9f73def57",
+      "publisher_original_name": "MR079G_CFT70_POST1_verifiers_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/06f1aa01-cda3-5120-8966-2519fe3f8076/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_PRE2_verifiers_ALL.csv",
+      "file_id": "06f1aa01-cda3-5120-8966-2519fe3f8076",
+      "dataset": "MR079G_CFT70",
+      "bytes": 4885,
+      "sha256": "87da463e987238a2155b5c854588a27fc5bc7dcd91326ee1a3b07252ac043cea",
+      "rows": 126,
+      "columns": [
+        "ID",
+        "Subject",
+        "GROUP",
+        "Ver_Num",
+        "Verifier_Initials",
+        "Ver_Date"
+      ],
+      "subjects": 42,
+      "publisher_md5": "d682e0af191a10f5eab295701f763ccb",
+      "publisher_original_name": "MR079G_CFT70_PRE2_verifiers_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/cddf0ba3-0b2d-59cf-af49-bced697e9c3e/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_Demographics_ALL.csv",
+      "file_id": "cddf0ba3-0b2d-59cf-af49-bced697e9c3e",
+      "dataset": "MR079G_CFT70",
+      "bytes": 7281,
+      "sha256": "b049fd3bb6c67c5f659e8fb1c8e81c3298ab2cd1c2a257990f4a08f71190f6c4",
+      "rows": 151,
+      "columns": [
+        "ID",
+        "Subject",
+        "Screening ID",
+        "Group",
+        "Sex",
+        "Age",
+        "Height",
+        "Test",
+        "Iteration",
+        "BR_Day",
+        "Weight"
+      ],
+      "subjects": 42,
+      "publisher_md5": "37e9f6cea495c2731957915fce45c9fe",
+      "publisher_original_name": "MR079G_CFT70_Demographics_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/a1af0c5b-ddf4-5235-b5e4-5df8d45ed5f3/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_POST2_verifiers_ALL.csv",
+      "file_id": "a1af0c5b-ddf4-5235-b5e4-5df8d45ed5f3",
+      "dataset": "MR079G_CFT70",
+      "bytes": 4972,
+      "sha256": "527e843ca182719ef47bccd4c62ea7718b4d30f63faaa41b3925dc3de8c321f9",
+      "rows": 126,
+      "columns": [
+        "ID",
+        "Subject",
+        "GROUP",
+        "Ver_Num",
+        "Verifier_Initials",
+        "Ver_Date",
+        ""
+      ],
+      "subjects": 42,
+      "publisher_md5": "440b84ce6b4f89a8cecae8da74e82652",
+      "publisher_original_name": "MR079G_CFT70_POST2_verifiers_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/13e09fe4-3da3-54b4-b999-ee4aaf303f43/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_PRE2_strength_ALL.csv",
+      "file_id": "13e09fe4-3da3-54b4-b999-ee4aaf303f43",
+      "dataset": "MR079G_CFT70",
+      "bytes": 36124,
+      "sha256": "dbb97703e82f332f86840bba2a665bd3b00ba22360ec2d22ce9fc9510887013c",
+      "rows": 1153,
+      "columns": [
+        "ID",
+        "Subject",
+        "Group",
+        "Value",
+        "Test_Type",
+        "Angle"
+      ],
+      "subjects": 39,
+      "test_types": {
+        "KES": 234,
+        "KFS": 234,
+        "KEE": 39,
+        "KFE": 38,
+        "APFCS": 228,
+        "ADFCS": 228,
+        "APFES": 38,
+        "ADFES": 38,
+        "TES": 38,
+        "TFS": 38
+      },
+      "angle_values": [
+        "0",
+        "120",
+        "180",
+        "30",
+        "300",
+        "400",
+        "60"
+      ],
+      "empty_or_na_values": 1,
+      "publisher_md5": "f92a5df6460c0aced128e71eea209317",
+      "publisher_original_name": "MR079G_CFT70_PRE2_strength_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/610d93cd-e719-52db-b2b8-5b03919c60eb/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_PRE1_strength_ALL.csv",
+      "file_id": "610d93cd-e719-52db-b2b8-5b03919c60eb",
+      "dataset": "MR079G_CFT70",
+      "bytes": 39845,
+      "sha256": "4d58240cc3a8a0bcf152569afc06c0130d0941f0ff8566a3ed25aa42aed77258",
+      "rows": 1260,
+      "columns": [
+        "ID",
+        "Subject",
+        "Group",
+        "Test_Type",
+        "Angle",
+        "Value"
+      ],
+      "subjects": 42,
+      "test_types": {
+        "KES": 252,
+        "KFS": 252,
+        "KEE": 42,
+        "KFE": 42,
+        "APFCS": 252,
+        "ADFCS": 252,
+        "APFES": 42,
+        "ADFES": 42,
+        "TES": 42,
+        "TFS": 42
+      },
+      "angle_values": [
+        "0",
+        "120",
+        "180",
+        "30",
+        "300",
+        "400",
+        "60"
+      ],
+      "empty_or_na_values": 0,
+      "publisher_md5": "f18cb7eaa57faba28c7c104861131062",
+      "publisher_original_name": "MR079G_CFT70_PRE1_strength_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/424e5957-ec87-5471-9e7d-40c6e36e3b44/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_PRE1_verifiers_ALL.csv",
+      "file_id": "424e5957-ec87-5471-9e7d-40c6e36e3b44",
+      "dataset": "MR079G_CFT70",
+      "bytes": 5076,
+      "sha256": "97f646b23da94c9a0e89c482c8d66e16584294b1c305a51a0811ead8880977bc",
+      "rows": 126,
+      "columns": [
+        "ID",
+        "Subject",
+        "GROUP",
+        "Ver_Num",
+        "Verifier_Initials",
+        "Ver_Date"
+      ],
+      "subjects": 42,
+      "publisher_md5": "3e1c9bb35233a2fe8196a4f3cd221282",
+      "publisher_original_name": "MR079G_CFT70_PRE1_verifiers_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/41494200-5ead-5393-a860-85695e11552d/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_POST2_strength_ALL.csv",
+      "file_id": "41494200-5ead-5393-a860-85695e11552d",
+      "dataset": "MR079G_CFT70",
+      "bytes": 32846,
+      "sha256": "e77bb8ccd98c0337d0bd15f624673d2f402b8d5a152f641f4786975a214b6473",
+      "rows": 1050,
+      "columns": [
+        "ID",
+        "Subject",
+        "Group",
+        "Value",
+        "Test_Type",
+        "Angle"
+      ],
+      "subjects": 36,
+      "test_types": {
+        "KES": 210,
+        "KFS": 210,
+        "KEE": 35,
+        "KFE": 35,
+        "APFCS": 210,
+        "ADFCS": 210,
+        "APFES": 35,
+        "ADFES": 35,
+        "TES": 35,
+        "TFS": 35
+      },
+      "angle_values": [
+        "0",
+        "120",
+        "180",
+        "30",
+        "300",
+        "400",
+        "60"
+      ],
+      "empty_or_na_values": 0,
+      "publisher_md5": "39bce78e8444a8788e5cc39e8b38d055",
+      "publisher_original_name": "MR079G_CFT70_POST2_strength_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/059f6748-67fe-59d3-82db-a5a3b5bdad8b/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_CFT70/MR079G_CFT70_POST1_strength_ALL.csv",
+      "file_id": "059f6748-67fe-59d3-82db-a5a3b5bdad8b",
+      "dataset": "MR079G_CFT70",
+      "bytes": 33841,
+      "sha256": "636ff75454dda9d3d98caf024b187a3aaf04b3e998f843cc91015efce6159846",
+      "rows": 1082,
+      "columns": [
+        "ID",
+        "Subject",
+        "GROUP",
+        "Value",
+        "Test_Type",
+        "Angle"
+      ],
+      "subjects": 37,
+      "test_types": {
+        "KES": 217,
+        "KFS": 217,
+        "KEE": 37,
+        "KFE": 37,
+        "APFCS": 216,
+        "ADFCS": 216,
+        "APFES": 36,
+        "ADFES": 36,
+        "TES": 35,
+        "TFS": 35
+      },
+      "angle_values": [
+        "0",
+        "120",
+        "180",
+        "30",
+        "300",
+        "400",
+        "60"
+      ],
+      "empty_or_na_values": 0,
+      "publisher_md5": "22a08495f3cb7682a4644d5a5b7fa680",
+      "publisher_original_name": "MR079G_CFT70_POST1_strength_ALL.csv",
+      "publisher_checksum_verified": true
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/817cb3ac-29a7-5866-97af-07730375db8c/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_Campaign_11/MR079G_Campaign_11_April_2013_Exercise_Summary_MULTI.csv",
+      "file_id": "817cb3ac-29a7-5866-97af-07730375db8c",
+      "dataset": "MR079G_Campaign_11",
+      "bytes": 2695,
+      "sha256": "afb6af97c7247dcbcec68da9d3476d68eb41ce3135e32c1347fe43839dcdfdf7",
+      "rows": 63,
+      "columns": [
+        "ID",
+        "Group",
+        "Statistic",
+        "Parameter",
+        "Test_Phase",
+        "BR_Day",
+        "Measured_Value"
+      ]
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/d040d38b-fa6a-5250-9fd9-0f28dd1d3578/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_Campaign_11/MR079G_Campaign_11_April_2013_Control_Summary_MULTI.csv",
+      "file_id": "d040d38b-fa6a-5250-9fd9-0f28dd1d3578",
+      "dataset": "MR079G_Campaign_11",
+      "bytes": 2620,
+      "sha256": "de7db42ec9d4fa6e557c65c8466a4f6694f9fc680f21d981652dbb996c2f1a9e",
+      "rows": 63,
+      "columns": [
+        "ID",
+        "Group",
+        "Statistic",
+        "Parameter",
+        "Test_Phase",
+        "BR_Day",
+        "Measured_Value"
+      ]
+    },
+    {
+      "url": "https://nlsp.nasa.gov/api/v1/files/4e1ea365-bf29-519c-9ac2-44743b181ac5/download",
+      "path": "backend/data/raw/nasa_mr079g/MR079G_Campaign_11/MR079G_Campaign_11_April_2013_MULTI.csv",
+      "file_id": "4e1ea365-bf29-519c-9ac2-44743b181ac5",
+      "dataset": "MR079G_Campaign_11",
+      "bytes": 13376,
+      "sha256": "09859398d1bd71063f98ee6dde6333381225d9d656f2aa7eb0f5ca3c048d4c19",
+      "rows": 315,
+      "columns": [
+        "ID",
+        "Subject",
+        "Group",
+        "Parameter",
+        "Test_Phase",
+        "BR_Day",
+        "Measured_Value"
+      ],
+      "subjects": 15
+    }
+  ]
+}

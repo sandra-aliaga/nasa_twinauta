@@ -109,7 +109,7 @@ def update_action_status(
     operation_id="get_recording_metadata",
 )
 def get_recording_metadata(recording_id: str) -> TelemetryRecording:
-    """Describe the synthetic recording and its independent clock."""
+    """Describe a registered recording and its independent clock."""
     return telemetry.recording_metadata(recording_id)
 
 

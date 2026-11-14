@@ -1,4 +1,4 @@
-"""Load packaged illustrative content independently of contract examples."""
+"""Load packaged cases and recordings independently of contract examples."""
 
 import json
 from functools import lru_cache
@@ -8,11 +8,14 @@ from typing import Any
 from pydantic import TypeAdapter
 
 from app.config import BACKEND_DIR
+from app.errors import not_found
+from app.recordings import PHYSIONET_RECORDING_ID, physionet_recording
 from app.schemas import (
     Assessment,
     Case,
     IndicatorDefinition,
     Region,
+    TelemetryPoint,
     TelemetryRecording,
     TelemetryWindow,
 )
@@ -34,15 +37,28 @@ def indicators() -> tuple[IndicatorDefinition, ...]:
 
 
 @lru_cache
-def recording() -> TelemetryRecording:
-    """Return metadata for the explicitly synthetic recording."""
-    return TelemetryRecording.model_validate(read_document("recording-metadata.json"))
+def recording(recording_id: str = "recording_illustrative_001") -> TelemetryRecording:
+    """Resolve metadata without attaching terrestrial data to the virtual case."""
+    if recording_id == PHYSIONET_RECORDING_ID:
+        return physionet_recording()[0]
+    metadata = TelemetryRecording.model_validate(read_document("recording-metadata.json"))
+    if recording_id != metadata.recording_id:
+        raise not_found("la grabación")
+    return metadata
 
 
 @lru_cache
 def telemetry() -> TelemetryWindow:
     """Return the small synthetic signal used for initial integration."""
     return TelemetryWindow.model_validate(read_document("telemetry.json"))
+
+
+def telemetry_points(recording_id: str) -> tuple[TelemetryPoint, ...]:
+    """Return all samples internally; API responses still enforce window limits."""
+    if recording_id == PHYSIONET_RECORDING_ID:
+        return physionet_recording()[1]
+    recording(recording_id)
+    return tuple(telemetry().points)
 
 
 def demo_payload() -> dict[str, Any]:

@@ -1,0 +1,383 @@
+{
+  "generated_at": "2026-11-14T20:29:45.114Z",
+  "presence": [
+    {
+      "agent_id": "codex:1b0bf139",
+      "kind": "codex",
+      "owner": "Sandra",
+      "summary": "Priorizar paquete frontend con contrato modular, mocks y backlog de continuación",
+      "status": "active",
+      "reported_status": "active",
+      "execution_status": "executing",
+      "liveness": "live",
+      "last_seen": "2026-11-14T20:29:45.113Z",
+      "age_seconds": 0,
+      "heartbeat_at": "2026-11-14T20:28:58.468Z",
+      "heartbeat_liveness": "live",
+      "heartbeat_age_seconds": 46,
+      "activity_at": "2026-11-14T20:29:45.113Z",
+      "activity_age_seconds": 0,
+      "summary_updated_at": "2026-11-14T20:22:49.918Z",
+      "summary_age_seconds": 415
+    }
+  ],
+  "tasks": [
+    {
+      "task_id": "BE-PLAN",
+      "title": "Coordinar backlog backend en Concord",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:48:33.207Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "coordination"
+      ],
+      "domains": [],
+      "expected_files": [
+        "docs/backlog-backend.md"
+      ]
+    },
+    {
+      "task_id": "BE-01",
+      "title": "Verificar arranque local y PostgreSQL",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 6,
+      "updated_at": "2026-11-14T19:57:59.913Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "runtime-validation"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/pyproject.toml",
+        "backend/uv.lock",
+        "backend/.env.example",
+        "backend/migrations/"
+      ]
+    },
+    {
+      "task_id": "BE-04",
+      "title": "Organizar fuentes, parámetros y versiones",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:43:24.664Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-05",
+      "title": "Preparar el caso virtual reproducible",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:43:29.497Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-06",
+      "title": "Implementar tendencia muscular de referencia",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:43:35.996Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-07",
+      "title": "Importar y comparar torque",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:43:40.241Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-08",
+      "title": "Evaluar registros de ejercicio y recursos",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:43:44.480Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-09",
+      "title": "Definir reglas de acciones operativas",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:43:57.924Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-10",
+      "title": "Componer evaluación y resumen",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:44:04.551Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-11",
+      "title": "Completar los tres grafos",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:44:15.649Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-12",
+      "title": "Revisar integración y contrato con frontend",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:44:53.656Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-13",
+      "title": "Preparar configuración y despliegue de demo",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T19:45:07.449Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "BE-02",
+      "title": "Resolver interpretación y acceso de datos científicos",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T20:21:05.199Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "scientific-research"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/data/raw/research_pending/README.md"
+      ]
+    },
+    {
+      "task_id": "BE-03",
+      "title": "Conectar telemetría real",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 3,
+      "updated_at": "2026-11-14T20:18:13.387Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "telemetry"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/catalog.py",
+        "backend/app/recordings.py",
+        "backend/app/telemetry.py",
+        "backend/README.md",
+        "backend/app/api.py"
+      ]
+    },
+    {
+      "task_id": "BE-COORD-02",
+      "title": "Coordinar ejecución paralela del backend",
+      "status": "proposed",
+      "agent": "codex",
+      "agent_id": null,
+      "assigned_agent_id": null,
+      "version": 4,
+      "updated_at": "2026-11-14T20:23:06.154Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "coordination"
+      ],
+      "domains": [],
+      "expected_files": [
+        "docs/backlog-backend.md",
+        "docs/verificacion-backend.md",
+        "docs/explorador-cientifico.md"
+      ]
+    },
+    {
+      "task_id": "BE-14",
+      "title": "Construir corpus bibliográfico inicial contrastable",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T20:18:15.629Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "literature-discovery"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/data/literature/candidates/"
+      ]
+    },
+    {
+      "task_id": "BE-16",
+      "title": "Definir contrato del explorador científico para frontend",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T20:20:14.059Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "literature-contract"
+      ],
+      "domains": [],
+      "expected_files": [
+        "contracts/drafts/",
+        "contracts/README.md",
+        "frontend/README.md",
+        "docs/explorador-cientifico.md"
+      ]
+    },
+    {
+      "task_id": "BE-HANDOFF",
+      "title": "Contrato modular y traspaso para frontend y otra IA",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-14T20:29:45.113Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "handoff"
+      ],
+      "domains": [],
+      "expected_files": [
+        "contracts/drafts/scientific-explorer-0.3/",
+        "contracts/README.md",
+        "frontend/README.md",
+        "docs/ENTREGA_FRONTEND.md",
+        "docs/CONTINUAR_CON_OTRA_IA.md",
+        "docs/backlog-backend-v2.md",
+        "docs/backlog-backend.md",
+        "README.md"
+      ]
+    }
+  ]
+}
