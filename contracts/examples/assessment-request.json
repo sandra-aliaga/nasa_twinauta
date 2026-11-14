@@ -1,0 +1,7 @@
+{
+  "case_id": "virtual_case_001",
+  "region_id": "quadriceps",
+  "mission_day": 10,
+  "reference_start_day": 0,
+  "horizon_days": 20
+}

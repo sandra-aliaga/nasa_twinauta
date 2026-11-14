@@ -1,0 +1,195 @@
+{
+  "assessment_id": "assessment_demo_001",
+  "case_id": "virtual_case_001",
+  "region_id": "quadriceps",
+  "mission_day": 10,
+  "content_mode": "illustrative",
+  "status": "partial",
+  "summary": "Ejemplo de interfaz: hay una sesión sin registro y falta una evaluación de torque. Esto no demuestra pérdida muscular ni incumplimiento del ejercicio.",
+  "versions": {
+    "rules": "draft-0.1",
+    "evidence": "draft-0.1",
+    "summary_template": "draft-0.1"
+  },
+  "observations": [
+    {
+      "id": "obs_baseline",
+      "indicator_id": "quadriceps_csa_relative",
+      "value": 100,
+      "unit": "percent_baseline",
+      "mission_day": 0,
+      "origin": "synthetic",
+      "derivation": "seeded",
+      "method": "Basal normalizado de un caso ficticio; no es una resonancia.",
+      "source_id": "demo_seed",
+      "missing_reason": null,
+      "quality": "available",
+      "statistic": "normalized_reference",
+      "sample_size": null,
+      "dispersion": null,
+      "baseline_observation_id": null
+    },
+    {
+      "id": "obs_torque",
+      "indicator_id": "knee_extension_torque",
+      "value": null,
+      "unit": "N.m",
+      "mission_day": 10,
+      "origin": "synthetic",
+      "derivation": "seeded",
+      "method": "Sin evaluación disponible en el ejemplo.",
+      "source_id": "demo_seed",
+      "missing_reason": "No se cargó una evaluación bajo protocolo definido.",
+      "quality": "missing",
+      "statistic": "individual_value",
+      "sample_size": null,
+      "dispersion": null,
+      "baseline_observation_id": null
+    }
+  ],
+  "exercise_records": [
+    {
+      "id": "exercise_001",
+      "mission_day": 9,
+      "modality": "resistance",
+      "record_status": "recorded",
+      "planned_duration_min": 20,
+      "recorded_duration_min": 20,
+      "sets": null,
+      "repetitions": null,
+      "resistance_value": null,
+      "resistance_unit": null,
+      "equipment_available": true,
+      "origin": "synthetic",
+      "source_id": "demo_seed"
+    },
+    {
+      "id": "exercise_002",
+      "mission_day": 10,
+      "modality": "resistance",
+      "record_status": "not_recorded",
+      "planned_duration_min": 20,
+      "recorded_duration_min": null,
+      "sets": null,
+      "repetitions": null,
+      "resistance_value": null,
+      "resistance_unit": null,
+      "equipment_available": null,
+      "origin": "synthetic",
+      "source_id": "demo_seed"
+    }
+  ],
+  "findings": [
+    {
+      "id": "finding_log",
+      "title": "Registro por revisar",
+      "description": "Falta el registro de una sesión; no puede concluirse si se realizó.",
+      "related_ids": [
+        "exercise_002"
+      ],
+      "source_ids": [
+        "demo_seed"
+      ],
+      "attention": "review_needed",
+      "claim_ids": [
+        "claim_demo"
+      ]
+    }
+  ],
+  "evidence_context": {
+    "data_quality": [
+      "Datos sintéticos; torque ausente."
+    ],
+    "evidence_applicability": [
+      "La fuente candidata de reposo en cama no equivale a una misión individual."
+    ],
+    "model_limitations": [
+      "Parámetros todavía no habilitados en este ejemplo documental."
+    ]
+  },
+  "scenario": {
+    "id": "scenario_demo_001",
+    "status": "insufficient_data",
+    "label": "Evolución de referencia pendiente",
+    "model_id": null,
+    "model_version": null,
+    "horizon_days": 20,
+    "unit": "percent_baseline",
+    "reason": "Falta revisar e incorporar el modelo. No se genera una trayectoria ficticia.",
+    "assumptions": [
+      "No se transforma una sesión sin registro en una tasa de atrofia."
+    ],
+    "points": [],
+    "source_ids": [
+      "bedrest_2020"
+    ],
+    "summary": "No se ha habilitado una evolución de referencia: falta revisión del modelo.",
+    "reference_start_day": 0,
+    "parameters": [],
+    "domain": null
+  },
+  "actions": [
+    {
+      "id": "action_log",
+      "title": "Revisar el registro de la sesión",
+      "rationale": "Ejemplo editorial de seguimiento de información faltante, no una prescripción.",
+      "requirements": [
+        "Mantener visible el modo ilustrativo."
+      ],
+      "related_finding_ids": [
+        "finding_log"
+      ],
+      "source_ids": [
+        "demo_seed"
+      ],
+      "review_status": "pending",
+      "execution_status": "pending",
+      "eligibility": "eligible",
+      "eligibility_reason": "Solo demostración de seguimiento editorial en modo ilustrativo.",
+      "claim_ids": [
+        "claim_demo"
+      ],
+      "revision": 0,
+      "updated_at": "2026-11-14T16:00:00Z"
+    }
+  ],
+  "sources": [
+    {
+      "id": "demo_seed",
+      "title": "Contenido sintético para maquetación",
+      "url": null,
+      "locator": "contracts/examples; no es un dataset científico",
+      "review_status": "pending",
+      "version": null,
+      "license": null
+    },
+    {
+      "id": "bedrest_2020",
+      "title": "NASA Bed Rest Study, 2020: fuente candidata",
+      "url": "https://doi.org/10.1097/CCE.0000000000000269",
+      "locator": "Suplemento, eTable 3; extracción pendiente de revisión en esta entrega",
+      "review_status": "pending",
+      "version": null,
+      "license": null
+    }
+  ],
+  "action_summary": "Ejemplo ilustrativo: revisar información faltante. No hay una prescripción clínica.",
+  "created_at": "2026-11-14T16:00:00Z",
+  "claims": [
+    {
+      "id": "claim_demo",
+      "statement": "Ejemplo editorial: un registro ausente no demuestra que la sesión no se haya realizado.",
+      "kind": "operational_rule",
+      "source_ids": [
+        "demo_seed"
+      ],
+      "population": "Caso virtual ficticio para interfaz.",
+      "sample_size": null,
+      "environment": "synthetic",
+      "limitations": [
+        "No es una afirmación de eficacia clínica ni una regla médica aprobada."
+      ],
+      "review_status": "pending"
+    }
+  ]
+}

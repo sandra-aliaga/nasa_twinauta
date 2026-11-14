@@ -1,0 +1,26 @@
+[
+  {
+    "id": "quadriceps_csa_relative",
+    "label": "Área transversal relativa del cuádriceps",
+    "unit": "percent_baseline",
+    "region_id": "quadriceps",
+    "description": "Área expresada respecto al basal del mismo método y contexto.",
+    "baseline_interpretation": "100 equivale al basal; no es un área absoluta ni una medición de volumen."
+  },
+  {
+    "id": "knee_extension_torque",
+    "label": "Torque de extensión de rodilla",
+    "unit": "N.m",
+    "region_id": "quadriceps",
+    "description": "Magnitud de torque bajo protocolo identificado.",
+    "baseline_interpretation": "Comparar solo valores compatibles en protocolo, población y contexto."
+  },
+  {
+    "id": "heart_rate",
+    "label": "Frecuencia cardíaca de ejercicio terrestre",
+    "unit": "beats/min",
+    "region_id": null,
+    "description": "Telemetría didáctica de una grabación independiente.",
+    "baseline_interpretation": "No comparte el basal muscular del caso virtual."
+  }
+]

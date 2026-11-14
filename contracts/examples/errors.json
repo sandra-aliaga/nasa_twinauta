@@ -1,0 +1,28 @@
+{
+  "not_found": {
+    "code": "not_found",
+    "message": "No se encontró la entidad solicitada.",
+    "details": []
+  },
+  "invalid_request": {
+    "code": "invalid_request",
+    "message": "El día solicitado queda fuera del caso.",
+    "details": [
+      "mission_day debe estar dentro de la duración del caso."
+    ]
+  },
+  "revision_conflict": {
+    "code": "revision_conflict",
+    "message": "El estado de la acción cambió desde su consulta.",
+    "details": [
+      "Volver a consultar la evaluación antes de actualizar."
+    ]
+  },
+  "action_not_eligible": {
+    "code": "action_not_eligible",
+    "message": "La acción no está habilitada para seguimiento.",
+    "details": [
+      "Consultar eligibility y eligibility_reason."
+    ]
+  }
+}

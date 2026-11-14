@@ -1,0 +1,10 @@
+[
+  {
+    "id": "quadriceps",
+    "label": "Cuádriceps",
+    "indicator_ids": [
+      "quadriceps_csa_relative",
+      "knee_extension_torque"
+    ]
+  }
+]

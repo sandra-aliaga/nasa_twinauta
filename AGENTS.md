@@ -7,6 +7,8 @@
 - La creacion de este archivo fue autorizada. No extiende esa autorizacion a otros entregables o a la implementacion.
 - Leer `TwinNauta_contexto_para_Codex.md` para recuperar el contexto. Sus propuestas no son decisiones aprobadas. Las instrucciones actuales de la usuaria prevalecen.
 - Conservar la propuesta presentada originalmente y distinguir decisiones confirmadas, propuestas y preguntas pendientes.
+- La instruccion mas reciente autoriza crear directorios iniciales de backend/frontend y documentacion de planificacion/contratos. Esta entrega no incluye codigo de aplicacion, dependencias, pruebas ni CI. No ampliar ese alcance por interpretar la intencion futura de implementar.
+- Consultar `README.md`, `docs/plan-mvp.md` y `contracts/README.md` para el acuerdo tecnico actual. Sandra asume backend; se eligieron area muscular, torque y ejercicio, con frecuencia cardiaca didactica. Las propuestas historicas no revierten estas decisiones.
 
 ## Comunicacion
 
@@ -101,10 +103,10 @@ Para cada decision, poder reconstruir: necesidad del astronauta -> alternativa e
 - Medicina debe entregar evidencia estructurada y parametros interpretables, ademas de revisar indicadores, limites y acciones.
 - Electronica puede trabajar con telemetria virtual, calidad y fallas; no asumir hardware fisico obligatorio.
 - Frontend presenta anatomia, indicadores, comparaciones, evidencia y acciones. Backend conserva las reglas cientificas, procedencia, modelos, estados de aplicabilidad y calculos compartidos.
-- Antes de desarrollar en paralelo, acordar contratos versionados, ejemplos compartidos y criterios de aceptacion. OpenAPI y esquemas de datos son una propuesta a confirmar.
+- Antes de desarrollar en paralelo, usar el acuerdo inicial OpenAPI y sus ejemplos en `contracts/`. La revision documental actual es 0.2; consultar `docs/revision-contratos.md` para cobertura, invariantes y pendientes. Coordinar cambios antes de implementar tipos distintos en cada parte.
 - Definir identificadores de anatomia/indicadores, unidades, tiempo de mision, origen, calidad, ausencia, errores y versiones de modelos/fuentes/reglas.
 - El contrato debe cubrir tambien acciones: fundamento, entradas utilizadas, requisitos, restricciones, motivo de abstencion y seguimiento cuando corresponda.
-- La persistencia debe conservar por separado perfiles/misiones, basales/observaciones, ejercicios, evidencia, versiones de modelos/reglas y ejecuciones/resultados. Elegir motor y despliegue despues de acordar necesidades.
+- La persistencia debe conservar por separado perfiles/misiones, basales/observaciones, ejercicios, evidencia, versiones de modelos/reglas y ejecuciones/resultados. La usuaria confirmo despliegue en nube; PostgreSQL es la base principal, tambien en desarrollo. Proveedor y servicios concretos siguen pendientes. Esta decision no autoriza crear infraestructura ni contratar servicios.
 
 ## Herramientas e implementacion futura
 

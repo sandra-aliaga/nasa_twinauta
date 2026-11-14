@@ -1,0 +1,256 @@
+{
+  "evidence": {
+    "assessment_id": "assessment_demo_001",
+    "view": "evidence",
+    "nodes": [
+      {
+        "id": "finding_log",
+        "kind": "finding",
+        "label": "Registro por revisar",
+        "description": "No demuestra omisión del ejercicio.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "finding_log"
+      },
+      {
+        "id": "exercise_002",
+        "kind": "exercise",
+        "label": "Sesión sin registro",
+        "description": "Contenido sintético.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "exercise_002"
+      },
+      {
+        "id": "claim_demo",
+        "kind": "claim",
+        "label": "Regla editorial ilustrativa",
+        "description": "Ejemplo editorial: un registro ausente no demuestra que la sesión no se haya realizado.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "claim_demo"
+      },
+      {
+        "id": "demo_seed",
+        "kind": "source",
+        "label": "Ejemplo sintético",
+        "description": "Fuente editorial, no artículo científico.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "demo_seed"
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_evidence_1",
+        "source": "finding_log",
+        "target": "exercise_002",
+        "relation": "uses",
+        "label": "Se basa en el registro",
+        "claim_ids": []
+      },
+      {
+        "id": "edge_evidence_claim",
+        "source": "claim_demo",
+        "target": "demo_seed",
+        "relation": "describes",
+        "label": "Descrito en este ejemplo",
+        "claim_ids": [
+          "claim_demo"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "demo_seed",
+        "title": "Contenido sintético para maquetación",
+        "url": null,
+        "locator": "contracts/examples; no es un dataset científico",
+        "review_status": "pending",
+        "version": null,
+        "license": null
+      }
+    ],
+    "content_mode": "illustrative",
+    "versions": {
+      "rules": "draft-0.1",
+      "evidence": "draft-0.1",
+      "summary_template": "draft-0.1"
+    },
+    "claims": [
+      {
+        "id": "claim_demo",
+        "statement": "Ejemplo editorial: un registro ausente no demuestra que la sesión no se haya realizado.",
+        "kind": "operational_rule",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "population": "Caso virtual ficticio para interfaz.",
+        "sample_size": null,
+        "environment": "synthetic",
+        "limitations": [
+          "No es una afirmación de eficacia clínica ni una regla médica aprobada."
+        ],
+        "review_status": "pending"
+      }
+    ]
+  },
+  "scenario": {
+    "assessment_id": "assessment_demo_001",
+    "view": "scenario",
+    "nodes": [
+      {
+        "id": "scenario_demo_001",
+        "kind": "scenario",
+        "label": "Evolución pendiente",
+        "description": "No hay trayectoria disponible.",
+        "source_ids": [
+          "bedrest_2020"
+        ],
+        "entity_id": "scenario_demo_001"
+      },
+      {
+        "id": "limitation_model",
+        "kind": "limitation",
+        "label": "Modelo por revisar",
+        "description": "El parámetro científico aún no está habilitado.",
+        "source_ids": [
+          "bedrest_2020"
+        ],
+        "entity_id": null
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_scenario_1",
+        "source": "scenario_demo_001",
+        "target": "limitation_model",
+        "relation": "limited_by",
+        "label": "Limitado por",
+        "claim_ids": []
+      }
+    ],
+    "sources": [
+      {
+        "id": "bedrest_2020",
+        "title": "NASA Bed Rest Study, 2020: fuente candidata",
+        "url": "https://doi.org/10.1097/CCE.0000000000000269",
+        "locator": "Suplemento, eTable 3; extracción pendiente de revisión en esta entrega",
+        "review_status": "pending",
+        "version": null,
+        "license": null
+      }
+    ],
+    "content_mode": "illustrative",
+    "versions": {
+      "rules": "draft-0.1",
+      "evidence": "draft-0.1",
+      "summary_template": "draft-0.1"
+    },
+    "claims": []
+  },
+  "actions": {
+    "assessment_id": "assessment_demo_001",
+    "view": "actions",
+    "nodes": [
+      {
+        "id": "action_log",
+        "kind": "action",
+        "label": "Revisar registro",
+        "description": "Acción editorial ilustrativa pendiente de revisión.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "action_log"
+      },
+      {
+        "id": "finding_log",
+        "kind": "finding",
+        "label": "Registro por revisar",
+        "description": "La sesión puede haberse realizado.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "finding_log"
+      },
+      {
+        "id": "claim_demo",
+        "kind": "claim",
+        "label": "Regla editorial ilustrativa",
+        "description": "Ejemplo editorial: un registro ausente no demuestra que la sesión no se haya realizado.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "claim_demo"
+      },
+      {
+        "id": "demo_seed",
+        "kind": "source",
+        "label": "Ejemplo sintético",
+        "description": "Fuente editorial, no artículo científico.",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "entity_id": "demo_seed"
+      }
+    ],
+    "edges": [
+      {
+        "id": "edge_actions_1",
+        "source": "action_log",
+        "target": "finding_log",
+        "relation": "addresses",
+        "label": "Atiende la falta de información",
+        "claim_ids": []
+      },
+      {
+        "id": "edge_actions_claim",
+        "source": "claim_demo",
+        "target": "demo_seed",
+        "relation": "describes",
+        "label": "Descrito en este ejemplo",
+        "claim_ids": [
+          "claim_demo"
+        ]
+      }
+    ],
+    "sources": [
+      {
+        "id": "demo_seed",
+        "title": "Contenido sintético para maquetación",
+        "url": null,
+        "locator": "contracts/examples; no es un dataset científico",
+        "review_status": "pending",
+        "version": null,
+        "license": null
+      }
+    ],
+    "content_mode": "illustrative",
+    "versions": {
+      "rules": "draft-0.1",
+      "evidence": "draft-0.1",
+      "summary_template": "draft-0.1"
+    },
+    "claims": [
+      {
+        "id": "claim_demo",
+        "statement": "Ejemplo editorial: un registro ausente no demuestra que la sesión no se haya realizado.",
+        "kind": "operational_rule",
+        "source_ids": [
+          "demo_seed"
+        ],
+        "population": "Caso virtual ficticio para interfaz.",
+        "sample_size": null,
+        "environment": "synthetic",
+        "limitations": [
+          "No es una afirmación de eficacia clínica ni una regla médica aprobada."
+        ],
+        "review_status": "pending"
+      }
+    ]
+  }
+}
