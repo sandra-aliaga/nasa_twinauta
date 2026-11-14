@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import assessments, catalog, papers, telemetry
+from app import assessments, catalog, knowledge_graph, papers, telemetry
 from app.database import CaseRecord
 from app.errors import not_found
 from app.schemas import (
@@ -18,6 +18,7 @@ from app.schemas import (
     Case,
     Error,
     Graph,
+    GraphPage,
     IndicatorDefinition,
     KnowledgeBaseMetadata,
     ModuleCatalog,
@@ -116,6 +117,44 @@ def get_paper(
 ) -> PaperDetail:
     """Return a bibliographic candidate with explicit analysis boundaries."""
     return papers.get_paper_detail(session, paper_id, assessment_id)
+
+
+@router.get(
+    "/knowledge-graph",
+    response_model=GraphPage,
+    operation_id="get_knowledge_graph",
+)
+def get_knowledge_graph(
+    session: DatabaseSession,
+    view: Literal["evidence", "scenario", "actions"],
+    q: Annotated[str | None, Query(max_length=200)] = None,
+    region_id: str | None = None,
+    review_status: Literal["pending", "reviewed"] | None = None,
+    year_from: Annotated[int | None, Query(ge=1800)] = None,
+    year_to: Annotated[int | None, Query(ge=1800)] = None,
+    paper_id: str | None = None,
+    assessment_id: str | None = None,
+    cursor: str | None = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    indicator_id: str | None = None,
+    module_id: str | None = None,
+) -> GraphPage:
+    """Explore editorial paper-topic relations without scientific inference."""
+    return knowledge_graph.get_knowledge_graph(
+        session,
+        q=q,
+        region_id=region_id,
+        view=view,
+        review_status=review_status,
+        year_from=year_from,
+        year_to=year_to,
+        paper_id=paper_id,
+        assessment_id=assessment_id,
+        cursor=cursor,
+        limit=limit,
+        indicator_id=indicator_id,
+        module_id=module_id,
+    )
 
 
 @router.get("/cases/{case_id}/regions", response_model=list[Region], operation_id="list_regions")

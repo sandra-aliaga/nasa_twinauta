@@ -695,6 +695,65 @@ class PaperDetail(ContractModel):
     applicability: PaperApplicability
 
 
+class KnowledgeNode(ContractModel):
+    """Represent a paper or editorial topic in the discovery graph."""
+
+    id: str
+    kind: Literal["paper", "indicator", "claim", "action", "topic", "intervention"]
+    label: str
+    paper_id: str | None
+    entity_id: str | None
+    review_status: Literal["pending", "reviewed"]
+
+
+class KnowledgeEdge(ContractModel):
+    """Represent a traceable, non-causal discovery relation."""
+
+    id: str
+    source: str
+    target: str
+    relation: Literal[
+        "cites",
+        "addresses",
+        "reports",
+        "supports",
+        "contradicts",
+        "qualifies",
+        "same_cohort",
+        "possible_cohort_overlap",
+    ]
+    basis: Literal[
+        "provider_metadata",
+        "editorial_classification",
+        "reviewed_extraction",
+        "llm_suggestion",
+    ]
+    source_paper_ids: list[str]
+    source_locators: list[str]
+    review_status: Literal["pending", "reviewed"]
+
+
+class GraphCounts(ContractModel):
+    """Summarize paper coverage in one graph page."""
+
+    papers_matching: Annotated[int, Field(ge=0, strict=True)]
+    papers_returned: Annotated[int, Field(ge=0, strict=True)]
+    papers_reviewed_returned: Annotated[int, Field(ge=0, strict=True)]
+
+
+class GraphPage(ContractModel):
+    """Represent one paginated discovery graph projection."""
+
+    corpus_version: Annotated[str, Field(min_length=1)]
+    assessment_id: str | None
+    view: Literal["evidence", "scenario", "actions"]
+    nodes: list[KnowledgeNode]
+    edges: list[KnowledgeEdge]
+    page: Page
+    scope_description: str
+    counts: GraphCounts
+
+
 class EvidenceClaim(ContractModel):
     """Represent the EvidenceClaim contract payload."""
 

@@ -16,7 +16,7 @@ La ampliación conserva el contrato 0.2 y añade seis operaciones de consulta:
 | --- | --- | --- |
 | `GET /papers` | `PaperPage` | Parcial; búsqueda bibliográfica paginada sobre candidatos no auditados. |
 | `GET /papers/{paper_id}` | `PaperDetail` | Parcial; ficha bibliográfica, sin análisis ni aplicabilidad evaluada. |
-| `GET /knowledge-graph` | `GraphPage` | Propuesta; vistas y expansión por cursor. |
+| `GET /knowledge-graph` | `GraphPage` | Parcial; vistas y expansión por temas editoriales pendientes. |
 | `GET /knowledge-base/metadata` | `KnowledgeBaseMetadata` | Parcial; expone metadatos del paquete local, sin búsqueda ni auditoría científica. |
 | `GET /health-modules` | `ModuleCatalog` | Parcial; endpoint técnico disponible, con interpretación aún pendiente. |
 | `GET /assessments/{assessment_id}/guidance` | `Guidance` | Propuesta; orientación congelada, no regenerada en cada consulta. |

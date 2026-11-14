@@ -2,7 +2,7 @@
 
 Software exploratorio de salud espacial para comprender indicadores, consultar su evidencia y revisar siguientes pasos. El recorrido principal comienza en el modelo anatómico 3D.
 
-**Para continuar:** [entrega prioritaria a frontend](docs/ENTREGA_FRONTEND.md), [backlog backend v2](docs/backlog-backend-v2.md) y [traspaso a otra IA](docs/CONTINUAR_CON_OTRA_IA.md). El contrato 0.2 está implementado; la [ampliación modular 0.3](contracts/drafts/scientific-explorer-0.3/README.md) está documentada para revisión y maquetación. Se implementaron de forma acotada `GET /api/v1/health-modules`, `GET /api/v1/knowledge-base/metadata`, `GET /api/v1/papers` y `GET /api/v1/papers/{paper_id}`; las demás rutas siguen propuestas.
+**Para continuar:** [entrega prioritaria a frontend](docs/ENTREGA_FRONTEND.md), [backlog backend v2](docs/backlog-backend-v2.md) y [traspaso a otra IA](docs/CONTINUAR_CON_OTRA_IA.md). El contrato 0.2 está implementado; la [ampliación modular 0.3](contracts/drafts/scientific-explorer-0.3/README.md) está documentada para revisión y maquetación. Se implementaron de forma acotada `GET /api/v1/health-modules`, `GET /api/v1/knowledge-base/metadata`, `GET /api/v1/papers`, `GET /api/v1/papers/{paper_id}` y `GET /api/v1/knowledge-graph`; las demás rutas siguen propuestas.
 
 ## Estado
 
