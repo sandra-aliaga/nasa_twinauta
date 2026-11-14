@@ -1,0 +1,23 @@
+{
+  "recording_id": "recording_illustrative_001",
+  "dataset_id": "synthetic_documentation",
+  "participant_id": "synthetic_participant",
+  "content_mode": "illustrative",
+  "origin": "synthetic",
+  "context": "terrestrial_exercise",
+  "indicator_id": "heart_rate",
+  "unit": "beats/min",
+  "start_s": 0,
+  "end_s": 3,
+  "source": {
+    "id": "demo_seed",
+    "title": "Contenido sintético para maquetación",
+    "url": null,
+    "locator": "contracts/examples; no es un dataset científico",
+    "review_status": "pending",
+    "version": null,
+    "license": null
+  },
+  "max_window_seconds": 120,
+  "max_points": 2000
+}

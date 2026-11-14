@@ -1,0 +1,40 @@
+{
+  "recording_id": "recording_illustrative_001",
+  "dataset_id": "synthetic_documentation",
+  "participant_id": "synthetic_participant",
+  "content_mode": "illustrative",
+  "origin": "synthetic",
+  "context": "terrestrial_exercise",
+  "indicator_id": "heart_rate",
+  "unit": "beats/min",
+  "start_s": 0,
+  "end_s": 3,
+  "points": [
+    {
+      "time_s": 0,
+      "value": 90,
+      "missing_reason": null
+    },
+    {
+      "time_s": 1,
+      "value": null,
+      "missing_reason": "Faltante ficticio para diseño."
+    },
+    {
+      "time_s": 2,
+      "value": 92,
+      "missing_reason": null
+    }
+  ],
+  "source": {
+    "id": "demo_seed",
+    "title": "Contenido sintético para maquetación",
+    "url": null,
+    "locator": "contracts/examples; no es un dataset científico",
+    "review_status": "pending",
+    "version": null,
+    "license": null
+  },
+  "recording_end_s": 3,
+  "next_start_s": null
+}
