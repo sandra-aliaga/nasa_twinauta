@@ -587,6 +587,114 @@ class PaperPage(ContractModel):
     page: Page
 
 
+class PaperSummary(ContractModel):
+    """Describe whether a reviewed summary is available for a paper."""
+
+    status: Literal["available", "pending", "unavailable"]
+    text: str | None
+    basis: Literal["full_text", "abstract", "metadata_only", "not_prepared"]
+    method: Literal["editorial", "llm_assisted", "not_prepared"]
+    review_status: Literal["pending", "reviewed"]
+    source_locators: list[str]
+    limitations: list[str]
+
+
+class PaperStatistic(ContractModel):
+    """Represent a reviewed quantitative extraction when one exists."""
+
+    id: str
+    outcome: str
+    anatomy: str
+    group_label: str
+    timepoint_label: str
+    sample_size: Annotated[int, Field(ge=1, strict=True)] | None
+    value: float
+    unit: str
+    statistic_type: Literal["group_mean", "individual_value", "change_rate", "effect_estimate"]
+    dispersion: dict[str, object] | None
+    interval: dict[str, object] | None
+    source_locator: str
+    source_url: str
+    extraction_review_status: Literal["pending", "reviewed"]
+    limitations: list[str]
+
+
+class PaperAnalysisItem(ContractModel):
+    """Represent a traceable analysis item, including pending suggestions."""
+
+    id: str
+    kind: Literal["finding", "implication", "studied_intervention"]
+    text: str
+    source_locator: str
+    source_excerpt: Annotated[str, Field(max_length=500)]
+    review_status: Literal["pending", "reviewed"]
+    limitations: list[str]
+
+
+class PaperAnalysis(ContractModel):
+    """Describe the state of optional abstract or full-text analysis."""
+
+    status: Literal["not_requested", "queued", "running", "ready", "failed"]
+    input_basis: Literal["abstract", "full_text", "not_prepared"]
+    input_sha256: str | None
+    prompt_version: str | None
+    model_id: str | None
+    generated_at: datetime | None
+    items: list[PaperAnalysisItem]
+    failure_reason: str | None
+
+
+class PaperContextCheck(ContractModel):
+    """Represent one contextual applicability dimension."""
+
+    dimension: Literal[
+        "measurement_method",
+        "population",
+        "environment",
+        "exposure_duration",
+        "measurement_timepoint",
+        "available_resources",
+    ]
+    match: Literal["match", "mismatch", "unknown"]
+    reason: str
+    source_locators: list[str]
+
+
+class PaperApplicability(ContractModel):
+    """Keep individual applicability separate from bibliographic discovery."""
+
+    assessment_id: str | None
+    status: Literal[
+        "not_evaluated",
+        "context_match",
+        "analog_only",
+        "not_comparable",
+        "insufficient_data",
+    ]
+    explanation: str
+    considered_observation_ids: list[str]
+    checks: list[PaperContextCheck]
+    rule_id: str | None
+    rule_version: str | None
+    review_status: Literal["pending", "reviewed"]
+
+
+class PaperDetail(ContractModel):
+    """Represent a paper detail page without promoting candidate evidence."""
+
+    paper: PaperCard
+    abstract: str | None
+    summary: PaperSummary
+    population_description: str | None
+    cohort_ids: list[str]
+    cohort_overlap_status: Literal["unknown", "possible_overlap", "documented"]
+    statistics: list[PaperStatistic]
+    limitations: list[str]
+    corpus_version: Annotated[str, Field(min_length=1)]
+    analysis: PaperAnalysis
+    applicability: PaperApplicability
+
+
 class EvidenceClaim(ContractModel):
     """Represent the EvidenceClaim contract payload."""
 

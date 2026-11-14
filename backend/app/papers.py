@@ -9,8 +9,18 @@ from sqlalchemy import Select, cast, or_, select
 from sqlalchemy.orm import Session
 
 from app.database import LiteraturePaperRecord
-from app.errors import DomainError
-from app.schemas import Page, PaperAccess, PaperCard, PaperIdentifiers, PaperPage
+from app.errors import DomainError, not_found
+from app.schemas import (
+    Page,
+    PaperAccess,
+    PaperAnalysis,
+    PaperApplicability,
+    PaperCard,
+    PaperDetail,
+    PaperIdentifiers,
+    PaperPage,
+    PaperSummary,
+)
 
 CORPUS_VERSION = "candidate-corpus-2026-11-14"
 DEFAULT_LIMIT = 25
@@ -120,6 +130,65 @@ def _paper_card(record: LiteraturePaperRecord) -> PaperCard:
             local_document_url=None,
         ),
         indicator_ids=indicator_ids,
+    )
+
+
+def get_paper_detail(
+    session: Session, paper_id: str, assessment_id: str | None = None
+) -> PaperDetail:
+    """Return one candidate with explicit non-audited and non-evaluated states."""
+    record = session.get(LiteraturePaperRecord, paper_id)
+    if record is None:
+        raise not_found("el paper")
+    paper = _paper_card(record)
+    abstract = record.abstract_text or None
+    return PaperDetail(
+        paper=paper,
+        abstract=abstract,
+        summary=PaperSummary(
+            status="unavailable",
+            text=None,
+            basis="not_prepared",
+            method="not_prepared",
+            review_status="pending",
+            source_locators=[],
+            limitations=[
+                "No hay un resumen editorial revisado en el corpus local.",
+                "El abstract no se presenta como interpretación clínica.",
+            ],
+        ),
+        population_description=None,
+        cohort_ids=[],
+        cohort_overlap_status="unknown",
+        statistics=[],
+        limitations=[
+            "Registro bibliográfico candidato; no se auditó el texto completo.",
+            "No contiene estadísticas extraídas ni una acción habilitada.",
+        ],
+        corpus_version=record.corpus_version,
+        analysis=PaperAnalysis(
+            status="not_requested",
+            input_basis="not_prepared",
+            input_sha256=None,
+            prompt_version=None,
+            model_id=None,
+            generated_at=None,
+            items=[],
+            failure_reason=None,
+        ),
+        applicability=PaperApplicability(
+            assessment_id=assessment_id,
+            status="not_evaluated",
+            explanation=(
+                "La aplicabilidad contextual aún no está implementada; "
+                "la ficha bibliográfica no autoriza una conclusión individual."
+            ),
+            considered_observation_ids=[],
+            checks=[],
+            rule_id=None,
+            rule_version=None,
+            review_status="pending",
+        ),
     )
 
 

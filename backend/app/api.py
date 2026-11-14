@@ -21,6 +21,7 @@ from app.schemas import (
     IndicatorDefinition,
     KnowledgeBaseMetadata,
     ModuleCatalog,
+    PaperDetail,
     PaperPage,
     Region,
     TelemetryRecording,
@@ -101,6 +102,20 @@ def search_papers(
         cursor=cursor,
         limit=limit,
     )
+
+
+@router.get(
+    "/papers/{paper_id}",
+    response_model=PaperDetail,
+    operation_id="get_paper",
+)
+def get_paper(
+    paper_id: str,
+    session: DatabaseSession,
+    assessment_id: str | None = None,
+) -> PaperDetail:
+    """Return a bibliographic candidate with explicit analysis boundaries."""
+    return papers.get_paper_detail(session, paper_id, assessment_id)
 
 
 @router.get("/cases/{case_id}/regions", response_model=list[Region], operation_id="list_regions")

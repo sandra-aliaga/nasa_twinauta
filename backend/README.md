@@ -6,7 +6,7 @@ Responsable: Sandra. FastAPI, Pydantic, SQLAlchemy, psycopg y PostgreSQL. Implem
 
 Catálogos, evaluaciones independientes filtradas hasta el día solicitado, tres vistas de grafo, seguimiento de acciones con revisión y bloqueo de fila, CORS y errores estructurados. La primera migración conserva casos e instantáneas como JSONB con relaciones y seguimiento de acciones separado.
 
-Como primer paso de la propuesta 0.3, `GET /api/v1/health-modules` expone el catálogo versionado de cobertura técnica. `GET /api/v1/knowledge-base/metadata` describe el paquete local de 27 candidatos bibliográficos y `GET /api/v1/papers` permite buscarlos desde PostgreSQL. El único módulo publicado es `quadriceps_health`, con `interpretation_status: review_pending`; estas rutas no habilitan cálculos ni recomendaciones científicas.
+Como primer paso de la propuesta 0.3, `GET /api/v1/health-modules` expone el catálogo versionado de cobertura técnica. `GET /api/v1/knowledge-base/metadata` describe el paquete local de 27 candidatos bibliográficos, `GET /api/v1/papers` permite buscarlos desde PostgreSQL y `GET /api/v1/papers/{paper_id}` abre una ficha con sus límites de revisión, análisis y aplicabilidad. El único módulo publicado es `quadriceps_health`, con `interpretation_status: review_pending`; estas rutas no habilitan cálculos ni recomendaciones científicas.
 
 El modelo científico sigue pendiente: los escenarios devuelven `insufficient_data`. La telemetría admite la señal sintética inicial y una grabación independiente de PhysioNet; consultar la sección de telemetría. No hay prescripción médica ni IA redactora. Los datos iniciales del caso están en `data/demo/`, separados de los ejemplos documentales.
 
@@ -38,6 +38,7 @@ curl http://localhost:8000/api/v1/cases
 curl http://localhost:8000/api/v1/health-modules
 curl http://localhost:8000/api/v1/knowledge-base/metadata
 curl 'http://localhost:8000/api/v1/papers?q=quadriceps&limit=10'
+curl http://localhost:8000/api/v1/papers/literature_pmid_33251515
 curl -X POST http://localhost:8000/api/v1/assessments \
   -H 'Content-Type: application/json' \
   --data-binary @contracts/examples/assessment-request.json
