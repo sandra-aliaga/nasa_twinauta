@@ -8,12 +8,12 @@ from typing import Any
 from sqlalchemy import Select, cast, or_, select
 from sqlalchemy.orm import Session
 
+from app.analysis import analysis_for_paper
 from app.database import LiteraturePaperRecord
 from app.errors import DomainError, not_found
 from app.schemas import (
     Page,
     PaperAccess,
-    PaperAnalysis,
     PaperApplicability,
     PaperCard,
     PaperDetail,
@@ -166,16 +166,7 @@ def get_paper_detail(
             "No contiene estadísticas extraídas ni una acción habilitada.",
         ],
         corpus_version=record.corpus_version,
-        analysis=PaperAnalysis(
-            status="not_requested",
-            input_basis="not_prepared",
-            input_sha256=None,
-            prompt_version=None,
-            model_id=None,
-            generated_at=None,
-            items=[],
-            failure_reason=None,
-        ),
+        analysis=analysis_for_paper(record),
         applicability=PaperApplicability(
             assessment_id=assessment_id,
             status="not_evaluated",
