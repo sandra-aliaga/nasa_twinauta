@@ -7,7 +7,7 @@ Un frontend de navegador, una API y una base relacional. El backend se organiza 
 | Parte | Elección de partida | Motivo |
 | --- | --- | --- |
 | Backend | Python + FastAPI + Pydantic | Cálculos y preparación de datos en Python; validación de entradas/salidas y descripción OpenAPI. |
-| Frontend | React + TypeScript + Vite | Experiencia interactiva en navegador, con API separada y construcción de archivos estáticos. |
+| Frontend | React + TypeScript + Vite + Tailwind | Experiencia interactiva en navegador, con API separada y construcción de archivos estáticos. |
 | Anatomía | React Three Fiber + Drei | Integrar el modelo 3D con la interacción de React. |
 | Grafos | React Flow | Nodos informativos y relaciones tipadas en tres vistas contextuales. El backend entrega semántica; frontend decide posiciones. |
 | Persistencia | PostgreSQL | Base principal centralizada para el despliegue en nube confirmado. Se propone un servicio administrado; proveedor pendiente. |

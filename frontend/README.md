@@ -1,6 +1,27 @@
 # Frontend
 
-Responsable: integrante de Sistemas a cargo de interfaz. Stack recomendado: React + TypeScript + Vite. Anatomía con React Three Fiber/Drei; grafos con React Flow. No hay aplicación ni dependencias instaladas en esta carpeta.
+Responsable: integrante de Sistemas a cargo de interfaz. Se preparó exclusivamente el setup mínimo de React + TypeScript + Vite + Tailwind CSS. La compañera se encarga de toda la interfaz: diseño, anatomía, grafos, estado y conexión a la API. Las librerías de 3D y grafos todavía no forman parte de esta base.
+
+## Arranque del setup
+
+Desde la raíz del repositorio:
+
+```bash
+make frontend-install
+cp frontend/.env.example frontend/.env
+make frontend-run
+```
+
+Usar Node 22.12 o posterior compatible con Vite 8. La página de desarrollo usa `http://localhost:5173`. La API se configurará con `VITE_API_BASE_URL`; no hay un cliente HTTP implementado.
+
+Tailwind está integrado mediante `@tailwindcss/vite` y `@import "tailwindcss"` en `src/styles.css`. No requiere configuración de Tailwind v3 ni PostCSS adicional.
+
+```bash
+make frontend-format
+make frontend-check
+```
+
+Hay configuración local de Prettier y una pantalla inicial mínima. Los apartados siguientes describen el producto que implementará frontend, no funcionalidades terminadas.
 
 ## Leer primero
 
@@ -54,4 +75,8 @@ Se propone `VITE_API_BASE_URL=http://localhost:8000/api/v1` para desarrollo. No 
 
 En nube, esa variable apuntará a la API pública HTTPS. El frontend no se conecta directamente a PostgreSQL ni recibe sus credenciales. El proveedor de alojamiento sigue pendiente.
 
-Esta entrega no incluye código, pruebas o CI. Las versiones y el estilo visual definitivo se acordarán al crear la aplicación.
+El setup no incluye pantallas de producto, pruebas o CI. El estilo visual definitivo queda a cargo de frontend. Revisar la instalación y el build antes de dar por validado el entorno.
+
+## Verificación de esta entrega
+
+El formato se comprobó con Prettier 3.9.9 recuperado de la caché. La instalación completa y el build no se completaron por las restricciones del entorno y paquetes ausentes en caché. No hay un lockfile de npm generado; completar `make frontend-install` con acceso al registro antes de dar el build por validado.

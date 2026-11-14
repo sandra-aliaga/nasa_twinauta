@@ -2,12 +2,12 @@
 
 ## Estado y autorizacion
 
-- El proyecto esta en investigacion, discusion y planificacion del MVP.
+- El proyecto paso a implementacion inicial de backend, manteniendo pendiente la integracion cientifica.
 - No implementar, generar codigo de la aplicacion, instalar dependencias, crear infraestructura ni modificar repositorios sin una instruccion explicita de la usuaria para empezar.
 - La creacion de este archivo fue autorizada. No extiende esa autorizacion a otros entregables o a la implementacion.
 - Leer `TwinNauta_contexto_para_Codex.md` para recuperar el contexto. Sus propuestas no son decisiones aprobadas. Las instrucciones actuales de la usuaria prevalecen.
 - Conservar la propuesta presentada originalmente y distinguir decisiones confirmadas, propuestas y preguntas pendientes.
-- La instruccion mas reciente autoriza crear directorios iniciales de backend/frontend y documentacion de planificacion/contratos. Esta entrega no incluye codigo de aplicacion, dependencias, pruebas ni CI. No ampliar ese alcance por interpretar la intencion futura de implementar.
+- La usuaria autorizo implementar el backend inicial y exclusivamente el setup minimo de frontend con React, TypeScript, Vite y Tailwind. Su companera se encarga de toda la interfaz. No anadir pantallas de producto, CI ni suites de pruebas por iniciativa propia. El despliegue y la contratacion de servicios siguen pendientes.
 - Consultar `README.md`, `docs/plan-mvp.md` y `contracts/README.md` para el acuerdo tecnico actual. Sandra asume backend; se eligieron area muscular, torque y ejercicio, con frecuencia cardiaca didactica. Las propuestas historicas no revierten estas decisiones.
 
 ## Comunicacion

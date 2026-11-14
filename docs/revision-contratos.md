@@ -1,6 +1,6 @@
 # Revisión de contratos esenciales
 
-14 de noviembre de 2026. Resultado: contrato documental 0.2. No se revisó una aplicación ejecutable porque todavía no existe en el repositorio.
+14 de noviembre de 2026. Resultado: contrato documental 0.2. Esta revisión fue documental, anterior al backend inicial. El estado de la implementación y sus límites de verificación están en `backend/README.md`.
 
 ## Conclusión
 

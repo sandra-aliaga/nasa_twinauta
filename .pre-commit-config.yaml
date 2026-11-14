@@ -1,0 +1,15 @@
+repos:
+  - repo: local
+    hooks:
+      - id: backend-check
+        name: Backend format and lint
+        entry: make backend-check
+        language: system
+        pass_filenames: false
+        files: ^backend/.*\.py$
+      - id: frontend-format-check
+        name: Frontend format
+        entry: npm --prefix frontend run format:check
+        language: system
+        pass_filenames: false
+        files: ^frontend/.*\.(tsx?|css|html|json)$

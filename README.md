@@ -4,18 +4,18 @@ Software exploratorio de salud espacial para comprender indicadores, consultar s
 
 ## Estado
 
-Planificación técnica inicial, contrato documental 0.2, 14 de noviembre de 2026. Este repositorio contiene documentación y ejemplos sintéticos de contratos; todavía no contiene una aplicación ejecutable.
+Contrato compartido 0.2 y código inicial de integración. Incluye backend FastAPI/PostgreSQL con datos sintéticos y setup mínimo de React/TypeScript/Vite/Tailwind. El modelo científico, la anatomía y las pantallas de producto siguen pendientes.
 
-La autorización actual comprende el plan, los directorios y la documentación de coordinación. No se han instalado dependencias ni configurado pruebas, CI, infraestructura o servicios.
+La implementación del backend inicial y el setup mínimo del frontend están autorizados. No se ha desplegado infraestructura ni creado CI o una suite de pruebas. Consultar [backend](backend/README.md) y [frontend](frontend/README.md) para instalación y límites de verificación.
 
 ## Tecnologías recomendadas
 
 - Backend: Python + FastAPI, con modelos de entrada/salida de Pydantic.
-- Frontend: React + TypeScript + Vite; React Three Fiber/Drei para anatomía y React Flow para las tres vistas de grafo.
+- Frontend: React + TypeScript + Vite + Tailwind. Se mantienen React Three Fiber/Drei y React Flow como propuesta para la implementación posterior de interfaz.
 - Persistencia: PostgreSQL como base principal para el despliegue en nube; archivos científicos separados y versionados.
 - Comunicación: HTTP/JSON, contrato OpenAPI 3.1. Resúmenes mediante plantillas inicialmente.
 
-Estas son decisiones técnicas de partida; no son dependencias instaladas. Las versiones compatibles se fijarán al iniciar cada aplicación.
+Los manifests definen las dependencias iniciales; el setup mínimo de frontend conserva el diseño y los componentes del producto a cargo de su responsable.
 
 El despliegue en nube está confirmado. El proveedor y los servicios concretos siguen pendientes; se propone frontend estático, backend FastAPI y PostgreSQL administrado.
 

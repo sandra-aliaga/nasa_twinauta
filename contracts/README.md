@@ -1,6 +1,6 @@
 # Contrato compartido 0.2
 
-Acuerdo inicial para desarrollar en paralelo. [openapi.yaml](openapi.yaml) describe la API propuesta; no hay endpoints ejecutándose. Los ejemplos en [examples/](examples/) son documentación sintética, no evidencia ni pruebas automatizadas.
+Acuerdo inicial para desarrollar en paralelo. [openapi.yaml](openapi.yaml) describe la API del backend inicial para contenido ilustrativo. La integración científica sigue pendiente. Los ejemplos en [examples/](examples/) son documentación sintética, no evidencia ni pruebas automatizadas.
 
 ## Convenciones
 

@@ -10,7 +10,7 @@ Plan inicial con contrato actualizado a 0.2. Documento de coordinación; no desc
 - El recorrido comienza en anatomía 3D y selección de una región.
 - Evaluación, evolución de escenario y siguientes pasos tienen resumen y ampliación mediante grafo.
 - Se requiere evidencia trazable. No se ha establecido validación clínica individual.
-- La entrega actual es documental. La programación, dependencias y herramientas de desarrollo se prepararán en una etapa posterior.
+- Se autorizó el backend inicial y el setup mínimo de frontend con Tailwind. El código de integración utiliza contenido ilustrativo; la configuración científica sigue pendiente.
 
 ## Alcance inicial de trabajo
 

@@ -2,9 +2,8 @@ openapi: 3.1.2
 info:
   title: TwinNauta API
   version: 0.2.0
-  description: 'Contrato documental inicial. No hay servicio implementado. Ejemplos sintéticos para coordinación;
-    no representan evaluación clínica validada. Revisión 0.2: catálogos, trazabilidad de afirmaciones,
-    dominio del modelo y seguimiento de acciones.'
+  description: Contrato 0.2 del backend inicial con contenido ilustrativo. El modelo científico sigue
+    pendiente; no representa evaluación clínica validada.
 servers:
 - url: http://localhost:8000/api/v1
   description: Dirección propuesta para desarrollo; no implica servicio disponible.
