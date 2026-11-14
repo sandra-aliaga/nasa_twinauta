@@ -1,10 +1,35 @@
 # Revisión de contratos esenciales
 
-14 de noviembre de 2026. Resultado: contrato documental 0.2. Esta revisión fue documental, anterior al backend inicial. El estado de la implementación y sus límites de verificación están en `backend/README.md`.
+14 de noviembre de 2026. Resultado: contrato 0.2 implementado y propuesta 0.3 verificada como ampliación documental. Esta revisión fue documental, anterior al backend inicial. El estado de la implementación y sus límites de verificación están en `backend/README.md`.
 
 ## Conclusión
 
 La forma de los datos y operaciones del recorrido principal queda definida para desarrollar frontend y backend en paralelo. La revisión encontró omisiones técnicas en 0.1 y las corrigió. Esto no cierra la extracción científica, el diseño anatómico o la configuración del proveedor de nube.
+
+La propuesta 0.3 no sustituye al contrato vigente ni convierte sus rutas en endpoints disponibles. Su consistencia estructural quedó comprobada entre `openapi.yaml`, `schemas.json` y `examples.json`; la implementación y la aprobación científica siguen pendientes.
+
+## Propuesta modular 0.3
+
+La ampliación conserva el contrato 0.2 y añade seis operaciones de consulta:
+
+| Operación | Esquema de respuesta | Estado |
+| --- | --- | --- |
+| `GET /papers` | `PaperPage` | Parcial; búsqueda bibliográfica paginada sobre candidatos no auditados. |
+| `GET /papers/{paper_id}` | `PaperDetail` | Propuesta; ficha, resultados y aplicabilidad. |
+| `GET /knowledge-graph` | `GraphPage` | Propuesta; vistas y expansión por cursor. |
+| `GET /knowledge-base/metadata` | `KnowledgeBaseMetadata` | Parcial; expone metadatos del paquete local, sin búsqueda ni auditoría científica. |
+| `GET /health-modules` | `ModuleCatalog` | Parcial; endpoint técnico disponible, con interpretación aún pendiente. |
+| `GET /assessments/{assessment_id}/guidance` | `Guidance` | Propuesta; orientación congelada, no regenerada en cada consulta. |
+
+La revisión estructural comprobó:
+
+- Los ejemplos `papers`, `paper_detail`, `graph`, `knowledge_base`, `modules`, `guidance` y las cuatro entradas de `guidance_states` cumplen los requisitos, tipos, enumeraciones y propiedades declaradas en `schemas.json`.
+- Las rutas propuestas referencian esos esquemas y mantienen los errores 404, 409 y 422 donde corresponde; no modifican las rutas 0.2.
+- Los estados `complete`, `partial`, `insufficient_data`, `not_supported` y `review_pending` describen cobertura o disponibilidad de interpretación, no severidad clínica.
+- Los estados de revisión de papers, extracciones y análisis de IA permanecen separados. `ready` no equivale a `reviewed`, y una intervención extraída de un paper no se convierte por sí sola en una acción elegible.
+- La paginación conserva cursor, filtros y versión del corpus; el cliente debe fusionar nodos y aristas por ID sin mezclar versiones.
+
+Este cierre documental no valida las cifras de los ejemplos, la aplicabilidad de los papers, las relaciones del grafo, las reglas de orientación ni el funcionamiento offline. Antes de promover 0.3 a contrato vigente se requiere acordar la forma con frontend y Medicina, fijar la versión del primer corpus real e implementar y verificar las rutas restantes. `GET /health-modules` ya tiene una implementación técnica acotada, pero no habilita interpretación científica.
 
 ## Cobertura del recorrido
 

@@ -51,6 +51,28 @@ class ActionState(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 
 
+class LiteraturePaperRecord(Base):
+    """Store one bibliographic candidate independently from scientific assessments."""
+
+    __tablename__ = "literature_papers"
+
+    id: Mapped[str] = mapped_column(String(150), primary_key=True)
+    corpus_version: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
+    title: Mapped[str] = mapped_column(String(1000), nullable=False)
+    publication_year: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
+    identifiers: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    authors: Mapped[list[dict[str, Any]]] = mapped_column(JSONB, nullable=False)
+    abstract_text: Mapped[str | None] = mapped_column(String, nullable=True)
+    source_url: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    doi_url: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    pmc_url: Mapped[str | None] = mapped_column(String(2000), nullable=True)
+    publication_types: Mapped[list[str]] = mapped_column(JSONB, nullable=False)
+    review_status: Mapped[str] = mapped_column(String(50), nullable=False, index=True)
+    model_parameter_eligible: Mapped[bool] = mapped_column(nullable=False)
+    clinical_action_eligible: Mapped[bool] = mapped_column(nullable=False)
+    payload: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+
+
 def create_database_engine(settings: Settings) -> Engine:
     """Create a lazy connection pool without changing the database schema."""
     return create_engine(

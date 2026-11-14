@@ -14,6 +14,8 @@ from app.schemas import (
     Assessment,
     Case,
     IndicatorDefinition,
+    KnowledgeBaseMetadata,
+    ModuleCatalog,
     Region,
     TelemetryPoint,
     TelemetryRecording,
@@ -21,11 +23,17 @@ from app.schemas import (
 )
 
 DATA_DIR = BACKEND_DIR / "data" / "demo"
+LITERATURE_DIR = BACKEND_DIR / "data" / "literature" / "candidates"
 
 
 def read_document(filename: str, directory: Path = DATA_DIR) -> Any:
     """Read one trusted packaged JSON document."""
     return json.loads((directory / filename).read_text(encoding="utf-8"))
+
+
+def read_literature_document(filename: str) -> Any:
+    """Read one versioned local literature document."""
+    return read_document(filename, LITERATURE_DIR)
 
 
 @lru_cache
@@ -34,6 +42,33 @@ def indicators() -> tuple[IndicatorDefinition, ...]:
     return tuple(
         TypeAdapter(list[IndicatorDefinition]).validate_python(read_document("indicators.json"))
     )
+
+
+@lru_cache
+def health_modules() -> ModuleCatalog:
+    """Return the versioned catalog without enabling unreviewed interpretation."""
+    return ModuleCatalog.model_validate(read_document("health-modules.json"))
+
+
+@lru_cache
+def knowledge_base_metadata() -> KnowledgeBaseMetadata:
+    """Describe the installed candidate corpus without promoting its evidence."""
+    metadata = read_literature_document("knowledge_base.json")
+    result = KnowledgeBaseMetadata.model_validate(metadata)
+    corpus = read_literature_document("corpus.json")
+    selected_count = corpus.get("selected_count")
+    if selected_count != result.paper_count:
+        raise ValueError("Knowledge-base metadata does not match the installed corpus.")
+    if result.reviewed_paper_count > result.paper_count:
+        raise ValueError("Reviewed paper count cannot exceed the installed corpus size.")
+    return result
+
+
+@lru_cache
+def candidate_papers() -> tuple[dict[str, Any], ...]:
+    """Return candidate records exactly as imported from the local corpus."""
+    corpus = read_literature_document("corpus.json")
+    return tuple(corpus["records"])
 
 
 @lru_cache

@@ -1,0 +1,25 @@
+{
+  "catalog_version": "demo-modules-0.3-001",
+  "modules": [
+    {
+      "id": "quadriceps_health",
+      "version": "0.1-draft",
+      "label": "Salud muscular del cuádriceps",
+      "region_ids": [
+        "quadriceps"
+      ],
+      "indicator_ids": [
+        "quadriceps_csa_relative",
+        "knee_extension_torque"
+      ],
+      "implementation_status": "prototype",
+      "interpretation_status": "review_pending",
+      "coverage_description": "Módulo técnico inicial para identificar cobertura de cuádriceps; el motor contextual aún no está habilitado.",
+      "limitations": [
+        "No cubre otras regiones.",
+        "Los parámetros y reglas científicas requieren revisión.",
+        "La presencia del módulo no implica una interpretación clínica individual."
+      ]
+    }
+  ]
+}

@@ -496,6 +496,97 @@ class IndicatorDefinition(ContractModel):
     baseline_interpretation: str
 
 
+class HealthModule(ContractModel):
+    """Describe the implemented and scientifically reviewed coverage of a module."""
+
+    id: Annotated[str, Field(min_length=1)]
+    version: Annotated[str, Field(min_length=1)]
+    label: str
+    region_ids: list[str]
+    indicator_ids: list[str]
+    implementation_status: Literal["planned", "prototype", "available"]
+    interpretation_status: Literal["unavailable", "review_pending", "reviewed"]
+    coverage_description: str
+    limitations: list[str]
+
+
+class ModuleCatalog(ContractModel):
+    """Represent the versioned catalog of scientific modules."""
+
+    catalog_version: Annotated[str, Field(min_length=1)]
+    modules: list[HealthModule]
+
+
+class KnowledgeBaseMetadata(ContractModel):
+    """Describe the installed scientific corpus and its consultation limits."""
+
+    corpus_version: Annotated[str, Field(min_length=1)]
+    published_at: datetime
+    last_sync_at: datetime | None
+    runtime_mode: Literal["local_bundle", "hosted_catalog"]
+    external_services_required_for_consultation: bool
+    paper_count: Annotated[int, Field(ge=0, strict=True)]
+    reviewed_paper_count: Annotated[int, Field(ge=0, strict=True)]
+    analysis_policy: Literal["precomputed", "local_model", "not_configured"]
+    rules_version: str | None
+
+
+class PaperIdentifiers(ContractModel):
+    """Represent stable identifiers available for a literature record."""
+
+    doi: str | None
+    pmid: str | None
+    pmcid: str | None
+
+
+class PaperAccess(ContractModel):
+    """Describe remote and local access without implying full-text availability."""
+
+    landing_url: str
+    full_text_url: str | None
+    pdf_url: str | None
+    availability: Literal["open_access", "landing_only", "unknown"]
+    license: str | None
+    full_text_cached: bool
+    pdf_cached: bool
+    local_document_url: str | None
+
+
+class PaperCard(ContractModel):
+    """Represent a discovery card, not an audited evidence statement."""
+
+    id: Annotated[str, Field(min_length=1)]
+    title: str
+    authors: list[str]
+    year: Annotated[int, Field(ge=1800, strict=True)]
+    identifiers: PaperIdentifiers
+    sections: list[Literal["evidence", "scenario", "actions"]]
+    region_ids: list[str]
+    study_design: str | None
+    environment: Literal[
+        "spaceflight", "bed_rest", "terrestrial_exercise", "other", "mixed", "unknown"
+    ]
+    review_status: Literal["pending", "reviewed"]
+    access: PaperAccess
+    indicator_ids: list[str]
+
+
+class Page(ContractModel):
+    """Represent opaque cursor state for a page of results."""
+
+    next_cursor: str | None
+    has_more: bool
+
+
+class PaperPage(ContractModel):
+    """Represent one page of bibliographic discovery results."""
+
+    corpus_version: Annotated[str, Field(min_length=1)]
+    items: list[PaperCard]
+    total_matching: Annotated[int, Field(ge=0, strict=True)]
+    page: Page
+
+
 class EvidenceClaim(ContractModel):
     """Represent the EvidenceClaim contract payload."""
 

@@ -7,7 +7,7 @@ from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import assessments, catalog, telemetry
+from app import assessments, catalog, papers, telemetry
 from app.database import CaseRecord
 from app.errors import not_found
 from app.schemas import (
@@ -19,6 +19,9 @@ from app.schemas import (
     Error,
     Graph,
     IndicatorDefinition,
+    KnowledgeBaseMetadata,
+    ModuleCatalog,
+    PaperPage,
     Region,
     TelemetryRecording,
     TelemetryWindow,
@@ -52,6 +55,52 @@ def list_cases(session: DatabaseSession) -> list[Case]:
 def list_indicators() -> list[IndicatorDefinition]:
     """Describe the initial indicator catalog."""
     return list(catalog.indicators())
+
+
+@router.get("/health-modules", response_model=ModuleCatalog, operation_id="list_health_modules")
+def list_health_modules() -> ModuleCatalog:
+    """Describe module coverage and keep scientific review status explicit."""
+    return catalog.health_modules()
+
+
+@router.get(
+    "/knowledge-base/metadata",
+    response_model=KnowledgeBaseMetadata,
+    operation_id="get_knowledge_base_metadata",
+)
+def get_knowledge_base_metadata() -> KnowledgeBaseMetadata:
+    """Describe the local literature bundle and its review status."""
+    return catalog.knowledge_base_metadata()
+
+
+@router.get("/papers", response_model=PaperPage, operation_id="search_papers")
+def search_papers(
+    session: DatabaseSession,
+    q: Annotated[str | None, Query(max_length=200)] = None,
+    region_id: str | None = None,
+    view: Literal["evidence", "scenario", "actions"] | None = None,
+    review_status: Literal["pending", "reviewed"] | None = None,
+    year_from: Annotated[int | None, Query(ge=1800)] = None,
+    year_to: Annotated[int | None, Query(ge=1800)] = None,
+    cursor: str | None = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    indicator_id: str | None = None,
+    module_id: str | None = None,
+) -> PaperPage:
+    """Search the local bibliographic candidate corpus."""
+    return papers.search_papers(
+        session,
+        q=q,
+        region_id=region_id,
+        view=view,
+        review_status=review_status,
+        year_from=year_from,
+        year_to=year_to,
+        indicator_id=indicator_id,
+        module_id=module_id,
+        cursor=cursor,
+        limit=limit,
+    )
 
 
 @router.get("/cases/{case_id}/regions", response_model=list[Region], operation_id="list_regions")
