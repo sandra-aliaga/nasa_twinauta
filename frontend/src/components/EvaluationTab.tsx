@@ -361,7 +361,7 @@ export function EvaluationTab({
         ¿Por qué? Ver fundamento
       </button>
 
-      <Collapsible title="Orientación contextual (demostración 0.3)">
+      <Collapsible title="Orientación operativa de esta evaluación">
         <GuidanceCard assessment={assessment} />
       </Collapsible>
     </div>
