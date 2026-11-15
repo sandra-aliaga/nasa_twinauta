@@ -1,6 +1,6 @@
 # Frontend
 
-Responsable: integrante de Sistemas a cargo de interfaz. Se preparó exclusivamente el setup mínimo de React + TypeScript + Vite + Tailwind CSS. La compañera se encarga de toda la interfaz: diseño, anatomía, grafos, estado y conexión a la API. Las librerías de 3D y grafos todavía no forman parte de esta base.
+Responsable: integrante de Sistemas a cargo de interfaz. Hay un primer esqueleto navegable sobre React + TypeScript + Vite + Tailwind CSS. Three, React Three Fiber y Drei están instaladas; grafos y gráficas se añadirán por etapas.
 
 ## Arranque del setup
 
@@ -12,7 +12,17 @@ cp frontend/.env.example frontend/.env
 make frontend-run
 ```
 
-Usar Node 22.12 o posterior compatible con Vite 8. La página de desarrollo usa `http://localhost:5173`. La API se configurará con `VITE_API_BASE_URL`; no hay un cliente HTTP implementado.
+Usar Node 22.12 o posterior compatible con Vite 8. La página de desarrollo usa `http://localhost:5173`.
+
+`VITE_DATA_SOURCE` elige la fuente de datos: `examples` (por defecto) lee `contracts/examples/` y muestra la etiqueta «MODO DEMOSTRACIÓN»; `api` llama al backend en `VITE_API_BASE_URL`. Ambas implementan la misma interfaz (`src/api/dataSource.ts`).
+
+React y React DOM están fijados a `~19.3.0`: `@react-three/fiber` 9.8 exige React menor que 19.4. No subir React sin revisar esa compatibilidad.
+
+Los tipos de la API se generan desde el contrato. Regenerarlos cada vez que cambie `contracts/openapi.yaml`:
+
+```bash
+cd frontend && npm run types
+```
 
 Tailwind está integrado mediante `@tailwindcss/vite` y `@import "tailwindcss"` en `src/styles.css`. No requiere configuración de Tailwind v3 ni PostCSS adicional.
 
@@ -21,7 +31,20 @@ make frontend-format
 make frontend-check
 ```
 
-Hay configuración local de Prettier y una pantalla inicial mínima. Los apartados siguientes describen el producto que implementará frontend, no funcionalidades terminadas.
+## Estado del esqueleto
+
+| Parte | Estado |
+| --- | --- |
+| Capa de datos | Adaptador de ejemplos y adaptador HTTP para las nueve operaciones; errores normalizados al objeto del contrato. |
+| Cabecera | Selector de caso, día de misión con botón «Evaluar» y etiqueta de demostración. |
+| Cuerpo | Visor 3D (`AnatomyViewer.tsx`, carga diferida) con el GLB de `public/models/` (Innerscene, CC0 según sus metadatos). `src/lib/anatomy.ts` mapea `quadriceps` a recto femoral, vasto lateral y vasto medial de ambos lados; el vasto intermedio no está en la capa superficial. Si no hay WebGL o falla la carga, vuelve a la silueta 2D. |
+| Evaluación de la zona | Resumen, hallazgos, indicadores con procedencia y ausencias, ejercicio, límites y fuentes. |
+| Evolución del escenario | Estado, motivo y supuestos; tabla de puntos si está disponible. Gráfica pendiente. |
+| Siguientes pasos | Acciones, elegibilidad, revisión y seguimiento con `expected_revision` y recarga ante 409. |
+| Grafos | Navegación entre las tres vistas preparada; visualización con React Flow pendiente. |
+| Frecuencia cardíaca | Panel con metadatos y procedencia; reproducción por ventanas pendiente. |
+
+En modo `examples` el contrato solo contiene una evaluación fija del día 10; la interfaz avisa cuando el día pedido no coincide. Los apartados siguientes describen el producto completo, no funcionalidades terminadas.
 
 ## Leer primero
 
@@ -75,7 +98,7 @@ Cubrir carga, error de conexión, región sin seleccionar, evaluación parcial/i
 
 El contrato actual es 0.2. La [revisión de cobertura](../docs/revision-contratos.md) distingue acuerdos técnicos de insumos todavía pendientes. Los [otros estados de ejemplo](../contracts/examples/assessment-states.json) permiten maquetar el recorrido completo sin asumir una validación científica.
 
-Se propone `VITE_API_BASE_URL=http://localhost:8000/api/v1` para desarrollo. No colocar secretos en variables públicas del frontend. No se han creado archivos de entorno.
+Se propone `VITE_API_BASE_URL=http://localhost:8000/api/v1` para desarrollo. No colocar secretos en variables públicas del frontend.
 
 En nube, esa variable apuntará a la API pública HTTPS. El frontend no se conecta directamente a PostgreSQL ni recibe sus credenciales. El proveedor de alojamiento sigue pendiente.
 
@@ -83,4 +106,4 @@ El setup no incluye pantallas de producto, pruebas o CI. El estilo visual defini
 
 ## Verificación de esta entrega
 
-El formato se comprobó con Prettier 3.9.9 recuperado de la caché. La instalación completa y el build no se completaron por las restricciones del entorno y paquetes ausentes en caché. No hay un lockfile de npm generado; completar `make frontend-install` con acceso al registro antes de dar el build por validado.
+Instalación completada con `package-lock.json` generado; `npm audit` sin vulnerabilidades. `make frontend-check` (Prettier y `tsc` + `vite build`) pasa. Se comprobó que el servidor de desarrollo sirve los ejemplos de `contracts/`. No se probó todavía contra el backend real ni hay pruebas automatizadas; la revisión visual del recorrido es manual.
