@@ -116,11 +116,17 @@ function merge(previous: Merged | null, page: GraphPage): Merged {
 
 type LibraryGraphProps = {
   query: Omit<GraphQuery, "cursor" | "paper_id">;
+  /** Open assessment; sent with neighbour expansion as the handoff asks. */
+  assessmentId?: string | null;
   onOpenPaper: (paperId: string) => void;
 };
 
 /** Library graph: filters, "load more" pages and neighbour expansion. */
-export function LibraryGraph({ query, onOpenPaper }: LibraryGraphProps) {
+export function LibraryGraph({
+  query,
+  assessmentId = null,
+  onOpenPaper,
+}: LibraryGraphProps) {
   const [merged, setMerged] = useState<Merged | null>(null);
   const [cursor, setCursor] = useState<string | null>(null);
   const [error, setError] = useState<ApiError | null>(null);
@@ -149,7 +155,9 @@ export function LibraryGraph({ query, onOpenPaper }: LibraryGraphProps) {
     // queryKey captures every filter value.
   }, [queryKey]);
 
-  function load(extra: Pick<GraphQuery, "cursor" | "paper_id">) {
+  function load(
+    extra: Pick<GraphQuery, "cursor" | "paper_id" | "assessment_id">,
+  ) {
     setLoading(true);
     setError(null);
     explorerSource
@@ -248,7 +256,10 @@ export function LibraryGraph({ query, onOpenPaper }: LibraryGraphProps) {
                 )}
                 loading={loading}
                 onExpand={() =>
-                  load({ paper_id: selectedNode.paper_id ?? undefined })
+                  load({
+                    paper_id: selectedNode.paper_id ?? undefined,
+                    assessment_id: assessmentId ?? undefined,
+                  })
                 }
                 onOpenPaper={onOpenPaper}
                 onClose={() => setSelected(null)}

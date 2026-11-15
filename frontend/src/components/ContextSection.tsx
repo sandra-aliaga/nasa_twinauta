@@ -24,6 +24,11 @@ const SECTION_GRAPHS: Record<ContextSectionKey, GraphPage["view"]> = {
   next_steps: "actions",
 };
 
+// Where the excerpt was taken from; the contract only allows the abstract.
+const LOCATOR_LABELS: Record<string, string> = {
+  abstract: "Resumen del artículo",
+};
+
 const numberFormat = new Intl.NumberFormat("es", { maximumFractionDigits: 2 });
 
 /**
@@ -145,9 +150,7 @@ export function ContextSection({
 
       {narrative.citations.length > 0 ? (
         <div className="space-y-2 text-xs">
-          <p className="text-slate-400">
-            Fragmentos citados (resumen del artículo)
-          </p>
+          <p className="text-slate-400">Fragmentos citados</p>
           {narrative.citations.map((citation) => {
             const snippet = data.evidence_snippets[citation.snippet_id];
             return (
@@ -164,7 +167,12 @@ export function ContextSection({
                     </span>
                   )}
                 </blockquote>
-                <figcaption className="mt-1">
+                <figcaption className="mt-1 flex flex-wrap items-center gap-2">
+                  {snippet ? (
+                    <Tag>
+                      {LOCATOR_LABELS[snippet.locator] ?? snippet.locator}
+                    </Tag>
+                  ) : null}
                   <button
                     type="button"
                     onClick={() => onOpenPaper(citation.paper_id)}

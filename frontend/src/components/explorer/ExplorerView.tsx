@@ -29,6 +29,8 @@ const EMPTY: Filters = {
   yearTo: "",
 };
 
+const DEFAULT_GRAPH_VIEW: LibraryView = "evidence";
+
 function toQuery(filters: Filters, regionId: string | null): PaperQuery {
   const query: PaperQuery = {};
   if (filters.q.trim()) query.q = filters.q.trim();
@@ -342,12 +344,23 @@ export function ExplorerView({
               )}
             </section>
           ) : (
-            <LibraryGraph
-              query={query}
-              onOpenPaper={(id) => {
-                setPaperId(id);
-              }}
-            />
+            <>
+              {query.view ? null : (
+                <p className="text-xs text-slate-400">
+                  El grafo se consulta por sección. Sin sección elegida se
+                  muestra «{LIBRARY_VIEW_LABELS[DEFAULT_GRAPH_VIEW]}»; cambie la
+                  sección en los filtros para ver otra.
+                </p>
+              )}
+              <LibraryGraph
+                // The contract requires a view for the graph, unlike the list.
+                query={{ ...query, view: query.view ?? DEFAULT_GRAPH_VIEW }}
+                assessmentId={assessmentId}
+                onOpenPaper={(id) => {
+                  setPaperId(id);
+                }}
+              />
+            </>
           )}
 
           <section
