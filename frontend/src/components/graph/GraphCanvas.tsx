@@ -106,7 +106,9 @@ export function GraphCanvas({
         }}
         style={{ background: "transparent" }}
       >
-        {compact ? null : <Background gap={22} color="#1e293b" />}
+        {compact ? null : (
+          <Background gap={22} color="#334155" bgColor="transparent" />
+        )}
         {compact ? null : <Controls showInteractive={false} />}
       </ReactFlow>
     </ReactFlowProvider>

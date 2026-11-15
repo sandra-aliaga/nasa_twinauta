@@ -3,9 +3,12 @@
  * mesh names. The backend only knows region ids (contract 0.2).
  */
 
-/** Served from frontend/public/models. */
+/**
+ * Served from frontend/public/models: meshopt geometry and JPEG textures,
+ * built from the original in frontend/models-source (see its README).
+ */
 export const MODEL_URL =
-  "/models/full-body-muscular-system-superficial-layer.glb";
+  "/models/full-body-muscular-system-superficial-layer.min.glb";
 
 /** Declared in the GLB asset metadata (asset.copyright). */
 export const MODEL_CREDIT =

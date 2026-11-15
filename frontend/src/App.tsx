@@ -2,7 +2,8 @@ import { lazy, Suspense, useEffect, useState } from "react";
 
 import { dataSource, type GraphView } from "./api";
 import { AnatomyStage } from "./components/AnatomyStage";
-import { ErrorNotice, Skeleton } from "./components/common";
+import { CaseSheet } from "./components/CaseSheet";
+import { ErrorNotice, Notice, Skeleton } from "./components/common";
 import { Header } from "./components/Header";
 import { IntroGuide, shouldShowIntro } from "./components/IntroGuide";
 import { RegionPanel, type PanelTab } from "./components/RegionPanel";
@@ -138,6 +139,15 @@ export default function App() {
   const indicatorLabels = Object.fromEntries(
     catalog.data.indicators.map((item) => [item.id, item.label]),
   );
+  const caseSheet = (
+    <CaseSheet
+      caseItem={selectedCase}
+      day={day}
+      regions={regionList}
+      indicators={catalog.data.indicators}
+      onSelectRegion={handleSelectRegion}
+    />
+  );
   const evaluatedDay =
     state.status === "ready" ? state.assessment.mission_day : null;
   const showGraph =
@@ -196,7 +206,7 @@ export default function App() {
               />
             ) : null}
             {showGraph && graphView !== null && state.status === "ready" ? (
-              <div className="absolute inset-0 z-20 overflow-y-auto bg-slate-950/70 backdrop-blur-md">
+              <div className="absolute inset-0 z-20 overflow-y-auto bg-slate-950/60 backdrop-blur-md">
                 <GraphExplorer
                   view={graphView}
                   assessmentId={state.assessment.assessment_id}
@@ -223,35 +233,49 @@ export default function App() {
             </div>
           ) : (
             // Kept mounted while the graph is shown: unmounting the WebGL
-            // canvas is costly and reloading the 16 MB model is avoidable.
+            // canvas is costly and reloading the model is avoidable.
             <div className={hideBody ? "hidden" : "h-full"}>
               <AnatomyStage
                 regions={regionList}
                 selectedRegionId={regionId}
                 onSelect={handleSelectRegion}
+                sidePanel={caseSheet}
               />
             </div>
           )}
         </main>
 
         <aside className="min-h-0 bg-slate-950">
-          <RegionPanel
-            region={selectedRegion}
-            indicators={catalog.data.indicators}
-            state={state}
-            tab={tab}
-            onTabChange={setTab}
-            onClose={handleClosePanel}
-            onRetry={() => regionId && requestAssessment(regionId, day)}
-            onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
-            onActionUpdated={replaceAction}
-            onConflict={refresh}
-            onOpenPaper={(paperId) => {
-              setGraphView(null);
-              setLibraryPaperId(paperId);
-              setLibraryOpen(true);
-            }}
-          />
+          {selectedRegion === null ? (
+            <div className="h-full overflow-y-auto p-5">
+              {/* Wide screens show the sheet over the 3D view instead. */}
+              <div className="lg:hidden">{caseSheet}</div>
+              <div className="hidden lg:block">
+                <Notice title="Ninguna región seleccionada">
+                  Seleccione una región en el cuerpo o en la ficha del caso para
+                  solicitar su evaluación.
+                </Notice>
+              </div>
+            </div>
+          ) : (
+            <RegionPanel
+              region={selectedRegion}
+              indicators={catalog.data.indicators}
+              state={state}
+              tab={tab}
+              onTabChange={setTab}
+              onClose={handleClosePanel}
+              onRetry={() => regionId && requestAssessment(regionId, day)}
+              onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
+              onActionUpdated={replaceAction}
+              onConflict={refresh}
+              onOpenPaper={(paperId) => {
+                setGraphView(null);
+                setLibraryPaperId(paperId);
+                setLibraryOpen(true);
+              }}
+            />
+          )}
         </aside>
       </div>
 
