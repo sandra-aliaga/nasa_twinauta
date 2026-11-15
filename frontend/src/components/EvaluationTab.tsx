@@ -114,32 +114,114 @@ function ExerciseBlock({ records }: { records: ExerciseRecord[] }) {
           <p className="mt-2 text-base tabular-nums text-slate-50">
             {recorded} de {records.length} sesiones con registro
           </p>
-          <ul className="mt-2 space-y-1 text-xs text-slate-300">
-            {records.map((record) => (
-              <li key={record.id} className="flex justify-between gap-2">
-                <span>
-                  Día {record.mission_day} · {record.modality}
-                  {record.planned_duration_min !== null
-                    ? ` · plan ${record.planned_duration_min} min`
-                    : ""}
-                </span>
-                <span
-                  className={
-                    record.record_status === "recorded"
-                      ? "text-slate-300"
-                      : "italic text-amber-300"
-                  }
-                >
-                  {record.record_status === "recorded"
-                    ? `registrado${record.recorded_duration_min !== null ? ` ${record.recorded_duration_min} min` : ""}`
-                    : "sin registro"}
-                </span>
-              </li>
-            ))}
-          </ul>
+          <ExerciseBars records={records} />
+          <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-500">
+            <span className="flex items-center gap-1.5">
+              <span className="h-2 w-4 rounded-sm bg-teal-400" /> Registrado
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-2 w-4 rounded-sm border border-slate-500" />{" "}
+              Planificado
+            </span>
+            <span className="flex items-center gap-1.5">
+              <span className="h-2 w-4 rounded-sm border border-dashed border-amber-300" />{" "}
+              Sin registro
+            </span>
+          </p>
         </>
       )}
     </div>
+  );
+}
+
+const MODALITY_LABELS: Record<string, string> = {
+  resistance: "Resistencia",
+  aerobic: "Aeróbico",
+};
+
+/**
+ * Planned vs recorded duration per session. The track length is the plan;
+ * the fill is what was recorded. A missing record is drawn as an empty
+ * dashed track, never as zero minutes.
+ */
+function ExerciseBars({ records }: { records: ExerciseRecord[] }) {
+  const maxMinutes = Math.max(
+    1,
+    ...records.flatMap((r) => [
+      r.planned_duration_min ?? 0,
+      r.recorded_duration_min ?? 0,
+    ]),
+  );
+  const pct = (minutes: number) => `${(minutes / maxMinutes) * 100}%`;
+
+  return (
+    <ul className="mt-3 space-y-3">
+      {records.map((record) => {
+        const isRecorded = record.record_status === "recorded";
+        const planned = record.planned_duration_min;
+        const done = record.recorded_duration_min;
+        const details = [
+          record.sets !== null ? `${record.sets} series` : null,
+          record.repetitions !== null ? `${record.repetitions} rep.` : null,
+          record.resistance_value !== null
+            ? `${record.resistance_value} ${record.resistance_unit ?? ""}`.trim()
+            : null,
+          record.equipment_available === false ? "equipo no disponible" : null,
+        ].filter(Boolean);
+        return (
+          <li key={record.id} className="text-xs">
+            <div className="flex justify-between gap-2 text-slate-300">
+              <span>
+                Día {record.mission_day} ·{" "}
+                {MODALITY_LABELS[record.modality] ?? record.modality}
+              </span>
+              <span
+                className={
+                  isRecorded
+                    ? "tabular-nums text-slate-200"
+                    : "italic text-amber-300"
+                }
+              >
+                {isRecorded
+                  ? `${done ?? "?"} de ${planned ?? "?"} min`
+                  : `sin registro · plan ${planned ?? "?"} min`}
+              </span>
+            </div>
+            <div
+              className="relative mt-1 h-2.5"
+              role="img"
+              aria-label={
+                isRecorded
+                  ? `Día ${record.mission_day}: ${done ?? "duración desconocida"} minutos registrados de ${planned ?? "una duración no planificada"}`
+                  : `Día ${record.mission_day}: sesión planificada sin registro`
+              }
+            >
+              {planned !== null ? (
+                <div
+                  className={`absolute inset-y-0 left-0 rounded-sm border ${
+                    isRecorded
+                      ? "border-slate-600"
+                      : "border-dashed border-amber-300/70"
+                  }`}
+                  style={{ width: pct(planned) }}
+                />
+              ) : null}
+              {isRecorded && done !== null ? (
+                <div
+                  className="absolute inset-y-0.5 left-0.5 rounded-sm bg-teal-400"
+                  style={{ width: `calc(${pct(done)} - 4px)` }}
+                />
+              ) : null}
+            </div>
+            {details.length > 0 ? (
+              <p className="mt-0.5 text-[11px] text-slate-500">
+                {details.join(" · ")}
+              </p>
+            ) : null}
+          </li>
+        );
+      })}
+    </ul>
   );
 }
 

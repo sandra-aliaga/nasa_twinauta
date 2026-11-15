@@ -124,12 +124,15 @@ export default function App() {
         canEvaluate={selectedRegion !== null && state.status !== "loading"}
         onEvaluate={() => regionId && requestAssessment(regionId, day)}
         isDemo={dataSource.kind === "examples"}
-        cardiacAvailable={Boolean(selectedCase?.telemetry_recording_id)}
+        cardiacAvailable={
+          Boolean(selectedCase?.telemetry_recording_id) ||
+          dataSource.kind === "api"
+        }
         cardiacOpen={cardiacOpen}
         onToggleCardiac={() => setCardiacOpen((open) => !open)}
       />
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px]">
+      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] lg:overflow-hidden">
         <main className="relative min-h-[420px] border-slate-800 lg:border-r">
           {graphView !== null && state.status === "ready" ? (
             <GraphExplorer
@@ -179,9 +182,9 @@ export default function App() {
         </aside>
       </div>
 
-      {cardiacOpen && selectedCase?.telemetry_recording_id ? (
+      {cardiacOpen ? (
         <CardiacPanel
-          recordingId={selectedCase.telemetry_recording_id}
+          caseRecordingId={selectedCase?.telemetry_recording_id ?? null}
           onClose={() => setCardiacOpen(false)}
         />
       ) : null}
