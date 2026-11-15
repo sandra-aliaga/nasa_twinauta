@@ -1,0 +1,186 @@
+{
+  "schema_version": "documentary-extraction-0.1",
+  "status": "document_checked_medical_review_pending",
+  "corpus_version": "candidate-corpus-2026-11-14",
+  "clinical_action_eligible": false,
+  "model_parameter_eligible": false,
+  "scope": "Documentary extraction from original local PDFs, including visual table inspection. Not a clinical review, database import or model activation.",
+  "studies": [
+    {
+      "paper_id": "literature_pmid_33251515",
+      "doi": "10.1097/CCE.0000000000000269",
+      "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/",
+      "documents": [
+        {
+          "path": "backend/data/raw/bedrest_2020/cc9-2-e0269.pdf",
+          "sha256": "dfdf838ae07606093377b7fe87919b1ef20d172434bbd00deb49c18cccf33af2"
+        },
+        {
+          "path": "backend/data/raw/bedrest_2020/supplement.pdf",
+          "sha256": "3a5a226ebcbb11e09db40e67554d922dee27d3b34b682c62ceba202343ed9016"
+        }
+      ],
+      "population": {
+        "n": 9,
+        "male": 8,
+        "female": 1
+      },
+      "environment": "70 days of 6-degree head-down bed rest, followed by 11 days of terrestrial rehabilitation",
+      "measurement": "MRI muscle CSA, averaged across slices; baseline BR-6, nine during-bed-rest and three post-bed-rest acquisitions",
+      "statistics": [
+        {
+          "id": "scott2020_quadriceps_csa_loss_rate",
+          "region": "quadriceps",
+          "quantity": "muscle_cross_sectional_area",
+          "statistic_type": "published_daily_change_relative_to_baseline",
+          "value": -0.11,
+          "unit": "percent_of_BR_minus_6_baseline_per_day",
+          "group": "sedentary_bed_rest",
+          "sample_size": 9,
+          "source_locator": "supplement.pdf, PDF page 8, eTable 3, Quadriceps row, Muscle Loss column",
+          "uncertainty": null,
+          "uncertainty_note": "No confidence interval accompanies this rate in eTable 3."
+        },
+        {
+          "id": "scott2020_soleus_csa_loss_rate",
+          "region": "soleus",
+          "quantity": "muscle_cross_sectional_area",
+          "statistic_type": "published_daily_change_relative_to_baseline",
+          "value": -0.33,
+          "unit": "percent_of_BR_minus_6_baseline_per_day",
+          "group": "sedentary_bed_rest",
+          "sample_size": 9,
+          "source_locator": "supplement.pdf, PDF page 8, eTable 3, Soleus row, Muscle Loss column",
+          "uncertainty": null,
+          "uncertainty_note": "No confidence interval accompanies this rate in eTable 3."
+        }
+      ],
+      "permitted_use_candidate": "Reference-study illustration of relative CSA change, after review of baseline anchoring and computational procedure.",
+      "prohibited_inferences": [
+        "Individual spaceflight forecast or loss caused by a specific number of missed sessions",
+        "Daily compounding on remaining muscle area",
+        "Converting the rate into torque, volume or mass",
+        "Using post-bed-rest rehabilitation gains as in-flight recovery"
+      ],
+      "open_questions": [
+        "Reconstruct mapping of subjects and outcomes to other NASA 70-day publications.",
+        "Review baseline-to-time-zero anchoring before implementing a normalized illustrative curve.",
+        "Authors describe comparable model fits; quadriceps AIC/BIC differ in eTable 2. Do not claim linearity is a unique universal model."
+      ]
+    },
+    {
+      "paper_id": "literature_pmid_38328821",
+      "doi": "10.1152/japplphysiol.00489.2023",
+      "source_url": "https://journals.physiology.org/doi/full/10.1152/japplphysiol.00489.2023",
+      "documents": [
+        {
+          "path": "backend/data/raw/sprint_2024/trappe-et-al-2024-nasa-sprint-exercise-program-efficacy-for-vastus-lateralis-and-soleus-skeletal-muscle-health-during.pdf",
+          "sha256": "9996b5ccf9a6049b2f6095555b2be9b73f0b18e4768c19ee98bdaada52fc440a"
+        }
+      ],
+      "population": {
+        "n": 26,
+        "male": 25,
+        "female": 1,
+        "group_sizes": {
+          "BR": 9,
+          "BRE": 9,
+          "BRE_plus_testosterone": 8
+        }
+      },
+      "environment": "70 days of 6-degree head-down bed rest",
+      "measurement": "Maximal isokinetic knee extension strength at 60 degrees per second, expressed as torque in N.m",
+      "baseline": "Peak value from BR-11 and BR-5",
+      "post_timepoint": "BR+2, as specified in the Table 1 footnote",
+      "statistics": [
+        {
+          "id": "sprint2024_br_pre_torque",
+          "group": "BR",
+          "timepoint": "baseline_peak",
+          "sample_size": 9,
+          "quantity": "knee_extension_torque",
+          "statistic_type": "mean",
+          "value": 200,
+          "standard_deviation": 47,
+          "unit": "N.m",
+          "source_locator": "PDF page 3, printed page 1017, Table 1, Quadriceps strength, Pre, BR"
+        },
+        {
+          "id": "sprint2024_br_post_torque",
+          "group": "BR",
+          "timepoint": "BR+2",
+          "sample_size": 9,
+          "quantity": "knee_extension_torque",
+          "statistic_type": "mean",
+          "value": 148,
+          "standard_deviation": 42,
+          "unit": "N.m",
+          "source_locator": "PDF page 3, printed page 1017, Table 1, Quadriceps strength, Post, BR"
+        },
+        {
+          "id": "sprint2024_bre_pre_torque",
+          "group": "BRE",
+          "timepoint": "baseline_peak",
+          "sample_size": 9,
+          "quantity": "knee_extension_torque",
+          "statistic_type": "mean",
+          "value": 211,
+          "standard_deviation": 32,
+          "unit": "N.m",
+          "source_locator": "PDF page 3, printed page 1017, Table 1, Quadriceps strength, Pre, BRE"
+        },
+        {
+          "id": "sprint2024_bre_post_torque",
+          "group": "BRE",
+          "timepoint": "BR+2",
+          "sample_size": 9,
+          "quantity": "knee_extension_torque",
+          "statistic_type": "mean",
+          "value": 198,
+          "standard_deviation": 27,
+          "unit": "N.m",
+          "source_locator": "PDF page 3, printed page 1017, Table 1, Quadriceps strength, Post, BRE"
+        }
+      ],
+      "permitted_use_candidate": "Display published group-level pre/post comparisons with method and timepoints visible, after medical/editorial review.",
+      "prohibited_inferences": [
+        "Treating group means as individual astronaut observations",
+        "Interpreting standard deviations as confidence intervals or individual safety limits",
+        "Interpolating a measured daily torque trajectory",
+        "Using the Table 1 muscle volume as Scott-style CSA",
+        "Prescribing the study regimen or testosterone to a user"
+      ],
+      "open_questions": [
+        "Some Table 1 data were reported previously in reference 35; reconcile source cohorts before counting validation.",
+        "MRI scheduling descriptions differ: Table 1 footnote uses BR-5 to BR69; narrative refers to completion/day 70. Preserve this discrepancy for review.",
+        "The pharmacological arm is excluded from the four comparison records; no therapeutic recommendation is inferred."
+      ]
+    }
+  ],
+  "contrasts": [
+    {
+      "paper_id": "literature_pmid_33703945",
+      "url": "https://journals.physiology.org/doi/full/10.1152/japplphysiol.00363.2020",
+      "access_scope": "Publisher-indexed search excerpts; direct publisher access returned 403. Full independent re-audit pending.",
+      "finding": "Synthesis describes nonuniform temporal loss and different changes in strength and size; challenges using one universal slope or size-to-strength conversion.",
+      "independence": "Included-study overlap not mapped; not an independent participant cohort."
+    },
+    {
+      "paper_id": "literature_pmid_42185309",
+      "url": "https://pubmed.ncbi.nlm.nih.gov/42185309/",
+      "access_scope": "Original article abstract in PubMed, methods/results; publisher full text inaccessible in this pass.",
+      "finding": "Compares 13 male spaceflight participants with 11 male bed-rest participants using tibial-site pQCT muscle CSA; supports checking transferability but does not validate quadriceps MRI coefficients.",
+      "independence": "Different paper and protocol; no individual overlap audit completed."
+    }
+  ],
+  "nasa_comparison": {
+    "gap_url": "https://humanresearchroadmap.nasa.gov/gaps/gap.aspx?i=833",
+    "gap_locator": "MA-201, Present state of knowledge / Target for Closure; last published 2025-05-13",
+    "documented_gap": "NASA identifies unresolved countermeasure efficacy and constrained exploration resources, with task-specific performance needing protection.",
+    "existing_capability_url": "https://www.nasa.gov/ochmo-tb-031-exercise-overview-2/",
+    "existing_capability_locator": "Bedrest Studies; Summary of Bedrest Data with No Exercise",
+    "existing_capability": "NASA already compiles bed-rest and flight evidence to inform exercise requirements.",
+    "proposal": "Expose methods, study context and operational constraints with evidence-linked next steps.",
+    "originality_status": "UX proposal, not a verified exclusive capability or solution of MA-201."
+  }
+}

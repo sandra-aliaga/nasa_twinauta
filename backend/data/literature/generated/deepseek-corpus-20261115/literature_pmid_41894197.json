@@ -1,0 +1,53 @@
+{
+  "paper_id": "literature_pmid_41894197",
+  "title": "Impact of 14 days of head-down bed rest and an exercise countermeasure on skeletal muscle atrophy, proteome and circulatory cytokines in older adults.",
+  "abstract": "Prolonged bed rest and immobilization have deleterious effects on skeletal muscle mass and function, especially in older adults. These can lead to reduced physical capacity and quality of life. Previous experiments in younger individuals show that exercise can mitigate these effects, but evidence remains scarce and inconclusive in older adults. Therefore, the aim of this study was to evaluate the effects of a mixed-exercise countermeasure on body composition, muscle volume, strength and quality in healthy, ageing adults during 2 weeks of head-down tilt bed rest and in the subsequent recovery period, and to explore the underlying mechanisms. Twenty-two participants (11 male and 11 female) aged 55-65 years completed the head-down tilt bed rest protocol. Participants were randomly assigned to either an exercise group (n = 11) undertaking three daily exercise sessions or a passive-mobilization control group (n = 11). Assessments of body composition, thigh muscle volume, muscle strength, blood markers and muscle biopsies were performed before, during and after bed rest, and after 4 weeks and 4 months of recovery. Bed rest induced significant declines in total and lower-limb lean body mass, knee-extensor strength and muscle quality. The mixed-exercise intervention mitigated the loss of thigh muscle volume but did not prevent reductions in total or lower-limb lean mass, strength or muscle quality. All participants had recovered fully after 4 weeks of recovery. In conclusion, daily participation in an exercise countermeasure preserves thigh muscle volume during 2 weeks of bed rest in healthy older adults but is insufficient to mitigate muscle strength and total lean mass.",
+  "input_sha256": "a258fd2b32e9d47dd97e467b4ece60f43d17775bb5992637f85280f77fef25b8",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 798,
+    "completion_tokens": 713,
+    "total_tokens": 1511,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 414
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio evaluó los efectos de un contramedida de ejercicio mixto durante 2 semanas de reposo en cama con inclinación de cabeza hacia abajo en adultos sanos de 55 a 65 años. El reposo en cama indujo disminuciones significativas en la masa magra total y de las extremidades inferiores, la fuerza extensora de la rodilla y la calidad muscular. El ejercicio mixto mitigó la pérdida de volumen del muslo, pero no previno las reducciones en la masa magra total o de las extremidades inferiores, la fuerza o la calidad muscular. Todos los participantes se recuperaron completamente después de 4 semanas.",
+    "summary_excerpt": "Bed rest induced significant declines in total and lower-limb lean body mass, knee-extensor strength and muscle quality. The mixed-exercise intervention mitigated the loss of thigh muscle volume but did not prevent reductions in total or lower-limb lean mass, strength or muscle quality. All participants had recovered fully after 4 weeks of recovery.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "El reposo en cama indujo disminuciones significativas en la masa magra total y de las extremidades inferiores, la fuerza extensora de la rodilla y la calidad muscular.",
+        "source_excerpt": "Bed rest induced significant declines in total and lower-limb lean body mass, knee-extensor strength and muscle quality."
+      },
+      {
+        "kind": "finding",
+        "text": "La intervención de ejercicio mixto mitigó la pérdida de volumen del músculo del muslo.",
+        "source_excerpt": "The mixed-exercise intervention mitigated the loss of thigh muscle volume"
+      },
+      {
+        "kind": "finding",
+        "text": "La intervención de ejercicio mixto no previno las reducciones en la masa magra total o de las extremidades inferiores, la fuerza o la calidad muscular.",
+        "source_excerpt": "did not prevent reductions in total or lower-limb lean mass, strength or muscle quality"
+      },
+      {
+        "kind": "finding",
+        "text": "Todos los participantes se recuperaron completamente después de 4 semanas de recuperación.",
+        "source_excerpt": "All participants had recovered fully after 4 weeks of recovery."
+      },
+      {
+        "kind": "implication",
+        "text": "La participación diaria en un contramedida de ejercicio preserva el volumen del músculo del muslo durante 2 semanas de reposo en cama en adultos mayores sanos, pero es insuficiente para mitigar la fuerza muscular y la masa magra total.",
+        "source_excerpt": "daily participation in an exercise countermeasure preserves thigh muscle volume during 2 weeks of bed rest in healthy older adults but is insufficient to mitigate muscle strength and total lean mass."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Contramedida de ejercicio mixto con tres sesiones diarias de ejercicio durante el reposo en cama con inclinación de cabeza hacia abajo.",
+        "source_excerpt": "Participants were randomly assigned to either an exercise group (n = 11) undertaking three daily exercise sessions or a passive-mobilization control group (n = 11)."
+      }
+    ]
+  }
+}

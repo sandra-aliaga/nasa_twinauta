@@ -7,20 +7,24 @@ from typing import Any
 
 from pydantic import TypeAdapter
 
-from app.config import BACKEND_DIR
+from app.config import BACKEND_DIR, get_settings
 from app.errors import not_found
 from app.recordings import PHYSIONET_RECORDING_ID, physionet_recording
 from app.schemas import (
     Assessment,
     Case,
     IndicatorDefinition,
+    KnowledgeBaseMetadata,
+    ModuleCatalog,
     Region,
     TelemetryPoint,
     TelemetryRecording,
     TelemetryWindow,
 )
+from app.scientific_bundle import ScientificBundle
 
 DATA_DIR = BACKEND_DIR / "data" / "demo"
+LITERATURE_DIR = BACKEND_DIR / "data" / "literature" / "candidates"
 
 
 def read_document(filename: str, directory: Path = DATA_DIR) -> Any:
@@ -28,12 +32,57 @@ def read_document(filename: str, directory: Path = DATA_DIR) -> Any:
     return json.loads((directory / filename).read_text(encoding="utf-8"))
 
 
+def read_literature_document(filename: str) -> Any:
+    """Read one versioned local literature document."""
+    bundle = configured_bundle()
+    if bundle is not None:
+        return bundle.document(filename)
+    return read_document(filename, LITERATURE_DIR)
+
+
+@lru_cache
+def configured_bundle() -> ScientificBundle | None:
+    """Validate an explicitly configured package once; never silently fall back."""
+    path = get_settings().scientific_bundle_path
+    return ScientificBundle(path) if path is not None else None
+
+
 @lru_cache
 def indicators() -> tuple[IndicatorDefinition, ...]:
     """Return the initial indicator catalog."""
-    return tuple(
-        TypeAdapter(list[IndicatorDefinition]).validate_python(read_document("indicators.json"))
-    )
+    bundle = configured_bundle()
+    document = bundle.document("indicators.json") if bundle else read_document("indicators.json")
+    return tuple(TypeAdapter(list[IndicatorDefinition]).validate_python(document))
+
+
+@lru_cache
+def health_modules() -> ModuleCatalog:
+    """Return the versioned catalog without enabling unreviewed interpretation."""
+    bundle = configured_bundle()
+    if bundle is not None:
+        return ModuleCatalog.model_validate(bundle.document("health-modules.json"))
+    return ModuleCatalog.model_validate(read_document("health-modules.json"))
+
+
+@lru_cache
+def knowledge_base_metadata() -> KnowledgeBaseMetadata:
+    """Describe the installed candidate corpus without promoting its evidence."""
+    metadata = read_literature_document("knowledge_base.json")
+    result = KnowledgeBaseMetadata.model_validate(metadata)
+    corpus = read_literature_document("corpus.json")
+    selected_count = corpus.get("selected_count")
+    if selected_count != result.paper_count:
+        raise ValueError("Knowledge-base metadata does not match the installed corpus.")
+    if result.reviewed_paper_count > result.paper_count:
+        raise ValueError("Reviewed paper count cannot exceed the installed corpus size.")
+    return result
+
+
+@lru_cache
+def candidate_papers() -> tuple[dict[str, Any], ...]:
+    """Return candidate records exactly as imported from the local corpus."""
+    corpus = read_literature_document("corpus.json")
+    return tuple(corpus["records"])
 
 
 @lru_cache

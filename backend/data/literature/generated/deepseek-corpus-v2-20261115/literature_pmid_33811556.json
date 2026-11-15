@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_33811556",
+  "title": "Daily 30-min exposure to artificial gravity during 60 days of bed rest does not maintain aerobic exercise capacity but mitigates some deteriorations of muscle function: results from the AGBRESA RCT.",
+  "abstract": "Purpose Spaceflight impairs physical capacity. Here we assessed the protective effect of artificial gravity (AG) on aerobic exercise capacity and muscle function during bed rest, a spaceflight analogue. Methods 24 participants (33 ± 9 years, 175 ± 9 cm, 74 ± 10 kg, 8 women) were randomly allocated to one of three groups: continuous AG (cAG), intermittent AG (iAG) or control (CTRL). All participants were subjected to 60 days of six-degree head-down tilt bed rest, and subjects of the intervention groups completed 30 min of centrifugation per day: cAG continuously and iAG for 6 × 5 min, with an acceleration of 1g at the center of mass. Physical capacity was assessed before and after bed rest via maximal voluntary contractions, cycling spiroergometry, and countermovement jumps. Results AG had no significant effect on aerobic exercise capacity, flexor muscle function and isometric knee extension strength or rate of force development (RFD). However, AG mitigated the effects of bed rest on jumping power (group * time interaction of the rmANOVA p  Conclusion The AG protocols were not suitable to maintain aerobic exercise capacity, probably due to the very low cardiorespiratory demand of this intervention. However, they mitigated some losses in muscle function, potentially due to the low-intensity muscle contractions during centrifugation used to avoid presyncope.",
+  "input_sha256": "bfd717978430a2b53923f6a18784995abcc58d627e8a3c3019b8c19f80a3eb95",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 847,
+    "completion_tokens": 560,
+    "total_tokens": 1407,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 463
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El resumen evalúa si la gravedad artificial (AG) protege la capacidad aeróbica y la función muscular durante 60 días de reposo en cama con inclinación de cabeza hacia abajo, un análogo de vuelo espacial. Participaron 24 personas asignadas a AG continua, AG intermitente o control. Se midió la capacidad física antes y después. La AG no tuvo efecto significativo en la capacidad aeróbica, función de flexores, fuerza isométrica de extensión de rodilla ni tasa de desarrollo de fuerza. Sin embargo, mitigó los efectos del reposo en cama sobre la potencia de salto. Los protocolos de AG no fueron adecuados para mantener la capacidad aeróbica, probablemente por la muy baja demanda cardiorrespiratoria, pero mitigaron algunas pérdidas de función muscular, posiblemente por contracciones musculares de baja intensidad durante la centrifugación.",
+    "summary_excerpt": "Purpose Spaceflight impairs physical capacity. Here we assessed the protective effect of artificial gravity (AG) on aerobic exercise capacity and muscle function during bed rest, a spaceflight analogue. Methods 24 participants (33 ± 9 years, 175 ± 9 cm, 74 ± 10 kg, 8 women) were randomly allocated to one of three groups: continuous AG (cAG), intermittent AG (iAG) or control (CTRL). All ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "AG no tuvo efecto significativo en la capacidad de ejercicio aeróbico, función muscular flexora y fuerza de extensión isométrica de rodilla ni tasa de desarrollo de fuerza.",
+        "source_excerpt": "Results AG had no significant effect on aerobic exercise capacity, flexor muscle function and isometric knee extension strength or rate of force development (RFD). However, AG mitigated the effects of bed rest on jumping power (group * time interaction of the rmANOVA p  Conclusion The AG protocols were not suitable to maintain aerobic exercise capacity, probably due to the very low "
+      },
+      {
+        "kind": "finding",
+        "text": "AG mitigó los efectos del reposo en cama sobre la potencia de salto (interacción grupo*tiempo del rmANOVA p...).",
+        "source_excerpt": "Results AG had no significant effect on aerobic exercise capacity, flexor muscle function and isometric knee extension strength or rate of force development (RFD). However, AG mitigated the effects of bed rest on jumping power (group * time interaction of the rmANOVA p  Conclusion The AG protocols were not suitable to maintain aerobic exercise capacity, probably due to the very low "
+      },
+      {
+        "kind": "implication",
+        "text": "Los protocolos de AG no fueron adecuados para mantener la capacidad de ejercicio aeróbico, probablemente debido a la muy baja demanda cardiorrespiratoria de esta intervención.",
+        "source_excerpt": "cardiorespiratory demand of this intervention. However, they mitigated some losses in muscle function, potentially due to the low-intensity muscle contractions during centrifugation used to avoid presyncope."
+      },
+      {
+        "kind": "implication",
+        "text": "Sin embargo, mitigaron algunas pérdidas en la función muscular, potencialmente debido a las contracciones musculares de baja intensidad durante la centrifugación utilizadas para evitar el presíncope.",
+        "source_excerpt": "cardiorespiratory demand of this intervention. However, they mitigated some losses in muscle function, potentially due to the low-intensity muscle contractions during centrifugation used to avoid presyncope."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Los participantes de los grupos de intervención completaron 30 min de centrifugación por día: cAG continuamente y iAG por 6×5 min, con una aceleración de 1g en el centro de masa.",
+        "source_excerpt": "participants were subjected to 60 days of six-degree head-down tilt bed rest, and subjects of the intervention groups completed 30 min of centrifugation per day: cAG continuously and iAG for 6 × 5 min, with an acceleration of 1g at the center of mass. Physical capacity was assessed before and after bed rest via maximal voluntary contractions, cycling spiroergometry, and countermovement jumps. "
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "status": "available_executions_completed",
+  "corpus_version": "candidate-corpus-2026-11-14",
+  "papers_total": 27,
+  "abstracts_prepared": 26,
+  "abstracts_without_source": [
+    "literature_pmid_41785029"
+  ],
+  "final_corpus_directory": "deepseek-corpus-v2-20261115",
+  "final_context_directory": "deepseek-context-v3-20261114",
+  "context_prompt_version": "context-synthesis-0.3",
+  "context_sections": [
+    "alert_assessment",
+    "inaction_scenario",
+    "next_steps"
+  ],
+  "total_calls_attempted_including_pilots": 38,
+  "responses_with_recorded_usage": 36,
+  "unknown_usage_attempts": [
+    "Initial contextual synthesis rejected before usage persistence was added.",
+    "One in-flight abstract request interrupted while fixing repeated output failures."
+  ],
+  "reported_usage": {
+    "prompt_tokens": 47471,
+    "completion_tokens": 22930,
+    "total_tokens": 70401,
+    "prompt_cache_hit_tokens": 11520,
+    "prompt_cache_miss_tokens": 35951
+  },
+  "known_usage_estimate_usd_off_peak": 0.069382,
+  "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "cost_scope": "Estimated recorded usage only. Excludes two attempts with unknown usage; not account balance or invoice.",
+  "review_status": "pending",
+  "clinical_action_eligible": false,
+  "database_modified": false,
+  "frontend_integrated": false,
+  "checks": [
+    "All26 source hashes and literal excerpts verified.",
+    "Three contextual graphs and references verified.",
+    "Corrected case wording inspected; no individual trajectory or preserved-current-size conclusion."
+  ],
+  "remaining": [
+    "Medical/semantic review of corpus summaries.",
+    "One candidate lacks an abstract; no content was invented.",
+    "Publication/persistence and frontend integration remain pending."
+  ]
+}

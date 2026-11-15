@@ -1,0 +1,49 @@
+{
+  "paper_id": "literature_pmid_29570535",
+  "title": "Overview of the NASA 70-day Bed Rest Study.",
+  "abstract": "Purpose The purpose of this article was to provide an overview of the National Aeronautics and Space Administration (NASA) 70-day Bed Rest Study. The integrated complement of investigations and the standardized bed rest environment that served as the platform for this study complement are described. Outcomes of the studies will not be presented here but will be reported in separate publications. Methods A set of studies running in an integrated fashion along the entire period (pre-, in-, and post-bed rest) and using the same subjects is referred in this article as \"the campaign\" or \"complement.\" NASA selected eight individual studies to participate in the 70-d bed rest campaign. These studies were integrated to increase efficiency in the utilization of resources and to share common measures among the investigations. In addition to the individual studies addressing specific aims, a battery of standardized measures was included. Standard measures target a wide range of physiologic systems and represent some of the testing routinely done on astronauts. Bed rest subjects underwent rigorous medical and psychological screening. Standardized conditions included 70 d of bed rest in a 6° head-down tilt position. Subjects' vital signs, body weight, and fluid intake and output were measured daily. A standardized diet was provided to ensure consistent nutritional intake across subjects. Exercising subjects were prescribed individualized aerobic and resistance training 6 d·wk performed in a horizontal body position. Subjects in the testosterone supplementation countermeasure group received testosterone enanthate injections at 2-wk intervals during bed rest. Conclusion Long-duration head-down tilt bed rest provided a suitable platform for examining physiologic effects of spaceflight and testing countermeasures in a ground-based model. Integrating studies into a complement is an effective way to support multiple investigations while minimizing the number of subjects to answer many research questions.",
+  "input_sha256": "b4338c42175d9f2ff2437bcf3144489557260d60890651a2a9289c33a6c35718",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 804,
+    "completion_tokens": 615,
+    "total_tokens": 1419,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 420
+  },
+  "charged_in_this_run": false,
+  "analysis": {
+    "summary": "Este resumen presenta una visión general del estudio de reposo en cama de 70 días de la NASA, que utilizó un entorno de reposo en cama estandarizado con inclinación de cabeza hacia abajo de 6° como plataforma para múltiples investigaciones integradas sobre los efectos fisiológicos del vuelo espacial y contramedidas. El estudio incluyó un complemento de ocho investigaciones y medidas estandarizadas, con sujetos sometidos a reposo en cama de 70 días, dieta estandarizada, mediciones diarias y contramedidas de ejercicio y suplementación de testosterona.",
+    "summary_excerpt": "Long-duration head-down tilt bed rest provided a suitable platform for examining physiologic effects of spaceflight and testing countermeasures in a ground-based model.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "El reposo en cama de larga duración con inclinación de cabeza hacia abajo (6°) es una plataforma adecuada para examinar los efectos fisiológicos del vuelo espacial y probar contramedidas en un modelo terrestre.",
+        "source_excerpt": "Long-duration head-down tilt bed rest provided a suitable platform for examining physiologic effects of spaceflight and testing countermeasures in a ground-based model."
+      },
+      {
+        "kind": "finding",
+        "text": "La integración de estudios en un complemento es una forma efectiva de apoyar múltiples investigaciones mientras se minimiza el número de sujetos necesarios para responder muchas preguntas de investigación.",
+        "source_excerpt": "Integrating studies into a complement is an effective way to support multiple investigations while minimizing the number of subjects to answer many research questions."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Reposo en cama de 70 días en posición de inclinación de cabeza hacia abajo de 6° como modelo de los efectos fisiológicos del vuelo espacial.",
+        "source_excerpt": "Standardized conditions included 70 d of bed rest in a 6° head-down tilt position."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Ejercicio aeróbico y de resistencia individualizado realizado en posición horizontal del cuerpo durante 6 días por semana.",
+        "source_excerpt": "Exercising subjects were prescribed individualized aerobic and resistance training 6 d·wk performed in a horizontal body position."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Suplementación con enantato de testosterona mediante inyecciones cada 2 semanas durante el reposo en cama.",
+        "source_excerpt": "Subjects in the testosterone supplementation countermeasure group received testosterone enanthate injections at 2-wk intervals during bed rest."
+      }
+    ]
+  },
+  "reused_from": "data/literature/generated/deepseek-corpus-20261115/literature_pmid_29570535.json"
+}

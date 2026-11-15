@@ -1,0 +1,262 @@
+{
+  "status": "ready_for_review",
+  "corpus_version": "candidate-corpus-2026-11-14",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "maximum_calls": 18,
+  "calls_attempted": 18,
+  "review_status": "pending",
+  "clinical_action_eligible": false,
+  "records": [
+    {
+      "paper_id": "literature_pmid_33251515",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_38328821",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_29570535",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_29924746",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 876,
+        "completion_tokens": 492,
+        "total_tokens": 1368,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 876
+      }
+    },
+    {
+      "paper_id": "literature_pmid_32864428",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 982,
+        "completion_tokens": 414,
+        "total_tokens": 1396,
+        "prompt_cache_hit_tokens": 0,
+        "prompt_cache_miss_tokens": 982
+      }
+    },
+    {
+      "paper_id": "literature_pmid_36737441",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 696,
+        "completion_tokens": 333,
+        "total_tokens": 1029,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 312
+      }
+    },
+    {
+      "paper_id": "literature_pmid_33811556",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 847,
+        "completion_tokens": 560,
+        "total_tokens": 1407,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 463
+      }
+    },
+    {
+      "paper_id": "literature_pmid_41316901",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_42185309",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_41785029",
+      "status": "skipped_no_abstract",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_40828606",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 690,
+        "completion_tokens": 464,
+        "total_tokens": 1154,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 306
+      }
+    },
+    {
+      "paper_id": "literature_pmid_40353798",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 974,
+        "completion_tokens": 599,
+        "total_tokens": 1573,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 590
+      }
+    },
+    {
+      "paper_id": "literature_pmid_39792484",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 1206,
+        "completion_tokens": 466,
+        "total_tokens": 1672,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 822
+      }
+    },
+    {
+      "paper_id": "literature_pmid_37856286",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_33347733",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_41894197",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_41719153",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 1037,
+        "completion_tokens": 568,
+        "total_tokens": 1605,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 653
+      }
+    },
+    {
+      "paper_id": "literature_pmid_39155274",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 794,
+        "completion_tokens": 535,
+        "total_tokens": 1329,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 410
+      }
+    },
+    {
+      "paper_id": "literature_pmid_40163643",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 960,
+        "completion_tokens": 517,
+        "total_tokens": 1477,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 576
+      }
+    },
+    {
+      "paper_id": "literature_pmid_36102002",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 955,
+        "completion_tokens": 608,
+        "total_tokens": 1563,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 571
+      }
+    },
+    {
+      "paper_id": "literature_pmid_33703945",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 1084,
+        "completion_tokens": 625,
+        "total_tokens": 1709,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 700
+      }
+    },
+    {
+      "paper_id": "literature_pmid_38874988",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 838,
+        "completion_tokens": 414,
+        "total_tokens": 1252,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 454
+      }
+    },
+    {
+      "paper_id": "literature_pmid_31474878",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 989,
+        "completion_tokens": 387,
+        "total_tokens": 1376,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 605
+      }
+    },
+    {
+      "paper_id": "literature_pmid_31098391",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 829,
+        "completion_tokens": 483,
+        "total_tokens": 1312,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 445
+      }
+    },
+    {
+      "paper_id": "literature_pmid_39920735",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 804,
+        "completion_tokens": 488,
+        "total_tokens": 1292,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 420
+      }
+    },
+    {
+      "paper_id": "literature_pmid_41983453",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 1354,
+        "completion_tokens": 392,
+        "total_tokens": 1746,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 970
+      }
+    },
+    {
+      "paper_id": "literature_pmid_36883219",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 1494,
+        "completion_tokens": 511,
+        "total_tokens": 2005,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 1110
+      }
+    }
+  ],
+  "started_at": "2026-11-15T05:11:13.240379+00:00",
+  "finished_at": "2026-11-15T05:12:37.294274+00:00",
+  "reported_usage": {
+    "prompt_tokens": 17409,
+    "completion_tokens": 8856,
+    "total_tokens": 26265
+  }
+}

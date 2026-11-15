@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_38874988",
+  "title": "The role of muscle disuse in muscular and cardiovascular fitness: A systematic review and meta-regression.",
+  "abstract": "We aimed to assess the effects of muscle disuse on muscle strength (MS), muscle mass (MM) and cardiovascular fitness. Databases were scrutinized to identify human studies assessing the effects of muscle disuse on both (1) MM and (2) maximal oxygen uptake (VO 2max ) and/or MS. Random-effects meta-analysis and meta-regression with initial physical fitness and length of the protocol as a priori determined moderators were performed. We quantitatively analyzed 51 different studies, and the level of significance was set at p  2max  (SMD: -0.93; 95% CI: -1.27 to -0.58) and MM (SMD: -0.34; 95% CI: -0.57 to -0.10). Data from 47 studies showed a decline in strength (-0.88; 95% CI: -1.04 to -0.73) and mass (SMD: -0.47; 95% CI: -0.58 to -0.36). MS loss was twice as high as MM loss, but differences existed between anatomical regions. Notably, meta-regression analysis revealed that initial MS was inversely associated with MS decline. VO 2max  and MS decline to a higher extent than MM during muscle disuse. We reported a more profound strength loss in subjects with high muscular strength. This is physiologically relevant for athletes because their required muscular strength can profoundly decline during a period of muscle disuse. It should however be noted that a period of muscle disuse can have devastating consequences in old subjects with low muscular strength.",
+  "input_sha256": "815ed60a311350a8fa66012b2a8b4a23b0c98c0f32bd0139b3fc5619b7b29f0a",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 838,
+    "completion_tokens": 414,
+    "total_tokens": 1252,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 454
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "This meta-analysis of 51 studies examined how muscle disuse affects muscle strength (MS), muscle mass (MM), and cardiovascular fitness. Disuse significantly reduced VO2max, MS, and MM. MS declined about twice as much as MM, with regional differences. Higher initial MS predicted greater strength loss. The authors note that disuse can have serious consequences for older adults with low muscular strength.",
+    "summary_excerpt": "determined moderators were performed. We quantitatively analyzed 51 different studies, and the level of significance was set at p  2max  (SMD: -0.93; 95% CI: -1.27 to -0.58) and MM (SMD: -0.34; 95% CI: -0.57 to -0.10). Data from 47 studies showed a decline in strength (-0.88; 95% CI: -1.04 to -0.73) and mass (SMD: -0.47; 95% CI: -0.58 to -0.36). MS loss was twice as high as MM loss, but ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Muscle disuse significantly reduced VO2max (SMD: -0.93; 95% CI: -1.27 to -0.58) and MM (SMD: -0.34; 95% CI: -0.57 to -0.10).",
+        "source_excerpt": "determined moderators were performed. We quantitatively analyzed 51 different studies, and the level of significance was set at p  2max  (SMD: -0.93; 95% CI: -1.27 to -0.58) and MM (SMD: -0.34; 95% CI: -0.57 to -0.10). Data from 47 studies showed a decline in strength (-0.88; 95% CI: -1.04 to -0.73) and mass (SMD: -0.47; 95% CI: -0.58 to -0.36). MS loss was twice as high as MM loss, but "
+      },
+      {
+        "kind": "finding",
+        "text": "Data from 47 studies showed a decline in strength (-0.88; 95% CI: -1.04 to -0.73) and mass (SMD: -0.47; 95% CI: -0.58 to -0.36).",
+        "source_excerpt": "determined moderators were performed. We quantitatively analyzed 51 different studies, and the level of significance was set at p  2max  (SMD: -0.93; 95% CI: -1.27 to -0.58) and MM (SMD: -0.34; 95% CI: -0.57 to -0.10). Data from 47 studies showed a decline in strength (-0.88; 95% CI: -1.04 to -0.73) and mass (SMD: -0.47; 95% CI: -0.58 to -0.36). MS loss was twice as high as MM loss, but "
+      },
+      {
+        "kind": "finding",
+        "text": "MS loss was twice as high as MM loss, but differences existed between anatomical regions.",
+        "source_excerpt": "determined moderators were performed. We quantitatively analyzed 51 different studies, and the level of significance was set at p  2max  (SMD: -0.93; 95% CI: -1.27 to -0.58) and MM (SMD: -0.34; 95% CI: -0.57 to -0.10). Data from 47 studies showed a decline in strength (-0.88; 95% CI: -1.04 to -0.73) and mass (SMD: -0.47; 95% CI: -0.58 to -0.36). MS loss was twice as high as MM loss, but "
+      },
+      {
+        "kind": "finding",
+        "text": "Meta-regression analysis revealed that initial MS was inversely associated with MS decline.",
+        "source_excerpt": "differences existed between anatomical regions. Notably, meta-regression analysis revealed that initial MS was inversely associated with MS decline. VO 2max  and MS decline to a higher extent than MM during muscle disuse. We reported a more profound strength loss in subjects with high muscular strength. This is physiologically relevant for athletes because their required muscular strength can "
+      },
+      {
+        "kind": "implication",
+        "text": "A period of muscle disuse can have devastating consequences in old subjects with low muscular strength.",
+        "source_excerpt": "profoundly decline during a period of muscle disuse. It should however be noted that a period of muscle disuse can have devastating consequences in old subjects with low muscular strength."
+      }
+    ]
+  }
+}

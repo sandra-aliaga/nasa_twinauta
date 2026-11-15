@@ -2,11 +2,11 @@
 
 Software exploratorio de salud espacial para comprender indicadores, consultar su evidencia y revisar siguientes pasos. El recorrido principal comienza en el modelo anatómico 3D.
 
-**Para continuar:** [entrega prioritaria a frontend](docs/ENTREGA_FRONTEND.md), [backlog backend v2](docs/backlog-backend-v2.md) y [traspaso a otra IA](docs/CONTINUAR_CON_OTRA_IA.md). El contrato 0.2 está implementado; la [ampliación modular 0.3](contracts/drafts/scientific-explorer-0.3/README.md) está documentada para revisión y maquetación, todavía sin sus nuevos endpoints.
+**Para continuar:** [entrega prioritaria a frontend](docs/ENTREGA_FRONTEND.md), [backlog backend v2](docs/backlog-backend-v2.md) y [traspaso a otra IA](docs/CONTINUAR_CON_OTRA_IA.md). El [contrato vigente 0.3.0](contracts/openapi.yaml) incluye biblioteca, orientación y síntesis contextual por evaluación. La [base compartida para frontend](backups/README.md) contiene los 27 papers, 26 resúmenes y el contexto de demostración.
 
 ## Estado
 
-Contrato compartido 0.2 y código inicial de integración. Incluye backend FastAPI/PostgreSQL con datos sintéticos y setup mínimo de React/TypeScript/Vite/Tailwind. El modelo científico, la anatomía y las pantallas de producto siguen pendientes.
+Contrato compartido 0.3.0 y backend de integración. Incluye backend FastAPI/PostgreSQL con datos sintéticos y setup mínimo de React/TypeScript/Vite/Tailwind. El modelo científico, la anatomía y las pantallas de producto siguen pendientes.
 
 La implementación del backend inicial y el setup mínimo del frontend están autorizados. No se ha desplegado infraestructura ni creado CI o una suite de pruebas. Consultar [backend](backend/README.md) y [frontend](frontend/README.md) para instalación y límites de verificación.
 
@@ -15,7 +15,7 @@ La implementación del backend inicial y el setup mínimo del frontend están au
 - Backend: Python + FastAPI, con modelos de entrada/salida de Pydantic.
 - Frontend: React + TypeScript + Vite + Tailwind. Se mantienen React Three Fiber/Drei y React Flow como propuesta para la implementación posterior de interfaz.
 - Persistencia: PostgreSQL como base principal para el despliegue en nube; archivos científicos separados y versionados.
-- Comunicación: HTTP/JSON, contrato OpenAPI 3.1. Resúmenes mediante plantillas inicialmente.
+- Comunicación: HTTP/JSON, contrato OpenAPI 3.1. Resúmenes preparados con IA y persistidos; consultas sin generación automática.
 
 Los manifests definen las dependencias iniciales; el setup mínimo de frontend conserva el diseño y los componentes del producto a cargo de su responsable.
 

@@ -1,6 +1,6 @@
 # Frontend
 
-Responsable: integrante de Sistemas a cargo de interfaz. Hay un primer esqueleto navegable sobre React + TypeScript + Vite + Tailwind CSS. Three, React Three Fiber y Drei están instaladas; grafos y gráficas se añadirán por etapas.
+Responsable: integrante de Sistemas a cargo de interfaz. Hay un primer esqueleto navegable sobre React + TypeScript + Vite + Tailwind CSS. Three, React Three Fiber, Drei y React Flow están instalados; la ampliación de la biblioteca y la síntesis contextual se integrarán por etapas.
 
 ## Arranque del setup
 
@@ -41,7 +41,7 @@ make frontend-check
 | Evaluación de la zona | Resumen, hallazgos, indicadores con procedencia y ausencias, ejercicio, límites y fuentes. |
 | Evolución del escenario | Estado, motivo y supuestos; tabla de puntos si está disponible. Gráfica pendiente. |
 | Siguientes pasos | Acciones, elegibilidad, revisión y seguimiento con `expected_revision` y recarga ante 409. |
-| Grafos | Navegación entre las tres vistas preparada; visualización con React Flow pendiente. |
+| Grafos | Tres vistas de Graph con React Flow; falta conectar GraphPage y síntesis de /context del backend 0.3. |
 | Frecuencia cardíaca | Panel con metadatos y procedencia; reproducción por ventanas pendiente. |
 
 En modo `examples` el contrato solo contiene una evaluación fija del día 10; la interfaz avisa cuando el día pedido no coincide. Los apartados siguientes describen el producto completo, no funcionalidades terminadas.
@@ -50,7 +50,7 @@ En modo `examples` el contrato solo contiene una evaluación fija del día 10; l
 
 **Entrega prioritaria y autocontenida:** [docs/ENTREGA_FRONTEND.md](../docs/ENTREGA_FRONTEND.md). Distingue las rutas actuales de las propuestas, enumera los archivos a compartir y da el orden de implementación de interfaz.
 
-**Ampliación de producto:** la biblioteca científica es parte central de la experiencia. Leer la [propuesta del explorador 0.3](../contracts/drafts/scientific-explorer-0.3/README.md) y el [flujo contextual y sin conexión](../docs/explorador-cientifico.md). Incluye estructuras y ejemplos para buscar papers, ampliar grafos, abrir resumen/original, mostrar estadísticas y estados de análisis de IA. Esos endpoints todavía no existen: trabajar mediante un adaptador mock separado del cliente 0.2, con estado de demostración visible. No añadir llamadas directas del navegador a proveedores de IA.
+**Ampliación de producto:** la biblioteca científica es parte central de la experiencia. Leer la [propuesta del explorador 0.3](../contracts/drafts/scientific-explorer-0.3/README.md) y el [flujo contextual y sin conexión](../docs/explorador-cientifico.md). Incluye estructuras y ejemplos para buscar papers, ampliar grafos, abrir resumen/original, mostrar estadísticas y estados de análisis de IA. Las rutas de biblioteca y síntesis están implementadas en el contrato vigente 0.3.0. Consultar la entrega frontend y restaurar el respaldo compartido para trabajar con los mismos datos. No añadir llamadas directas del navegador a proveedores de IA.
 
 1. [Plan y recorrido](../docs/plan-mvp.md).
 2. [Contrato compartido](../contracts/README.md).
@@ -96,7 +96,7 @@ Al comenzar la aplicación, implementar un adaptador que pueda leer los ejemplos
 
 Cubrir carga, error de conexión, región sin seleccionar, evaluación parcial/insuficiente, escenario fuera de dominio y grafo vacío. Sus reglas están en [el contrato](../contracts/README.md).
 
-El contrato actual es 0.2. La [revisión de cobertura](../docs/revision-contratos.md) distingue acuerdos técnicos de insumos todavía pendientes. Los [otros estados de ejemplo](../contracts/examples/assessment-states.json) permiten maquetar el recorrido completo sin asumir una validación científica.
+El contrato vigente es 0.3.0; los tipos se regeneraron desde contracts/openapi.yaml después de integrar ambas ramas. La [revisión de cobertura](../docs/revision-contratos.md) distingue acuerdos técnicos de insumos todavía pendientes. Los [otros estados de ejemplo](../contracts/examples/assessment-states.json) permiten maquetar el recorrido completo sin asumir una validación científica.
 
 Se propone `VITE_API_BASE_URL=http://localhost:8000/api/v1` para desarrollo. No colocar secretos en variables públicas del frontend.
 

@@ -344,6 +344,9 @@ class Assessment(ContractModel):
         return self
 
 
+type GraphView = Literal["evidence", "scenario", "actions"]
+
+
 class GraphNode(ContractModel):
     """Represent the GraphNode contract payload."""
 
@@ -494,6 +497,322 @@ class IndicatorDefinition(ContractModel):
     region_id: str | None
     description: str
     baseline_interpretation: str
+
+
+class HealthModule(ContractModel):
+    """Describe the implemented and scientifically reviewed coverage of a module."""
+
+    id: Annotated[str, Field(min_length=1)]
+    version: Annotated[str, Field(min_length=1)]
+    label: str
+    region_ids: list[str]
+    indicator_ids: list[str]
+    implementation_status: Literal["planned", "prototype", "available"]
+    interpretation_status: Literal["unavailable", "review_pending", "reviewed"]
+    coverage_description: str
+    limitations: list[str]
+
+
+class ModuleCatalog(ContractModel):
+    """Represent the versioned catalog of scientific modules."""
+
+    catalog_version: Annotated[str, Field(min_length=1)]
+    modules: list[HealthModule]
+
+
+class KnowledgeBaseMetadata(ContractModel):
+    """Describe the installed scientific corpus and its consultation limits."""
+
+    corpus_version: Annotated[str, Field(min_length=1)]
+    published_at: datetime
+    last_sync_at: datetime | None
+    runtime_mode: Literal["local_bundle", "hosted_catalog"]
+    external_services_required_for_consultation: bool
+    paper_count: Annotated[int, Field(ge=0, strict=True)]
+    reviewed_paper_count: Annotated[int, Field(ge=0, strict=True)]
+    analysis_policy: Literal["precomputed", "local_model", "not_configured"]
+    rules_version: str | None
+
+
+class PaperIdentifiers(ContractModel):
+    """Represent stable identifiers available for a literature record."""
+
+    doi: str | None
+    pmid: str | None
+    pmcid: str | None
+
+
+class PaperAccess(ContractModel):
+    """Describe remote and local access without implying full-text availability."""
+
+    landing_url: str
+    full_text_url: str | None
+    pdf_url: str | None
+    availability: Literal["open_access", "landing_only", "unknown"]
+    license: str | None
+    full_text_cached: bool
+    pdf_cached: bool
+    local_document_url: str | None
+
+
+class PaperCard(ContractModel):
+    """Represent a discovery card, not an audited evidence statement."""
+
+    id: Annotated[str, Field(min_length=1)]
+    title: str
+    authors: list[str]
+    year: Annotated[int, Field(ge=1800, strict=True)]
+    identifiers: PaperIdentifiers
+    sections: list[Literal["evidence", "scenario", "actions"]]
+    region_ids: list[str]
+    study_design: str | None
+    environment: Literal[
+        "spaceflight", "bed_rest", "terrestrial_exercise", "other", "mixed", "unknown"
+    ]
+    review_status: Literal["pending", "reviewed"]
+    access: PaperAccess
+    indicator_ids: list[str]
+
+
+class Page(ContractModel):
+    """Represent opaque cursor state for a page of results."""
+
+    next_cursor: str | None
+    has_more: bool
+
+
+class PaperPage(ContractModel):
+    """Represent one page of bibliographic discovery results."""
+
+    corpus_version: Annotated[str, Field(min_length=1)]
+    items: list[PaperCard]
+    total_matching: Annotated[int, Field(ge=0, strict=True)]
+    page: Page
+
+
+class PaperSummary(ContractModel):
+    """Describe whether a reviewed summary is available for a paper."""
+
+    status: Literal["available", "pending", "unavailable"]
+    text: str | None
+    basis: Literal["full_text", "abstract", "metadata_only", "not_prepared"]
+    method: Literal["editorial", "llm_assisted", "not_prepared"]
+    review_status: Literal["pending", "reviewed"]
+    source_locators: list[str]
+    limitations: list[str]
+
+
+class PaperStatistic(ContractModel):
+    """Represent a reviewed quantitative extraction when one exists."""
+
+    id: str
+    outcome: str
+    anatomy: str
+    group_label: str
+    timepoint_label: str
+    sample_size: Annotated[int, Field(ge=1, strict=True)] | None
+    value: float
+    unit: str
+    statistic_type: Literal["group_mean", "individual_value", "change_rate", "effect_estimate"]
+    dispersion: dict[str, object] | None
+    interval: dict[str, object] | None
+    source_locator: str
+    source_url: str
+    extraction_review_status: Literal["pending", "reviewed"]
+    limitations: list[str]
+
+
+class PaperAnalysisItem(ContractModel):
+    """Represent a traceable analysis item, including pending suggestions."""
+
+    id: str
+    kind: Literal["finding", "implication", "studied_intervention"]
+    text: str
+    source_locator: str
+    source_excerpt: Annotated[str, Field(max_length=500)]
+    review_status: Literal["pending", "reviewed"]
+    limitations: list[str]
+
+
+class PaperAnalysis(ContractModel):
+    """Describe the state of optional abstract or full-text analysis."""
+
+    status: Literal["not_requested", "queued", "running", "ready", "failed"]
+    input_basis: Literal["abstract", "full_text", "not_prepared"]
+    input_sha256: str | None
+    prompt_version: str | None
+    model_id: str | None
+    generated_at: datetime | None
+    items: list[PaperAnalysisItem]
+    failure_reason: str | None
+
+
+class PaperContextCheck(ContractModel):
+    """Represent one contextual applicability dimension."""
+
+    dimension: Literal[
+        "measurement_method",
+        "population",
+        "environment",
+        "exposure_duration",
+        "measurement_timepoint",
+        "available_resources",
+    ]
+    match: Literal["match", "mismatch", "unknown"]
+    reason: str
+    source_locators: list[str]
+
+
+class PaperApplicability(ContractModel):
+    """Keep individual applicability separate from bibliographic discovery."""
+
+    assessment_id: str | None
+    status: Literal[
+        "not_evaluated",
+        "context_match",
+        "analog_only",
+        "not_comparable",
+        "insufficient_data",
+    ]
+    explanation: str
+    considered_observation_ids: list[str]
+    checks: list[PaperContextCheck]
+    rule_id: str | None
+    rule_version: str | None
+    review_status: Literal["pending", "reviewed"]
+
+
+class GuidanceStep(ContractModel):
+    """Describe a next step without automatically enabling a clinical action."""
+
+    id: str
+    title: str
+    description: str
+    kind: Literal["operational_review", "studied_intervention"]
+    eligibility: Literal["eligible", "ineligible", "unknown"]
+    eligibility_reason: str
+    rule_id: str | None
+    rule_version: str | None
+    paper_ids: list[str]
+    review_status: Literal["pending", "reviewed"]
+
+    @model_validator(mode="after")
+    def validate_eligibility(self) -> Self:
+        """Require reviewed rules before exposing an eligible step."""
+        if self.eligibility == "eligible" and (
+            self.review_status != "reviewed" or not self.rule_id or not self.rule_version
+        ):
+            raise ValueError("Eligible guidance requires a reviewed, versioned rule.")
+        return self
+
+
+class Guidance(ContractModel):
+    """Freeze module coverage, data limitations and proposed operational steps."""
+
+    assessment_id: str
+    module_id: str | None
+    module_version: str | None
+    status: Literal["complete", "partial", "insufficient_data", "not_supported", "review_pending"]
+    attention: Literal["informational", "review_needed", "unknown"]
+    summary: str
+    reason: str | None
+    observation_ids: list[str]
+    paper_ids: list[str]
+    applicability: list[PaperApplicability]
+    steps: list[GuidanceStep]
+    limitations: list[str]
+    corpus_version: str | None
+    rules_version: str | None
+    created_at: datetime | None
+
+    @model_validator(mode="after")
+    def validate_references(self) -> Self:
+        """Keep one snapshot context and resolve paper references."""
+        unique_ids(self.observation_ids, "Guidance observation")
+        papers = unique_ids(self.paper_ids, "Guidance paper")
+        unique_ids([step.id for step in self.steps], "Guidance step")
+        if any(not set(step.paper_ids).issubset(papers) for step in self.steps):
+            raise ValueError("A guidance step references a missing paper.")
+        if any(item.assessment_id != self.assessment_id for item in self.applicability):
+            raise ValueError("Applicability must belong to the same assessment.")
+        if self.status != "complete" and not self.reason:
+            raise ValueError("Incomplete guidance must explain its limitations.")
+        return self
+
+
+class PaperDetail(ContractModel):
+    """Represent a paper detail page without promoting candidate evidence."""
+
+    paper: PaperCard
+    abstract: str | None
+    summary: PaperSummary
+    population_description: str | None
+    cohort_ids: list[str]
+    cohort_overlap_status: Literal["unknown", "possible_overlap", "documented"]
+    statistics: list[PaperStatistic]
+    limitations: list[str]
+    corpus_version: Annotated[str, Field(min_length=1)]
+    analysis: PaperAnalysis
+    applicability: PaperApplicability
+
+
+class KnowledgeNode(ContractModel):
+    """Represent a paper or editorial topic in the discovery graph."""
+
+    id: str
+    kind: Literal["paper", "indicator", "claim", "action", "topic", "intervention"]
+    label: str
+    paper_id: str | None
+    entity_id: str | None
+    review_status: Literal["pending", "reviewed"]
+
+
+class KnowledgeEdge(ContractModel):
+    """Represent a traceable, non-causal discovery relation."""
+
+    id: str
+    source: str
+    target: str
+    relation: Literal[
+        "cites",
+        "addresses",
+        "reports",
+        "supports",
+        "contradicts",
+        "qualifies",
+        "same_cohort",
+        "possible_cohort_overlap",
+    ]
+    basis: Literal[
+        "provider_metadata",
+        "editorial_classification",
+        "reviewed_extraction",
+        "llm_suggestion",
+    ]
+    source_paper_ids: list[str]
+    source_locators: list[str]
+    review_status: Literal["pending", "reviewed"]
+
+
+class GraphCounts(ContractModel):
+    """Summarize paper coverage in one graph page."""
+
+    papers_matching: Annotated[int, Field(ge=0, strict=True)]
+    papers_returned: Annotated[int, Field(ge=0, strict=True)]
+    papers_reviewed_returned: Annotated[int, Field(ge=0, strict=True)]
+
+
+class GraphPage(ContractModel):
+    """Represent one paginated discovery graph projection."""
+
+    corpus_version: Annotated[str, Field(min_length=1)]
+    assessment_id: str | None
+    view: Literal["evidence", "scenario", "actions"]
+    nodes: list[KnowledgeNode]
+    edges: list[KnowledgeEdge]
+    page: Page
+    scope_description: str
+    counts: GraphCounts
 
 
 class EvidenceClaim(ContractModel):

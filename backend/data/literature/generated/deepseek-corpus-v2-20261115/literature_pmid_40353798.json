@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_40353798",
+  "title": "Twenty-one days of bed rest alter motor unit properties and neuromuscular junction transmission in young adults.",
+  "abstract": "Previous studies showed that properties of higher-threshold motor units (MUs) and neuromuscular junction (NMJ) function are preserved during short-term disuse. This study aimed to test how a longer disuse period affects MU properties, NMJ transmission, and NMJ morphology remodeling. Nine young healthy males (age: 18-29 yr) underwent 21 days of horizontal bed rest. Pre- (BR0) and postbed rest (BR21), quadriceps maximal voluntary contraction (MVC), and size were assessed. We combined intramuscular electromyography (iEMG) and high-density surface electromyography (HDsEMG) recordings on the vastus lateralis to assess MU properties at 25% and 50% of MVC. Muscle biopsies and blood samples were also collected. Quadriceps MVC and size decreased at BR21. We found alterations in MU properties at both contraction intensities, including reduced discharge rate, MU potential area changes, and increased complexity. NMJ transmission was found to be reduced at BR21 at 25% MVC. This functional NMJ impairment was biochemically corroborated by an increase in serum C-terminal agrin fragment concentration, a biomarker of NMJ instability. In addition, a direct assessment of NMJ morphology revealed the presence of some denervated NMJs exclusively at BR21. In conclusion, 21-day bed rest altered MU properties across different contraction intensities and impaired NMJ transmission with initial signs of remodeling/denervation. Disuse duration appears to be a critical factor, as previous shorter studies failed to detect some of these changes. We believe these findings are clinically relevant for disuse after trauma, surgery, or illness and may support the development of effective countermeasures. NEW & NOTEWORTHY  Leveraging both intramuscular and high-density surface EMG recordings in the vastus lateralis, we identified alterations in motor unit (MU) properties in young adults after 21 days of bed rest. These included reduced discharge rates and changes in MU potential size and complexity, observed at both low and moderate contraction intensities. Evidence of impaired neuromuscular junction (NMJ) function and denervation was also found. Our findings indicate that medium-term disuse elicits MU-level changes not detected in shorter-duration studies.",
+  "input_sha256": "d1778e91bcbf0a1842e68d8a842db3e5f36b4c3132061c39fef3b1a89816f952",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 974,
+    "completion_tokens": 599,
+    "total_tokens": 1573,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 590
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "En nueve varones jóvenes sanos, 21 días de reposo en cama redujeron la contracción voluntaria máxima y el tamaño del cuádriceps. Mediante electromiografía intramuscular y de superficie de alta densidad en el vasto lateral, se observaron alteraciones en las propiedades de las unidades motoras a intensidades de contracción del 25% y 50%, con menor tasa de descarga, cambios en el área del potencial y mayor complejidad. La transmisión neuromuscular se redujo al 25% de la contracción máxima, respaldada por aumento del fragmento C-terminal de agrina sérica. La evaluación morfológica reveló algunas uniones neuromusculares denervadas solo tras el reposo. Estos cambios no se detectaron en estudios previos más cortos, lo que sugiere que la duración del desuso es un factor crítico y apoya el desarrollo de contramedidas.",
+    "summary_excerpt": "the presence of some denervated NMJs exclusively at BR21. In conclusion, 21-day bed rest altered MU properties across different contraction intensities and impaired NMJ transmission with initial signs of remodeling/denervation. Disuse duration appears to be a critical factor, as previous shorter studies failed to detect some of these changes. We believe these findings are clinically relevant for ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Tras 21 días de reposo en cama, la contracción voluntaria máxima y el tamaño del cuádriceps disminuyeron en nueve varones jóvenes sanos.",
+        "source_excerpt": "(BR21), quadriceps maximal voluntary contraction (MVC), and size were assessed. We combined intramuscular electromyography (iEMG) and high-density surface electromyography (HDsEMG) recordings on the vastus lateralis to assess MU properties at 25% and 50% of MVC. Muscle biopsies and blood samples were also collected. Quadriceps MVC and size decreased at BR21. We found alterations in MU properties "
+      },
+      {
+        "kind": "finding",
+        "text": "Se observaron alteraciones en las propiedades de las unidades motoras a intensidades de contracción del 25% y 50% de la contracción máxima, incluyendo reducción de la tasa de descarga, cambios en el área del potencial y aumento de la complejidad.",
+        "source_excerpt": "(BR21), quadriceps maximal voluntary contraction (MVC), and size were assessed. We combined intramuscular electromyography (iEMG) and high-density surface electromyography (HDsEMG) recordings on the vastus lateralis to assess MU properties at 25% and 50% of MVC. Muscle biopsies and blood samples were also collected. Quadriceps MVC and size decreased at BR21. We found alterations in MU properties "
+      },
+      {
+        "kind": "finding",
+        "text": "La transmisión en la unión neuromuscular se redujo tras el reposo en cama al 25% de la contracción máxima, corroborado bioquímicamente por un aumento en la concentración sérica del fragmento C-terminal de agrina, un biomarcador de inestabilidad de la unión neuromuscular.",
+        "source_excerpt": "at both contraction intensities, including reduced discharge rate, MU potential area changes, and increased complexity. NMJ transmission was found to be reduced at BR21 at 25% MVC. This functional NMJ impairment was biochemically corroborated by an increase in serum C-terminal agrin fragment concentration, a biomarker of NMJ instability. In addition, a direct assessment of NMJ morphology revealed "
+      },
+      {
+        "kind": "finding",
+        "text": "La evaluación directa de la morfología de la unión neuromuscular reveló la presencia de algunas uniones neuromusculares denervadas exclusivamente tras el reposo en cama.",
+        "source_excerpt": "the presence of some denervated NMJs exclusively at BR21. In conclusion, 21-day bed rest altered MU properties across different contraction intensities and impaired NMJ transmission with initial signs of remodeling/denervation. Disuse duration appears to be a critical factor, as previous shorter studies failed to detect some of these changes. We believe these findings are clinically relevant for "
+      },
+      {
+        "kind": "implication",
+        "text": "La duración del desuso parece ser un factor crítico, ya que estudios previos más cortos no detectaron algunos de estos cambios.",
+        "source_excerpt": "the presence of some denervated NMJs exclusively at BR21. In conclusion, 21-day bed rest altered MU properties across different contraction intensities and impaired NMJ transmission with initial signs of remodeling/denervation. Disuse duration appears to be a critical factor, as previous shorter studies failed to detect some of these changes. We believe these findings are clinically relevant for "
+      }
+    ]
+  }
+}

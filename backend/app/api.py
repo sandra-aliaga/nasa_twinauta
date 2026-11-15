@@ -1,4 +1,4 @@
-"""HTTP adapters for the shared version 0.2 contract."""
+"""HTTP adapters for the shared version 0.3 contract."""
 
 from collections.abc import Iterator
 from typing import Annotated, Literal
@@ -7,9 +7,10 @@ from fastapi import APIRouter, Depends, Query, Request
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app import assessments, catalog, telemetry
+from app import assessments, catalog, knowledge_graph, papers, telemetry
 from app.database import CaseRecord
 from app.errors import not_found
+from app.prepared_contexts import AssessmentContext, AssessmentIndex, get_context, list_assessments
 from app.schemas import (
     Action,
     ActionUpdate,
@@ -18,7 +19,13 @@ from app.schemas import (
     Case,
     Error,
     Graph,
+    GraphPage,
+    Guidance,
     IndicatorDefinition,
+    KnowledgeBaseMetadata,
+    ModuleCatalog,
+    PaperDetail,
+    PaperPage,
     Region,
     TelemetryRecording,
     TelemetryWindow,
@@ -39,6 +46,26 @@ def get_session(request: Request) -> Iterator[Session]:
 DatabaseSession = Annotated[Session, Depends(get_session)]
 
 
+@router.get(
+    "/cases/{case_id}/assessments",
+    response_model=list[AssessmentIndex],
+    operation_id="list_case_assessments",
+)
+def list_case_assessments(case_id: str, session: DatabaseSession) -> list[AssessmentIndex]:
+    """Discover installed assessment snapshots and contextual content availability."""
+    return list_assessments(session, case_id)
+
+
+@router.get(
+    "/assessments/{assessment_id}/context",
+    response_model=AssessmentContext,
+    operation_id="get_assessment_context",
+)
+def get_assessment_context(assessment_id: str, session: DatabaseSession) -> AssessmentContext:
+    """Read the three published narratives and citation graphs without generation."""
+    return get_context(session, assessment_id)
+
+
 @router.get("/cases", response_model=list[Case], operation_id="list_cases")
 def list_cases(session: DatabaseSession) -> list[Case]:
     """List cases installed by the explicit seed command."""
@@ -52,6 +79,104 @@ def list_cases(session: DatabaseSession) -> list[Case]:
 def list_indicators() -> list[IndicatorDefinition]:
     """Describe the initial indicator catalog."""
     return list(catalog.indicators())
+
+
+@router.get("/health-modules", response_model=ModuleCatalog, operation_id="list_health_modules")
+def list_health_modules() -> ModuleCatalog:
+    """Describe module coverage and keep scientific review status explicit."""
+    return catalog.health_modules()
+
+
+@router.get(
+    "/knowledge-base/metadata",
+    response_model=KnowledgeBaseMetadata,
+    operation_id="get_knowledge_base_metadata",
+)
+def get_knowledge_base_metadata() -> KnowledgeBaseMetadata:
+    """Describe the local literature bundle and its review status."""
+    return catalog.knowledge_base_metadata()
+
+
+@router.get("/papers", response_model=PaperPage, operation_id="search_papers")
+def search_papers(
+    session: DatabaseSession,
+    q: Annotated[str | None, Query(max_length=200)] = None,
+    region_id: str | None = None,
+    view: Literal["evidence", "scenario", "actions"] | None = None,
+    review_status: Literal["pending", "reviewed"] | None = None,
+    year_from: Annotated[int | None, Query(ge=1800)] = None,
+    year_to: Annotated[int | None, Query(ge=1800)] = None,
+    cursor: str | None = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    indicator_id: str | None = None,
+    module_id: str | None = None,
+) -> PaperPage:
+    """Search the local bibliographic candidate corpus."""
+    return papers.search_papers(
+        session,
+        q=q,
+        region_id=region_id,
+        view=view,
+        review_status=review_status,
+        year_from=year_from,
+        year_to=year_to,
+        indicator_id=indicator_id,
+        module_id=module_id,
+        cursor=cursor,
+        limit=limit,
+    )
+
+
+@router.get(
+    "/papers/{paper_id}",
+    response_model=PaperDetail,
+    operation_id="get_paper",
+)
+def get_paper(
+    paper_id: str,
+    session: DatabaseSession,
+    assessment_id: str | None = None,
+) -> PaperDetail:
+    """Return a bibliographic candidate with explicit analysis boundaries."""
+    return papers.get_paper_detail(session, paper_id, assessment_id)
+
+
+@router.get(
+    "/knowledge-graph",
+    response_model=GraphPage,
+    operation_id="get_knowledge_graph",
+)
+def get_knowledge_graph(
+    session: DatabaseSession,
+    view: Literal["evidence", "scenario", "actions"],
+    q: Annotated[str | None, Query(max_length=200)] = None,
+    region_id: str | None = None,
+    review_status: Literal["pending", "reviewed"] | None = None,
+    year_from: Annotated[int | None, Query(ge=1800)] = None,
+    year_to: Annotated[int | None, Query(ge=1800)] = None,
+    paper_id: str | None = None,
+    assessment_id: str | None = None,
+    cursor: str | None = None,
+    limit: Annotated[int, Query(ge=1, le=100)] = 25,
+    indicator_id: str | None = None,
+    module_id: str | None = None,
+) -> GraphPage:
+    """Explore editorial paper-topic relations without scientific inference."""
+    return knowledge_graph.get_knowledge_graph(
+        session,
+        q=q,
+        region_id=region_id,
+        view=view,
+        review_status=review_status,
+        year_from=year_from,
+        year_to=year_to,
+        paper_id=paper_id,
+        assessment_id=assessment_id,
+        cursor=cursor,
+        limit=limit,
+        indicator_id=indicator_id,
+        module_id=module_id,
+    )
 
 
 @router.get("/cases/{case_id}/regions", response_model=list[Region], operation_id="list_regions")
@@ -77,6 +202,16 @@ def create_assessment(request: AssessmentRequest, session: DatabaseSession) -> A
 def get_assessment(assessment_id: str, session: DatabaseSession) -> Assessment:
     """Retrieve the frozen evaluation and current action states."""
     return assessments.get_assessment(session, assessment_id)
+
+
+@router.get(
+    "/assessments/{assessment_id}/guidance",
+    response_model=Guidance,
+    operation_id="get_assessment_guidance",
+)
+def get_assessment_guidance(assessment_id: str, session: DatabaseSession) -> Guidance:
+    """Return frozen descriptive guidance without generating new conclusions."""
+    return assessments.get_guidance(session, assessment_id)
 
 
 @router.get(

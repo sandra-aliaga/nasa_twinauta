@@ -1,4 +1,14 @@
 .PHONY: install run migrate seed format format-check lint check backend-install backend-run backend-format backend-check frontend-install frontend-run frontend-format frontend-check
+.PHONY: db-start db-stop db-status
+
+db-start:
+	pg_ctl -D backend/.local/postgres -l backend/.local/postgres.log -w start
+
+db-stop:
+	pg_ctl -D backend/.local/postgres -m fast -w stop
+
+db-status:
+	pg_ctl -D backend/.local/postgres status
 
 install: backend-install frontend-install
 

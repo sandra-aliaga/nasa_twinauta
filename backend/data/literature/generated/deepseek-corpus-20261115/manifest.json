@@ -1,0 +1,247 @@
+{
+  "status": "stopped_for_protocol_fix",
+  "corpus_version": "candidate-corpus-2026-11-14",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.1",
+  "maximum_calls": 24,
+  "calls_attempted": 15,
+  "review_status": "pending",
+  "clinical_action_eligible": false,
+  "records": [
+    {
+      "paper_id": "literature_pmid_33251515",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_38328821",
+      "status": "reused",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_29570535",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 804,
+        "completion_tokens": 615,
+        "total_tokens": 1419,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 420
+      }
+    },
+    {
+      "paper_id": "literature_pmid_29924746",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 815,
+        "completion_tokens": 925,
+        "total_tokens": 1740,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 431
+      },
+      "failure_reason": "Generated content contains an unsupported source excerpt."
+    },
+    {
+      "paper_id": "literature_pmid_32864428",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 923,
+        "completion_tokens": 819,
+        "total_tokens": 1742,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 539
+      },
+      "failure_reason": "Generated content contains an unsupported source excerpt."
+    },
+    {
+      "paper_id": "literature_pmid_36737441",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 651,
+        "completion_tokens": 773,
+        "total_tokens": 1424,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 267
+      },
+      "failure_reason": "Provider returned an invalid analysis structure."
+    },
+    {
+      "paper_id": "literature_pmid_33811556",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 794,
+        "completion_tokens": 703,
+        "total_tokens": 1497,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 410
+      },
+      "failure_reason": "Generated content contains an unsupported source excerpt."
+    },
+    {
+      "paper_id": "literature_pmid_41316901",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 766,
+        "completion_tokens": 786,
+        "total_tokens": 1552,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 382
+      }
+    },
+    {
+      "paper_id": "literature_pmid_42185309",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 789,
+        "completion_tokens": 951,
+        "total_tokens": 1740,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 405
+      }
+    },
+    {
+      "paper_id": "literature_pmid_41785029",
+      "status": "skipped_no_abstract",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_40828606",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 645,
+        "completion_tokens": 470,
+        "total_tokens": 1115,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 261
+      },
+      "failure_reason": "Generated content contains an unsupported source excerpt."
+    },
+    {
+      "paper_id": "literature_pmid_40353798",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 906,
+        "completion_tokens": 573,
+        "total_tokens": 1479,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 522
+      },
+      "failure_reason": "Generated content contains an unsupported source excerpt."
+    },
+    {
+      "paper_id": "literature_pmid_39792484",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 1121,
+        "completion_tokens": 1167,
+        "total_tokens": 2288,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 737
+      },
+      "failure_reason": "Provider returned an invalid analysis structure."
+    },
+    {
+      "paper_id": "literature_pmid_37856286",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 988,
+        "completion_tokens": 645,
+        "total_tokens": 1633,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 604
+      }
+    },
+    {
+      "paper_id": "literature_pmid_33347733",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 761,
+        "completion_tokens": 523,
+        "total_tokens": 1284,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 377
+      }
+    },
+    {
+      "paper_id": "literature_pmid_41894197",
+      "status": "ready",
+      "usage": {
+        "prompt_tokens": 798,
+        "completion_tokens": 713,
+        "total_tokens": 1511,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 414
+      }
+    },
+    {
+      "paper_id": "literature_pmid_41719153",
+      "status": "failed",
+      "usage": {
+        "prompt_tokens": 977,
+        "completion_tokens": 935,
+        "total_tokens": 1912,
+        "prompt_cache_hit_tokens": 384,
+        "prompt_cache_miss_tokens": 593
+      },
+      "failure_reason": "Generated content contains an unsupported source excerpt."
+    },
+    {
+      "paper_id": "literature_pmid_39155274",
+      "status": "interrupted_usage_unknown",
+      "usage": {},
+      "failure_reason": "Operator interrupted after repeated excerpt/schema failures; no response retained."
+    },
+    {
+      "paper_id": "literature_pmid_40163643",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_36102002",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_33703945",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_38874988",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_31474878",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_31098391",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_39920735",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_41983453",
+      "status": "pending",
+      "usage": {}
+    },
+    {
+      "paper_id": "literature_pmid_36883219",
+      "status": "pending",
+      "usage": {}
+    }
+  ],
+  "started_at": "2026-11-15T05:02:00.502524+00:00",
+  "finished_at": "2026-11-15T05:10:34.123525+00:00",
+  "reported_usage": {
+    "prompt_tokens": 11738,
+    "completion_tokens": 10598,
+    "total_tokens": 22336
+  }
+}

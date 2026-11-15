@@ -1,0 +1,35 @@
+{
+  "status": "initial_findings_resolved_medical_review_pending",
+  "review_scope": "Technical/editorial inspection of case wording, not clinical approval",
+  "prompt_version": "context-synthesis-0.3",
+  "review_status": "pending",
+  "clinical_action_eligible": false,
+  "checks": [
+    {
+      "id": "baseline_is_not_current",
+      "outcome": "passed_initial_inspection",
+      "note": "States only baseline is available and change cannot be assessed; does not claim preserved current size."
+    },
+    {
+      "id": "no_individual_prediction",
+      "outcome": "passed_initial_inspection",
+      "note": "Declines individual forecast; does not extrapolate a bed-rest trajectory to this case."
+    },
+    {
+      "id": "no_periodic_testing_recommendation",
+      "outcome": "passed_initial_inspection",
+      "note": "Previous unsupported testing assertion was omitted."
+    },
+    {
+      "id": "operative_steps",
+      "outcome": "passed_initial_inspection",
+      "note": "Refers only to existing confirm_measurements and confirm_exercise; no therapy dose or new clinical action."
+    }
+  ],
+  "remaining_limitations": [
+    "Only a baseline and missing torque in a synthetic case.",
+    "References resolve, but per-claim semantic support and applicability still require scientific review.",
+    "Graphs show proposed citations; no approved causal or intervention relation.",
+    "Outputs remain local files, not published API results."
+  ]
+}

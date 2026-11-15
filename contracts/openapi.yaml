@@ -1,203 +1,817 @@
 openapi: 3.1.2
 info:
   title: TwinNauta API
-  version: 0.2.0
-  description: Contrato 0.2 del backend inicial con contenido ilustrativo. El modelo científico sigue
-    pendiente; no representa evaluación clínica validada.
-servers:
-- url: http://localhost:8000/api/v1
-  description: Dirección propuesta para desarrollo; no implica servicio disponible.
+  description: Backend inicial con contenido ilustrativo; sin modelo clínico habilitado.
+  version: 0.3.0
 paths:
-  /cases:
+  /api/v1/cases/{case_id}/assessments:
     get:
-      operationId: list_cases
-      summary: Consultar casos virtuales precargados
+      summary: List Case Assessments
+      description: Discover installed assessment snapshots and contextual content
+        availability.
+      operationId: list_case_assessments
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Case Id
       responses:
         '200':
-          description: Casos disponibles.
+          description: Successful Response
           content:
             application/json:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Case'
-        '500':
-          description: Fallo interno.
+                  $ref: '#/components/schemas/AssessmentIndex'
+                title: Response List Case Assessments
+        '404':
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /cases/{case_id}/regions:
-    parameters:
-    - name: case_id
-      in: path
-      required: true
-      schema:
-        type: string
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/assessments/{assessment_id}/context:
     get:
-      operationId: list_regions
-      summary: Consultar regiones disponibles
+      summary: Get Assessment Context
+      description: Read the three published narratives and citation graphs without
+        generation.
+      operationId: get_assessment_context
+      parameters:
+      - name: assessment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Assessment Id
       responses:
         '200':
-          description: Regiones y mapeo anatómico pendiente.
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AssessmentContext'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/cases:
+    get:
+      summary: List Cases
+      description: List cases installed by the explicit seed command.
+      operationId: list_cases
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/Case'
+                type: array
+                title: Response List Cases
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/indicators:
+    get:
+      summary: List Indicators
+      description: Describe the initial indicator catalog.
+      operationId: list_indicators
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/IndicatorDefinition'
+                type: array
+                title: Response List Indicators
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/health-modules:
+    get:
+      summary: List Health Modules
+      description: Describe module coverage and keep scientific review status explicit.
+      operationId: list_health_modules
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ModuleCatalog'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/knowledge-base/metadata:
+    get:
+      summary: Get Knowledge Base Metadata
+      description: Describe the local literature bundle and its review status.
+      operationId: get_knowledge_base_metadata
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KnowledgeBaseMetadata'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/papers:
+    get:
+      summary: Search Papers
+      description: Search the local bibliographic candidate corpus.
+      operationId: search_papers
+      parameters:
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          title: Q
+      - name: region_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Id
+      - name: view
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - evidence
+            - scenario
+            - actions
+            type: string
+          - type: 'null'
+          title: View
+      - name: review_status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - pending
+            - reviewed
+            type: string
+          - type: 'null'
+          title: Review Status
+      - name: year_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1800
+          - type: 'null'
+          title: Year From
+      - name: year_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1800
+          - type: 'null'
+          title: Year To
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: indicator_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Indicator Id
+      - name: module_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Module Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaperPage'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/papers/{paper_id}:
+    get:
+      summary: Get Paper
+      description: Return a bibliographic candidate with explicit analysis boundaries.
+      operationId: get_paper
+      parameters:
+      - name: paper_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Paper Id
+      - name: assessment_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Assessment Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaperDetail'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/knowledge-graph:
+    get:
+      summary: Get Knowledge Graph
+      description: Explore editorial paper-topic relations without scientific inference.
+      operationId: get_knowledge_graph
+      parameters:
+      - name: view
+        in: query
+        required: true
+        schema:
+          enum:
+          - evidence
+          - scenario
+          - actions
+          type: string
+          title: View
+      - name: q
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            maxLength: 200
+          - type: 'null'
+          title: Q
+      - name: region_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Id
+      - name: review_status
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - enum:
+            - pending
+            - reviewed
+            type: string
+          - type: 'null'
+          title: Review Status
+      - name: year_from
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1800
+          - type: 'null'
+          title: Year From
+      - name: year_to
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: integer
+            minimum: 1800
+          - type: 'null'
+          title: Year To
+      - name: paper_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Paper Id
+      - name: assessment_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Assessment Id
+      - name: cursor
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cursor
+      - name: limit
+        in: query
+        required: false
+        schema:
+          type: integer
+          maximum: 100
+          minimum: 1
+          default: 25
+          title: Limit
+      - name: indicator_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Indicator Id
+      - name: module_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Module Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GraphPage'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/cases/{case_id}/regions:
+    get:
+      summary: List Regions
+      description: Return semantic regions without assuming GLB mesh names.
+      operationId: list_regions
+      parameters:
+      - name: case_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Case Id
+      responses:
+        '200':
+          description: Successful Response
           content:
             application/json:
               schema:
                 type: array
                 items:
                   $ref: '#/components/schemas/Region'
+                title: Response List Regions
         '404':
-          description: Entidad inexistente.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
         '422':
-          description: Entrada inválida.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
         '500':
-          description: Fallo interno.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /assessments:
+          description: Internal Server Error
+  /api/v1/assessments:
     post:
+      summary: Create Assessment
+      description: Create a separate illustrative evaluation for this request.
       operationId: create_assessment
-      summary: Crear una instantánea de evaluación y escenario
       requestBody:
-        required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AssessmentRequest'
+        required: true
       responses:
         '201':
-          description: Respuesta documentada; servicio pendiente de implementación.
+          description: Successful Response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Assessment'
         '404':
-          description: Entidad inexistente.
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '422':
-          description: Entrada inválida.
+          description: Unprocessable Entity
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
         '500':
-          description: Fallo interno.
+          description: Internal Server Error
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      description: 'Crea una instantánea independiente para este visitante. Caso o región inexistente:
-        404; día fuera del caso: 422. Un horizonte fuera del modelo produce scenario.status=out_of_domain,
-        no un error de entrada.'
-  /assessments/{assessment_id}:
-    parameters:
-    - name: assessment_id
-      in: path
-      required: true
-      schema:
-        type: string
+  /api/v1/assessments/{assessment_id}:
     get:
+      summary: Get Assessment
+      description: Retrieve the frozen evaluation and current action states.
       operationId: get_assessment
-      summary: Recuperar evaluación y seguimiento de acciones
+      parameters:
+      - name: assessment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Assessment Id
       responses:
         '200':
-          description: Respuesta documentada; servicio pendiente de implementación.
+          description: Successful Response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Assessment'
         '404':
-          description: Entidad inexistente.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
         '422':
-          description: Entrada inválida.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
         '500':
-          description: Fallo interno.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /assessments/{assessment_id}/graphs/{view}:
-    parameters:
-    - name: assessment_id
-      in: path
-      required: true
-      schema:
-        type: string
-    - name: view
-      in: path
-      required: true
-      schema:
-        type: string
-        enum:
-        - evidence
-        - scenario
-        - actions
+          description: Internal Server Error
+  /api/v1/assessments/{assessment_id}/guidance:
     get:
-      operationId: get_graph
-      summary: Consultar una de las tres vistas del grafo
+      summary: Get Assessment Guidance
+      description: Return frozen descriptive guidance without generating new conclusions.
+      operationId: get_assessment_guidance
+      parameters:
+      - name: assessment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Assessment Id
       responses:
         '200':
-          description: Respuesta documentada; servicio pendiente de implementación.
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Guidance'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/assessments/{assessment_id}/graphs/{view}:
+    get:
+      summary: Get Graph
+      description: Retrieve one of the three saved graph projections.
+      operationId: get_graph
+      parameters:
+      - name: assessment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Assessment Id
+      - name: view
+        in: path
+        required: true
+        schema:
+          enum:
+          - evidence
+          - scenario
+          - actions
+          type: string
+          title: View
+      responses:
+        '200':
+          description: Successful Response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Graph'
         '404':
-          description: Entidad inexistente.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
         '422':
-          description: Entrada inválida.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
         '500':
-          description: Fallo interno.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      description: Solo datos/versiones de esta evaluación. Un grafo vacío válido responde 200. No reconstruir
-        ciencia histórica usando datos o reglas posteriores.
-  /assessments/{assessment_id}/actions/{action_id}:
-    parameters:
-    - name: assessment_id
-      in: path
-      required: true
-      schema:
-        type: string
-    - name: action_id
-      in: path
-      required: true
-      schema:
-        type: string
+          description: Internal Server Error
+  /api/v1/assessments/{assessment_id}/actions/{action_id}:
     patch:
+      summary: Update Action Status
+      description: Update tracking with optimistic revision checking and a database
+        row lock.
       operationId: update_action_status
-      summary: Registrar estado de ejecución sin cambiar fundamento
+      parameters:
+      - name: assessment_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Assessment Id
+      - name: action_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Action Id
       requestBody:
         required: true
         content:
@@ -206,653 +820,233 @@ paths:
               $ref: '#/components/schemas/ActionUpdate'
       responses:
         '200':
-          description: Respuesta documentada; servicio pendiente de implementación.
+          description: Successful Response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Action'
         '404':
-          description: Entidad inexistente.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-        '422':
-          description: Entrada inválida.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Fallo interno.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+          description: Not Found
         '409':
-          description: Conflicto de revisión o acción no habilitada.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-      description: La acción pertenece a esta evaluación. Actualizar solo seguimiento si eligibility=eligible.
-        expected_revision debe coincidir; incrementar revision si cambia el estado. Repetir el mismo estado
-        con revisión vigente no cambia revisión ni fecha. En modo evidence_based se exige review_status=reviewed.
-  /telemetry/{recording_id}:
-    parameters:
-    - name: recording_id
-      in: path
-      required: true
-      schema:
-        type: string
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/telemetry/{recording_id}/metadata:
     get:
-      operationId: get_telemetry_window
-      summary: Consultar ventana de una grabación terrestre independiente
-      description: Ventana [start_s, end_s), máximo 120 segundos y 2000 puntos. Límites cruzados validados
-        por backend. No se remuestrea silenciosamente.
+      summary: Get Recording Metadata
+      description: Describe a registered recording and its independent clock.
+      operationId: get_recording_metadata
       parameters:
+      - name: recording_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Recording Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryRecording'
+        '404':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
+        '422':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
+        '500':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Internal Server Error
+  /api/v1/telemetry/{recording_id}:
+    get:
+      summary: Get Telemetry Window
+      description: Read a bounded segment without filling missing values.
+      operationId: get_telemetry_window
+      parameters:
+      - name: recording_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Recording Id
       - name: start_s
         in: query
         required: true
         schema:
           type: number
           minimum: 0
+          title: Start S
       - name: end_s
         in: query
         required: true
         schema:
           type: number
           exclusiveMinimum: 0
+          title: End S
       responses:
         '200':
-          description: Respuesta documentada; servicio pendiente de implementación.
+          description: Successful Response
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/TelemetryWindow'
         '404':
-          description: Entidad inexistente.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Not Found
+        '409':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+          description: Conflict
         '422':
-          description: Entrada inválida.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+          description: Unprocessable Entity
         '500':
-          description: Fallo interno.
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
-  /indicators:
+          description: Internal Server Error
+  /health/live:
     get:
-      operationId: list_indicators
-      summary: Consultar nombres, unidades y significado de los indicadores
+      tags:
+      - health
+      summary: Liveness
+      description: Confirm that the HTTP process is responding.
+      operationId: liveness_health_live_get
       responses:
         '200':
-          description: Catálogo compartido de indicadores.
+          description: Successful Response
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/IndicatorDefinition'
-        '500':
-          description: Fallo interno.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-  /telemetry/{recording_id}/metadata:
-    parameters:
-    - name: recording_id
-      in: path
-      required: true
-      schema:
-        type: string
+                additionalProperties:
+                  type: string
+                type: object
+                title: Response Liveness Health Live Get
+  /health/ready:
     get:
-      operationId: get_recording_metadata
-      summary: Descubrir límites y procedencia antes de reproducir la grabación
+      tags:
+      - health
+      summary: Readiness
+      description: Check database connectivity and the presence of migrated, seeded
+        tables.
+      operationId: readiness_health_ready_get
       responses:
         '200':
-          description: Metadatos de la grabación.
+          description: Successful Response
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/TelemetryRecording'
-        '404':
-          description: Grabación inexistente.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '422':
-          description: Entrada inválida.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
-        '500':
-          description: Fallo interno.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Error'
+              schema: {}
 components:
   schemas:
-    Error:
-      type: object
-      additionalProperties: false
-      required:
-      - code
-      - message
-      - details
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: array
-          items:
-            type: string
-    Case:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      - label
-      - is_virtual
-      - duration_days
-      - telemetry_recording_id
-      - anatomy_asset
+    Action:
       properties:
         id:
           type: string
           minLength: 1
-        label:
-          type: string
-        is_virtual:
-          type: boolean
-        duration_days:
-          type: integer
-          minimum: 0
-          description: Duración transcurrida del caso; se admiten días desde 0 hasta este límite, incluido.
-        telemetry_recording_id:
-          type:
-          - string
-          - 'null'
-        anatomy_asset:
-          $ref: '#/components/schemas/AnatomyAsset'
-    Region:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      - label
-      - indicator_ids
-      properties:
-        id:
-          type: string
-          minLength: 1
-        label:
-          type: string
-        indicator_ids:
-          type: array
-          items:
-            type: string
-    AssessmentRequest:
-      type: object
-      additionalProperties: false
-      required:
-      - case_id
-      - region_id
-      - mission_day
-      - horizon_days
-      - reference_start_day
-      properties:
-        case_id:
-          type: string
-          minLength: 1
-        region_id:
-          type: string
-          minLength: 1
-        mission_day:
-          type: integer
-          minimum: 0
-          description: Día del caso virtual. Solo se usan observaciones y registros disponibles hasta
-            este día.
-        horizon_days:
-          type: integer
-          minimum: 0
-        reference_start_day:
-          type: integer
-          minimum: 0
-          description: Inicio independiente del protocolo de referencia. El final es inicio más horizonte.
-    Source:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      - title
-      - url
-      - locator
-      - review_status
-      - version
-      - license
-      properties:
-        id:
-          type: string
-          minLength: 1
+          title: Id
         title:
           type: string
-        url:
-          type:
-          - string
-          - 'null'
-          format: uri
-        locator:
+          title: Title
+        rationale:
           type: string
+          title: Rationale
+        requirements:
+          items:
+            type: string
+          type: array
+          title: Requirements
+        related_finding_ids:
+          items:
+            type: string
+          type: array
+          title: Related Finding Ids
+        source_ids:
+          items:
+            type: string
+          type: array
+          title: Source Ids
         review_status:
           type: string
           enum:
           - pending
           - reviewed
-        version:
-          type:
-          - string
-          - 'null'
-        license:
-          type:
-          - string
-          - 'null'
-    Observation:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      - indicator_id
-      - value
-      - unit
-      - mission_day
-      - origin
-      - derivation
-      - method
-      - source_id
-      - missing_reason
-      - quality
-      - statistic
-      - sample_size
-      - dispersion
-      - baseline_observation_id
-      properties:
-        id:
-          type: string
-          minLength: 1
-        indicator_id:
+          title: Review Status
+        execution_status:
           type: string
           enum:
-          - quadriceps_csa_relative
-          - knee_extension_torque
-          minLength: 1
-        value:
-          type:
-          - number
-          - 'null'
-        unit:
+          - pending
+          - completed
+          - skipped
+          title: Execution Status
+        eligibility:
           type: string
           enum:
-          - percent_baseline
-          - N.m
-        mission_day:
-          type: integer
-          minimum: 0
-        origin:
-          type: string
-          enum:
-          - synthetic
-          - human_dataset
-          - published_aggregate
-        derivation:
-          type: string
-          enum:
-          - measured
-          - seeded
-          - computed
-        method:
-          type: string
-        source_id:
-          type: string
-          minLength: 1
-        missing_reason:
-          type:
-          - string
-          - 'null'
-        quality:
-          type: string
-          enum:
-          - available
-          - missing
-          - suspect
-        statistic:
-          type: string
-          enum:
-          - individual_value
-          - group_mean
-          - normalized_reference
-        sample_size:
-          type:
-          - integer
-          - 'null'
-          minimum: 1
-        dispersion:
-          anyOf:
-          - $ref: '#/components/schemas/Dispersion'
-          - type: 'null'
-        baseline_observation_id:
-          type:
-          - string
-          - 'null'
-      allOf:
-      - if:
-          properties:
-            quality:
-              const: missing
-        then:
-          properties:
-            value:
-              type: 'null'
-            missing_reason:
-              type: string
-              minLength: 1
-        else:
-          properties:
-            value:
-              type: number
-      - if:
-          properties:
-            statistic:
-              const: group_mean
-        then:
-          properties:
-            sample_size:
-              type: integer
-              minimum: 1
-    ExerciseRecord:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      - mission_day
-      - modality
-      - record_status
-      - planned_duration_min
-      - recorded_duration_min
-      - sets
-      - repetitions
-      - resistance_value
-      - resistance_unit
-      - equipment_available
-      - origin
-      - source_id
-      properties:
-        id:
-          type: string
-        mission_day:
-          type: integer
-          minimum: 0
-        modality:
-          type: string
-        record_status:
-          type: string
-          enum:
-          - recorded
-          - not_recorded
-        planned_duration_min:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-        recorded_duration_min:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-        sets:
-          type:
-          - integer
-          - 'null'
-          minimum: 0
-        repetitions:
-          type:
-          - integer
-          - 'null'
-          minimum: 0
-        resistance_value:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-        resistance_unit:
-          type:
-          - string
-          - 'null'
-        equipment_available:
-          type:
-          - boolean
-          - 'null'
-        origin:
-          type: string
-          enum:
-          - synthetic
-          - human_dataset
-        source_id:
-          type: string
-    Finding:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      - title
-      - description
-      - related_ids
-      - source_ids
-      - attention
-      - claim_ids
-      properties:
-        id:
-          type: string
-          minLength: 1
-        title:
-          type: string
-        description:
-          type: string
-        related_ids:
-          type: array
-          items:
-            type: string
-        source_ids:
-          type: array
-          items:
-            type: string
-        attention:
-          type: string
-          enum:
-          - informational
-          - review_needed
+          - eligible
+          - ineligible
           - unknown
+          title: Eligibility
+        eligibility_reason:
+          type: string
+          title: Eligibility Reason
         claim_ids:
-          type: array
           items:
             type: string
-    EvidenceContext:
-      type: object
-      additionalProperties: false
-      required:
-      - data_quality
-      - evidence_applicability
-      - model_limitations
-      properties:
-        data_quality:
           type: array
-          items:
-            type: string
-        evidence_applicability:
-          type: array
-          items:
-            type: string
-        model_limitations:
-          type: array
-          items:
-            type: string
-    ScenarioPoint:
-      type: object
-      additionalProperties: false
-      required:
-      - elapsed_day
-      - value
-      properties:
-        elapsed_day:
+          title: Claim Ids
+        revision:
           type: integer
-          minimum: 0
-          description: Desplazamiento desde reference_start_day; no es un día de misión.
-        value:
-          type: number
-    Scenario:
-      type: object
+          minimum: 0.0
+          title: Revision
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
       additionalProperties: false
-      required:
-      - id
-      - status
-      - label
-      - model_id
-      - model_version
-      - horizon_days
-      - unit
-      - reason
-      - assumptions
-      - points
-      - source_ids
-      - summary
-      - reference_start_day
-      - parameters
-      - domain
-      properties:
-        id:
-          type: string
-          minLength: 1
-        status:
-          type: string
-          enum:
-          - available
-          - insufficient_data
-          - out_of_domain
-        label:
-          type: string
-        model_id:
-          type:
-          - string
-          - 'null'
-        model_version:
-          type:
-          - string
-          - 'null'
-        horizon_days:
-          type: integer
-          minimum: 0
-        unit:
-          type: string
-          enum:
-          - percent_baseline
-        reason:
-          type:
-          - string
-          - 'null'
-        assumptions:
-          type: array
-          items:
-            type: string
-        points:
-          type: array
-          items:
-            $ref: '#/components/schemas/ScenarioPoint'
-        source_ids:
-          type: array
-          items:
-            type: string
-        summary:
-          type: string
-        reference_start_day:
-          type: integer
-          minimum: 0
-          description: Día dentro del protocolo de referencia; no se infiere del día de misión.
-        parameters:
-          type: array
-          items:
-            type: object
-            additionalProperties: false
-            required:
-            - id
-            - value
-            - unit
-            - source_id
-            - locator
-            properties:
-              id:
-                type: string
-              value:
-                type: number
-              unit:
-                type: string
-              source_id:
-                type: string
-              locator:
-                type: string
-        domain:
-          anyOf:
-          - $ref: '#/components/schemas/ScenarioDomain'
-          - type: 'null'
-      allOf:
-      - if:
-          properties:
-            status:
-              const: available
-        then:
-          properties:
-            model_id:
-              type: string
-              minLength: 1
-            model_version:
-              type: string
-              minLength: 1
-            domain:
-              $ref: '#/components/schemas/ScenarioDomain'
-            reason:
-              type: 'null'
-            parameters:
-              minItems: 1
-            points:
-              minItems: 1
-      - if:
-          properties:
-            status:
-              enum:
-              - insufficient_data
-              - out_of_domain
-        then:
-          properties:
-            points:
-              maxItems: 0
-            reason:
-              type: string
-              minLength: 1
-    Action:
       type: object
-      additionalProperties: false
       required:
       - id
       - title
@@ -867,88 +1061,137 @@ components:
       - claim_ids
       - revision
       - updated_at
+      title: Action
+      description: Represent the Action contract payload.
+    ActionUpdate:
       properties:
-        id:
-          type: string
-          minLength: 1
-        title:
-          type: string
-        rationale:
-          type: string
-        requirements:
-          type: array
-          items:
-            type: string
-        related_finding_ids:
-          type: array
-          items:
-            type: string
-        source_ids:
-          type: array
-          items:
-            type: string
-        review_status:
-          type: string
-          enum:
-          - pending
-          - reviewed
         execution_status:
           type: string
           enum:
           - pending
           - completed
           - skipped
-        eligibility:
-          type: string
-          enum:
-          - eligible
-          - ineligible
-          - unknown
-        eligibility_reason:
-          type: string
-        claim_ids:
-          type: array
-          items:
-            type: string
-        revision:
+          title: Execution Status
+        expected_revision:
           type: integer
-          minimum: 0
-        updated_at:
-          type: string
-          format: date-time
-    ActionUpdate:
-      type: object
+          minimum: 0.0
+          title: Expected Revision
       additionalProperties: false
+      type: object
       required:
       - execution_status
       - expected_revision
+      title: ActionUpdate
+      description: Represent the ActionUpdate contract payload.
+    AnatomyAsset:
       properties:
-        execution_status:
+        id:
+          type: string
+          title: Id
+        status:
           type: string
           enum:
           - pending
-          - completed
-          - skipped
-        expected_revision:
-          type: integer
-          minimum: 0
-    Versions:
-      type: object
+          - available
+          title: Status
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+        license_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: License Url
       additionalProperties: false
+      type: object
       required:
-      - rules
-      - evidence
-      - summary_template
-      properties:
-        rules:
-          type: string
-        evidence:
-          type: string
-        summary_template:
-          type: string
+      - id
+      - status
+      - url
+      - license_url
+      title: AnatomyAsset
+      description: Represent the AnatomyAsset contract payload.
     Assessment:
-      type: object
+      properties:
+        assessment_id:
+          type: string
+          minLength: 1
+          title: Assessment Id
+        case_id:
+          type: string
+          minLength: 1
+          title: Case Id
+        region_id:
+          type: string
+          minLength: 1
+          title: Region Id
+        mission_day:
+          type: integer
+          minimum: 0.0
+          title: Mission Day
+        content_mode:
+          type: string
+          enum:
+          - illustrative
+          - evidence_based
+          title: Content Mode
+        status:
+          type: string
+          enum:
+          - complete
+          - partial
+          - insufficient_data
+          title: Status
+        summary:
+          type: string
+          title: Summary
+        versions:
+          $ref: '#/components/schemas/Versions'
+        observations:
+          items:
+            $ref: '#/components/schemas/Observation'
+          type: array
+          title: Observations
+        exercise_records:
+          items:
+            $ref: '#/components/schemas/ExerciseRecord'
+          type: array
+          title: Exercise Records
+        findings:
+          items:
+            $ref: '#/components/schemas/Finding'
+          type: array
+          title: Findings
+        evidence_context:
+          $ref: '#/components/schemas/EvidenceContext'
+        scenario:
+          $ref: '#/components/schemas/Scenario'
+        actions:
+          items:
+            $ref: '#/components/schemas/Action'
+          type: array
+          title: Actions
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
+        action_summary:
+          type: string
+          title: Action Summary
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        claims:
+          items:
+            $ref: '#/components/schemas/EvidenceClaim'
+          type: array
+          title: Claims
       additionalProperties: false
+      type: object
       required:
       - assessment_id
       - case_id
@@ -968,81 +1211,636 @@ components:
       - action_summary
       - created_at
       - claims
+      title: Assessment
+      description: Represent the Assessment contract payload.
+    AssessmentContext:
+      properties:
+        assessment_id:
+          type: string
+          title: Assessment Id
+        status:
+          type: string
+          enum:
+          - available
+          - unavailable
+          title: Status
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        sections:
+          anyOf:
+          - $ref: '#/components/schemas/ContextDraft'
+          - type: 'null'
+        graphs:
+          additionalProperties:
+            $ref: '#/components/schemas/GraphPage'
+          propertyNames:
+            enum:
+            - evidence
+            - scenario
+            - actions
+          type: object
+          title: Graphs
+        evidence_snippets:
+          additionalProperties:
+            $ref: '#/components/schemas/EvidenceSnippet'
+          type: object
+          title: Evidence Snippets
+        guidance:
+          anyOf:
+          - $ref: '#/components/schemas/Guidance'
+          - type: 'null'
+        provenance:
+          anyOf:
+          - $ref: '#/components/schemas/ContextProvenance'
+          - type: 'null'
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+        clinical_action_eligible:
+          type: boolean
+          const: false
+          title: Clinical Action Eligible
+          default: false
+      additionalProperties: false
+      type: object
+      required:
+      - assessment_id
+      - status
+      - reason
+      - sections
+      - graphs
+      - evidence_snippets
+      - guidance
+      - provenance
+      - review_status
+      title: AssessmentContext
+      description: Describe content availability independently of scientific review
+        metadata.
+    AssessmentIndex:
+      properties:
+        assessment_id:
+          type: string
+          title: Assessment Id
+        case_id:
+          type: string
+          title: Case Id
+        region_id:
+          type: string
+          title: Region Id
+        mission_day:
+          type: integer
+          title: Mission Day
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        has_context:
+          type: boolean
+          title: Has Context
+      additionalProperties: false
+      type: object
+      required:
+      - assessment_id
+      - case_id
+      - region_id
+      - mission_day
+      - created_at
+      - has_context
+      title: AssessmentIndex
+    AssessmentRequest:
+      properties:
+        case_id:
+          type: string
+          minLength: 1
+          title: Case Id
+        region_id:
+          type: string
+          minLength: 1
+          title: Region Id
+        mission_day:
+          type: integer
+          minimum: 0.0
+          title: Mission Day
+        horizon_days:
+          type: integer
+          minimum: 0.0
+          title: Horizon Days
+        reference_start_day:
+          type: integer
+          minimum: 0.0
+          title: Reference Start Day
+      additionalProperties: false
+      type: object
+      required:
+      - case_id
+      - region_id
+      - mission_day
+      - horizon_days
+      - reference_start_day
+      title: AssessmentRequest
+      description: Represent the AssessmentRequest contract payload.
+    Case:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        label:
+          type: string
+          title: Label
+        is_virtual:
+          type: boolean
+          title: Is Virtual
+        duration_days:
+          type: integer
+          minimum: 0.0
+          title: Duration Days
+        telemetry_recording_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Telemetry Recording Id
+        anatomy_asset:
+          $ref: '#/components/schemas/AnatomyAsset'
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - label
+      - is_virtual
+      - duration_days
+      - telemetry_recording_id
+      - anatomy_asset
+      title: Case
+      description: Represent the Case contract payload.
+    Citation:
+      properties:
+        paper_id:
+          type: string
+          maxLength: 3000
+          minLength: 1
+          title: Paper Id
+        snippet_id:
+          type: string
+          maxLength: 3000
+          minLength: 1
+          title: Snippet Id
+      additionalProperties: false
+      type: object
+      required:
+      - paper_id
+      - snippet_id
+      title: Citation
+      description: Select a backend-verified fragment instead of rewriting its quotation.
+    ContextDraft:
+      properties:
+        alert_assessment:
+          $ref: '#/components/schemas/NarrativeSection'
+        inaction_scenario:
+          $ref: '#/components/schemas/NarrativeSection'
+        next_steps:
+          $ref: '#/components/schemas/NarrativeSection'
+      additionalProperties: false
+      type: object
+      required:
+      - alert_assessment
+      - inaction_scenario
+      - next_steps
+      title: ContextDraft
+      description: Provide the three requested narratives, with review assigned by
+        the backend.
+    ContextProvenance:
+      properties:
+        input_sha256:
+          type: string
+          title: Input Sha256
+        prompt_version:
+          type: string
+          title: Prompt Version
+        model_id:
+          type: string
+          title: Model Id
+        corpus_version:
+          type: string
+          title: Corpus Version
+      additionalProperties: false
+      type: object
+      required:
+      - input_sha256
+      - prompt_version
+      - model_id
+      - corpus_version
+      title: ContextProvenance
+    Dispersion:
+      properties:
+        kind:
+          type: string
+          enum:
+          - standard_deviation
+          - standard_error
+          title: Kind
+        value:
+          type: number
+          minimum: 0.0
+          title: Value
+      additionalProperties: false
+      type: object
+      required:
+      - kind
+      - value
+      title: Dispersion
+      description: Represent the Dispersion contract payload.
+    Error:
+      properties:
+        code:
+          type: string
+          title: Code
+        message:
+          type: string
+          title: Message
+        details:
+          items:
+            type: string
+          type: array
+          title: Details
+      additionalProperties: false
+      type: object
+      required:
+      - code
+      - message
+      - details
+      title: Error
+      description: Represent the Error contract payload.
+    EvidenceClaim:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        statement:
+          type: string
+          title: Statement
+        kind:
+          type: string
+          enum:
+          - observed_result
+          - association
+          - model_assumption
+          - intervention_result
+          - operational_rule
+          title: Kind
+        source_ids:
+          items:
+            type: string
+          type: array
+          title: Source Ids
+        population:
+          type: string
+          title: Population
+        sample_size:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Sample Size
+        environment:
+          type: string
+          enum:
+          - spaceflight
+          - bed_rest_analog
+          - terrestrial_exercise
+          - synthetic
+          title: Environment
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - statement
+      - kind
+      - source_ids
+      - population
+      - sample_size
+      - environment
+      - limitations
+      - review_status
+      title: EvidenceClaim
+      description: Represent the EvidenceClaim contract payload.
+    EvidenceContext:
+      properties:
+        data_quality:
+          items:
+            type: string
+          type: array
+          title: Data Quality
+        evidence_applicability:
+          items:
+            type: string
+          type: array
+          title: Evidence Applicability
+        model_limitations:
+          items:
+            type: string
+          type: array
+          title: Model Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - data_quality
+      - evidence_applicability
+      - model_limitations
+      title: EvidenceContext
+      description: Represent the EvidenceContext contract payload.
+    EvidenceSnippet:
+      properties:
+        paper_id:
+          type: string
+          title: Paper Id
+        excerpt:
+          type: string
+          title: Excerpt
+        locator:
+          type: string
+          const: abstract
+          title: Locator
+      additionalProperties: false
+      type: object
+      required:
+      - paper_id
+      - excerpt
+      - locator
+      title: EvidenceSnippet
+    ExerciseRecord:
+      properties:
+        id:
+          type: string
+          title: Id
+        mission_day:
+          type: integer
+          minimum: 0.0
+          title: Mission Day
+        modality:
+          type: string
+          title: Modality
+        record_status:
+          type: string
+          enum:
+          - recorded
+          - not_recorded
+          title: Record Status
+        planned_duration_min:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Planned Duration Min
+        recorded_duration_min:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Recorded Duration Min
+        sets:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Sets
+        repetitions:
+          anyOf:
+          - type: integer
+            minimum: 0.0
+          - type: 'null'
+          title: Repetitions
+        resistance_value:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Resistance Value
+        resistance_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Resistance Unit
+        equipment_available:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Equipment Available
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+          title: Origin
+        source_id:
+          type: string
+          title: Source Id
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - mission_day
+      - modality
+      - record_status
+      - planned_duration_min
+      - recorded_duration_min
+      - sets
+      - repetitions
+      - resistance_value
+      - resistance_unit
+      - equipment_available
+      - origin
+      - source_id
+      title: ExerciseRecord
+      description: Represent the ExerciseRecord contract payload.
+    Finding:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          type: string
+          title: Description
+        related_ids:
+          items:
+            type: string
+          type: array
+          title: Related Ids
+        source_ids:
+          items:
+            type: string
+          type: array
+          title: Source Ids
+        attention:
+          type: string
+          enum:
+          - informational
+          - review_needed
+          - unknown
+          title: Attention
+        claim_ids:
+          items:
+            type: string
+          type: array
+          title: Claim Ids
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - title
+      - description
+      - related_ids
+      - source_ids
+      - attention
+      - claim_ids
+      title: Finding
+      description: Represent the Finding contract payload.
+    Graph:
       properties:
         assessment_id:
           type: string
           minLength: 1
-        case_id:
+          title: Assessment Id
+        view:
           type: string
-          minLength: 1
-        region_id:
-          type: string
-          minLength: 1
-        mission_day:
-          type: integer
-          minimum: 0
+          enum:
+          - evidence
+          - scenario
+          - actions
+          title: View
+        nodes:
+          items:
+            $ref: '#/components/schemas/GraphNode'
+          type: array
+          title: Nodes
+        edges:
+          items:
+            $ref: '#/components/schemas/GraphEdge'
+          type: array
+          title: Edges
+        sources:
+          items:
+            $ref: '#/components/schemas/Source'
+          type: array
+          title: Sources
         content_mode:
           type: string
           enum:
           - illustrative
           - evidence_based
-        status:
-          type: string
-          enum:
-          - complete
-          - partial
-          - insufficient_data
-        summary:
-          type: string
+          title: Content Mode
         versions:
           $ref: '#/components/schemas/Versions'
-        observations:
-          type: array
-          items:
-            $ref: '#/components/schemas/Observation'
-        exercise_records:
-          type: array
-          items:
-            $ref: '#/components/schemas/ExerciseRecord'
-        findings:
-          type: array
-          items:
-            $ref: '#/components/schemas/Finding'
-        evidence_context:
-          $ref: '#/components/schemas/EvidenceContext'
-        scenario:
-          $ref: '#/components/schemas/Scenario'
-        actions:
-          type: array
-          items:
-            $ref: '#/components/schemas/Action'
-        sources:
-          type: array
-          items:
-            $ref: '#/components/schemas/Source'
-        action_summary:
-          type: string
-        created_at:
-          type: string
-          format: date-time
         claims:
-          type: array
           items:
             $ref: '#/components/schemas/EvidenceClaim'
-    GraphNode:
-      type: object
+          type: array
+          title: Claims
       additionalProperties: false
+      type: object
       required:
-      - id
-      - kind
-      - label
-      - description
-      - source_ids
-      - entity_id
+      - assessment_id
+      - view
+      - nodes
+      - edges
+      - sources
+      - content_mode
+      - versions
+      - claims
+      title: Graph
+      description: Represent the Graph contract payload.
+    GraphCounts:
+      properties:
+        papers_matching:
+          type: integer
+          minimum: 0.0
+          title: Papers Matching
+        papers_returned:
+          type: integer
+          minimum: 0.0
+          title: Papers Returned
+        papers_reviewed_returned:
+          type: integer
+          minimum: 0.0
+          title: Papers Reviewed Returned
+      additionalProperties: false
+      type: object
+      required:
+      - papers_matching
+      - papers_returned
+      - papers_reviewed_returned
+      title: GraphCounts
+      description: Summarize paper coverage in one graph page.
+    GraphEdge:
       properties:
         id:
           type: string
           minLength: 1
+          title: Id
+        source:
+          type: string
+          title: Source
+        target:
+          type: string
+          title: Target
+        relation:
+          type: string
+          enum:
+          - uses
+          - describes
+          - supported_by
+          - limited_by
+          - computed_with
+          - requires
+          - addresses
+          title: Relation
+        label:
+          type: string
+          title: Label
+        claim_ids:
+          items:
+            type: string
+          type: array
+          title: Claim Ids
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - source
+      - target
+      - relation
+      - label
+      - claim_ids
+      title: GraphEdge
+      description: Represent the GraphEdge contract payload.
+    GraphNode:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
         kind:
           type: string
           enum:
@@ -1057,129 +1855,1674 @@ components:
           - parameter
           - action
           - requirement
+          title: Kind
         label:
           type: string
+          title: Label
         description:
           type: string
+          title: Description
         source_ids:
-          type: array
           items:
             type: string
+          type: array
+          title: Source Ids
         entity_id:
-          type:
-          - string
-          - 'null'
-    GraphEdge:
-      type: object
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Id
       additionalProperties: false
+      type: object
       required:
       - id
-      - source
-      - target
-      - relation
+      - kind
       - label
-      - claim_ids
+      - description
+      - source_ids
+      - entity_id
+      title: GraphNode
+      description: Represent the GraphNode contract payload.
+    GraphPage:
       properties:
-        id:
+        corpus_version:
           type: string
           minLength: 1
-        source:
-          type: string
-        target:
-          type: string
-        relation:
-          type: string
-          enum:
-          - uses
-          - describes
-          - supported_by
-          - limited_by
-          - computed_with
-          - requires
-          - addresses
-        label:
-          type: string
-        claim_ids:
-          type: array
-          items:
-            type: string
-    Graph:
-      type: object
-      additionalProperties: false
-      required:
-      - assessment_id
-      - view
-      - nodes
-      - edges
-      - sources
-      - content_mode
-      - versions
-      - claims
-      properties:
+          title: Corpus Version
         assessment_id:
-          type: string
-          minLength: 1
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Assessment Id
         view:
           type: string
           enum:
           - evidence
           - scenario
           - actions
+          title: View
         nodes:
-          type: array
           items:
-            $ref: '#/components/schemas/GraphNode'
+            $ref: '#/components/schemas/KnowledgeNode'
+          type: array
+          title: Nodes
         edges:
-          type: array
           items:
-            $ref: '#/components/schemas/GraphEdge'
-        sources:
+            $ref: '#/components/schemas/KnowledgeEdge'
           type: array
+          title: Edges
+        page:
+          $ref: '#/components/schemas/Page'
+        scope_description:
+          type: string
+          title: Scope Description
+        counts:
+          $ref: '#/components/schemas/GraphCounts'
+      additionalProperties: false
+      type: object
+      required:
+      - corpus_version
+      - assessment_id
+      - view
+      - nodes
+      - edges
+      - page
+      - scope_description
+      - counts
+      title: GraphPage
+      description: Represent one paginated discovery graph projection.
+    Guidance:
+      properties:
+        assessment_id:
+          type: string
+          title: Assessment Id
+        module_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Module Id
+        module_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Module Version
+        status:
+          type: string
+          enum:
+          - complete
+          - partial
+          - insufficient_data
+          - not_supported
+          - review_pending
+          title: Status
+        attention:
+          type: string
+          enum:
+          - informational
+          - review_needed
+          - unknown
+          title: Attention
+        summary:
+          type: string
+          title: Summary
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        observation_ids:
           items:
-            $ref: '#/components/schemas/Source'
+            type: string
+          type: array
+          title: Observation Ids
+        paper_ids:
+          items:
+            type: string
+          type: array
+          title: Paper Ids
+        applicability:
+          items:
+            $ref: '#/components/schemas/PaperApplicability'
+          type: array
+          title: Applicability
+        steps:
+          items:
+            $ref: '#/components/schemas/GuidanceStep'
+          type: array
+          title: Steps
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+        corpus_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Corpus Version
+        rules_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rules Version
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+      additionalProperties: false
+      type: object
+      required:
+      - assessment_id
+      - module_id
+      - module_version
+      - status
+      - attention
+      - summary
+      - reason
+      - observation_ids
+      - paper_ids
+      - applicability
+      - steps
+      - limitations
+      - corpus_version
+      - rules_version
+      - created_at
+      title: Guidance
+      description: Freeze module coverage, data limitations and proposed operational
+        steps.
+    GuidanceStep:
+      properties:
+        id:
+          type: string
+          title: Id
+        title:
+          type: string
+          title: Title
+        description:
+          type: string
+          title: Description
+        kind:
+          type: string
+          enum:
+          - operational_review
+          - studied_intervention
+          title: Kind
+        eligibility:
+          type: string
+          enum:
+          - eligible
+          - ineligible
+          - unknown
+          title: Eligibility
+        eligibility_reason:
+          type: string
+          title: Eligibility Reason
+        rule_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rule Id
+        rule_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rule Version
+        paper_ids:
+          items:
+            type: string
+          type: array
+          title: Paper Ids
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - title
+      - description
+      - kind
+      - eligibility
+      - eligibility_reason
+      - rule_id
+      - rule_version
+      - paper_ids
+      - review_status
+      title: GuidanceStep
+      description: Describe a next step without automatically enabling a clinical
+        action.
+    HealthModule:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        version:
+          type: string
+          minLength: 1
+          title: Version
+        label:
+          type: string
+          title: Label
+        region_ids:
+          items:
+            type: string
+          type: array
+          title: Region Ids
+        indicator_ids:
+          items:
+            type: string
+          type: array
+          title: Indicator Ids
+        implementation_status:
+          type: string
+          enum:
+          - planned
+          - prototype
+          - available
+          title: Implementation Status
+        interpretation_status:
+          type: string
+          enum:
+          - unavailable
+          - review_pending
+          - reviewed
+          title: Interpretation Status
+        coverage_description:
+          type: string
+          title: Coverage Description
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - version
+      - label
+      - region_ids
+      - indicator_ids
+      - implementation_status
+      - interpretation_status
+      - coverage_description
+      - limitations
+      title: HealthModule
+      description: Describe the implemented and scientifically reviewed coverage of
+        a module.
+    IndicatorDefinition:
+      properties:
+        id:
+          type: string
+          enum:
+          - quadriceps_csa_relative
+          - knee_extension_torque
+          - heart_rate
+          minLength: 1
+          title: Id
+        label:
+          type: string
+          title: Label
+        unit:
+          type: string
+          enum:
+          - percent_baseline
+          - N.m
+          - beats/min
+          title: Unit
+        region_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Region Id
+        description:
+          type: string
+          title: Description
+        baseline_interpretation:
+          type: string
+          title: Baseline Interpretation
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - label
+      - unit
+      - region_id
+      - description
+      - baseline_interpretation
+      title: IndicatorDefinition
+      description: Represent the IndicatorDefinition contract payload.
+    KnowledgeBaseMetadata:
+      properties:
+        corpus_version:
+          type: string
+          minLength: 1
+          title: Corpus Version
+        published_at:
+          type: string
+          format: date-time
+          title: Published At
+        last_sync_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Sync At
+        runtime_mode:
+          type: string
+          enum:
+          - local_bundle
+          - hosted_catalog
+          title: Runtime Mode
+        external_services_required_for_consultation:
+          type: boolean
+          title: External Services Required For Consultation
+        paper_count:
+          type: integer
+          minimum: 0.0
+          title: Paper Count
+        reviewed_paper_count:
+          type: integer
+          minimum: 0.0
+          title: Reviewed Paper Count
+        analysis_policy:
+          type: string
+          enum:
+          - precomputed
+          - local_model
+          - not_configured
+          title: Analysis Policy
+        rules_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rules Version
+      additionalProperties: false
+      type: object
+      required:
+      - corpus_version
+      - published_at
+      - last_sync_at
+      - runtime_mode
+      - external_services_required_for_consultation
+      - paper_count
+      - reviewed_paper_count
+      - analysis_policy
+      - rules_version
+      title: KnowledgeBaseMetadata
+      description: Describe the installed scientific corpus and its consultation limits.
+    KnowledgeEdge:
+      properties:
+        id:
+          type: string
+          title: Id
+        source:
+          type: string
+          title: Source
+        target:
+          type: string
+          title: Target
+        relation:
+          type: string
+          enum:
+          - cites
+          - addresses
+          - reports
+          - supports
+          - contradicts
+          - qualifies
+          - same_cohort
+          - possible_cohort_overlap
+          title: Relation
+        basis:
+          type: string
+          enum:
+          - provider_metadata
+          - editorial_classification
+          - reviewed_extraction
+          - llm_suggestion
+          title: Basis
+        source_paper_ids:
+          items:
+            type: string
+          type: array
+          title: Source Paper Ids
+        source_locators:
+          items:
+            type: string
+          type: array
+          title: Source Locators
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - source
+      - target
+      - relation
+      - basis
+      - source_paper_ids
+      - source_locators
+      - review_status
+      title: KnowledgeEdge
+      description: Represent a traceable, non-causal discovery relation.
+    KnowledgeNode:
+      properties:
+        id:
+          type: string
+          title: Id
+        kind:
+          type: string
+          enum:
+          - paper
+          - indicator
+          - claim
+          - action
+          - topic
+          - intervention
+          title: Kind
+        label:
+          type: string
+          title: Label
+        paper_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Paper Id
+        entity_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Entity Id
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - kind
+      - label
+      - paper_id
+      - entity_id
+      - review_status
+      title: KnowledgeNode
+      description: Represent a paper or editorial topic in the discovery graph.
+    ModuleCatalog:
+      properties:
+        catalog_version:
+          type: string
+          minLength: 1
+          title: Catalog Version
+        modules:
+          items:
+            $ref: '#/components/schemas/HealthModule'
+          type: array
+          title: Modules
+      additionalProperties: false
+      type: object
+      required:
+      - catalog_version
+      - modules
+      title: ModuleCatalog
+      description: Represent the versioned catalog of scientific modules.
+    NarrativeSection:
+      properties:
+        summary:
+          type: string
+          maxLength: 3000
+          minLength: 1
+          title: Summary
+        uncertainty:
+          type: string
+          maxLength: 3000
+          minLength: 1
+          title: Uncertainty
+        observation_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 30
+          title: Observation Ids
+        step_ids:
+          items:
+            type: string
+          type: array
+          maxItems: 10
+          title: Step Ids
+        citations:
+          items:
+            $ref: '#/components/schemas/Citation'
+          type: array
+          maxItems: 6
+          title: Citations
+      additionalProperties: false
+      type: object
+      required:
+      - summary
+      - uncertainty
+      - observation_ids
+      - step_ids
+      - citations
+      title: NarrativeSection
+      description: Explain a case without assigning probabilities, new rules or prescriptions.
+    Observation:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        indicator_id:
+          type: string
+          enum:
+          - quadriceps_csa_relative
+          - knee_extension_torque
+          minLength: 1
+          title: Indicator Id
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+        unit:
+          type: string
+          enum:
+          - percent_baseline
+          - N.m
+          title: Unit
+        mission_day:
+          type: integer
+          minimum: 0.0
+          title: Mission Day
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+          - published_aggregate
+          title: Origin
+        derivation:
+          type: string
+          enum:
+          - measured
+          - seeded
+          - computed
+          title: Derivation
+        method:
+          type: string
+          title: Method
+        source_id:
+          type: string
+          minLength: 1
+          title: Source Id
+        missing_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Missing Reason
+        quality:
+          type: string
+          enum:
+          - available
+          - missing
+          - suspect
+          title: Quality
+        statistic:
+          type: string
+          enum:
+          - individual_value
+          - group_mean
+          - normalized_reference
+          title: Statistic
+        sample_size:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Sample Size
+        dispersion:
+          anyOf:
+          - $ref: '#/components/schemas/Dispersion'
+          - type: 'null'
+        baseline_observation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Baseline Observation Id
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - indicator_id
+      - value
+      - unit
+      - mission_day
+      - origin
+      - derivation
+      - method
+      - source_id
+      - missing_reason
+      - quality
+      - statistic
+      - sample_size
+      - dispersion
+      - baseline_observation_id
+      title: Observation
+      description: Represent the Observation contract payload.
+    Page:
+      properties:
+        next_cursor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Next Cursor
+        has_more:
+          type: boolean
+          title: Has More
+      additionalProperties: false
+      type: object
+      required:
+      - next_cursor
+      - has_more
+      title: Page
+      description: Represent opaque cursor state for a page of results.
+    PaperAccess:
+      properties:
+        landing_url:
+          type: string
+          title: Landing Url
+        full_text_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Text Url
+        pdf_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pdf Url
+        availability:
+          type: string
+          enum:
+          - open_access
+          - landing_only
+          - unknown
+          title: Availability
+        license:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: License
+        full_text_cached:
+          type: boolean
+          title: Full Text Cached
+        pdf_cached:
+          type: boolean
+          title: Pdf Cached
+        local_document_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Local Document Url
+      additionalProperties: false
+      type: object
+      required:
+      - landing_url
+      - full_text_url
+      - pdf_url
+      - availability
+      - license
+      - full_text_cached
+      - pdf_cached
+      - local_document_url
+      title: PaperAccess
+      description: Describe remote and local access without implying full-text availability.
+    PaperAnalysis:
+      properties:
+        status:
+          type: string
+          enum:
+          - not_requested
+          - queued
+          - running
+          - ready
+          - failed
+          title: Status
+        input_basis:
+          type: string
+          enum:
+          - abstract
+          - full_text
+          - not_prepared
+          title: Input Basis
+        input_sha256:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Input Sha256
+        prompt_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Prompt Version
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        generated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Generated At
+        items:
+          items:
+            $ref: '#/components/schemas/PaperAnalysisItem'
+          type: array
+          title: Items
+        failure_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Failure Reason
+      additionalProperties: false
+      type: object
+      required:
+      - status
+      - input_basis
+      - input_sha256
+      - prompt_version
+      - model_id
+      - generated_at
+      - items
+      - failure_reason
+      title: PaperAnalysis
+      description: Describe the state of optional abstract or full-text analysis.
+    PaperAnalysisItem:
+      properties:
+        id:
+          type: string
+          title: Id
+        kind:
+          type: string
+          enum:
+          - finding
+          - implication
+          - studied_intervention
+          title: Kind
+        text:
+          type: string
+          title: Text
+        source_locator:
+          type: string
+          title: Source Locator
+        source_excerpt:
+          type: string
+          maxLength: 500
+          title: Source Excerpt
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - kind
+      - text
+      - source_locator
+      - source_excerpt
+      - review_status
+      - limitations
+      title: PaperAnalysisItem
+      description: Represent a traceable analysis item, including pending suggestions.
+    PaperApplicability:
+      properties:
+        assessment_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Assessment Id
+        status:
+          type: string
+          enum:
+          - not_evaluated
+          - context_match
+          - analog_only
+          - not_comparable
+          - insufficient_data
+          title: Status
+        explanation:
+          type: string
+          title: Explanation
+        considered_observation_ids:
+          items:
+            type: string
+          type: array
+          title: Considered Observation Ids
+        checks:
+          items:
+            $ref: '#/components/schemas/PaperContextCheck'
+          type: array
+          title: Checks
+        rule_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rule Id
+        rule_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Rule Version
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+      additionalProperties: false
+      type: object
+      required:
+      - assessment_id
+      - status
+      - explanation
+      - considered_observation_ids
+      - checks
+      - rule_id
+      - rule_version
+      - review_status
+      title: PaperApplicability
+      description: Keep individual applicability separate from bibliographic discovery.
+    PaperCard:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        title:
+          type: string
+          title: Title
+        authors:
+          items:
+            type: string
+          type: array
+          title: Authors
+        year:
+          type: integer
+          minimum: 1800.0
+          title: Year
+        identifiers:
+          $ref: '#/components/schemas/PaperIdentifiers'
+        sections:
+          items:
+            type: string
+            enum:
+            - evidence
+            - scenario
+            - actions
+          type: array
+          title: Sections
+        region_ids:
+          items:
+            type: string
+          type: array
+          title: Region Ids
+        study_design:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Study Design
+        environment:
+          type: string
+          enum:
+          - spaceflight
+          - bed_rest
+          - terrestrial_exercise
+          - other
+          - mixed
+          - unknown
+          title: Environment
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+        access:
+          $ref: '#/components/schemas/PaperAccess'
+        indicator_ids:
+          items:
+            type: string
+          type: array
+          title: Indicator Ids
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - title
+      - authors
+      - year
+      - identifiers
+      - sections
+      - region_ids
+      - study_design
+      - environment
+      - review_status
+      - access
+      - indicator_ids
+      title: PaperCard
+      description: Represent a discovery card, not an audited evidence statement.
+    PaperContextCheck:
+      properties:
+        dimension:
+          type: string
+          enum:
+          - measurement_method
+          - population
+          - environment
+          - exposure_duration
+          - measurement_timepoint
+          - available_resources
+          title: Dimension
+        match:
+          type: string
+          enum:
+          - match
+          - mismatch
+          - unknown
+          title: Match
+        reason:
+          type: string
+          title: Reason
+        source_locators:
+          items:
+            type: string
+          type: array
+          title: Source Locators
+      additionalProperties: false
+      type: object
+      required:
+      - dimension
+      - match
+      - reason
+      - source_locators
+      title: PaperContextCheck
+      description: Represent one contextual applicability dimension.
+    PaperDetail:
+      properties:
+        paper:
+          $ref: '#/components/schemas/PaperCard'
+        abstract:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Abstract
+        summary:
+          $ref: '#/components/schemas/PaperSummary'
+        population_description:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Population Description
+        cohort_ids:
+          items:
+            type: string
+          type: array
+          title: Cohort Ids
+        cohort_overlap_status:
+          type: string
+          enum:
+          - unknown
+          - possible_overlap
+          - documented
+          title: Cohort Overlap Status
+        statistics:
+          items:
+            $ref: '#/components/schemas/PaperStatistic'
+          type: array
+          title: Statistics
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+        corpus_version:
+          type: string
+          minLength: 1
+          title: Corpus Version
+        analysis:
+          $ref: '#/components/schemas/PaperAnalysis'
+        applicability:
+          $ref: '#/components/schemas/PaperApplicability'
+      additionalProperties: false
+      type: object
+      required:
+      - paper
+      - abstract
+      - summary
+      - population_description
+      - cohort_ids
+      - cohort_overlap_status
+      - statistics
+      - limitations
+      - corpus_version
+      - analysis
+      - applicability
+      title: PaperDetail
+      description: Represent a paper detail page without promoting candidate evidence.
+    PaperIdentifiers:
+      properties:
+        doi:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Doi
+        pmid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pmid
+        pmcid:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pmcid
+      additionalProperties: false
+      type: object
+      required:
+      - doi
+      - pmid
+      - pmcid
+      title: PaperIdentifiers
+      description: Represent stable identifiers available for a literature record.
+    PaperPage:
+      properties:
+        corpus_version:
+          type: string
+          minLength: 1
+          title: Corpus Version
+        items:
+          items:
+            $ref: '#/components/schemas/PaperCard'
+          type: array
+          title: Items
+        total_matching:
+          type: integer
+          minimum: 0.0
+          title: Total Matching
+        page:
+          $ref: '#/components/schemas/Page'
+      additionalProperties: false
+      type: object
+      required:
+      - corpus_version
+      - items
+      - total_matching
+      - page
+      title: PaperPage
+      description: Represent one page of bibliographic discovery results.
+    PaperStatistic:
+      properties:
+        id:
+          type: string
+          title: Id
+        outcome:
+          type: string
+          title: Outcome
+        anatomy:
+          type: string
+          title: Anatomy
+        group_label:
+          type: string
+          title: Group Label
+        timepoint_label:
+          type: string
+          title: Timepoint Label
+        sample_size:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Sample Size
+        value:
+          type: number
+          title: Value
+        unit:
+          type: string
+          title: Unit
+        statistic_type:
+          type: string
+          enum:
+          - group_mean
+          - individual_value
+          - change_rate
+          - effect_estimate
+          title: Statistic Type
+        dispersion:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Dispersion
+        interval:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Interval
+        source_locator:
+          type: string
+          title: Source Locator
+        source_url:
+          type: string
+          title: Source Url
+        extraction_review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Extraction Review Status
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - outcome
+      - anatomy
+      - group_label
+      - timepoint_label
+      - sample_size
+      - value
+      - unit
+      - statistic_type
+      - dispersion
+      - interval
+      - source_locator
+      - source_url
+      - extraction_review_status
+      - limitations
+      title: PaperStatistic
+      description: Represent a reviewed quantitative extraction when one exists.
+    PaperSummary:
+      properties:
+        status:
+          type: string
+          enum:
+          - available
+          - pending
+          - unavailable
+          title: Status
+        text:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Text
+        basis:
+          type: string
+          enum:
+          - full_text
+          - abstract
+          - metadata_only
+          - not_prepared
+          title: Basis
+        method:
+          type: string
+          enum:
+          - editorial
+          - llm_assisted
+          - not_prepared
+          title: Method
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+        source_locators:
+          items:
+            type: string
+          type: array
+          title: Source Locators
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      additionalProperties: false
+      type: object
+      required:
+      - status
+      - text
+      - basis
+      - method
+      - review_status
+      - source_locators
+      - limitations
+      title: PaperSummary
+      description: Describe whether a reviewed summary is available for a paper.
+    Region:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        label:
+          type: string
+          title: Label
+        indicator_ids:
+          items:
+            type: string
+          type: array
+          title: Indicator Ids
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - label
+      - indicator_ids
+      title: Region
+      description: Represent the Region contract payload.
+    Scenario:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        status:
+          type: string
+          enum:
+          - available
+          - insufficient_data
+          - out_of_domain
+          title: Status
+        label:
+          type: string
+          title: Label
+        model_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Id
+        model_version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Model Version
+        horizon_days:
+          type: integer
+          minimum: 0.0
+          title: Horizon Days
+        unit:
+          type: string
+          const: percent_baseline
+          title: Unit
+        reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Reason
+        assumptions:
+          items:
+            type: string
+          type: array
+          title: Assumptions
+        points:
+          items:
+            $ref: '#/components/schemas/ScenarioPoint'
+          type: array
+          title: Points
+        source_ids:
+          items:
+            type: string
+          type: array
+          title: Source Ids
+        summary:
+          type: string
+          title: Summary
+        reference_start_day:
+          type: integer
+          minimum: 0.0
+          title: Reference Start Day
+        parameters:
+          items:
+            $ref: '#/components/schemas/ScenarioParameter'
+          type: array
+          title: Parameters
+        domain:
+          anyOf:
+          - $ref: '#/components/schemas/ScenarioDomain'
+          - type: 'null'
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - status
+      - label
+      - model_id
+      - model_version
+      - horizon_days
+      - unit
+      - reason
+      - assumptions
+      - points
+      - source_ids
+      - summary
+      - reference_start_day
+      - parameters
+      - domain
+      title: Scenario
+      description: Represent the Scenario contract payload.
+    ScenarioDomain:
+      properties:
+        environment:
+          type: string
+          enum:
+          - bed_rest_analog
+          - spaceflight
+          - synthetic
+          title: Environment
+        min_reference_day:
+          type: integer
+          minimum: 0.0
+          title: Min Reference Day
+        max_reference_day:
+          type: integer
+          minimum: 0.0
+          title: Max Reference Day
+        baseline_definition:
+          type: string
+          title: Baseline Definition
+        individual_prediction:
+          type: boolean
+          const: false
+          title: Individual Prediction
+      additionalProperties: false
+      type: object
+      required:
+      - environment
+      - min_reference_day
+      - max_reference_day
+      - baseline_definition
+      - individual_prediction
+      title: ScenarioDomain
+      description: Represent the ScenarioDomain contract payload.
+    ScenarioParameter:
+      properties:
+        id:
+          type: string
+          title: Id
+        value:
+          type: number
+          title: Value
+        unit:
+          type: string
+          title: Unit
+        source_id:
+          type: string
+          title: Source Id
+        locator:
+          type: string
+          title: Locator
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - value
+      - unit
+      - source_id
+      - locator
+      title: ScenarioParameter
+      description: Represent the ScenarioParameter contract payload.
+    ScenarioPoint:
+      properties:
+        elapsed_day:
+          type: integer
+          minimum: 0.0
+          title: Elapsed Day
+        value:
+          type: number
+          title: Value
+      additionalProperties: false
+      type: object
+      required:
+      - elapsed_day
+      - value
+      title: ScenarioPoint
+      description: Represent the ScenarioPoint contract payload.
+    Source:
+      properties:
+        id:
+          type: string
+          minLength: 1
+          title: Id
+        title:
+          type: string
+          title: Title
+        url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Url
+        locator:
+          type: string
+          title: Locator
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+          title: Review Status
+        version:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Version
+        license:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: License
+      additionalProperties: false
+      type: object
+      required:
+      - id
+      - title
+      - url
+      - locator
+      - review_status
+      - version
+      - license
+      title: Source
+      description: Represent the Source contract payload.
+    TelemetryPoint:
+      properties:
+        time_s:
+          type: number
+          minimum: 0.0
+          title: Time S
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+        missing_reason:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Missing Reason
+      additionalProperties: false
+      type: object
+      required:
+      - time_s
+      - value
+      - missing_reason
+      title: TelemetryPoint
+      description: Represent the TelemetryPoint contract payload.
+    TelemetryRecording:
+      properties:
+        recording_id:
+          type: string
+          minLength: 1
+          title: Recording Id
+        dataset_id:
+          type: string
+          minLength: 1
+          title: Dataset Id
+        participant_id:
+          type: string
+          minLength: 1
+          title: Participant Id
         content_mode:
           type: string
           enum:
           - illustrative
           - evidence_based
-        versions:
-          $ref: '#/components/schemas/Versions'
-        claims:
-          type: array
-          items:
-            $ref: '#/components/schemas/EvidenceClaim'
-    TelemetryPoint:
-      type: object
-      additionalProperties: false
-      required:
-      - time_s
-      - value
-      - missing_reason
-      properties:
-        time_s:
+          title: Content Mode
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+          title: Origin
+        context:
+          type: string
+          const: terrestrial_exercise
+          title: Context
+        indicator_id:
+          type: string
+          const: heart_rate
+          minLength: 1
+          title: Indicator Id
+        unit:
+          type: string
+          const: beats/min
+          title: Unit
+        start_s:
           type: number
-          minimum: 0
-        value:
-          type:
-          - number
-          - 'null'
-        missing_reason:
-          type:
-          - string
-          - 'null'
-      allOf:
-      - if:
-          properties:
-            value:
-              type: 'null'
-        then:
-          properties:
-            missing_reason:
-              type: string
-              minLength: 1
-    TelemetryWindow:
-      type: object
+          minimum: 0.0
+          title: Start S
+        end_s:
+          type: number
+          exclusiveMinimum: 0.0
+          title: End S
+        max_window_seconds:
+          type: integer
+          const: 120
+          title: Max Window Seconds
+        max_points:
+          type: integer
+          const: 2000
+          title: Max Points
+        source:
+          $ref: '#/components/schemas/Source'
       additionalProperties: false
+      type: object
+      required:
+      - recording_id
+      - dataset_id
+      - participant_id
+      - content_mode
+      - origin
+      - context
+      - indicator_id
+      - unit
+      - start_s
+      - end_s
+      - max_window_seconds
+      - max_points
+      - source
+      title: TelemetryRecording
+      description: Represent the TelemetryRecording contract payload.
+    TelemetryWindow:
+      properties:
+        recording_id:
+          type: string
+          title: Recording Id
+        dataset_id:
+          type: string
+          title: Dataset Id
+        participant_id:
+          type: string
+          title: Participant Id
+        content_mode:
+          type: string
+          enum:
+          - illustrative
+          - evidence_based
+          title: Content Mode
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+          title: Origin
+        context:
+          type: string
+          const: terrestrial_exercise
+          title: Context
+        indicator_id:
+          type: string
+          const: heart_rate
+          title: Indicator Id
+        unit:
+          type: string
+          const: beats/min
+          title: Unit
+        start_s:
+          type: number
+          minimum: 0.0
+          title: Start S
+        end_s:
+          type: number
+          exclusiveMinimum: 0.0
+          title: End S
+        points:
+          items:
+            $ref: '#/components/schemas/TelemetryPoint'
+          type: array
+          maxItems: 2000
+          title: Points
+        source:
+          $ref: '#/components/schemas/Source'
+        recording_end_s:
+          type: number
+          minimum: 0.0
+          title: Recording End S
+        next_start_s:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Next Start S
+      additionalProperties: false
+      type: object
       required:
       - recording_id
       - dataset_id
@@ -1195,273 +3538,24 @@ components:
       - source
       - recording_end_s
       - next_start_s
+      title: TelemetryWindow
+      description: Represent the TelemetryWindow contract payload.
+    Versions:
       properties:
-        recording_id:
+        rules:
           type: string
-        dataset_id:
+          title: Rules
+        evidence:
           type: string
-        participant_id:
+          title: Evidence
+        summary_template:
           type: string
-        content_mode:
-          type: string
-          enum:
-          - illustrative
-          - evidence_based
-        origin:
-          type: string
-          enum:
-          - synthetic
-          - human_dataset
-        context:
-          type: string
-          enum:
-          - terrestrial_exercise
-        indicator_id:
-          type: string
-          enum:
-          - heart_rate
-        unit:
-          type: string
-          enum:
-          - beats/min
-        start_s:
-          type: number
-          minimum: 0
-        end_s:
-          type: number
-          exclusiveMinimum: 0
-        points:
-          type: array
-          items:
-            $ref: '#/components/schemas/TelemetryPoint'
-          maxItems: 2000
-        source:
-          $ref: '#/components/schemas/Source'
-        recording_end_s:
-          type: number
-          minimum: 0
-        next_start_s:
-          type:
-          - number
-          - 'null'
-          minimum: 0
-    AnatomyAsset:
-      type: object
+          title: Summary Template
       additionalProperties: false
-      required:
-      - id
-      - status
-      - url
-      - license_url
-      properties:
-        id:
-          type: string
-        status:
-          type: string
-          enum:
-          - pending
-          - available
-        url:
-          type:
-          - string
-          - 'null'
-          format: uri
-        license_url:
-          type:
-          - string
-          - 'null'
-          format: uri
-    IndicatorDefinition:
       type: object
-      additionalProperties: false
       required:
-      - id
-      - label
-      - unit
-      - region_id
-      - description
-      - baseline_interpretation
-      properties:
-        id:
-          type: string
-          enum:
-          - quadriceps_csa_relative
-          - knee_extension_torque
-          - heart_rate
-          minLength: 1
-        label:
-          type: string
-        unit:
-          type: string
-          enum:
-          - percent_baseline
-          - N.m
-          - beats/min
-        region_id:
-          type:
-          - string
-          - 'null'
-        description:
-          type: string
-        baseline_interpretation:
-          type: string
-    EvidenceClaim:
-      type: object
-      additionalProperties: false
-      required:
-      - id
-      - statement
-      - kind
-      - source_ids
-      - population
-      - sample_size
-      - environment
-      - limitations
-      - review_status
-      properties:
-        id:
-          type: string
-          minLength: 1
-        statement:
-          type: string
-        kind:
-          type: string
-          enum:
-          - observed_result
-          - association
-          - model_assumption
-          - intervention_result
-          - operational_rule
-        source_ids:
-          type: array
-          items:
-            type: string
-        population:
-          type: string
-        sample_size:
-          type:
-          - integer
-          - 'null'
-          minimum: 1
-        environment:
-          type: string
-          enum:
-          - spaceflight
-          - bed_rest_analog
-          - terrestrial_exercise
-          - synthetic
-        limitations:
-          type: array
-          items:
-            type: string
-        review_status:
-          type: string
-          enum:
-          - pending
-          - reviewed
-    Dispersion:
-      type: object
-      additionalProperties: false
-      required:
-      - kind
-      - value
-      properties:
-        kind:
-          type: string
-          enum:
-          - standard_deviation
-          - standard_error
-        value:
-          type: number
-          minimum: 0
-    ScenarioDomain:
-      type: object
-      additionalProperties: false
-      required:
-      - environment
-      - min_reference_day
-      - max_reference_day
-      - baseline_definition
-      - individual_prediction
-      properties:
-        environment:
-          type: string
-          enum:
-          - bed_rest_analog
-          - spaceflight
-          - synthetic
-        min_reference_day:
-          type: integer
-          minimum: 0
-        max_reference_day:
-          type: integer
-          minimum: 0
-        baseline_definition:
-          type: string
-        individual_prediction:
-          type: boolean
-          const: false
-    TelemetryRecording:
-      type: object
-      additionalProperties: false
-      required:
-      - recording_id
-      - dataset_id
-      - participant_id
-      - content_mode
-      - origin
-      - context
-      - indicator_id
-      - unit
-      - start_s
-      - end_s
-      - max_window_seconds
-      - max_points
-      - source
-      properties:
-        recording_id:
-          type: string
-          minLength: 1
-        dataset_id:
-          type: string
-          minLength: 1
-        participant_id:
-          type: string
-          minLength: 1
-        content_mode:
-          type: string
-          enum:
-          - illustrative
-          - evidence_based
-        origin:
-          type: string
-          enum:
-          - synthetic
-          - human_dataset
-        context:
-          type: string
-          enum:
-          - terrestrial_exercise
-        indicator_id:
-          type: string
-          enum:
-          - heart_rate
-          minLength: 1
-        unit:
-          type: string
-          enum:
-          - beats/min
-        start_s:
-          type: number
-          minimum: 0
-        end_s:
-          type: number
-          exclusiveMinimum: 0
-        max_window_seconds:
-          type: number
-          const: 120
-        max_points:
-          type: integer
-          const: 2000
-        source:
-          $ref: '#/components/schemas/Source'
+      - rules
+      - evidence
+      - summary_template
+      title: Versions
+      description: Represent the Versions contract payload.

@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_41316901",
+  "title": "Limited musculoskeletal benefits of artificial gravity combined with cycling during bed rest: Results from the BRACE study.",
+  "abstract": "Prolonged exposure to microgravity, simulated via 6° head-down tilt bed rest (HDT), induces musculoskeletal deconditioning and negatively impacts body composition. This study evaluated whether a combination of aerobic exercise with artificial gravity (AG) offers superior protection in comparison to exercise alone. Twenty-four healthy male participants completed 60 days of HDT, randomized into control (C), exercise-only (EX) and exercise with AG (EX-AG) groups. Muscle volume, intramuscular fat, body composition and isokinetic strength were assessed via whole-body MRI and isokinetic dynamometry. All groups experienced thigh fat-free muscle volume loss: C (10.5% ± 2.6%), EX (6.9% ± 2.4%) and EX-AG (4.3% ± 2.4%), with EX-AG showing significantly less atrophy than C (p   0.05). Maximal isokinetic torque decreased in all groups over all measured angular velocities but was not different between groups (p > 0.05). This is the first study to investigate the combination of AG and exercise as a countermeasure to body composition changes induced by long-term bed rest. We showed that EX-AG provided partial protection against muscle atrophy and fat accumulation but did not outperform exercise alone in preserving muscle quality, strength or overall body composition.",
+  "input_sha256": "fed58a9d8d2f984bd8b81c23943f84374b526af24027dd19d59e47fd362aaf2c",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 766,
+    "completion_tokens": 786,
+    "total_tokens": 1552,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 382
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio evaluó si la combinación de ejercicio aeróbico con gravedad artificial (GA) ofrece una protección superior al ejercicio solo contra el desacondicionamiento musculoesquelético y los cambios en la composición corporal inducidos por 60 días de reposo en cama con inclinación de 6° cabeza abajo (HDT) en 24 hombres sanos. Los participantes fueron asignados aleatoriamente a grupos control, ejercicio y ejercicio con GA. Se midieron volumen muscular, grasa intramuscular, composición corporal y fuerza isocinética. Todos los grupos perdieron volumen de músculo magro del muslo: control 10.5% ± 2.6%, ejercicio 6.9% ± 2.4%, ejercicio+GA 4.3% ± 2.4%, con ejercicio+GA mostrando significativamente menos atrofia que control. La fuerza isocinética máxima disminuyó en todos los grupos sin diferencias entre ellos. El estudio concluyó que ejercicio+GA proporcionó protección parcial contra atrofia muscular y acumulación de grasa, pero no superó al ejercicio solo en preservar calidad muscular, fuerza o composición corporal general.",
+    "summary_excerpt": "Twenty-four healthy male participants completed 60 days of HDT, randomized into control (C), exercise-only (EX) and exercise with AG (EX-AG) groups. Muscle volume, intramuscular fat, body composition and isokinetic strength were assessed via whole-body MRI and isokinetic dynamometry.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Se observó pérdida de volumen de músculo magro del muslo en todos los grupos: control 10.5% ± 2.6%, ejercicio 6.9% ± 2.4% y ejercicio+GA 4.3% ± 2.4%.",
+        "source_excerpt": "All groups experienced thigh fat-free muscle volume loss: C (10.5% ± 2.6%), EX (6.9% ± 2.4%) and EX-AG (4.3% ± 2.4%)"
+      },
+      {
+        "kind": "finding",
+        "text": "El grupo de ejercicio con gravedad artificial mostró significativamente menos atrofia que el grupo control.",
+        "source_excerpt": "with EX-AG showing significantly less atrophy than C (p   0.05)."
+      },
+      {
+        "kind": "finding",
+        "text": "La fuerza isocinética máxima disminuyó en todos los grupos en todas las velocidades angulares medidas, pero no hubo diferencias significativas entre grupos.",
+        "source_excerpt": "Maximal isokinetic torque decreased in all groups over all measured angular velocities but was not different between groups (p > 0.05)."
+      },
+      {
+        "kind": "finding",
+        "text": "El ejercicio con gravedad artificial no superó al ejercicio solo en la preservación de la calidad muscular, la fuerza o la composición corporal general.",
+        "source_excerpt": "We showed that EX-AG provided partial protection against muscle atrophy and fat accumulation but did not outperform exercise alone in preserving muscle quality, strength or overall body composition."
+      },
+      {
+        "kind": "implication",
+        "text": "La combinación de ejercicio aeróbico con gravedad artificial proporciona una protección parcial contra la atrofia muscular y la acumulación de grasa en reposo en cama prolongado.",
+        "source_excerpt": "We showed that EX-AG provided partial protection against muscle atrophy and fat accumulation"
+      }
+    ]
+  }
+}

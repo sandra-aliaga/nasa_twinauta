@@ -1,0 +1,25 @@
+{
+  "status": "ready_for_review",
+  "assessment_id": "assessment_demo_001",
+  "paper_ids": [
+    "literature_pmid_33251515",
+    "literature_pmid_38328821"
+  ],
+  "maximum_calls": 1,
+  "calls_attempted": 1,
+  "review_status": "pending",
+  "clinical_action_eligible": false,
+  "corpus_version": "candidate-corpus-2026-11-14",
+  "files": [
+    "literature_pmid_33251515.json",
+    "literature_pmid_38328821.json",
+    "context.json"
+  ],
+  "reused_papers": [
+    "literature_pmid_33251515",
+    "literature_pmid_38328821"
+  ],
+  "started_at": "2026-11-15T05:00:25.155968+00:00",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "finished_at": "2026-11-15T05:00:31.799528+00:00"
+}
