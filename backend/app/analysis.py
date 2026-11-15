@@ -3,7 +3,10 @@
 from hashlib import sha256
 from typing import Protocol
 
-from app.database import LiteraturePaperRecord
+from sqlalchemy import select
+from sqlalchemy.orm import Session
+
+from app.database import LiteratureAnalysisRecord, LiteraturePaperRecord
 from app.schemas import PaperAnalysis, PaperAnalysisItem
 
 
@@ -40,3 +43,47 @@ def analysis_for_paper(record: LiteraturePaperRecord) -> PaperAnalysis:
         items=[],
         failure_reason=None,
     )
+
+
+def analysis_from_database(session: Session, record: LiteraturePaperRecord) -> PaperAnalysis:
+    """Return the newest persisted analysis or the deterministic empty state."""
+    persisted = session.scalar(
+        select(LiteratureAnalysisRecord)
+        .where(LiteratureAnalysisRecord.paper_id == record.id)
+        .order_by(
+            LiteratureAnalysisRecord.created_at.desc(),
+            LiteratureAnalysisRecord.id.desc(),
+        )
+        .limit(1)
+    )
+    if persisted is None:
+        return analysis_for_paper(record)
+    return PaperAnalysis(
+        status=persisted.status,
+        input_basis=persisted.input_basis,
+        input_sha256=persisted.input_sha256,
+        prompt_version=persisted.prompt_version,
+        model_id=persisted.model_id,
+        generated_at=persisted.generated_at,
+        items=[PaperAnalysisItem.model_validate(item) for item in persisted.items],
+        failure_reason=persisted.failure_reason,
+    )
+
+
+def persist_analysis(
+    session: Session, *, paper_id: str, analysis: PaperAnalysis
+) -> LiteratureAnalysisRecord:
+    """Stage one analysis result for the caller's transaction."""
+    record = LiteratureAnalysisRecord(
+        paper_id=paper_id,
+        input_basis=analysis.input_basis,
+        input_sha256=analysis.input_sha256,
+        prompt_version=analysis.prompt_version,
+        model_id=analysis.model_id,
+        status=analysis.status,
+        generated_at=analysis.generated_at,
+        items=[item.model_dump(mode="json") for item in analysis.items],
+        failure_reason=analysis.failure_reason,
+    )
+    session.add(record)
+    return record
