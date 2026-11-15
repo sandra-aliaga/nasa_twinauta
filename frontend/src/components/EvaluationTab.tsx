@@ -15,6 +15,7 @@ import {
   UNIT_LABELS,
 } from "../lib/labels";
 import { Collapsible, Tag } from "./common";
+import { GuidanceCard } from "./explorer/GuidanceCard";
 
 // Presentation only: attention is not clinical severity.
 const ATTENTION_TONES = {
@@ -58,7 +59,7 @@ function ObservationRow({ observation }: { observation: Observation }) {
           <Tag>n = {observation.sample_size}</Tag>
         ) : null}
       </div>
-      <p className="mt-1 text-xs text-slate-500">
+      <p className="mt-1 text-xs text-slate-400">
         Método: {observation.method}
       </p>
     </li>
@@ -75,7 +76,7 @@ function IndicatorBlock({
   return (
     <div>
       <h4 className="text-sm font-medium text-slate-200">{indicator.label}</h4>
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-slate-400">
         {indicator.baseline_interpretation}
       </p>
       {observations.length === 0 ? (
@@ -102,7 +103,7 @@ function ExerciseBlock({ records }: { records: ExerciseRecord[] }) {
       <h4 className="text-sm font-medium text-slate-200">
         Ejercicio registrado frente al plan
       </h4>
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-slate-400">
         Una sesión sin registro no demuestra que no se haya realizado.
       </p>
       {records.length === 0 ? (
@@ -115,7 +116,7 @@ function ExerciseBlock({ records }: { records: ExerciseRecord[] }) {
             {recorded} de {records.length} sesiones con registro
           </p>
           <ExerciseBars records={records} />
-          <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-500">
+          <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-400">
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-4 rounded-sm bg-teal-400" /> Registrado
             </span>
@@ -214,7 +215,7 @@ function ExerciseBars({ records }: { records: ExerciseRecord[] }) {
               ) : null}
             </div>
             {details.length > 0 ? (
-              <p className="mt-0.5 text-[11px] text-slate-500">
+              <p className="mt-0.5 text-[11px] text-slate-400">
                 {details.join(" · ")}
               </p>
             ) : null}
@@ -315,7 +316,7 @@ export function EvaluationTab({
             <div key={label}>
               <dt className="text-xs font-medium text-slate-400">{label}</dt>
               {items.length === 0 ? (
-                <dd className="text-xs italic text-slate-500">
+                <dd className="text-xs italic text-slate-400">
                   Sin elementos declarados.
                 </dd>
               ) : (
@@ -344,7 +345,7 @@ export function EvaluationTab({
                   source.title
                 )}
               </p>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-400">
                 {source.locator} · {REVIEW_LABELS[source.review_status]}
               </p>
             </li>
@@ -359,6 +360,10 @@ export function EvaluationTab({
       >
         ¿Por qué? Ver fundamento
       </button>
+
+      <Collapsible title="Orientación contextual (demostración 0.3)">
+        <GuidanceCard assessment={assessment} />
+      </Collapsible>
     </div>
   );
 }

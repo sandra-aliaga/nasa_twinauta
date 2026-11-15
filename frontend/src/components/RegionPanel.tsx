@@ -156,7 +156,7 @@ export function RegionPanel({
                   <Tag tone="emerald">Basado en evidencia revisada</Tag>
                 )}
               </div>
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-slate-400">
                 {ASSESSMENT_STATUS_HINTS[state.assessment.status]}
               </p>
               {state.assessment.mission_day !== state.request.mission_day ? (

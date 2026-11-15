@@ -18,7 +18,10 @@ export function Notice({
     error: "border-rose-500/40 bg-rose-500/10 text-rose-100",
   } as const;
   return (
-    <div className={`rounded-lg border px-4 py-3 text-sm ${tones[tone]}`}>
+    <div
+      role={tone === "error" ? "alert" : "status"}
+      className={`rounded-lg border px-4 py-3 text-sm ${tones[tone]}`}
+    >
       <p className="font-medium">{title}</p>
       {children ? <div className="mt-1 opacity-90">{children}</div> : null}
     </div>

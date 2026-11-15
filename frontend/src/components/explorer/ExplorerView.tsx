@@ -7,9 +7,8 @@ import {
   IMPLEMENTATION_LABELS,
   INTERPRETATION_LABELS,
   LIBRARY_VIEW_LABELS,
-  PAPER_ENVIRONMENT_LABELS,
 } from "../../lib/explorerLabels";
-import { REVIEW_LABELS } from "../../lib/labels";
+import { ENVIRONMENT_LABELS, REVIEW_LABELS } from "../../lib/labels";
 import { ErrorNotice, Notice, Tag } from "../common";
 import { LibraryGraph } from "./LibraryGraph";
 import { PaperDetailView } from "./PaperDetailView";
@@ -92,7 +91,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
             Demostración · contrato 0.3 propuesto, sin backend
           </Tag>
           {base?.status === "ready" ? (
-            <span className="text-xs text-slate-500">
+            <span className="text-xs text-slate-400">
               Corpus {base.data.corpus_version} · {base.data.paper_count}{" "}
               publicaciones · {base.data.reviewed_paper_count} revisadas
             </span>
@@ -201,7 +200,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
         </form>
 
         <div
-          role="tablist"
+          role="group"
           aria-label="Modo de exploración"
           className="flex gap-1"
         >
@@ -214,8 +213,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
             <button
               key={value}
               type="button"
-              role="tab"
-              aria-selected={mode === value}
+              aria-pressed={mode === value}
               onClick={() => setMode(value)}
               className={`rounded-md px-3 py-1 text-sm ${
                 mode === value
@@ -244,7 +242,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
                 </Notice>
               ) : (
                 <>
-                  <p className="mb-2 text-xs text-slate-500">
+                  <p className="mb-2 text-xs text-slate-400">
                     {papers.data.total_matching} publicaciones del corpus
                     coinciden · orden: año descendente, sin puntuación de
                     relevancia
@@ -278,7 +276,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
                                   : "amber"
                               }
                             >
-                              {PAPER_ENVIRONMENT_LABELS[paper.environment]}
+                              {ENVIRONMENT_LABELS[paper.environment]}
                             </Tag>
                             <Tag
                               tone={
@@ -315,7 +313,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
             aria-label="Cobertura de módulos"
             className="rounded-lg border border-slate-800 p-3"
           >
-            <h3 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+            <h3 className="text-xs font-medium uppercase tracking-wide text-slate-400">
               Cobertura de módulos
             </h3>
             {modules?.status === "ready" ? (
@@ -344,7 +342,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
                     </p>
                   </li>
                 ))}
-                <li className="text-slate-500">
+                <li className="text-slate-400">
                   Las regiones sin módulo no se interpretan; no significa que
                   estén sanas.
                 </li>
@@ -352,7 +350,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
             ) : modules?.status === "error" ? (
               <ErrorNotice error={modules.error} />
             ) : (
-              <p className="mt-2 text-xs text-slate-500">Cargando catálogo…</p>
+              <p className="mt-2 text-xs text-slate-400">Cargando catálogo…</p>
             )}
           </section>
         </div>

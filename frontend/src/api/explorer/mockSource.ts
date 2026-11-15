@@ -2,7 +2,8 @@
  * Mock adapter for the PROPOSED scientific explorer (contract draft 0.3).
  * It serves contracts/drafts/scientific-explorer-0.3/examples.json and never
  * fabricates content that is not in that fixture: a paper without a detail
- * example is a 404, and graph views without an example come back empty.
+ * example is a 404, and a view or neighbourhood without an example comes
+ * back as an empty page.
  */
 import examples from "../../../../contracts/drafts/scientific-explorer-0.3/examples.json";
 import { ApiError } from "../errors";
@@ -11,6 +12,7 @@ import type {
   GraphQuery,
   Guidance,
   KnowledgeBaseMetadata,
+  LibraryView,
   ModuleCatalog,
   PaperCard,
   PaperDetail,
@@ -34,8 +36,9 @@ export type ExplorerSource = {
 
 const fixture = examples as unknown as {
   papers: PaperPage;
-  paper_detail: PaperDetail;
-  graph: GraphPage;
+  paper_details: PaperDetail[];
+  graph_views: Partial<Record<LibraryView, GraphPage>>;
+  graph_neighbors: Record<string, GraphPage>;
   knowledge_base: KnowledgeBaseMetadata;
   modules: ModuleCatalog;
   guidance: Guidance;
@@ -171,9 +174,10 @@ export function createExplorerMock(): ExplorerSource {
       );
     },
     getPaper(paperId, signal) {
-      if (fixture.paper_detail.paper.id === paperId) {
-        return respond(fixture.paper_detail, signal);
-      }
+      const detail = fixture.paper_details.find(
+        (item) => item.paper.id === paperId,
+      );
+      if (detail) return respond(detail, signal);
       const known = fixture.papers.items.some((paper) => paper.id === paperId);
       return Promise.reject(
         new ApiError(404, {
@@ -189,12 +193,23 @@ export function createExplorerMock(): ExplorerSource {
       const error = validate(query);
       if (error) return Promise.reject(error);
       const view = query.view ?? "evidence";
-      const base = fixture.graph;
-      // The fixture only documents one view and has no neighbourhood data.
-      if (view !== base.view || query.paper_id) {
+      const known = fixture.papers.items.some((p) => p.id === query.paper_id);
+      if (query.paper_id && !known) {
+        return Promise.reject(
+          new ApiError(404, {
+            code: "not_found",
+            message: "La publicación no existe en el corpus de ejemplo.",
+            details: [],
+          }),
+        );
+      }
+      const base = query.paper_id
+        ? fixture.graph_neighbors[query.paper_id]
+        : fixture.graph_views[view];
+      if (!base) {
         return respond<GraphPage>(
           {
-            ...base,
+            corpus_version: fixture.papers.corpus_version,
             view,
             assessment_id: query.assessment_id ?? null,
             nodes: [],
@@ -202,7 +217,7 @@ export function createExplorerMock(): ExplorerSource {
             page: { has_more: false, next_cursor: null },
             scope_description: query.paper_id
               ? "Los ejemplos 0.3 no incluyen vecinos para esta publicación."
-              : `Los ejemplos 0.3 solo incluyen la vista «${base.view}».`,
+              : "Los ejemplos 0.3 no incluyen esta vista.",
             counts: {
               papers_matching: 0,
               papers_returned: 0,
@@ -217,10 +232,13 @@ export function createExplorerMock(): ExplorerSource {
           .filter((paper) => matches(paper, query))
           .map((p) => p.id),
       );
+      // With paper_id, the anchor paper is always kept; filters apply to
+      // candidate neighbours only.
       const nodes = base.nodes.filter(
         (node) =>
           node.kind !== "paper" ||
-          (node.paper_id && allowed.has(node.paper_id)),
+          node.paper_id === query.paper_id ||
+          (node.paper_id !== null && allowed.has(node.paper_id)),
       );
       const ids = new Set(nodes.map((node) => node.id));
       // Each page must resolve both ends of its edges.
@@ -231,11 +249,16 @@ export function createExplorerMock(): ExplorerSource {
       return respond<GraphPage>(
         {
           ...base,
+          view,
           assessment_id: query.assessment_id ?? null,
           nodes,
           edges,
           counts: {
-            papers_matching: allowed.size,
+            papers_matching: query.paper_id
+              ? papers.length
+              : base.nodes.filter(
+                  (n) => n.kind === "paper" && allowed.has(n.paper_id ?? ""),
+                ).length,
             papers_returned: papers.length,
             papers_reviewed_returned: papers.filter(
               (n) => n.review_status === "reviewed",

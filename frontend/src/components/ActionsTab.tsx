@@ -89,7 +89,7 @@ function ActionCard({
       </div>
 
       <p className="text-sm text-slate-300">{action.rationale}</p>
-      <p className="text-xs text-slate-500">{action.eligibility_reason}</p>
+      <p className="text-xs text-slate-400">{action.eligibility_reason}</p>
 
       {action.requirements.length > 0 ? (
         <div>

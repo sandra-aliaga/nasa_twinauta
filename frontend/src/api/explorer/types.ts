@@ -7,6 +7,7 @@ import type { components, operations } from "./schema";
 
 type Schemas = components["schemas"];
 
+export type Environment = Schemas["Environment"];
 export type PaperCard = Schemas["PaperCard"];
 export type PaperPage = Schemas["PaperPage"];
 export type PaperDetail = Schemas["PaperDetail"];

@@ -115,6 +115,18 @@ export interface components {
       pmid: string | null;
       pmcid: string | null;
     };
+    /**
+     * @description Entorno del estudio. Los cuatro primeros valores coinciden con EvidenceClaim.environment de 0.2; 'other', 'mixed' y 'unknown' solo aplican a publicaciones. 'bed_rest_analog' es un análogo terrestre, nunca vuelo.
+     * @enum {string}
+     */
+    Environment:
+      | "spaceflight"
+      | "bed_rest_analog"
+      | "terrestrial_exercise"
+      | "synthetic"
+      | "other"
+      | "mixed"
+      | "unknown";
     Access: {
       /** Format: uri */
       landing_url: string;
@@ -136,14 +148,7 @@ export interface components {
       sections: ("evidence" | "scenario" | "actions")[];
       region_ids: string[];
       study_design: string | null;
-      /** @enum {string} */
-      environment:
-        | "spaceflight"
-        | "bed_rest"
-        | "terrestrial_exercise"
-        | "other"
-        | "mixed"
-        | "unknown";
+      environment: components["schemas"]["Environment"];
       /** @enum {string} */
       review_status: "pending" | "reviewed";
       access: components["schemas"]["Access"];
@@ -376,6 +381,8 @@ export interface components {
       paper_ids: string[];
       /** @enum {string} */
       review_status: "pending" | "reviewed";
+      /** @description Acción 0.2 persistida en la misma evaluación que materializa este paso. Nula si el paso no tiene acción (p. ej., intervención estudiada). La ejecución se consulta y modifica solo en la acción 0.2. */
+      action_id: string | null;
     };
     Guidance: {
       assessment_id: string;

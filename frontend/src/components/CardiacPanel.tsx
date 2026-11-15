@@ -60,7 +60,7 @@ export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
     <section
       aria-label="Frecuencia cardíaca didáctica"
       ref={sectionRef}
-      className="shrink-0 border-t lg:max-h-[48vh] lg:overflow-y-auto border-slate-800 bg-slate-900/70 px-4 py-3"
+      className="shrink-0 border-t lg:max-h-[40vh] lg:overflow-y-auto border-slate-800 bg-slate-900/70 px-4 py-3"
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-sm font-semibold text-slate-100">
@@ -86,7 +86,7 @@ export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
           <button
             type="button"
             onClick={onClose}
-            className="rounded-md px-2 text-sm text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+            className="rounded-md px-3 py-1.5 text-sm text-slate-400 hover:bg-slate-800 hover:text-slate-100"
           >
             Cerrar
           </button>
@@ -185,7 +185,11 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
     <div className="mt-2 space-y-3">
       <div className="flex flex-wrap gap-1">
         <Tag tone="violet">Ejercicio en Tierra</Tag>
-        <Tag>Participante {recording.participant_id}</Tag>
+        <Tag>
+          {recording.origin === "synthetic"
+            ? "Participante sintético"
+            : `Participante ${recording.participant_id}`}
+        </Tag>
         <Tag tone={recording.origin === "human_dataset" ? "sky" : "amber"}>
           {ORIGIN_LABELS[recording.origin]}
         </Tag>
@@ -273,7 +277,9 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
                 dataKey="value"
                 stroke={LINE_COLOR}
                 strokeWidth={2}
-                dot={false}
+                dot={(props: { cx?: number; cy?: number; index?: number }) =>
+                  isolatedDot(props, played)
+                }
                 connectNulls={false}
                 isAnimationActive={false}
               />
@@ -300,7 +306,12 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
               Motivo: {current.missing_reason}
             </p>
           ) : null}
-          <p className="text-xs text-slate-500">
+          {finished ? (
+            <p className="text-xs text-slate-300" role="status">
+              Grabación terminada.
+            </p>
+          ) : null}
+          <p className="text-xs text-slate-400">
             {complete
               ? `${points.length} muestras · ${missingTotal} sin medición`
               : `Cargando ventanas… ${Math.round(loadedUntil)} de ${Math.round(endS)} s`}
@@ -344,7 +355,7 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
               type="button"
               aria-pressed={speed === value}
               onClick={() => setSpeed(value)}
-              className={`rounded px-2 py-0.5 text-xs ${
+              className={`rounded px-3 py-1.5 text-xs ${
                 speed === value
                   ? "bg-slate-700 text-slate-100"
                   : "text-slate-400 hover:text-slate-200"
@@ -359,14 +370,16 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
       {windowError ? <ErrorNotice error={windowError} /> : null}
 
       <Notice title="No es una medición del astronauta virtual">
-        {`Procede de otro participante y otro dataset (${recording.dataset_id}). `}
+        {recording.origin === "synthetic"
+          ? `Señal sintética de maquetación (${recording.dataset_id}); no es una medición de ninguna persona. `
+          : `Procede de otro participante y otro dataset (${recording.dataset_id}). `}
         El tiempo está en segundos desde el inicio de la prueba y no corresponde
         a días de misión. Los huecos de la línea son valores ausentes en la
         fuente; no se interpolan.
       </Notice>
 
       {source ? (
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-slate-400">
           Fuente:{" "}
           {source.url ? (
             <a
@@ -386,7 +399,7 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
 
       <Collapsible title="Ver datos de la ventana visible">
         <table className="w-full text-left text-xs">
-          <thead className="text-slate-500">
+          <thead className="text-slate-400">
             <tr>
               <th className="py-1 font-normal">Tiempo (s)</th>
               <th className="py-1 font-normal">FC (lpm)</th>
@@ -423,4 +436,24 @@ function chartLabel(
         ? "sin medición"
         : `${current.value} latidos por minuto`;
   return `Frecuencia cardíaca entre ${Math.round(start)} y ${Math.round(end)} segundos; lectura actual: ${reading}.`;
+}
+
+/**
+ * A sample with missing neighbours has no segment to draw, so it would be
+ * invisible; show it as a dot. Connected samples keep the plain line.
+ */
+function isolatedDot(
+  props: { cx?: number; cy?: number; index?: number },
+  data: { value: number | null }[],
+) {
+  const { cx, cy, index } = props;
+  const key = `dot-${index ?? "x"}`;
+  if (index === undefined || cx === undefined || cy === undefined) {
+    return <g key={key} />;
+  }
+  const value = data[index]?.value ?? null;
+  const prev = index > 0 ? data[index - 1].value : null;
+  const next = index < data.length - 1 ? data[index + 1].value : null;
+  if (value === null || prev !== null || next !== null) return <g key={key} />;
+  return <circle key={key} cx={cx} cy={cy} r={3} fill={LINE_COLOR} />;
 }

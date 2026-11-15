@@ -95,6 +95,8 @@ export function toFlow(
         y: position.y - NODE_HEIGHT / 2,
       },
       data: { kind: node.kind, label: node.label, compact: options.compact },
+      ariaRole: "button",
+      ariaLabel: `${KIND_LABELS[node.kind]}: ${node.label}. Intro para ver el detalle.`,
     };
   });
 
@@ -125,4 +127,14 @@ export function toFlow(
   });
 
   return { nodes, edges };
+}
+
+/** Enter or Space on a focused node selects it, like a click. */
+export function nodeIdFromKey(event: React.KeyboardEvent): string | null {
+  if (event.key !== "Enter" && event.key !== " ") return null;
+  const target = event.target as HTMLElement;
+  const node = target.closest<HTMLElement>(".react-flow__node");
+  const id = node?.dataset.id ?? null;
+  if (id) event.preventDefault();
+  return id;
 }

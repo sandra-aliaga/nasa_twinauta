@@ -6,7 +6,7 @@ Estado: **propuesta documentada, no implementada**. El backend actual sigue el c
 
 - [OpenAPI propuesto](openapi.yaml): seis operaciones nuevas bajo `/api/v1`.
 - [JSON Schema](schemas.json): estructuras compartidas de papers, estadísticas, análisis de IA y grafo.
-- [Ejemplos](examples.json): claves `papers`, `paper_detail`, `graph`, `knowledge_base`, `modules`, `guidance` y variantes `guidance_states`. Incluyen dos publicaciones reales y cuatro valores publicados de media/DE de torque; sus fichas y extracciones siguen pendientes de revisión. No simulan respuestas de una IA ejecutada.
+- [Ejemplos](examples.json): claves `papers`, `paper_details` (Trappe 2024 y Scott 2020), `graph_views` (una página por vista: `evidence`, `scenario`, `actions`), `graph_neighbors` (vecindario por `paper_id`), `knowledge_base`, `modules`, `guidance` y variantes `guidance_states`. Incluyen dos publicaciones reales, cuatro valores publicados de media/DE de torque (Trappe 2024) y dos resultados de Scott 2020 tomados de la ficha verificada `docs/evidencia/fichas/claim_bedrest_quadriceps_csa_rate.md`; todas las extracciones siguen pendientes de revisión de Medicina. No simulan respuestas de una IA ejecutada.
 - [Decisiones de producto e investigación de herramientas](../../../docs/explorador-cientifico.md).
 
 ## Operaciones propuestas
@@ -29,6 +29,18 @@ Los estados de orientación son `complete`, `partial`, `insufficient_data`, `not
 La orientación se materializa al crear una evaluación con la futura implementación 0.3, se guarda y se consulta sin regenerarla en GET. Las evaluaciones antiguas 0.2 que no la tengan devuelven `not_supported` con explicación de versión y sin inventar una instantánea. Un `assessment_id` inexistente devuelve 404. Una región sin módulo o datos insuficientes es un estado de dominio 200, no un diagnóstico ni un error de transporte.
 
 `module_id`/`module_version` pueden ser nulos cuando no existe módulo. `created_at` nulo significa que no hay orientación materializada. Un paso `eligible` requiere regla, versión y revisión comprobadas; una intervención sugerida por IA comienza con elegibilidad `unknown` y revisión pendiente. Este recurso es de lectura: no añade un PATCH de ejecución paralelo al de acciones 0.2. El seguimiento debe reutilizar las acciones persistidas cuando se habilite la composición, manteniendo ambos recursos coherentes.
+
+### Enlace entre pasos de orientación y acciones 0.2
+
+Cada `GuidanceStep` tiene `action_id` (obligatorio, nullable). Reglas:
+
+1. `action_id` no nulo debe ser el `id` de una `Action` presente en `actions` de la **misma** evaluación (`assessment_id`). Un identificador que no exista allí es un error de contrato del backend, no un estado de dominio; frontend lo muestra como enlace roto y no inventa la acción.
+2. El paso refleja la `eligibility` y el `review_status` de la acción enlazada al materializarse. Si no coinciden, prevalece la acción 0.2 y la discrepancia es un error a corregir en backend.
+3. La ejecución (`execution_status`, `revision`) vive solo en la acción 0.2 y se cambia con su `PATCH` y `expected_revision`. La orientación no copia ni modifica ese estado; frontend lo lee de la evaluación.
+4. Un paso `studied_intervention` siempre tiene `action_id: null`: describe lo que investigó un paper y no es una acción habilitada.
+5. Un paso `operational_review` sin acción persistida tiene `action_id: null` y se presenta como orientación de lectura, sin control de ejecución.
+
+El ejemplo `guidance_states[4]` enlaza `step_review_session_log` con `action_log` de [`contracts/examples/assessment.json`](../../examples/assessment.json) (`assessment_demo_001`).
 
 Las variantes documentales no establecen umbrales médicos. Permiten maquetar datos ausentes, método no comparable, restricción de equipo y región sin módulo. No declarar como sano un resultado que carece de datos o de módulo.
 
@@ -80,6 +92,27 @@ El paquete expone modo local o alojado y si requiere servicios externos para con
 `landing_url` siempre permite abrir la fuente. `full_text_url` y `pdf_url` pueden ser nulos: no construir rutas de PDF ni prometer que se puede incrustar cualquier editorial. Ofrecer abrir el original y, cuando exista una URL compatible, vista previa. Mostrar disponibilidad y licencia cuando se conocen; ausencia de PDF no equivale a paper inexistente.
 
 Frontend debe contemplar: lista cargando/vacía/error, ficha disponible sin abstract o PDF, resumen pendiente, análisis en cola/procesando/fallido, extracción sin revisar, grafo sin relaciones, expansión paginada, cursor obsoleto y orientación sin módulo. Los ejemplos son para un adaptador mock, no para fingir que las seis rutas ya existen.
+
+## Entorno del estudio unificado
+
+`$defs/Environment` es el único vocabulario de entorno: `spaceflight`, `bed_rest_analog`, `terrestrial_exercise`, `synthetic`, `other`, `mixed`, `unknown`. Los cuatro primeros coinciden con `EvidenceClaim.environment` de 0.2, de modo que un paper y una afirmación del mismo estudio usan el mismo valor. El borrador anterior usaba `bed_rest`; se sustituye por `bed_rest_analog` para no presentar un análogo terrestre como si fuera vuelo. `other`, `mixed` y `unknown` solo aplican a publicaciones. `synthetic` no debería aparecer en un paper real.
+
+## Aclaración de telemetría (corrige una ambigüedad de 0.2)
+
+El README 0.2 ya establece que `start_s` y `end_s` de `TelemetryWindow` repiten los límites solicitados y que se recortan los puntos, no esos campos; el esquema OpenAPI 0.2 no lo dice y la verificación del contrato lo detectó como ambiguo. Para 0.3 se propone, sin romper 0.2:
+
+- `end_s` sigue siendo el valor solicitado (puede superar `recording_end_s`).
+- Campo aditivo `effective_end_s` ([`$defs/TelemetryWindowAddendum`](schemas.json)): `min(end_s, recording_end_s)`, o `start_s` cuando la ventana empieza en o después del final.
+- Todos los `points` cumplen `start_s <= time_s < effective_end_s`. `next_start_s` es `effective_end_s` mientras quede grabación y `null` al terminar.
+- Hasta que el backend lo implemente, el cliente calcula el final efectivo con `recording_end_s`; el adaptador de ejemplos del frontend ya lo hace así.
+
+## Cambios de esta revisión del borrador
+
+- Entorno unificado (`bed_rest` pasa a `bed_rest_analog`).
+- `GuidanceStep.action_id` y reglas de enlace con acciones 0.2; nueva variante de ejemplo enlazada.
+- `paper_detail` pasa a `paper_details` con la ficha de Scott 2020; `graph` pasa a `graph_views` por vista y se añade `graph_neighbors`.
+- Aclaración de telemetría y campo aditivo `effective_end_s`.
+- Requieren acuerdo de backend (Sandra) y revisión de Medicina antes de promoverse.
 
 ## Pendientes para promover la propuesta
 

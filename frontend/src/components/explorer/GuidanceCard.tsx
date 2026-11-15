@@ -1,6 +1,8 @@
 import { useState } from "react";
 
+import type { Action, Assessment } from "../../api";
 import { explorerSource } from "../../api/explorer/mockSource";
+import type { GuidanceStep } from "../../api/explorer/types";
 import { useLoad } from "../../hooks/useLoad";
 import {
   APPLICABILITY_LABELS,
@@ -8,22 +10,27 @@ import {
   GUIDANCE_STATUS_LABELS,
   STEP_KIND_LABELS,
 } from "../../lib/explorerLabels";
-import { ELIGIBILITY_LABELS, REVIEW_LABELS } from "../../lib/labels";
+import {
+  ELIGIBILITY_LABELS,
+  EXECUTION_LABELS,
+  REVIEW_LABELS,
+} from "../../lib/labels";
 import { ErrorNotice, Notice, Tag } from "../common";
 
 /**
  * Contextual guidance (contract draft 0.3), shown with the documented
  * fixture variants. The fixture does not belong to the current assessment,
- * and statuses describe coverage, never clinical severity.
+ * and statuses describe coverage, never clinical severity. A step linked to
+ * a 0.2 action shows that action's live state; execution is never copied.
  */
-export function GuidanceCard() {
+export function GuidanceCard({ assessment }: { assessment: Assessment }) {
   const examples = useLoad("guidance", (signal) =>
     explorerSource.listGuidanceExamples(signal),
   );
   const [index, setIndex] = useState(0);
 
   if (examples === null || examples.status === "loading") {
-    return <p className="text-xs text-slate-500">Cargando orientación…</p>;
+    return <p className="text-xs text-slate-400">Cargando orientación…</p>;
   }
   if (examples.status === "error")
     return <ErrorNotice error={examples.error} />;
@@ -54,9 +61,10 @@ export function GuidanceCard() {
           ))}
         </select>
       </label>
-      <p className="text-xs text-slate-500">
+      <p className="text-xs text-slate-400">
         Este ejemplo no corresponde a la evaluación abierta; sirve para ver cómo
-        se presentará cada estado.
+        se presentará cada estado. Los enlaces a acciones se resuelven por
+        identificador contra la evaluación abierta solo para la demostración.
       </p>
 
       <div className="flex flex-wrap gap-1">
@@ -75,7 +83,7 @@ export function GuidanceCard() {
       <p className="text-slate-200">{guidance.summary}</p>
       {guidance.reason ? (
         <p className="text-xs text-slate-400">
-          <span className="text-slate-500">Motivo: </span>
+          <span className="text-slate-400">Motivo: </span>
           {guidance.reason}
         </p>
       ) : null}
@@ -119,12 +127,17 @@ export function GuidanceCard() {
                 </Tag>
               </div>
               <p className="mt-1 text-slate-300">{step.description}</p>
-              <p className="mt-0.5 text-slate-500">{step.eligibility_reason}</p>
+              <p className="mt-0.5 text-slate-400">{step.eligibility_reason}</p>
+              <LinkedAction
+                step={step}
+                guidanceAssessmentId={guidance.assessment_id}
+                assessment={assessment}
+              />
             </li>
           ))}
         </ul>
       ) : (
-        <p className="text-xs italic text-slate-500">
+        <p className="text-xs italic text-slate-400">
           Sin pasos para este estado.
         </p>
       )}
@@ -136,10 +149,75 @@ export function GuidanceCard() {
           ))}
         </ul>
       ) : null}
-      <p className="text-[11px] text-slate-600">
+      <p className="text-[11px] text-slate-400">
         Corpus {guidance.corpus_version} · reglas{" "}
         {guidance.rules_version ?? "sin versión"}
       </p>
     </section>
   );
+}
+
+/**
+ * Resolves step.action_id against the open assessment. The contract requires
+ * both to belong to the same assessment; the fixtures do not, so the demo
+ * resolves by id and says so.
+ */
+function LinkedAction({
+  step,
+  guidanceAssessmentId,
+  assessment,
+}: {
+  step: GuidanceStep;
+  guidanceAssessmentId: string;
+  assessment: Assessment;
+}) {
+  if (step.action_id === null) {
+    return (
+      <p className="mt-1 text-slate-400">
+        {step.kind === "studied_intervention"
+          ? "Sin acción enlazada: describe lo que se estudió, no algo que hacer."
+          : "Sin acción enlazada: orientación de lectura, sin seguimiento de ejecución."}
+      </p>
+    );
+  }
+  const action = assessment.actions.find((item) => item.id === step.action_id);
+  if (!action) {
+    return (
+      <p className="mt-1 text-amber-200">
+        La acción enlazada ({step.action_id}) no está en la evaluación abierta.
+        El ejemplo pertenece a {guidanceAssessmentId}; con datos reales sería un
+        error de contrato y no se inventa la acción.
+      </p>
+    );
+  }
+  const mismatches = mismatchedFields(step, action);
+  return (
+    <div className="mt-2 rounded-md border border-sky-500/30 p-2">
+      <p className="text-slate-400">
+        Acción enlazada (estado vigente en la evaluación abierta)
+      </p>
+      <div className="mt-1 flex flex-wrap items-center gap-1">
+        <span className="text-slate-100">{action.title}</span>
+        <Tag>Ejecución: {EXECUTION_LABELS[action.execution_status]}</Tag>
+        <Tag>Versión del registro {action.revision}</Tag>
+      </div>
+      <p className="mt-1 text-slate-400">
+        La ejecución se registra en la pestaña de acciones; este paso no la
+        modifica.
+      </p>
+      {mismatches.length > 0 ? (
+        <p className="mt-1 text-amber-200">
+          El paso no coincide con la acción en {mismatches.join(" y ")};
+          prevalece la acción.
+        </p>
+      ) : null}
+    </div>
+  );
+}
+
+function mismatchedFields(step: GuidanceStep, action: Action): string[] {
+  const fields: string[] = [];
+  if (step.eligibility !== action.eligibility) fields.push("elegibilidad");
+  if (step.review_status !== action.review_status) fields.push("revisión");
+  return fields;
 }

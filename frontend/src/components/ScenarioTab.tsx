@@ -58,23 +58,23 @@ export function ScenarioTab({ assessment, onOpenGraph }: ScenarioTabProps) {
       ) : (
         <section className="space-y-3">
           <dl className="grid grid-cols-2 gap-2 text-xs text-slate-300">
-            <dt className="text-slate-500">Modelo</dt>
+            <dt className="text-slate-400">Modelo</dt>
             <dd>
               {scenario.model_id} · v{scenario.model_version}
             </dd>
-            <dt className="text-slate-500">Inicio de referencia</dt>
+            <dt className="text-slate-400">Inicio de referencia</dt>
             <dd>Día {scenario.reference_start_day} del protocolo</dd>
-            <dt className="text-slate-500">Horizonte</dt>
+            <dt className="text-slate-400">Horizonte</dt>
             <dd>{scenario.horizon_days} días</dd>
             {scenario.domain ? (
               <>
-                <dt className="text-slate-500">Dominio</dt>
+                <dt className="text-slate-400">Dominio</dt>
                 <dd>
                   {ENVIRONMENT_LABELS[scenario.domain.environment]}, días{" "}
                   {scenario.domain.min_reference_day} a{" "}
                   {scenario.domain.max_reference_day}
                 </dd>
-                <dt className="text-slate-500">Basal</dt>
+                <dt className="text-slate-400">Basal</dt>
                 <dd>{scenario.domain.baseline_definition}</dd>
               </>
             ) : null}
@@ -87,7 +87,7 @@ export function ScenarioTab({ assessment, onOpenGraph }: ScenarioTabProps) {
 
           <Collapsible title="Ver datos de la trayectoria">
             <table className="w-full text-left text-xs text-slate-300">
-              <thead className="text-slate-500">
+              <thead className="text-slate-400">
                 <tr>
                   <th className="py-1 font-medium">Día del protocolo</th>
                   <th className="py-1 font-medium">
@@ -117,7 +117,7 @@ export function ScenarioTab({ assessment, onOpenGraph }: ScenarioTabProps) {
                 {scenario.parameters.map((parameter) => (
                   <li key={parameter.id}>
                     {parameter.id}: {parameter.value} {parameter.unit}
-                    <span className="block text-slate-500">
+                    <span className="block text-slate-400">
                       Fuente {parameter.source_id} · {parameter.locator}
                     </span>
                   </li>
@@ -236,7 +236,7 @@ function ScenarioChart({ scenario }: { scenario: Scenario }) {
           </LineChart>
         </ResponsiveContainer>
       </div>
-      <figcaption className="text-[11px] text-slate-500">
+      <figcaption className="text-[11px] text-slate-400">
         Línea discontinua: basal del protocolo (100 %). Eje horizontal: días del
         protocolo, no días de misión. Los puntos son salidas del modelo, no
         mediciones; la línea solo los une y no se extiende fuera de su dominio.

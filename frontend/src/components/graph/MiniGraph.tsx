@@ -38,7 +38,7 @@ export function MiniGraph({ assessmentId, view, onExpand }: MiniGraphProps) {
             <GraphCanvas graph={state.data} compact />
           </div>
         ) : (
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-slate-400">
             {state?.status === "error"
               ? "No se pudo cargar el grafo"
               : state?.status === "ready"

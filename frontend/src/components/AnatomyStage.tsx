@@ -115,7 +115,7 @@ export function AnatomyStage({
           })}
         </div>
         {note ? <p className="text-xs text-amber-200/90">{note}</p> : null}
-        <p className="text-xs text-slate-500">
+        <p className="text-xs text-slate-400">
           Arrastre para girar y use la rueda para acercar. Lateralidad no
           individualizada: ambos lados forman una región. {MODEL_CREDIT}
         </p>

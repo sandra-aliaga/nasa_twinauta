@@ -6,6 +6,7 @@ import { CardiacPanel } from "./components/CardiacPanel";
 import { ErrorNotice, Notice } from "./components/common";
 import { GraphExplorer } from "./components/graph/GraphExplorer";
 import { MiniGraph } from "./components/graph/MiniGraph";
+import { ExplorerView } from "./components/explorer/ExplorerView";
 import { Header } from "./components/Header";
 import { RegionPanel, type PanelTab } from "./components/RegionPanel";
 import { useAssessment } from "./hooks/useAssessment";
@@ -32,6 +33,7 @@ export default function App() {
   const [tab, setTab] = useState<PanelTab>("evaluation");
   const [graphView, setGraphView] = useState<GraphView | null>(null);
   const [cardiacOpen, setCardiacOpen] = useState(false);
+  const [libraryOpen, setLibraryOpen] = useState(false);
   const regions = useRegions(caseId);
   const { state, evaluate, reset, replaceAction, refresh } = useAssessment();
 
@@ -110,7 +112,15 @@ export default function App() {
 
   const evaluatedDay =
     state.status === "ready" ? state.assessment.mission_day : null;
-  const showGraph = graphView !== null && state.status === "ready";
+  const showGraph =
+    !libraryOpen && graphView !== null && state.status === "ready";
+  // The library and the assessment graph share the main area.
+  const hideBody = showGraph || libraryOpen;
+
+  function openGraph(view: GraphView) {
+    setLibraryOpen(false);
+    setGraphView(view);
+  }
 
   return (
     <Shell>
@@ -130,11 +140,22 @@ export default function App() {
         }
         cardiacOpen={cardiacOpen}
         onToggleCardiac={() => setCardiacOpen((open) => !open)}
+        libraryOpen={libraryOpen}
+        onToggleLibrary={() => {
+          setGraphView(null);
+          setLibraryOpen((open) => !open);
+        }}
       />
 
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] lg:overflow-hidden">
         <main className="relative min-h-[420px] border-slate-800 lg:border-r">
-          {graphView !== null && state.status === "ready" ? (
+          {libraryOpen ? (
+            <ExplorerView
+              regionId={regionId}
+              onBack={() => setLibraryOpen(false)}
+            />
+          ) : null}
+          {showGraph && graphView !== null && state.status === "ready" ? (
             <GraphExplorer
               view={graphView}
               assessmentId={state.assessment.assessment_id}
@@ -142,11 +163,11 @@ export default function App() {
               onBack={() => setGraphView(null)}
             />
           ) : null}
-          {!showGraph && state.status === "ready" ? (
+          {!hideBody && state.status === "ready" ? (
             <MiniGraph
               assessmentId={state.assessment.assessment_id}
               view={TAB_TO_VIEW[tab]}
-              onExpand={() => setGraphView(TAB_TO_VIEW[tab])}
+              onExpand={() => openGraph(TAB_TO_VIEW[tab])}
             />
           ) : null}
           {regions?.status === "error" ? (
@@ -156,7 +177,7 @@ export default function App() {
           ) : (
             // Kept mounted while the graph is shown: unmounting the WebGL
             // canvas is costly and reloading the 16 MB model is avoidable.
-            <div className={showGraph ? "hidden" : "h-full"}>
+            <div className={hideBody ? "hidden" : "h-full"}>
               <AnatomyStage
                 regions={regionList}
                 selectedRegionId={regionId}
@@ -175,7 +196,7 @@ export default function App() {
             onTabChange={setTab}
             onClose={handleClosePanel}
             onRetry={() => regionId && requestAssessment(regionId, day)}
-            onOpenGraph={(fromTab) => setGraphView(TAB_TO_VIEW[fromTab])}
+            onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
             onActionUpdated={replaceAction}
             onConflict={refresh}
           />

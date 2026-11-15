@@ -13,6 +13,8 @@ type HeaderProps = {
   cardiacAvailable: boolean;
   cardiacOpen: boolean;
   onToggleCardiac: () => void;
+  libraryOpen: boolean;
+  onToggleLibrary: () => void;
 };
 
 /** Top bar: case selector, mission day slider with explicit evaluate button. */
@@ -29,6 +31,8 @@ export function Header({
   cardiacAvailable,
   cardiacOpen,
   onToggleCardiac,
+  libraryOpen,
+  onToggleLibrary,
 }: HeaderProps) {
   const selectedCase = cases.find((item) => item.id === caseId) ?? null;
   const maxDay = selectedCase?.duration_days ?? 0;
@@ -108,6 +112,19 @@ export function Header({
             Frecuencia cardíaca (didáctica)
           </button>
         ) : null}
+
+        <button
+          type="button"
+          aria-pressed={libraryOpen}
+          onClick={onToggleLibrary}
+          className={`rounded-md border px-3 py-1 text-sm ${
+            libraryOpen
+              ? "border-sky-400 bg-sky-500/20 text-sky-100"
+              : "border-slate-700 text-slate-200 hover:border-slate-500"
+          }`}
+        >
+          Biblioteca científica
+        </button>
 
         {isDemo ? (
           <span

@@ -7,13 +7,12 @@ import {
   COHORT_OVERLAP_LABELS,
   DISPERSION_LABELS,
   INTERVAL_LABELS,
-  PAPER_ENVIRONMENT_LABELS,
   STATISTIC_TYPE_LABELS,
   SUMMARY_BASIS_LABELS,
   SUMMARY_METHOD_LABELS,
   SUMMARY_STATUS_LABELS,
 } from "../../lib/explorerLabels";
-import { REVIEW_LABELS } from "../../lib/labels";
+import { ENVIRONMENT_LABELS, REVIEW_LABELS } from "../../lib/labels";
 import { Collapsible, Notice, Tag } from "../common";
 
 /**
@@ -36,7 +35,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
         </p>
         <div className="flex flex-wrap gap-1">
           <Tag tone={paper.environment === "spaceflight" ? "sky" : "amber"}>
-            {PAPER_ENVIRONMENT_LABELS[paper.environment]}
+            {ENVIRONMENT_LABELS[paper.environment]}
           </Tag>
           <Tag tone={paper.review_status === "reviewed" ? "emerald" : "slate"}>
             Ficha: {REVIEW_LABELS[paper.review_status]}
@@ -58,12 +57,12 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
       ) : null}
 
       <section>
-        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
           Abstract del proveedor
         </h4>
         <p className="mt-1 text-slate-300">
           {detail.abstract ?? (
-            <span className="italic text-slate-500">
+            <span className="italic text-slate-400">
               No se dispone del abstract en esta ficha.
             </span>
           )}
@@ -72,7 +71,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
 
       <section>
         <div className="flex flex-wrap items-center gap-2">
-          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
             Resumen preparado
           </h4>
           <Tag tone={summary.status === "available" ? "sky" : "slate"}>
@@ -87,7 +86,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
         {summary.text ? (
           <p className="mt-1 text-slate-200">{summary.text}</p>
         ) : null}
-        <p className="mt-1 text-xs text-slate-500">
+        <p className="mt-1 text-xs text-slate-400">
           Basado en {SUMMARY_BASIS_LABELS[summary.basis]} ·{" "}
           {SUMMARY_METHOD_LABELS[summary.method]}
           {summary.source_locators.length > 0
@@ -99,22 +98,22 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
 
       {detail.population_description ? (
         <p className="text-xs text-slate-400">
-          <span className="text-slate-500">Población: </span>
+          <span className="text-slate-400">Población: </span>
           {detail.population_description}
         </p>
       ) : null}
 
       <section>
-        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
           Resultados cuantitativos publicados
         </h4>
         {detail.statistics.length === 0 ? (
-          <p className="mt-1 text-xs italic text-slate-500">
+          <p className="mt-1 text-xs italic text-slate-400">
             No hay resultados extraídos para esta publicación.
           </p>
         ) : (
           <>
-            <p className="mt-1 text-xs text-slate-500">
+            <p className="mt-1 text-xs text-slate-400">
               Resultados agregados del estudio; no son mediciones del astronauta
               virtual.
             </p>
@@ -129,7 +128,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
 
       <section>
         <div className="flex flex-wrap items-center gap-2">
-          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
             Análisis asistido por IA
           </h4>
           <Tag tone={analysis.status === "failed" ? "amber" : "slate"}>
@@ -145,7 +144,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
         {analysis.status === "not_requested" ||
         analysis.status === "queued" ||
         analysis.status === "running" ? (
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-slate-400">
             Todavía no hay contenido generado para esta publicación.
           </p>
         ) : null}
@@ -177,13 +176,13 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
           </ul>
         ) : null}
         {analysis.model_id ? (
-          <p className="mt-1 text-[11px] text-slate-500">
+          <p className="mt-1 text-[11px] text-slate-400">
             Modelo {analysis.model_id} · prompt {analysis.prompt_version ?? "?"}{" "}
             · {analysis.generated_at ?? "fecha desconocida"}
           </p>
         ) : null}
         {analysis.items.some((item) => item.kind === "studied_intervention") ? (
-          <p className="mt-1 text-xs text-slate-500">
+          <p className="mt-1 text-xs text-slate-400">
             Una intervención estudiada describe lo que investigó el paper; no es
             una acción habilitada para el astronauta.
           </p>
@@ -191,7 +190,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
       </section>
 
       <section className="rounded-md border border-slate-800 p-3">
-        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
           {APPLICABILITY_LABELS[applicability.status]}
         </h4>
         <p className="mt-1 text-xs text-slate-300">
@@ -200,7 +199,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
       </section>
 
       <LimitList items={detail.limitations} title="Limitaciones de la ficha" />
-      <p className="text-[11px] text-slate-600">
+      <p className="text-[11px] text-slate-400">
         Corpus {detail.corpus_version}
       </p>
     </article>
@@ -246,16 +245,16 @@ function AccessLinks({
           PDF
         </a>
       ) : (
-        <span className="text-slate-500">Sin PDF enlazado</span>
+        <span className="text-slate-400">Sin PDF enlazado</span>
       )}
       {doi ? <span className="text-slate-400">DOI {doi}</span> : null}
-      <span className="text-slate-500">
+      <span className="text-slate-400">
         {access.full_text_cached || access.pdf_cached
           ? "Documento instalado localmente"
           : "Requiere conexión para abrir el documento"}
       </span>
       {access.license ? (
-        <span className="text-slate-500">Licencia {access.license}</span>
+        <span className="text-slate-400">Licencia {access.license}</span>
       ) : null}
     </div>
   );
@@ -271,9 +270,9 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
           {statistic.timepoint_label}
         </span>
         <span className="tabular-nums text-slate-100">
-          {statistic.value} {statistic.unit}
+          {statistic.value} {unit(statistic.unit)}
           {dispersion
-            ? ` ± ${dispersion.value} ${dispersion.unit} (${DISPERSION_LABELS[dispersion.kind]})`
+            ? ` ± ${dispersion.value} ${unit(dispersion.unit)} (${DISPERSION_LABELS[dispersion.kind]})`
             : ""}
         </span>
       </div>
@@ -283,10 +282,10 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
           {interval.level !== null
             ? ` ${Math.round(interval.level * 100)} %`
             : ""}
-          : {interval.lower} a {interval.upper} {interval.unit}
+          : {interval.lower} a {interval.upper} {unit(interval.unit)}
         </p>
       ) : null}
-      <p className="mt-0.5 text-slate-500">
+      <p className="mt-0.5 text-slate-400">
         {STATISTIC_TYPE_LABELS[statistic.statistic_type]}
         {statistic.sample_size !== null
           ? ` · n = ${statistic.sample_size}`
@@ -294,7 +293,7 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
         · Extracción{" "}
         {REVIEW_LABELS[statistic.extraction_review_status].toLowerCase()}
       </p>
-      <p className="mt-0.5 text-slate-500">
+      <p className="mt-0.5 text-slate-400">
         Ubicación: {statistic.source_locator}
       </p>
       <LimitList items={statistic.limitations} />
@@ -316,4 +315,9 @@ function LimitList({ items, title }: { items: string[]; title?: string }) {
   ) : (
     list
   );
+}
+
+/** Display form of contract unit ids (the id itself stays unchanged). */
+function unit(id: string): string {
+  return id === "N.m" ? "N·m" : id;
 }

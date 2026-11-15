@@ -19,18 +19,6 @@ export const LIBRARY_VIEW_LABELS: Record<LibraryView, string> = {
   actions: "Contramedidas estudiadas",
 };
 
-export const PAPER_ENVIRONMENT_LABELS: Record<
-  PaperCard["environment"],
-  string
-> = {
-  spaceflight: "Vuelo espacial",
-  bed_rest: "Análogo terrestre (reposo en cama)",
-  terrestrial_exercise: "Ejercicio en Tierra",
-  other: "Otro entorno",
-  mixed: "Entornos mixtos",
-  unknown: "Entorno sin determinar",
-};
-
 export const AVAILABILITY_LABELS: Record<
   PaperCard["access"]["availability"],
   string

@@ -24,6 +24,7 @@ import type {
   KnowledgeNode,
 } from "../../api/explorer/types";
 import { isAbort } from "../../hooks/useCatalog";
+import { nodeIdFromKey } from "../../lib/graph";
 import {
   BASIS_LABELS,
   NODE_KIND_LABELS,
@@ -224,6 +225,10 @@ export function LibraryGraph({ query, onOpenPaper }: LibraryGraphProps) {
               minZoom={0.2}
               onNodeClick={(_, node) => setSelected(node.id)}
               onPaneClick={() => setSelected(null)}
+              onKeyDown={(event) => {
+                const id = nodeIdFromKey(event);
+                if (id) setSelected(id);
+              }}
               style={{ background: "transparent" }}
             >
               <Background gap={22} color="#1e293b" />
@@ -277,6 +282,8 @@ function toFlow(merged: Merged, focus: string | null) {
         position: { x: position.x - WIDTH / 2, y: position.y - HEIGHT / 2 },
         data: { node },
         selected: node.id === focus,
+        ariaRole: "button",
+        ariaLabel: `${NODE_KIND_LABELS[node.kind]}: ${node.label}. Intro para ver el detalle.`,
       };
     },
   );
@@ -308,7 +315,7 @@ function toFlow(merged: Merged, focus: string | null) {
 function Legend() {
   return (
     <div className="absolute bottom-3 right-3 max-w-xs rounded-lg border border-slate-800 bg-slate-900/90 px-3 py-2 text-[11px] text-slate-300">
-      <p className="mb-1 text-[10px] uppercase tracking-wide text-slate-500">
+      <p className="mb-1 text-[10px] uppercase tracking-wide text-slate-400">
         Origen de la relación
       </p>
       <ul className="space-y-1">
@@ -331,7 +338,7 @@ function Legend() {
           ),
         )}
       </ul>
-      <p className="mt-2 text-[10px] leading-snug text-slate-500">
+      <p className="mt-2 text-[10px] leading-snug text-slate-400">
         Citar o tratar un tema no es respaldo científico. Una sugerencia de IA
         queda pendiente hasta su revisión.
       </p>
@@ -404,7 +411,7 @@ function NodeCard({
               <p className="text-slate-200">
                 {RELATION_LABELS[edge.relation]} · {BASIS_LABELS[edge.basis]}
               </p>
-              <p className="text-slate-500">
+              <p className="text-slate-400">
                 {REVIEW_LABELS[edge.review_status]}
                 {edge.source_locators.length > 0
                   ? ` · ${edge.source_locators.join("; ")}`
@@ -414,7 +421,7 @@ function NodeCard({
           ))}
         </ul>
       ) : (
-        <p className="mt-3 text-xs text-slate-500">
+        <p className="mt-3 text-xs text-slate-400">
           Sin relaciones cargadas para este nodo.
         </p>
       )}

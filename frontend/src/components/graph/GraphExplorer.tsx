@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import type { Graph, GraphView } from "../../api";
 import { useGraph } from "../../hooks/useGraph";
@@ -27,6 +27,14 @@ export function GraphExplorer({
 }: GraphExplorerProps) {
   const state = useGraph(assessmentId, view);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const rootRef = useRef<HTMLDivElement>(null);
+
+  // On narrow screens the panel sits below; bring the graph into view.
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      rootRef.current?.scrollIntoView({ block: "start" });
+    }
+  }, []);
 
   // A node id only makes sense inside its own view.
   useEffect(() => setSelectedId(null), [assessmentId, view]);
@@ -34,7 +42,7 @@ export function GraphExplorer({
   const graph = state?.status === "ready" ? state.data : null;
 
   return (
-    <div className="flex h-full flex-col">
+    <div ref={rootRef} className="flex h-full min-h-[480px] flex-col">
       <div className="flex flex-wrap items-center gap-3 border-b border-slate-800 px-4 py-3">
         <button
           type="button"
@@ -43,13 +51,12 @@ export function GraphExplorer({
         >
           ← Volver al cuerpo
         </button>
-        <div role="tablist" aria-label="Vista del grafo" className="flex gap-1">
+        <div role="group" aria-label="Vista del grafo" className="flex gap-1">
           {(Object.keys(VIEW_LABELS) as GraphView[]).map((item) => (
             <button
               key={item}
               type="button"
-              role="tab"
-              aria-selected={item === view}
+              aria-pressed={item === view}
               onClick={() => onViewChange(item)}
               className={`rounded-md px-3 py-1 text-sm ${
                 item === view
@@ -117,7 +124,7 @@ function Legend({ graph }: { graph: Graph }) {
   const kinds = [...new Set(graph.nodes.map((node) => node.kind))];
   return (
     <div className="absolute bottom-4 right-4 max-w-xs rounded-lg border border-slate-800 bg-slate-900/90 px-3 py-2 text-xs text-slate-300">
-      <p className="mb-1 text-[10px] uppercase tracking-wide text-slate-500">
+      <p className="mb-1 text-[10px] uppercase tracking-wide text-slate-400">
         Tipos de nodo
       </p>
       <ul className="flex flex-wrap gap-x-3 gap-y-1">
@@ -128,7 +135,7 @@ function Legend({ graph }: { graph: Graph }) {
           </li>
         ))}
       </ul>
-      <p className="mt-2 text-[10px] leading-snug text-slate-500">
+      <p className="mt-2 text-[10px] leading-snug text-slate-400">
         Las flechas muestran de dónde sale cada dato o regla; no indican
         causalidad. Los colores agrupan tipos, no niveles de riesgo.
       </p>
@@ -187,7 +194,7 @@ function NodeDetail({
 
       {sources.length > 0 ? (
         <div className="mt-3">
-          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
             Fuentes
           </h4>
           <ul className="mt-1 space-y-2">
@@ -205,7 +212,7 @@ function NodeDetail({
                 ) : (
                   <span className="text-slate-200">{source.title}</span>
                 )}
-                <p className="text-xs text-slate-500">
+                <p className="text-xs text-slate-400">
                   {source.locator} · {REVIEW_LABELS[source.review_status]}
                 </p>
               </li>
@@ -216,7 +223,7 @@ function NodeDetail({
 
       {claims.length > 0 ? (
         <div className="mt-3">
-          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-500">
+          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
             Afirmaciones relacionadas
           </h4>
           <ul className="mt-1 space-y-3">
@@ -241,7 +248,7 @@ function NodeDetail({
                     {REVIEW_LABELS[claim.review_status]}
                   </Tag>
                 </div>
-                <p className="mt-1 text-xs text-slate-500">
+                <p className="mt-1 text-xs text-slate-400">
                   {claim.population}
                   {claim.sample_size !== null
                     ? ` · n = ${claim.sample_size}`
@@ -261,7 +268,7 @@ function NodeDetail({
       ) : null}
 
       {sources.length === 0 && claims.length === 0 ? (
-        <p className="mt-3 text-xs text-slate-500">
+        <p className="mt-3 text-xs text-slate-400">
           Este nodo no tiene fuentes ni afirmaciones asociadas en el contrato.
         </p>
       ) : null}
