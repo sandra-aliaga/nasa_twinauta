@@ -7,14 +7,20 @@ type MiniGraphProps = {
   assessmentId: string;
   view: GraphView;
   onExpand: () => void;
+  labels?: Record<string, string>;
 };
 
 /** Small read-only preview over the body; the full view opens on demand. */
-export function MiniGraph({ assessmentId, view, onExpand }: MiniGraphProps) {
-  const state = useGraph(assessmentId, view);
+export function MiniGraph({
+  assessmentId,
+  view,
+  onExpand,
+  labels,
+}: MiniGraphProps) {
+  const state = useGraph(assessmentId, view, labels);
 
   return (
-    <div className="absolute right-4 top-4 z-10 hidden w-72 overflow-hidden rounded-lg border border-slate-700 bg-slate-950/85 shadow-xl backdrop-blur md:block">
+    <div className="absolute right-4 top-4 z-10 hidden w-72 overflow-hidden rounded-lg border border-slate-700 bg-slate-950/85 shadow-xl backdrop-blur xl:block">
       <div className="flex items-center justify-between border-b border-slate-800 px-3 py-1.5">
         <span className="text-xs text-slate-300">
           Relaciones · {VIEW_LABELS[view]}
@@ -38,7 +44,7 @@ export function MiniGraph({ assessmentId, view, onExpand }: MiniGraphProps) {
             <GraphCanvas graph={state.data} compact />
           </div>
         ) : (
-          <span className="text-xs text-slate-500">
+          <span className="text-xs text-slate-400">
             {state?.status === "error"
               ? "No se pudo cargar el grafo"
               : state?.status === "ready"

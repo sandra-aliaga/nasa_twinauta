@@ -97,7 +97,7 @@ export function BodyMockup({
         </div>
       ) : null}
 
-      <p className="max-w-sm text-center text-xs text-slate-500">
+      <p className="max-w-sm text-center text-xs text-slate-400">
         Maqueta 2D sin precisión anatómica. El modelo 3D y su licencia están
         pendientes. Seleccione el muslo para elegir el cuádriceps.
       </p>

@@ -2,6 +2,7 @@
  * Spanish display text for contract enums. Keeping it in one place avoids
  * each component inventing its own wording for the same state.
  */
+import type { Environment } from "../api/explorer/types";
 import type {
   Action,
   Assessment,
@@ -94,10 +95,21 @@ export const CLAIM_KIND_LABELS: Record<EvidenceClaim["kind"], string> = {
   operational_rule: "Regla operativa",
 };
 
-export const ENVIRONMENT_LABELS: Record<EvidenceClaim["environment"], string> =
-  {
-    spaceflight: "Vuelo espacial",
-    bed_rest_analog: "Análogo terrestre (reposo en cama)",
-    terrestrial_exercise: "Ejercicio en Tierra",
-    synthetic: "Sintético",
-  };
+/**
+ * One map for every environment value. Papers use `bed_rest` and claims or
+ * scenarios use `bed_rest_analog` for the same analog; both read the same.
+ * (Unifying the value is a pending contract proposal.)
+ */
+export const ENVIRONMENT_LABELS: Record<
+  Environment | EvidenceClaim["environment"],
+  string
+> = {
+  spaceflight: "Vuelo espacial",
+  bed_rest: "Análogo terrestre (reposo en cama)",
+  bed_rest_analog: "Análogo terrestre (reposo en cama)",
+  terrestrial_exercise: "Ejercicio en Tierra",
+  synthetic: "Sintético",
+  other: "Otro entorno",
+  mixed: "Entornos mixtos",
+  unknown: "Entorno sin determinar",
+};

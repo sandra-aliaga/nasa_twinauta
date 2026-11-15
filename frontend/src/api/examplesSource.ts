@@ -4,7 +4,9 @@
  * backend is running. None of this content is evidence or a real result.
  */
 import assessmentExample from "../../../contracts/examples/assessment.json";
+import assessmentStatesExample from "../../../contracts/examples/assessment-states.json";
 import casesExample from "../../../contracts/examples/cases.json";
+import contextExample from "../../../contracts/examples/context.json";
 import graphsExample from "../../../contracts/examples/graphs.json";
 import indicatorsExample from "../../../contracts/examples/indicators.json";
 import recordingExample from "../../../contracts/examples/recording-metadata.json";
@@ -12,6 +14,7 @@ import regionsExample from "../../../contracts/examples/regions.json";
 import telemetryExample from "../../../contracts/examples/telemetry.json";
 import type { DataSource } from "./dataSource";
 import { ApiError } from "./errors";
+import type { AssessmentContext } from "./explorer/types";
 import type {
   Action,
   Assessment,
@@ -29,6 +32,30 @@ const regions = regionsExample as Region[];
 const graphs = graphsExample as Record<Graph["view"], Graph>;
 const recording = recordingExample as TelemetryRecording;
 const telemetry = telemetryExample as TelemetryWindow;
+
+const contexts = contextExample as unknown as {
+  context_available: AssessmentContext;
+  context_unavailable: AssessmentContext;
+};
+
+const assessmentStates = assessmentStatesExample as unknown as Record<
+  string,
+  Assessment
+>;
+
+/**
+ * Optional "?example_state=" URL parameter (complete, insufficient_data,
+ * out_of_domain) to lay out the documented variants. Without it, the base
+ * example is used. Unknown values fall back to the base example.
+ */
+function exampleAssessment(): Assessment {
+  const key =
+    typeof window === "undefined"
+      ? null
+      : new URLSearchParams(window.location.search).get("example_state");
+  const variant = key ? assessmentStates[key] : undefined;
+  return structuredClone(variant ?? (assessmentExample as Assessment));
+}
 
 // Small delay so loading states are visible while designing.
 const LATENCY_MS = 250;
@@ -90,7 +117,7 @@ export function createExamplesSource(): DataSource {
       // The documentation contains a single fixed assessment (mission day 10).
       // It is returned unchanged; the UI shows its own mission_day.
       counter += 1;
-      const assessment = structuredClone(assessmentExample) as Assessment;
+      const assessment = exampleAssessment();
       assessment.assessment_id = `${assessment.assessment_id}_${counter}`;
       assessments.set(assessment.assessment_id, assessment);
       return respond(assessment, signal);
@@ -102,13 +129,58 @@ export function createExamplesSource(): DataSource {
         return Promise.reject(error);
       }
     },
-    getGraph: (assessmentId, view, signal) => {
+    // The examples have no stored index: every evaluation creates a copy.
+    listCaseAssessments: (caseId, signal) => {
+      if (!cases.some((item) => item.id === caseId)) {
+        return Promise.reject(notFound("El caso no existe."));
+      }
+      return respond([], signal);
+    },
+    getContext: (assessmentId, signal) => {
+      let assessment: Assessment;
+      try {
+        assessment = findAssessment(assessmentId);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+      // Only the documented demo snapshot has a prepared synthesis.
+      const prepared = contexts.context_available;
+      const source = assessmentId.startsWith(prepared.assessment_id)
+        ? prepared
+        : contexts.context_unavailable;
+      return respond(
+        { ...source, assessment_id: assessment.assessment_id },
+        signal,
+      );
+    },
+    getGuidance: (assessmentId, signal) => {
       try {
         findAssessment(assessmentId);
       } catch (error) {
         return Promise.reject(error);
       }
-      return respond({ ...graphs[view], assessment_id: assessmentId }, signal);
+      const guidance = contexts.context_available.guidance;
+      if (!guidance) {
+        return Promise.reject(
+          notFound("Los ejemplos no incluyen orientación."),
+        );
+      }
+      return respond({ ...guidance, assessment_id: assessmentId }, signal);
+    },
+    getGraph: (assessmentId, view, signal) => {
+      let assessment: Assessment;
+      try {
+        assessment = findAssessment(assessmentId);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+      // contracts/README.md: an insufficient assessment lays out an empty
+      // graph (same schema, no nodes or edges).
+      const graph =
+        assessment.status === "insufficient_data"
+          ? { ...graphs[view], nodes: [], edges: [], sources: [], claims: [] }
+          : graphs[view];
+      return respond({ ...graph, assessment_id: assessmentId }, signal);
     },
     updateAction: (assessmentId, actionId, update) => {
       let assessment: Assessment;

@@ -2,7 +2,7 @@ openapi: 3.1.2
 info:
   title: TwinNauta — explorador científico (propuesta)
   version: 0.3.0-draft
-  description: Ampliación aditiva propuesta. No implementada. El contrato0.2 sigue
+  description: Ampliación aditiva propuesta. No implementada. El contrato 0.2 sigue
     vigente.
 servers:
 - url: http://localhost:8000/api/v1

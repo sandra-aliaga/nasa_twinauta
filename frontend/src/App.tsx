@@ -1,20 +1,43 @@
-import { useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 
 import { dataSource, type GraphView } from "./api";
 import { AnatomyStage } from "./components/AnatomyStage";
-import { CardiacPanel } from "./components/CardiacPanel";
-import { ErrorNotice, Notice } from "./components/common";
-import { GraphExplorer } from "./components/graph/GraphExplorer";
-import { MiniGraph } from "./components/graph/MiniGraph";
+import { CaseSheet } from "./components/CaseSheet";
+import { ErrorNotice, Notice, Skeleton } from "./components/common";
 import { Header } from "./components/Header";
+import { IntroGuide, shouldShowIntro } from "./components/IntroGuide";
 import { RegionPanel, type PanelTab } from "./components/RegionPanel";
 import { useAssessment } from "./hooks/useAssessment";
+import { usePresence } from "./hooks/usePresence";
 import { useCatalog, useRegions } from "./hooks/useCatalog";
 import {
+  HEART_RATE_ENABLED,
   HORIZON_DAYS,
   INITIAL_MISSION_DAY,
   REFERENCE_START_DAY,
 } from "./lib/config";
+
+// Heavy views (graph library, charts) load only when first opened.
+const CardiacPanel = lazy(() =>
+  import("./components/CardiacPanel").then((m) => ({
+    default: m.CardiacPanel,
+  })),
+);
+const GraphExplorer = lazy(() =>
+  import("./components/graph/GraphExplorer").then((m) => ({
+    default: m.GraphExplorer,
+  })),
+);
+const MiniGraph = lazy(() =>
+  import("./components/graph/MiniGraph").then((m) => ({
+    default: m.MiniGraph,
+  })),
+);
+const ExplorerView = lazy(() =>
+  import("./components/explorer/ExplorerView").then((m) => ({
+    default: m.ExplorerView,
+  })),
+);
 
 // Each panel section opens its matching graph view.
 const TAB_TO_VIEW: Record<PanelTab, GraphView> = {
@@ -32,7 +55,12 @@ export default function App() {
   const [tab, setTab] = useState<PanelTab>("evaluation");
   const [graphView, setGraphView] = useState<GraphView | null>(null);
   const [cardiacOpen, setCardiacOpen] = useState(false);
+  const [libraryOpen, setLibraryOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(shouldShowIntro);
+  // Paper to open when the library is reached from a citation.
+  const [libraryPaperId, setLibraryPaperId] = useState<string | null>(null);
   const regions = useRegions(caseId);
+  const cardiac = usePresence(HEART_RATE_ENABLED && cardiacOpen, 200);
   const { state, evaluate, reset, replaceAction, refresh } = useAssessment();
 
   const cases = catalog.status === "ready" ? catalog.data.cases : [];
@@ -89,7 +117,7 @@ export default function App() {
     return (
       <Shell>
         <div className="m-auto">
-          <Notice title="Cargando catálogos…" />
+          <Skeleton lines={4} label="Cargando catálogos" className="w-72" />
         </div>
       </Shell>
     );
@@ -108,9 +136,30 @@ export default function App() {
     );
   }
 
+  const indicatorLabels = Object.fromEntries(
+    catalog.data.indicators.map((item) => [item.id, item.label]),
+  );
+  const caseSheet = (
+    <CaseSheet
+      caseItem={selectedCase}
+      day={day}
+      regions={regionList}
+      indicators={catalog.data.indicators}
+      onSelectRegion={handleSelectRegion}
+    />
+  );
   const evaluatedDay =
     state.status === "ready" ? state.assessment.mission_day : null;
-  const showGraph = graphView !== null && state.status === "ready";
+  const showGraph =
+    !libraryOpen && graphView !== null && state.status === "ready";
+  // The library covers the body; the assessment graph floats over a blurred
+  // body so the anatomical context stays visible behind it.
+  const hideBody = libraryOpen;
+
+  function openGraph(view: GraphView) {
+    setLibraryOpen(false);
+    setGraphView(view);
+  }
 
   return (
     <Shell>
@@ -124,68 +173,135 @@ export default function App() {
         canEvaluate={selectedRegion !== null && state.status !== "loading"}
         onEvaluate={() => regionId && requestAssessment(regionId, day)}
         isDemo={dataSource.kind === "examples"}
-        cardiacAvailable={Boolean(selectedCase?.telemetry_recording_id)}
+        cardiacAvailable={
+          HEART_RATE_ENABLED &&
+          (Boolean(selectedCase?.telemetry_recording_id) ||
+            dataSource.kind === "api")
+        }
         cardiacOpen={cardiacOpen}
         onToggleCardiac={() => setCardiacOpen((open) => !open)}
+        libraryOpen={libraryOpen}
+        onToggleLibrary={() => {
+          setGraphView(null);
+          setLibraryPaperId(null);
+          setLibraryOpen((open) => !open);
+        }}
+        onOpenGuide={() => setGuideOpen(true)}
       />
+      <IntroGuide open={guideOpen} onClose={() => setGuideOpen(false)} />
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px]">
+      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] lg:overflow-hidden">
         <main className="relative min-h-[420px] border-slate-800 lg:border-r">
-          {graphView !== null && state.status === "ready" ? (
-            <GraphExplorer
-              view={graphView}
-              assessmentId={state.assessment.assessment_id}
-              onViewChange={setGraphView}
-              onBack={() => setGraphView(null)}
-            />
-          ) : null}
-          {!showGraph && state.status === "ready" ? (
-            <MiniGraph
-              assessmentId={state.assessment.assessment_id}
-              view={TAB_TO_VIEW[tab]}
-              onExpand={() => setGraphView(TAB_TO_VIEW[tab])}
-            />
-          ) : null}
+          <Suspense fallback={<ViewSkeleton />}>
+            {libraryOpen ? (
+              <ExplorerView
+                regionId={regionId}
+                assessmentId={
+                  state.status === "ready"
+                    ? state.assessment.assessment_id
+                    : null
+                }
+                initialPaperId={libraryPaperId}
+                onBack={() => setLibraryOpen(false)}
+              />
+            ) : null}
+            {showGraph && graphView !== null && state.status === "ready" ? (
+              <div className="absolute inset-0 z-20 overflow-y-auto bg-slate-950/60 backdrop-blur-md">
+                <GraphExplorer
+                  view={graphView}
+                  assessmentId={state.assessment.assessment_id}
+                  onViewChange={setGraphView}
+                  onBack={() => setGraphView(null)}
+                  labels={indicatorLabels}
+                />
+              </div>
+            ) : null}
+          </Suspense>
+          <Suspense fallback={null}>
+            {!hideBody && !showGraph && state.status === "ready" ? (
+              <MiniGraph
+                assessmentId={state.assessment.assessment_id}
+                view={TAB_TO_VIEW[tab]}
+                onExpand={() => openGraph(TAB_TO_VIEW[tab])}
+                labels={indicatorLabels}
+              />
+            ) : null}
+          </Suspense>
           {regions?.status === "error" ? (
             <div className="p-6">
               <ErrorNotice error={regions.error} />
             </div>
           ) : (
             // Kept mounted while the graph is shown: unmounting the WebGL
-            // canvas is costly and reloading the 16 MB model is avoidable.
-            <div className={showGraph ? "hidden" : "h-full"}>
+            // canvas is costly and reloading the model is avoidable.
+            <div className={hideBody ? "hidden" : "h-full"}>
               <AnatomyStage
                 regions={regionList}
                 selectedRegionId={regionId}
                 onSelect={handleSelectRegion}
+                sidePanel={caseSheet}
               />
             </div>
           )}
         </main>
 
         <aside className="min-h-0 bg-slate-950">
-          <RegionPanel
-            region={selectedRegion}
-            indicators={catalog.data.indicators}
-            state={state}
-            tab={tab}
-            onTabChange={setTab}
-            onClose={handleClosePanel}
-            onRetry={() => regionId && requestAssessment(regionId, day)}
-            onOpenGraph={(fromTab) => setGraphView(TAB_TO_VIEW[fromTab])}
-            onActionUpdated={replaceAction}
-            onConflict={refresh}
-          />
+          {selectedRegion === null ? (
+            <div className="h-full overflow-y-auto p-5">
+              {/* Wide screens show the sheet over the 3D view instead. */}
+              <div className="lg:hidden">{caseSheet}</div>
+              <div className="hidden lg:block">
+                <Notice title="Ninguna región seleccionada">
+                  Seleccione una región en el cuerpo o en la ficha del caso para
+                  solicitar su evaluación.
+                </Notice>
+              </div>
+            </div>
+          ) : (
+            <RegionPanel
+              region={selectedRegion}
+              indicators={catalog.data.indicators}
+              state={state}
+              tab={tab}
+              onTabChange={setTab}
+              onClose={handleClosePanel}
+              onRetry={() => regionId && requestAssessment(regionId, day)}
+              onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
+              onActionUpdated={replaceAction}
+              onConflict={refresh}
+              onOpenPaper={(paperId) => {
+                setGraphView(null);
+                setLibraryPaperId(paperId);
+                setLibraryOpen(true);
+              }}
+            />
+          )}
         </aside>
       </div>
 
-      {cardiacOpen && selectedCase?.telemetry_recording_id ? (
-        <CardiacPanel
-          recordingId={selectedCase.telemetry_recording_id}
-          onClose={() => setCardiacOpen(false)}
-        />
+      {cardiac.mounted ? (
+        <div
+          className={
+            cardiac.leaving ? "animate-slide-down" : "animate-slide-up"
+          }
+        >
+          <Suspense fallback={<ViewSkeleton />}>
+            <CardiacPanel
+              caseRecordingId={selectedCase?.telemetry_recording_id ?? null}
+              onClose={() => setCardiacOpen(false)}
+            />
+          </Suspense>
+        </div>
       ) : null}
     </Shell>
+  );
+}
+
+function ViewSkeleton() {
+  return (
+    <div className="p-6">
+      <Skeleton lines={5} label="Cargando vista" />
+    </div>
   );
 }
 

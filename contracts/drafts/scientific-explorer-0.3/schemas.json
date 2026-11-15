@@ -1,6 +1,19 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$defs": {
+    "Environment": {
+      "type": "string",
+      "enum": [
+        "spaceflight",
+        "bed_rest_analog",
+        "terrestrial_exercise",
+        "synthetic",
+        "other",
+        "mixed",
+        "unknown"
+      ],
+      "description": "Entorno del estudio. Los cuatro primeros valores coinciden con EvidenceClaim.environment de 0.2; 'other', 'mixed' y 'unknown' solo aplican a publicaciones. 'bed_rest_analog' es un análogo terrestre, nunca vuelo."
+    },
     "Identifiers": {
       "type": "object",
       "additionalProperties": false,
@@ -214,15 +227,7 @@
           ]
         },
         "environment": {
-          "type": "string",
-          "enum": [
-            "spaceflight",
-            "bed_rest",
-            "terrestrial_exercise",
-            "other",
-            "mixed",
-            "unknown"
-          ]
+          "$ref": "#/$defs/Environment"
         },
         "review_status": {
           "type": "string",
@@ -1092,7 +1097,8 @@
         "rule_id",
         "rule_version",
         "paper_ids",
-        "review_status"
+        "review_status",
+        "action_id"
       ],
       "properties": {
         "id": {
@@ -1146,6 +1152,13 @@
             "pending",
             "reviewed"
           ]
+        },
+        "action_id": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Acción 0.2 persistida en la misma evaluación que materializa este paso. Nula si el paso no tiene acción (p. ej., intervención estudiada). La ejecución se consulta y modifica solo en la acción 0.2."
         }
       }
     },
@@ -1260,6 +1273,19 @@
             "null"
           ],
           "format": "date-time"
+        }
+      }
+    },
+    "TelemetryWindowAddendum": {
+      "type": "object",
+      "description": "Campo aditivo propuesto para TelemetryWindow 0.2. start_s y end_s siguen devolviendo los límites solicitados; effective_end_s es el extremo exclusivo realmente cubierto por points: min(end_s, recording_end_s), o start_s si la ventana empieza en o después de recording_end_s.",
+      "required": [
+        "effective_end_s"
+      ],
+      "properties": {
+        "effective_end_s": {
+          "type": "number",
+          "minimum": 0
         }
       }
     }

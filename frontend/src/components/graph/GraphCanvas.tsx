@@ -16,6 +16,7 @@ import type { Graph } from "../../api";
 import {
   KIND_LABELS,
   KIND_STYLES,
+  nodeIdFromKey,
   toFlow,
   type TwinNodeData,
 } from "../../lib/graph";
@@ -99,9 +100,15 @@ export function GraphCanvas({
         minZoom={0.2}
         onNodeClick={(_, node) => onSelectNode?.(node.id)}
         onPaneClick={() => onSelectNode?.(null)}
+        onKeyDown={(event) => {
+          const id = compact ? null : nodeIdFromKey(event);
+          if (id) onSelectNode?.(id);
+        }}
         style={{ background: "transparent" }}
       >
-        {compact ? null : <Background gap={22} color="#1e293b" />}
+        {compact ? null : (
+          <Background gap={22} color="#334155" bgColor="transparent" />
+        )}
         {compact ? null : <Controls showInteractive={false} />}
       </ReactFlow>
     </ReactFlowProvider>

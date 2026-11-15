@@ -8,3 +8,22 @@ export const HORIZON_DAYS = 20;
 
 /** Initial mission day shown in the selector before any evaluation. */
 export const INITIAL_MISSION_DAY = 10;
+
+/**
+ * Reference recordings offered besides the case recording. The API has no
+ * catalog of recordings yet; this id is published in docs/ENTREGA_FRONTEND.md.
+ * It belongs to another participant on a treadmill, never to the virtual case.
+ */
+export const REFERENCE_RECORDINGS = [
+  {
+    id: "physionet_treadmill_1_0_1_2_1",
+    label: "Referencia real: prueba en cinta (PhysioNet)",
+  },
+] as const;
+
+/**
+ * The heart-rate panel shows a terrestrial PhysioNet recording whose
+ * redistribution licence is unresolved, so it stays off unless enabled.
+ */
+export const HEART_RATE_ENABLED =
+  import.meta.env.VITE_ENABLE_HEART_RATE === "true";

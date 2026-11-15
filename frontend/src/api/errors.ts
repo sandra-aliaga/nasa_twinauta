@@ -33,7 +33,10 @@ export function toApiError(error: unknown): ApiError {
     return new ApiError(null, {
       code: "network_error",
       message: "No se pudo conectar con el servicio.",
-      details: [error.message],
+      details: [
+        "Compruebe la conexión o que el backend esté en marcha.",
+        `Detalle técnico: ${error.message}`,
+      ],
     });
   }
   return new ApiError(null, {

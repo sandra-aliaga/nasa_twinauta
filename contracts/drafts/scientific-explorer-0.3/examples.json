@@ -31,7 +31,7 @@
           "quadriceps"
         ],
         "study_design": "Prespecified analysis of a randomized controlled trial",
-        "environment": "bed_rest",
+        "environment": "bed_rest_analog",
         "review_status": "pending",
         "access": {
           "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/",
@@ -78,7 +78,7 @@
           "quadriceps"
         ],
         "study_design": null,
-        "environment": "bed_rest",
+        "environment": "bed_rest_analog",
         "review_status": "pending",
         "access": {
           "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
@@ -101,203 +101,547 @@
       "has_more": false
     }
   },
-  "paper_detail": {
-    "paper": {
-      "id": "paper_trappe_2024",
-      "title": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
-      "authors": [
-        "Todd A. Trappe",
-        "Kiril Minchev",
-        "Ryan K. Perkins",
-        "Kaleen M. Lavin",
-        "Bozena Jemiolo",
-        "Stephen M. Ratchford",
-        "Alex Claiborne",
-        "Gary A. Lee",
-        "W. Holmes Finch",
-        "Jeffrey W. Ryder",
-        "Lori Ploutz-Snyder",
-        "Scott W. Trappe"
-      ],
-      "year": 2024,
-      "identifiers": {
-        "doi": "10.1152/japplphysiol.00489.2023",
-        "pmid": "38328821",
-        "pmcid": "PMC11365553"
+  "paper_details": [
+    {
+      "paper": {
+        "id": "paper_trappe_2024",
+        "title": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
+        "authors": [
+          "Todd A. Trappe",
+          "Kiril Minchev",
+          "Ryan K. Perkins",
+          "Kaleen M. Lavin",
+          "Bozena Jemiolo",
+          "Stephen M. Ratchford",
+          "Alex Claiborne",
+          "Gary A. Lee",
+          "W. Holmes Finch",
+          "Jeffrey W. Ryder",
+          "Lori Ploutz-Snyder",
+          "Scott W. Trappe"
+        ],
+        "year": 2024,
+        "identifiers": {
+          "doi": "10.1152/japplphysiol.00489.2023",
+          "pmid": "38328821",
+          "pmcid": "PMC11365553"
+        },
+        "sections": [
+          "evidence",
+          "actions"
+        ],
+        "region_ids": [
+          "quadriceps"
+        ],
+        "study_design": null,
+        "environment": "bed_rest_analog",
+        "review_status": "pending",
+        "access": {
+          "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+          "full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+          "pdf_url": null,
+          "availability": "open_access",
+          "license": null,
+          "full_text_cached": false,
+          "pdf_cached": false,
+          "local_document_url": null
+        },
+        "indicator_ids": [
+          "knee_extension_torque"
+        ]
       },
-      "sections": [
-        "evidence",
-        "actions"
-      ],
-      "region_ids": [
-        "quadriceps"
-      ],
-      "study_design": null,
-      "environment": "bed_rest",
-      "review_status": "pending",
-      "access": {
-        "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
-        "full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
-        "pdf_url": null,
-        "availability": "open_access",
-        "license": null,
-        "full_text_cached": false,
-        "pdf_cached": false,
-        "local_document_url": null
+      "abstract": null,
+      "summary": {
+        "status": "available",
+        "text": "Se estudian respuestas del vasto lateral y sóleo tras 70 días de reposo en cama con distintas condiciones de ejercicio. La tabla 1 permite consultar resultados agregados de fuerza antes y después.",
+        "basis": "full_text",
+        "method": "editorial",
+        "review_status": "pending",
+        "source_locators": [
+          "Abstract",
+          "Table 1"
+        ],
+        "limitations": [
+          "Resumen de ejemplo pendiente de revisión de Medicina.",
+          "No autoriza cambios individuales de ejercicio."
+        ]
       },
-      "indicator_ids": [
-        "knee_extension_torque"
-      ]
-    },
-    "abstract": null,
-    "summary": {
-      "status": "available",
-      "text": "Se estudian respuestas del vasto lateral y sóleo tras 70 días de reposo en cama con distintas condiciones de ejercicio. La tabla 1 permite consultar resultados agregados de fuerza antes y después.",
-      "basis": "full_text",
-      "method": "editorial",
-      "review_status": "pending",
-      "source_locators": [
-        "Abstract",
-        "Table 1"
+      "population_description": "Groups BR n=9, BRE n=9 and BRE+T n=8; 70 days of head-down bed rest.",
+      "cohort_ids": [],
+      "cohort_overlap_status": "possible_overlap",
+      "statistics": [
+        {
+          "id": "stat_trappe_2024_br_torque_pre",
+          "outcome": "Quadriceps strength",
+          "anatomy": "quadriceps",
+          "group_label": "BR (bed rest only)",
+          "timepoint_label": "Pre",
+          "sample_size": 9,
+          "value": 200,
+          "unit": "N.m",
+          "statistic_type": "group_mean",
+          "dispersion": {
+            "kind": "sd",
+            "value": 47,
+            "unit": "N.m"
+          },
+          "interval": null,
+          "source_locator": "Table 1; Quadriceps strength, Nm; BR column; Pre row. Footnote: means ± SD.",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+          "extraction_review_status": "pending",
+          "limitations": [
+            "Aggregate published result; not a virtual astronaut baseline.",
+            "No daily torque curve or conversion from muscle area."
+          ]
+        },
+        {
+          "id": "stat_trappe_2024_br_torque_post",
+          "outcome": "Quadriceps strength",
+          "anatomy": "quadriceps",
+          "group_label": "BR (bed rest only)",
+          "timepoint_label": "Post",
+          "sample_size": 9,
+          "value": 148,
+          "unit": "N.m",
+          "statistic_type": "group_mean",
+          "dispersion": {
+            "kind": "sd",
+            "value": 42,
+            "unit": "N.m"
+          },
+          "interval": null,
+          "source_locator": "Table 1; Quadriceps strength, Nm; BR column; Post row. Footnote: means ± SD.",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
+          "extraction_review_status": "pending",
+          "limitations": [
+            "Aggregate published result; not a virtual astronaut baseline.",
+            "No daily torque curve or conversion from muscle area."
+          ]
+        }
       ],
       "limitations": [
-        "Resumen de ejemplo pendiente de revisión de Medicina.",
-        "No autoriza cambios individuales de ejercicio."
-      ]
+        "Puede compartir participantes con otros trabajos del programa NASA; no asumir independencia."
+      ],
+      "corpus_version": "example-0.3-001",
+      "analysis": {
+        "status": "not_requested",
+        "input_basis": "not_prepared",
+        "input_sha256": null,
+        "prompt_version": null,
+        "model_id": null,
+        "generated_at": null,
+        "items": [],
+        "failure_reason": null
+      },
+      "applicability": {
+        "assessment_id": null,
+        "status": "not_evaluated",
+        "explanation": "La ficha bibliográfica no está vinculada a una evaluación; no se ha valorado aplicabilidad individual.",
+        "considered_observation_ids": [],
+        "checks": [],
+        "rule_id": null,
+        "rule_version": null,
+        "review_status": "pending"
+      }
     },
-    "population_description": "Groups BR n=9, BRE n=9 and BRE+T n=8; 70 days of head-down bed rest.",
-    "cohort_ids": [],
-    "cohort_overlap_status": "possible_overlap",
-    "statistics": [
-      {
-        "id": "stat_trappe_2024_br_torque_pre",
-        "outcome": "Quadriceps strength",
-        "anatomy": "quadriceps",
-        "group_label": "BR (bed rest only)",
-        "timepoint_label": "Pre",
-        "sample_size": 9,
-        "value": 200,
-        "unit": "N.m",
-        "statistic_type": "group_mean",
-        "dispersion": {
-          "kind": "sd",
-          "value": 47,
-          "unit": "N.m"
+    {
+      "paper": {
+        "id": "paper_scott_2020",
+        "title": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study",
+        "authors": [
+          "Jessica M. Scott",
+          "Meghan Downs",
+          "Roxanne Buxton",
+          "Elizabeth Goetchius",
+          "Brent Crowell",
+          "Robert Ploutz-Snyder",
+          "Kyle J. Hackney",
+          "Jeffrey Ryder",
+          "Kirk English",
+          "Lori L. Ploutz-Snyder"
+        ],
+        "year": 2020,
+        "identifiers": {
+          "doi": "10.1097/CCE.0000000000000269",
+          "pmid": "33251515",
+          "pmcid": "PMC7688251"
         },
-        "interval": null,
-        "source_locator": "Table 1; Quadriceps strength, Nm; BR column; Pre row. Footnote: means ± SD.",
-        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
-        "extraction_review_status": "pending",
-        "limitations": [
-          "Aggregate published result; not a virtual astronaut baseline.",
-          "No daily torque curve or conversion from muscle area."
+        "sections": [
+          "evidence",
+          "scenario"
+        ],
+        "region_ids": [
+          "quadriceps"
+        ],
+        "study_design": "Prespecified analysis of a randomized controlled trial",
+        "environment": "bed_rest_analog",
+        "review_status": "pending",
+        "access": {
+          "landing_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/",
+          "full_text_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/",
+          "pdf_url": null,
+          "availability": "open_access",
+          "license": null,
+          "full_text_cached": false,
+          "pdf_cached": false,
+          "local_document_url": null
+        },
+        "indicator_ids": [
+          "quadriceps_csa_relative"
         ]
       },
-      {
-        "id": "stat_trappe_2024_br_torque_post",
-        "outcome": "Quadriceps strength",
-        "anatomy": "quadriceps",
-        "group_label": "BR (bed rest only)",
-        "timepoint_label": "Post",
-        "sample_size": 9,
-        "value": 148,
-        "unit": "N.m",
-        "statistic_type": "group_mean",
-        "dispersion": {
-          "kind": "sd",
-          "value": 42,
-          "unit": "N.m"
-        },
-        "interval": null,
-        "source_locator": "Table 1; Quadriceps strength, Nm; BR column; Post row. Footnote: means ± SD.",
-        "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/",
-        "extraction_review_status": "pending",
+      "abstract": null,
+      "summary": {
+        "status": "available",
+        "text": "Nueve adultos sanos del grupo control del ensayo NASA de 70 días de reposo en cama con inclinación cefálica de 6 grados. El área transversal del cuádriceps se midió por resonancia magnética y se promedió entre cortes; la tabla suplementaria eTable 3 publica un cambio de -0,11 % del valor previo al reposo por día. El grupo hizo estiramientos, masaje y pruebas periódicas, por lo que no es desuso puro.",
+        "basis": "full_text",
+        "method": "editorial",
+        "review_status": "pending",
+        "source_locators": [
+          "Supplemental Methods pp. 2-4",
+          "eTable 3, p. 8",
+          "Results, Fig. 1A"
+        ],
         "limitations": [
-          "Aggregate published result; not a virtual astronaut baseline.",
-          "No daily torque curve or conversion from muscle area."
+          "Resumen editorial pendiente de revisión de Medicina.",
+          "Análogo terrestre: no establece la tasa en vuelo espacial."
         ]
+      },
+      "population_description": "Grupo control del ensayo (n = 9; 8 hombres y 1 mujer; 36 ± 6 años); 70 días de reposo en cama a 6 grados de inclinación cefálica.",
+      "cohort_ids": [
+        "NCT00891449"
+      ],
+      "cohort_overlap_status": "possible_overlap",
+      "statistics": [
+        {
+          "id": "stat_scott_2020_quadriceps_csa_rate",
+          "outcome": "Quadriceps cross-sectional area, change per day during bed rest",
+          "anatomy": "quadriceps",
+          "group_label": "Bed rest control",
+          "timepoint_label": "Bed rest phase (BR-6 to BR 69)",
+          "sample_size": 9,
+          "value": -0.11,
+          "unit": "percent_baseline_per_day",
+          "statistic_type": "change_rate",
+          "dispersion": null,
+          "interval": null,
+          "source_locator": "Online Data Supplement p. 8, eTable 3 'Muscle Change per Day', Upper Leg > Quadriceps, column 'Muscle Loss, relative to BR-6 (%)'.",
+          "source_url": "https://cdn-links.lww.com/permalink/ccx/a/ccx_1_1_2020_10_22_scott_20-00318_sdc1.pdf",
+          "extraction_review_status": "pending",
+          "limitations": [
+            "La tabla no informa dispersión, intervalo ni n por fila; no construir bandas de incertidumbre con ella.",
+            "El suplemento no explica cómo se convierte la pendiente del modelo a % por día.",
+            "Para el cuádriceps, el modelo exponencial tiene AIC/BIC menores que el lineal (eTable 2); la tasa constante es una simplificación de los autores.",
+            "Una cohorte independiente de 60 días (WISE-2005) informa una pérdida de volumen mucho mayor; esta tasa está en el extremo bajo."
+          ]
+        },
+        {
+          "id": "stat_scott_2020_quadriceps_csa_post_rehab",
+          "outcome": "Quadriceps cross-sectional area, difference from pre-bed-rest baseline after rehabilitation",
+          "anatomy": "quadriceps",
+          "group_label": "Bed rest control",
+          "timepoint_label": "After 11 days of rehabilitation",
+          "sample_size": null,
+          "value": -3.74,
+          "unit": "cm2",
+          "statistic_type": "effect_estimate",
+          "dispersion": null,
+          "interval": {
+            "kind": "confidence_interval",
+            "level": 0.95,
+            "lower": -7.36,
+            "upper": -0.12,
+            "unit": "cm2"
+          },
+          "source_locator": "Results, Fig. 1A (PMC7688251): -3.74 cm2, 95% CI -7.36 to -0.12, p = 0.04.",
+          "source_url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/",
+          "extraction_review_status": "pending",
+          "limitations": [
+            "El número de participantes en ese momento no se localizó en el texto leído.",
+            "Déficit absoluto tras la rehabilitación, no una tasa; no convertir a porcentaje sin el basal absoluto."
+          ]
+        }
+      ],
+      "limitations": [
+        "El grupo control hizo estiramientos, masaje y pruebas periódicas; una publicación posterior del mismo ensayo considera que esto probablemente atenuó la atrofia del cuádriceps.",
+        "Posible cohorte compartida con Trappe et al. 2024: no son corroboración independiente.",
+        "Área transversal promediada entre cortes; no es volumen ni masa muscular."
+      ],
+      "corpus_version": "example-0.3-001",
+      "analysis": {
+        "status": "not_requested",
+        "input_basis": "not_prepared",
+        "input_sha256": null,
+        "prompt_version": null,
+        "model_id": null,
+        "generated_at": null,
+        "items": [],
+        "failure_reason": null
+      },
+      "applicability": {
+        "assessment_id": null,
+        "status": "not_evaluated",
+        "explanation": "La ficha bibliográfica no está vinculada a una evaluación; no se ha valorado aplicabilidad individual.",
+        "considered_observation_ids": [],
+        "checks": [],
+        "rule_id": null,
+        "rule_version": null,
+        "review_status": "pending"
       }
-    ],
-    "limitations": [
-      "Puede compartir participantes con otros trabajos del programa NASA; no asumir independencia."
-    ],
-    "corpus_version": "example-0.3-001",
-    "analysis": {
-      "status": "not_requested",
-      "input_basis": "not_prepared",
-      "input_sha256": null,
-      "prompt_version": null,
-      "model_id": null,
-      "generated_at": null,
-      "items": [],
-      "failure_reason": null
-    },
-    "applicability": {
+    }
+  ],
+  "graph_views": {
+    "evidence": {
+      "corpus_version": "example-0.3-001",
       "assessment_id": null,
-      "status": "not_evaluated",
-      "explanation": "La ficha bibliográfica no está vinculada a una evaluación; no se ha valorado aplicabilidad individual.",
-      "considered_observation_ids": [],
-      "checks": [],
-      "rule_id": null,
-      "rule_version": null,
-      "review_status": "pending"
+      "view": "evidence",
+      "nodes": [
+        {
+          "id": "paper_scott_2020",
+          "kind": "paper",
+          "label": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study",
+          "paper_id": "paper_scott_2020",
+          "entity_id": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "paper_trappe_2024",
+          "kind": "paper",
+          "label": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
+          "paper_id": "paper_trappe_2024",
+          "entity_id": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "indicator_quadriceps_csa_relative",
+          "kind": "indicator",
+          "label": "Área transversal relativa del cuádriceps",
+          "paper_id": null,
+          "entity_id": "quadriceps_csa_relative",
+          "review_status": "pending"
+        },
+        {
+          "id": "indicator_knee_extension_torque",
+          "kind": "indicator",
+          "label": "Torque de extensión de rodilla",
+          "paper_id": null,
+          "entity_id": "knee_extension_torque",
+          "review_status": "pending"
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge_scott_topic_csa",
+          "source": "paper_scott_2020",
+          "target": "indicator_quadriceps_csa_relative",
+          "relation": "addresses",
+          "basis": "editorial_classification",
+          "source_paper_ids": [
+            "paper_scott_2020"
+          ],
+          "source_locators": [
+            "Abstract: muscle cross-sectional area"
+          ],
+          "review_status": "pending"
+        },
+        {
+          "id": "edge_trappe_topic_torque",
+          "source": "paper_trappe_2024",
+          "target": "indicator_knee_extension_torque",
+          "relation": "addresses",
+          "basis": "editorial_classification",
+          "source_paper_ids": [
+            "paper_trappe_2024"
+          ],
+          "source_locators": [
+            "Table 1; Quadriceps strength, Nm"
+          ],
+          "review_status": "pending"
+        }
+      ],
+      "page": {
+        "next_cursor": null,
+        "has_more": false
+      },
+      "scope_description": "Fixture de interfaz con dos publicaciones reales; relación temática editorial, no grafo científico revisado ni corpus completo.",
+      "counts": {
+        "papers_matching": 2,
+        "papers_returned": 2,
+        "papers_reviewed_returned": 0
+      }
+    },
+    "scenario": {
+      "corpus_version": "example-0.3-001",
+      "assessment_id": null,
+      "view": "scenario",
+      "nodes": [
+        {
+          "id": "paper_scott_2020",
+          "kind": "paper",
+          "label": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study",
+          "paper_id": "paper_scott_2020",
+          "entity_id": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "indicator_quadriceps_csa_relative",
+          "kind": "indicator",
+          "label": "Área transversal relativa del cuádriceps",
+          "paper_id": null,
+          "entity_id": "quadriceps_csa_relative",
+          "review_status": "pending"
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge_scott_topic_csa",
+          "source": "paper_scott_2020",
+          "target": "indicator_quadriceps_csa_relative",
+          "relation": "addresses",
+          "basis": "editorial_classification",
+          "source_paper_ids": [
+            "paper_scott_2020"
+          ],
+          "source_locators": [
+            "Abstract: muscle cross-sectional area"
+          ],
+          "review_status": "pending"
+        }
+      ],
+      "page": {
+        "next_cursor": null,
+        "has_more": false
+      },
+      "scope_description": "Fixture de interfaz con dos publicaciones reales; relación temática editorial, no grafo científico revisado ni corpus completo.",
+      "counts": {
+        "papers_matching": 1,
+        "papers_returned": 1,
+        "papers_reviewed_returned": 0
+      }
+    },
+    "actions": {
+      "corpus_version": "example-0.3-001",
+      "assessment_id": null,
+      "view": "actions",
+      "nodes": [
+        {
+          "id": "paper_trappe_2024",
+          "kind": "paper",
+          "label": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
+          "paper_id": "paper_trappe_2024",
+          "entity_id": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "intervention_sprint_bed_rest",
+          "kind": "intervention",
+          "label": "Programa de ejercicio SPRINT (estudiado en reposo en cama)",
+          "paper_id": null,
+          "entity_id": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "indicator_knee_extension_torque",
+          "kind": "indicator",
+          "label": "Torque de extensión de rodilla",
+          "paper_id": null,
+          "entity_id": "knee_extension_torque",
+          "review_status": "pending"
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge_trappe_reports_sprint",
+          "source": "paper_trappe_2024",
+          "target": "intervention_sprint_bed_rest",
+          "relation": "reports",
+          "basis": "editorial_classification",
+          "source_paper_ids": [
+            "paper_trappe_2024"
+          ],
+          "source_locators": [
+            "Title: NASA SPRINT exercise program"
+          ],
+          "review_status": "pending"
+        },
+        {
+          "id": "edge_trappe_topic_torque",
+          "source": "paper_trappe_2024",
+          "target": "indicator_knee_extension_torque",
+          "relation": "addresses",
+          "basis": "editorial_classification",
+          "source_paper_ids": [
+            "paper_trappe_2024"
+          ],
+          "source_locators": [
+            "Table 1; Quadriceps strength, Nm"
+          ],
+          "review_status": "pending"
+        }
+      ],
+      "page": {
+        "next_cursor": null,
+        "has_more": false
+      },
+      "scope_description": "Fixture de interfaz con dos publicaciones reales; relación temática editorial, no grafo científico revisado ni corpus completo. Una intervención estudiada no es una acción habilitada.",
+      "counts": {
+        "papers_matching": 1,
+        "papers_returned": 1,
+        "papers_reviewed_returned": 0
+      }
     }
   },
-  "graph": {
-    "corpus_version": "example-0.3-001",
-    "assessment_id": null,
-    "view": "evidence",
-    "nodes": [
-      {
-        "id": "paper_scott_2020",
-        "kind": "paper",
-        "label": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study",
-        "paper_id": "paper_scott_2020",
-        "entity_id": null,
-        "review_status": "pending"
+  "graph_neighbors": {
+    "paper_scott_2020": {
+      "corpus_version": "example-0.3-001",
+      "assessment_id": null,
+      "view": "evidence",
+      "nodes": [
+        {
+          "id": "paper_scott_2020",
+          "kind": "paper",
+          "label": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study",
+          "paper_id": "paper_scott_2020",
+          "entity_id": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "paper_trappe_2024",
+          "kind": "paper",
+          "label": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
+          "paper_id": "paper_trappe_2024",
+          "entity_id": null,
+          "review_status": "pending"
+        }
+      ],
+      "edges": [
+        {
+          "id": "edge_scott_trappe_cohort",
+          "source": "paper_scott_2020",
+          "target": "paper_trappe_2024",
+          "relation": "possible_cohort_overlap",
+          "basis": "editorial_classification",
+          "source_paper_ids": [
+            "paper_scott_2020",
+            "paper_trappe_2024"
+          ],
+          "source_locators": [
+            "Scott 2020, Online Data Supplement: NASA 70-day bed rest trial NCT00891449",
+            "Trappe 2024: 70 days of bed rest, BR n = 9"
+          ],
+          "review_status": "pending"
+        }
+      ],
+      "page": {
+        "next_cursor": null,
+        "has_more": false
       },
-      {
-        "id": "paper_trappe_2024",
-        "kind": "paper",
-        "label": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity",
-        "paper_id": "paper_trappe_2024",
-        "entity_id": null,
-        "review_status": "pending"
-      },
-      {
-        "id": "indicator_quadriceps_csa_relative",
-        "kind": "indicator",
-        "label": "Área transversal relativa del cuádriceps",
-        "paper_id": null,
-        "entity_id": "quadriceps_csa_relative",
-        "review_status": "pending"
+      "scope_description": "Vecinos directos de Scott 2020 en el corpus de ejemplo; la posible cohorte compartida está pendiente de revisión.",
+      "counts": {
+        "papers_matching": 2,
+        "papers_returned": 2,
+        "papers_reviewed_returned": 0
       }
-    ],
-    "edges": [
-      {
-        "id": "edge_scott_topic_csa",
-        "source": "paper_scott_2020",
-        "target": "indicator_quadriceps_csa_relative",
-        "relation": "addresses",
-        "basis": "editorial_classification",
-        "source_paper_ids": [
-          "paper_scott_2020"
-        ],
-        "source_locators": [
-          "Abstract: muscle cross-sectional area"
-        ],
-        "review_status": "pending"
-      }
-    ],
-    "page": {
-      "next_cursor": null,
-      "has_more": false
-    },
-    "scope_description": "Fixture de interfaz con dos publicaciones reales; relación temática editorial, no grafo científico revisado ni corpus completo.",
-    "counts": {
-      "papers_matching": 2,
-      "papers_returned": 2,
-      "papers_reviewed_returned": 0
     }
   },
   "knowledge_base": {
@@ -423,7 +767,8 @@
           "rule_id": null,
           "rule_version": null,
           "paper_ids": [],
-          "review_status": "pending"
+          "review_status": "pending",
+          "action_id": null
         }
       ],
       "limitations": [
@@ -449,6 +794,43 @@
         "Fixture de interfaz: no evaluación clínica real."
       ],
       "corpus_version": null,
+      "rules_version": null,
+      "created_at": "2026-11-14T00:00:00Z"
+    },
+    {
+      "assessment_id": "assessment_demo_001",
+      "module_id": "quadriceps_health",
+      "module_version": "0.1-draft",
+      "status": "review_pending",
+      "attention": "unknown",
+      "summary": "Paso de orientación materializado como una acción de la evaluación: «Revisar el registro de la sesión».",
+      "reason": "No hay reglas clínicas habilitadas; el paso solo demuestra seguimiento editorial en modo ilustrativo.",
+      "observation_ids": [
+        "obs_baseline",
+        "obs_torque"
+      ],
+      "paper_ids": [],
+      "applicability": [],
+      "steps": [
+        {
+          "id": "step_review_session_log",
+          "title": "Revisar el registro de la sesión",
+          "description": "Este paso corresponde a una acción de la evaluación; su ejecución se registra solo en esa acción.",
+          "kind": "operational_review",
+          "eligibility": "eligible",
+          "eligibility_reason": "Solo demostración de seguimiento editorial en modo ilustrativo.",
+          "rule_id": null,
+          "rule_version": null,
+          "paper_ids": [],
+          "review_status": "pending",
+          "action_id": "action_log"
+        }
+      ],
+      "limitations": [
+        "Fixture de interfaz: no evalúa a una persona.",
+        "La elegibilidad y la revisión del paso reflejan las de la acción enlazada."
+      ],
+      "corpus_version": "example-0.3-001",
       "rules_version": null,
       "created_at": "2026-11-14T00:00:00Z"
     }

@@ -3,9 +3,12 @@
  * mesh names. The backend only knows region ids (contract 0.2).
  */
 
-/** Served from frontend/public/models. */
+/**
+ * Served from frontend/public/models: meshopt geometry and JPEG textures,
+ * built from the original in frontend/models-source (see its README).
+ */
 export const MODEL_URL =
-  "/models/full-body-muscular-system-superficial-layer.glb";
+  "/models/full-body-muscular-system-superficial-layer.min.glb";
 
 /** Declared in the GLB asset metadata (asset.copyright). */
 export const MODEL_CREDIT =
@@ -31,6 +34,16 @@ export const REGION_MODEL_NOTES: Record<string, string> = {
   quadriceps:
     "El modelo solo representa la capa superficial: el vasto intermedio no aparece, aunque forma parte del cuádriceps.",
 };
+
+/** Colors mark interaction state only; they never encode risk or severity. */
+export const ANATOMY_COLORS = {
+  selectable: "#0369a1",
+  selected: "#38bdf8",
+  context: "#64748b",
+} as const;
+
+/** Camera framing of the 3D body. */
+export type CameraFocus = "body" | "region";
 
 /** Detect WebGL support before mounting the 3D canvas. */
 export function hasWebGL(): boolean {
