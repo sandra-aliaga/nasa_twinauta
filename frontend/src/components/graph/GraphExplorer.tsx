@@ -82,7 +82,7 @@ export function GraphExplorer({
         ) : state.data.nodes.length === 0 ? (
           <div className="p-6">
             <Notice title="Sin relaciones para esta vista">
-              El backend no devolvió nodos para «{VIEW_LABELS[view]}» en esta
+              No hay nodos ni relaciones para «{VIEW_LABELS[view]}» en esta
               evaluación.
             </Notice>
           </div>

@@ -17,10 +17,11 @@ const TABS: { id: PanelTab; label: string }[] = [
   { id: "actions", label: "Siguientes pasos" },
 ];
 
+// Data availability, not severity: no red, no traffic-light semantics.
 const STATUS_TONES = {
   complete: "sky",
   partial: "amber",
-  insufficient_data: "rose",
+  insufficient_data: "slate",
 } as const;
 
 type RegionPanelProps = {
@@ -79,13 +80,34 @@ export function RegionPanel({
         role="tablist"
         aria-label="Secciones de la región"
         className="flex border-b border-slate-800 px-2"
+        onKeyDown={(event) => {
+          // WAI-ARIA tabs: arrows move between tabs, Home/End jump to ends.
+          const index = TABS.findIndex((item) => item.id === tab);
+          const next =
+            event.key === "ArrowRight"
+              ? (index + 1) % TABS.length
+              : event.key === "ArrowLeft"
+                ? (index - 1 + TABS.length) % TABS.length
+                : event.key === "Home"
+                  ? 0
+                  : event.key === "End"
+                    ? TABS.length - 1
+                    : null;
+          if (next === null) return;
+          event.preventDefault();
+          onTabChange(TABS[next].id);
+          document.getElementById(`region-tab-${TABS[next].id}`)?.focus();
+        }}
       >
         {TABS.map((item) => (
           <button
             key={item.id}
+            id={`region-tab-${item.id}`}
             type="button"
             role="tab"
             aria-selected={tab === item.id}
+            aria-controls="region-tabpanel"
+            tabIndex={tab === item.id ? 0 : -1}
             onClick={() => onTabChange(item.id)}
             className={`flex-1 border-b-2 px-2 py-2 text-xs font-medium sm:text-sm ${
               tab === item.id
@@ -98,7 +120,12 @@ export function RegionPanel({
         ))}
       </div>
 
-      <div role="tabpanel" className="flex-1 space-y-4 overflow-y-auto p-5">
+      <div
+        id="region-tabpanel"
+        role="tabpanel"
+        aria-labelledby={`region-tab-${tab}`}
+        className="flex-1 space-y-4 overflow-y-auto p-5"
+      >
         {state.status === "idle" ? (
           <Notice title="Sin evaluación">
             Use «Evaluar» para solicitar una evaluación de esta región.

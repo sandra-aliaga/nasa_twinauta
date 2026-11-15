@@ -47,24 +47,33 @@ export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
     return list;
   }, [caseRecordingId]);
   const [recordingId, setRecordingId] = useState(options[0]?.id ?? null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  // On narrow screens the panel opens below the page; bring it into view.
+  useEffect(() => {
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      sectionRef.current?.scrollIntoView({ block: "start" });
+    }
+  }, []);
 
   return (
     <section
       aria-label="Frecuencia cardíaca didáctica"
-      className="max-h-[48vh] shrink-0 overflow-y-auto border-t border-slate-800 bg-slate-900/70 px-4 py-3"
+      ref={sectionRef}
+      className="shrink-0 border-t lg:max-h-[48vh] lg:overflow-y-auto border-slate-800 bg-slate-900/70 px-4 py-3"
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
         <h2 className="text-sm font-semibold text-slate-100">
           Frecuencia cardíaca (didáctica)
         </h2>
-        <div className="flex items-center gap-2">
+        <div className="flex min-w-0 flex-wrap items-center gap-2">
           {options.length > 1 ? (
-            <label className="flex items-center gap-2 text-xs text-slate-400">
+            <label className="flex min-w-0 items-center gap-2 text-xs text-slate-400">
               Grabación
               <select
                 value={recordingId ?? ""}
                 onChange={(event) => setRecordingId(event.target.value)}
-                className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
+                className="min-w-0 max-w-full rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
               >
                 {options.map((option) => (
                   <option key={option.id} value={option.id}>
@@ -204,7 +213,9 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
                 type="number"
                 domain={[viewStart, viewEnd]}
                 allowDataOverflow
-                tickFormatter={(value: number) => `${Math.round(value)} s`}
+                tickFormatter={(value: number) =>
+                  `${span < 10 ? value.toFixed(1) : Math.round(value)} s`
+                }
                 stroke="#64748b"
                 fontSize={11}
               />

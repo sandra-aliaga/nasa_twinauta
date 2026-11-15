@@ -14,7 +14,7 @@ export function MiniGraph({ assessmentId, view, onExpand }: MiniGraphProps) {
   const state = useGraph(assessmentId, view);
 
   return (
-    <div className="absolute right-4 top-4 z-10 hidden w-72 overflow-hidden rounded-lg border border-slate-700 bg-slate-950/85 shadow-xl backdrop-blur md:block">
+    <div className="absolute right-4 top-4 z-10 hidden w-72 overflow-hidden rounded-lg border border-slate-700 bg-slate-950/85 shadow-xl backdrop-blur xl:block">
       <div className="flex items-center justify-between border-b border-slate-800 px-3 py-1.5">
         <span className="text-xs text-slate-300">
           Relaciones · {VIEW_LABELS[view]}
