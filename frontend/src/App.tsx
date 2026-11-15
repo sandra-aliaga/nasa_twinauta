@@ -12,6 +12,7 @@ import { RegionPanel, type PanelTab } from "./components/RegionPanel";
 import { useAssessment } from "./hooks/useAssessment";
 import { useCatalog, useRegions } from "./hooks/useCatalog";
 import {
+  HEART_RATE_ENABLED,
   HORIZON_DAYS,
   INITIAL_MISSION_DAY,
   REFERENCE_START_DAY,
@@ -137,8 +138,9 @@ export default function App() {
         onEvaluate={() => regionId && requestAssessment(regionId, day)}
         isDemo={dataSource.kind === "examples"}
         cardiacAvailable={
-          Boolean(selectedCase?.telemetry_recording_id) ||
-          dataSource.kind === "api"
+          HEART_RATE_ENABLED &&
+          (Boolean(selectedCase?.telemetry_recording_id) ||
+            dataSource.kind === "api")
         }
         cardiacOpen={cardiacOpen}
         onToggleCardiac={() => setCardiacOpen((open) => !open)}
@@ -215,7 +217,7 @@ export default function App() {
         </aside>
       </div>
 
-      {cardiacOpen ? (
+      {HEART_RATE_ENABLED && cardiacOpen ? (
         <CardiacPanel
           caseRecordingId={selectedCase?.telemetry_recording_id ?? null}
           onClose={() => setCardiacOpen(false)}
