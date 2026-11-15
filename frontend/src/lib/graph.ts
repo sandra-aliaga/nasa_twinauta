@@ -6,6 +6,8 @@ import { graphlib, layout } from "@dagrejs/dagre";
 import { MarkerType, type Edge, type Node } from "@xyflow/react";
 
 import type { Graph, GraphView } from "../api";
+import type { GraphPage, KnowledgeNode } from "../api/explorer/types";
+import { NODE_KIND_LABELS } from "./explorerLabels";
 
 type NodeKind = Graph["nodes"][number]["kind"];
 type Relation = Graph["edges"][number]["relation"];
@@ -45,8 +47,26 @@ export const KIND_STYLES: Record<NodeKind, { border: string; dot: string }> = {
   requirement: { border: "border-emerald-200/50", dot: "bg-emerald-200" },
 };
 
+/** Same hues as KIND_STYLES, as hex values for the 3D map. */
+export const KIND_HEX: Record<NodeKind, string> = {
+  finding: "#38bdf8",
+  observation: "#22d3ee",
+  exercise: "#2dd4bf",
+  claim: "#a78bfa",
+  source: "#cbd5e1",
+  limitation: "#fdba74",
+  scenario: "#818cf8",
+  model: "#a5b4fc",
+  parameter: "#c7d2fe",
+  action: "#34d399",
+  requirement: "#a7f3d0",
+};
+
 /** Edge strokes. Only "supported_by" is drawn as backing evidence. */
-const RELATION_STROKES: Record<Relation, { color: string; dash?: string }> = {
+export const RELATION_STROKES: Record<
+  Relation,
+  { color: string; dash?: string }
+> = {
   supported_by: { color: "#a78bfa" },
   uses: { color: "#38bdf8" },
   computed_with: { color: "#818cf8" },
@@ -137,4 +157,73 @@ export function nodeIdFromKey(event: React.KeyboardEvent): string | null {
   const id = node?.dataset.id ?? null;
   if (id) event.preventDefault();
   return id;
+}
+
+/** Renderer-neutral map for the 3D view: the case graph or a set of studies. */
+export type MapData = {
+  nodes: { id: string; label: string; kindLabel: string; color: string }[];
+  edges: { id: string; source: string; target: string; color: string }[];
+  layout: "columns" | "orbit";
+};
+
+/** The assessment graph, keeping the direction of its relations. */
+export function caseMap(graph: Graph): MapData {
+  return {
+    layout: "columns",
+    nodes: graph.nodes.map((node) => ({
+      id: node.id,
+      label: node.label,
+      kindLabel: KIND_LABELS[node.kind],
+      color: KIND_HEX[node.kind],
+    })),
+    edges: graph.edges.map((edge) => ({
+      id: edge.id,
+      source: edge.source,
+      target: edge.target,
+      color: RELATION_STROKES[edge.relation].color,
+    })),
+  };
+}
+
+/** Display names for the corpus topic ids; unknown ids are shown as sent. */
+const TOPIC_LABELS: Record<string, string> = {
+  status: "Estado actual",
+  mechanisms: "Mecanismos",
+  evolution: "Evolución",
+  recovery: "Recuperación",
+  countermeasures: "Contramedidas",
+};
+
+const STUDY_HEX: Record<KnowledgeNode["kind"], string> = {
+  paper: "#8cbcff",
+  topic: "#b69cff",
+  indicator: "#22d3ee",
+  claim: "#a78bfa",
+  action: "#ffb454",
+  intervention: "#34d399",
+};
+
+/**
+ * Studies of the corpus and what they address. AI-suggested links keep the
+ * amber stroke so they never look like reviewed ones.
+ */
+export function studyMap(page: GraphPage): MapData {
+  return {
+    layout: "orbit",
+    nodes: page.nodes.map((node) => ({
+      id: node.id,
+      label:
+        node.kind === "topic"
+          ? (TOPIC_LABELS[node.label] ?? node.label)
+          : node.label,
+      kindLabel: NODE_KIND_LABELS[node.kind],
+      color: STUDY_HEX[node.kind],
+    })),
+    edges: page.edges.map((edge) => ({
+      id: edge.id,
+      source: edge.source,
+      target: edge.target,
+      color: edge.basis === "llm_suggestion" ? "#ffb454" : "#6f78b4",
+    })),
+  };
 }

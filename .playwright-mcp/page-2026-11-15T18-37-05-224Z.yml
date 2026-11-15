@@ -1,0 +1,79 @@
+- generic [ref=f1e3]:
+  - banner [ref=f1e10]:
+    - generic [ref=f1e11]:
+      - heading "TwinNauta" [level=1] [ref=f1e12]
+      - generic [ref=f1e18]:
+        - text: Caso
+        - combobox "Caso" [ref=f1e19]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=f1e20]:
+        - generic [ref=f1e21]: Día de misión
+        - slider "Día de misión" [ref=f1e22]: "10"
+        - generic [ref=f1e23]: 10 / 70
+        - button "Evaluar día 10" [ref=f1e24]
+      - button "Frecuencia cardíaca (didáctica)" [ref=f1e25]
+      - button "Biblioteca científica" [ref=f1e26]
+      - button "Cómo leer esta demo" [ref=f1e27]: Guía
+      - 'generic "Los datos provienen de contracts/examples: son sintéticos y no son resultados del backend." [ref=f1e28]': MODO DEMOSTRACIÓN · datos ficticios
+  - generic [ref=f1e51]:
+    - main [ref=f1e52]:
+      - generic [ref=f1e54]:
+        - generic [ref=f1e55]:
+          - generic "Modelo anatómico 3D" [ref=f1e57]
+          - generic [ref=f1e60]:
+            - region "Estado general" [ref=f1e62]:
+              - generic [ref=f1e63]:
+                - heading "Estado general" [level=2] [ref=f1e64]
+                - paragraph [ref=f1e65]: Astronauta virtual, caso de práctica
+              - generic [ref=f1e66]:
+                - heading "Misión" [level=3] [ref=f1e67]
+                - paragraph [ref=f1e72]:
+                  - generic [ref=f1e73]: Día 10
+                  - generic [ref=f1e74]: de 70
+              - generic [ref=f1e75]:
+                - heading "Zonas por revisar" [level=3] [ref=f1e76]
+                - button "Cuádriceps Registro por revisar" [ref=f1e77]:
+                  - generic [ref=f1e81]:
+                    - generic [ref=f1e82]: Cuádriceps
+                    - generic [ref=f1e83]: Registro por revisar
+              - generic [ref=f1e84]:
+                - generic [ref=f1e85]:
+                  - heading "Ejercicio" [level=3] [ref=f1e86]
+                  - paragraph [ref=f1e87]: 1/2
+                  - img "1 de 2 sesiones con registro" [ref=f1e88]
+                  - paragraph [ref=f1e91]: sesiones con registro
+                - generic [ref=f1e92]:
+                  - heading "Mediciones" [level=3] [ref=f1e93]
+                  - paragraph [ref=f1e94]: 1/2
+                  - paragraph [ref=f1e95]: con dato en la zona
+                - generic [ref=f1e96]:
+                  - heading "Pulso" [level=3] [ref=f1e97]
+                  - paragraph [aria-hidden] [ref=f1e98]: – –
+                  - paragraph [ref=f1e99]: Sin sensor en este caso
+                  - button "Ver un ejemplo en Tierra" [ref=f1e100]
+                - generic [ref=f1e101]:
+                  - heading "Temperatura" [level=3] [ref=f1e102]
+                  - paragraph [aria-hidden] [ref=f1e103]: – –
+                  - paragraph [ref=f1e104]: Sin sensor en este caso
+            - button "‹ Ocultar estado general" [ref=f1e105]
+        - generic [ref=f1e106]:
+          - generic [ref=f1e107]:
+            - generic [ref=f1e108]: "Regiones:"
+            - button "Cuádriceps" [ref=f1e109]
+          - list "Leyenda del modelo" [ref=f1e110]:
+            - listitem [ref=f1e111]: "Baliza: zona con algo por revisar"
+            - listitem [ref=f1e113]: Zona con seguimiento
+            - listitem [ref=f1e115]: Resto del cuerpo, sin evaluar
+            - listitem [ref=f1e117]: Los colores no indican estado de salud.
+          - paragraph [ref=f1e118]: "Arrastre para girar y use la rueda para acercar. Lateralidad no individualizada: ambos lados forman una región. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=f1e119]:
+      - generic [ref=f1e122]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=f1e123]
+        - paragraph [ref=f1e124]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=f1e125]:
+          - listitem [ref=f1e126]:
+            - button "Cuádriceps Registro por revisar Ver zona" [ref=f1e127]:
+              - generic [ref=f1e128]:
+                - generic [ref=f1e129]: Cuádriceps
+                - generic [ref=f1e130]: Registro por revisar
+              - generic [ref=f1e131]: Ver zona

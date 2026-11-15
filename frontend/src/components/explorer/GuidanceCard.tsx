@@ -15,7 +15,7 @@ import {
   EXECUTION_LABELS,
   REVIEW_LABELS,
 } from "../../lib/labels";
-import { ErrorNotice, Notice, Skeleton, Tag } from "../common";
+import { ErrorNotice, Notice, ReviewedTag, Skeleton, Tag } from "../common";
 
 /** Proposed link to a 0.2 action; absent in the implemented contract. */
 type StepWithLink = GuidanceStep & { action_id?: string | null };
@@ -148,11 +148,7 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
                 <Tag tone={step.eligibility === "eligible" ? "sky" : "slate"}>
                   {ELIGIBILITY_LABELS[step.eligibility]}
                 </Tag>
-                <Tag
-                  tone={step.review_status === "reviewed" ? "emerald" : "amber"}
-                >
-                  {REVIEW_LABELS[step.review_status]}
-                </Tag>
+                <ReviewedTag status={step.review_status} />
               </div>
               <p className="mt-1 text-slate-300">{step.description}</p>
               <p className="mt-0.5 text-slate-400">{step.eligibility_reason}</p>

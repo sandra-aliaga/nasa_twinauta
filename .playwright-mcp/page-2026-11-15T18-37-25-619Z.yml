@@ -1,0 +1,175 @@
+- generic [ref=f1e3]:
+  - banner [ref=f1e10]:
+    - generic [ref=f1e11]:
+      - heading "TwinNauta" [level=1] [ref=f1e12]
+      - generic [ref=f1e18]:
+        - text: Caso
+        - combobox "Caso" [ref=f1e19]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=f1e20]:
+        - generic [ref=f1e21]: Día de misión
+        - slider "Día de misión" [ref=f1e22]: "10"
+        - generic [ref=f1e23]: 10 / 70
+        - button "Evaluar día 10" [ref=f1e24]
+      - button "Frecuencia cardíaca (didáctica)" [ref=f1e25]
+      - button "Biblioteca científica" [ref=f1e26]
+      - button "Cómo leer esta demo" [ref=f1e27]: Guía
+      - 'generic "Los datos provienen de contracts/examples: son sintéticos y no son resultados del backend." [ref=f1e28]': MODO DEMOSTRACIÓN · datos ficticios
+  - generic [ref=f1e51]:
+    - main [ref=f1e52]:
+      - generic [ref=f1e54]:
+        - generic [ref=f1e55]:
+          - generic "Modelo anatómico 3D" [ref=f1e57]
+          - generic [ref=f1e60]:
+            - region "Estado general" [ref=f1e62]:
+              - generic [ref=f1e63]:
+                - heading "Estado general" [level=2] [ref=f1e64]
+                - paragraph [ref=f1e65]: Astronauta virtual, caso de práctica
+              - generic [ref=f1e66]:
+                - heading "Misión" [level=3] [ref=f1e67]
+                - paragraph [ref=f1e72]:
+                  - generic [ref=f1e73]: Día 10
+                  - generic [ref=f1e74]: de 70
+              - generic [ref=f1e75]:
+                - heading "Zonas por revisar" [level=3] [ref=f1e76]
+                - button "Cuádriceps Registro por revisar" [ref=f1e77]:
+                  - generic [ref=f1e81]:
+                    - generic [ref=f1e82]: Cuádriceps
+                    - generic [ref=f1e83]: Registro por revisar
+              - generic [ref=f1e84]:
+                - generic [ref=f1e85]:
+                  - heading "Ejercicio" [level=3] [ref=f1e86]
+                  - paragraph [ref=f1e87]: 1/2
+                  - img "1 de 2 sesiones con registro" [ref=f1e88]
+                  - paragraph [ref=f1e91]: sesiones con registro
+                - generic [ref=f1e92]:
+                  - heading "Mediciones" [level=3] [ref=f1e93]
+                  - paragraph [ref=f1e94]: 1/2
+                  - paragraph [ref=f1e95]: con dato en la zona
+                - generic [ref=f1e96]:
+                  - heading "Pulso" [level=3] [ref=f1e97]
+                  - paragraph [aria-hidden] [ref=f1e98]: – –
+                  - paragraph [ref=f1e99]: Sin sensor en este caso
+                  - button "Ver un ejemplo en Tierra" [ref=f1e100]
+                - generic [ref=f1e101]:
+                  - heading "Temperatura" [level=3] [ref=f1e102]
+                  - paragraph [aria-hidden] [ref=f1e103]: – –
+                  - paragraph [ref=f1e104]: Sin sensor en este caso
+            - button "‹ Ocultar estado general" [ref=f1e105]
+          - button "Ver cuerpo completo" [ref=f1e132]
+        - generic [ref=f1e106]:
+          - generic [ref=f1e107]:
+            - generic [ref=f1e108]: "Regiones:"
+            - button "Cuádriceps" [pressed] [ref=f1e109]
+          - list "Leyenda del modelo" [ref=f1e110]:
+            - listitem [ref=f1e111]: "Baliza: zona con algo por revisar"
+            - listitem [ref=f1e113]: Zona con seguimiento
+            - listitem [ref=f1e115]: Resto del cuerpo, sin evaluar
+            - listitem [ref=f1e117]: Los colores no indican estado de salud.
+          - paragraph [ref=f1e133]: "El modelo solo representa la capa superficial: el vasto intermedio no aparece, aunque forma parte del cuádriceps."
+          - paragraph [ref=f1e118]: "Arrastre para girar y use la rueda para acercar. Lateralidad no individualizada: ambos lados forman una región. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=f1e119]:
+      - generic [ref=f1e134]:
+        - generic [ref=f1e135]:
+          - heading "Cuádriceps" [level=2] [ref=f1e136]
+          - button "Cerrar región" [ref=f1e137]: ×
+        - tablist "Pasos de la zona" [ref=f1e138]:
+          - tab "Qué pasa" [selected] [ref=f1e139]:
+            - generic [aria-hidden] [ref=f1e140]: "1"
+            - text: Qué pasa
+          - tab "Qué puede pasar" [ref=f1e141]:
+            - generic [aria-hidden] [ref=f1e142]: "2"
+            - text: Qué puede pasar
+          - tab "Qué hacer" [ref=f1e143]:
+            - generic [aria-hidden] [ref=f1e144]: "3"
+            - text: Qué hacer
+        - tabpanel "Qué pasa" [ref=f1e146]:
+          - generic "Hay información útil y partes que no pudieron calcularse." [ref=f1e147]:
+            - generic [ref=f1e148]: Evaluación Parcial
+            - generic [ref=f1e149]: Día 10
+            - generic [ref=f1e150]: Caso de práctica
+          - generic [ref=f1e151]:
+            - generic [ref=f1e152]:
+              - paragraph [ref=f1e153]: "Ejemplo de interfaz: hay una sesión sin registro y falta una evaluación de torque. Esto no demuestra pérdida muscular ni incumplimiento del ejercicio."
+              - list [ref=f1e154]:
+                - listitem [ref=f1e155]:
+                  - generic [ref=f1e156]:
+                    - generic [ref=f1e157]: Registro por revisar
+                    - generic [ref=f1e158]: Requiere revisión
+                  - paragraph [ref=f1e159]: Falta el registro de una sesión; no puede concluirse si se realizó.
+              - generic [ref=f1e160]:
+                - generic [ref=f1e161]:
+                  - heading "Área transversal relativa del cuádriceps" [level=4] [ref=f1e162]
+                  - paragraph [ref=f1e163]: 100% del basal
+                  - paragraph [ref=f1e166]: Medido el día 0
+                - generic [ref=f1e167]:
+                  - heading "Torque de extensión de rodilla" [level=4] [ref=f1e168]
+                  - paragraph [ref=f1e169]: Sin dato
+                  - paragraph [ref=f1e170]: No se cargó una evaluación bajo protocolo definido.
+                - generic [ref=f1e171]:
+                  - heading "Ejercicio" [level=4] [ref=f1e172]
+                  - generic [ref=f1e173]:
+                    - paragraph [ref=f1e174]: 1/2
+                    - paragraph [ref=f1e179]: sesiones con registro. Sin registro no significa que no se hizo.
+              - group [ref=f1e180]:
+                - generic "› Ver el detalle de los datos" [ref=f1e181] [cursor=pointer]:
+                  - generic [ref=f1e182]: ›
+                  - text: Ver el detalle de los datos
+              - group [ref=f1e183]:
+                - generic "› Límites de interpretación (3)" [ref=f1e184] [cursor=pointer]:
+                  - generic [ref=f1e185]: ›
+                  - text: Límites de interpretación (3)
+              - group [ref=f1e186]:
+                - generic "› Fuentes (2)" [ref=f1e187] [cursor=pointer]:
+                  - generic [ref=f1e188]: ›
+                  - text: Fuentes (2)
+              - group [ref=f1e189]:
+                - generic "› Orientación operativa de esta evaluación" [ref=f1e190] [cursor=pointer]:
+                  - generic [ref=f1e191]: ›
+                  - text: Orientación operativa de esta evaluación
+                - 'option "Pendiente de revisión: No hay reglas clínicas habilitadas." [selected]'
+                - 'option "Información insuficiente: Falta una medición basal compatible."'
+                - 'option "Información insuficiente: Las evaluaciones usan métodos diferentes; no hay comparación habilitada."'
+                - 'option "Parcial: El equipo previsto no está disponible; revisar el plan autorizado."'
+                - 'option "Sin módulo para esta región: La región seleccionada no tiene un módulo implementado."'
+                - 'option "Pendiente de revisión: No hay reglas clínicas habilitadas; el paso solo demuestra seguimiento editorial en modo ilustrativo."'
+            - generic [ref=f1e192]:
+              - generic [ref=f1e193]:
+                - heading "De dónde sale esto" [level=3] [ref=f1e194]
+                - button "Ampliar el mapa" [ref=f1e195]
+              - button "Ampliar el mapa de Fundamento" [ref=f1e196]:
+                - generic:
+                  - application:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img:
+                              - img "Edge from finding_log to exercise_002"
+                            - img:
+                              - img "Edge from claim_demo to demo_seed"
+                          - generic:
+                            - 'button "Hallazgo: Registro por revisar. Intro para ver el detalle." [ref=f1e197]':
+                              - generic [ref=f1e198]:
+                                - generic [ref=f1e200]: Hallazgo
+                                - paragraph [ref=f1e202]: Registro por revisar
+                            - 'button "Ejercicio: Sesión sin registro. Intro para ver el detalle." [ref=f1e204]':
+                              - generic [ref=f1e205]:
+                                - generic [ref=f1e207]: Ejercicio
+                                - paragraph [ref=f1e209]: Sesión sin registro
+                            - 'button "Afirmación: Regla editorial ilustrativa. Intro para ver el detalle." [ref=f1e211]':
+                              - generic [ref=f1e212]:
+                                - generic [ref=f1e214]: Afirmación
+                                - paragraph [ref=f1e216]: Regla editorial ilustrativa
+                            - 'button "Fuente: Ejemplo sintético. Intro para ver el detalle." [ref=f1e218]':
+                              - generic [ref=f1e219]:
+                                - generic [ref=f1e221]: Fuente
+                                - paragraph [ref=f1e223]: Ejemplo sintético
+                    - generic:
+                      - link "React Flow attribution":
+                        - /url: https://reactflow.dev/attribution
+                        - text: React Flow
+            - group [ref=f1e225]:
+              - generic "› Explicación ampliada" [ref=f1e226] [cursor=pointer]:
+                - generic [ref=f1e227]: ›
+                - text: Explicación ampliada

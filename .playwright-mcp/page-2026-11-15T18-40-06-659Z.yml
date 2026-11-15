@@ -1,0 +1,73 @@
+- generic [ref=f3e3]:
+  - banner [ref=f3e10]:
+    - generic [ref=f3e11]:
+      - heading "TwinNauta" [level=1] [ref=f3e12]
+      - generic [ref=f3e18]:
+        - text: Caso
+        - combobox "Caso" [ref=f3e19]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=f3e20]:
+        - generic [ref=f3e21]: Día de misión
+        - slider "Día de misión" [ref=f3e22]: "10"
+        - generic [ref=f3e23]: 10 / 70
+        - button "Evaluar día 10" [disabled] [ref=f3e24]
+      - button "Pulso de ejemplo" [ref=f3e25]
+      - button "Biblioteca científica" [ref=f3e26]
+      - button "Cómo leer esta demo" [ref=f3e27]: Guía
+      - 'generic "Los datos provienen de contracts/examples: son sintéticos y no son resultados del backend." [ref=f3e28]': Demo
+  - generic [ref=f3e29]:
+    - main [ref=f3e30]:
+      - generic [ref=f3e32]:
+        - generic [ref=f3e33]:
+          - generic "Modelo anatómico 3D" [ref=f3e35]
+          - generic [ref=f3e38]:
+            - region "Estado general" [ref=f3e40]:
+              - generic [ref=f3e41]:
+                - heading "Estado general" [level=2] [ref=f3e42]
+                - paragraph [ref=f3e43]: Astronauta virtual, caso de práctica
+              - generic [ref=f3e44]:
+                - heading "Misión" [level=3] [ref=f3e45]
+                - paragraph [ref=f3e50]:
+                  - generic [ref=f3e51]: Día 10
+                  - generic [ref=f3e52]: de 70
+              - generic [ref=f3e53]:
+                - heading "Zonas por revisar" [level=3] [ref=f3e54]
+                - paragraph [ref=f3e55]: Sin evaluación de este día todavía.
+              - generic [ref=f3e56]:
+                - generic [ref=f3e57]:
+                  - heading "Ejercicio" [level=3] [ref=f3e58]
+                  - paragraph [ref=f3e59]: Sin sesiones
+                - generic [ref=f3e60]:
+                  - heading "Mediciones" [level=3] [ref=f3e61]
+                  - paragraph [ref=f3e62]: Sin datos
+                - generic [ref=f3e63]:
+                  - heading "Pulso" [level=3] [ref=f3e64]
+                  - paragraph [aria-hidden] [ref=f3e65]: – –
+                  - paragraph [ref=f3e66]: Sin sensor en este caso
+                  - button "Ver un ejemplo en Tierra" [ref=f3e67]
+                - generic [ref=f3e68]:
+                  - heading "Temperatura" [level=3] [ref=f3e69]
+                  - paragraph [aria-hidden] [ref=f3e70]: – –
+                  - paragraph [ref=f3e71]: Sin sensor en este caso
+            - button "‹ Ocultar estado general" [ref=f3e72]
+        - generic [ref=f3e73]:
+          - generic [ref=f3e74]:
+            - generic [ref=f3e75]: "Regiones:"
+            - button "Cuádriceps" [ref=f3e76]
+          - list "Leyenda del modelo" [ref=f3e77]:
+            - listitem [ref=f3e78]: "Baliza: zona con algo por revisar"
+            - listitem [ref=f3e80]: Zona con seguimiento
+            - listitem [ref=f3e82]: Resto del cuerpo, sin evaluar
+            - listitem [ref=f3e84]: Los colores no indican estado de salud.
+          - paragraph [ref=f3e85]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=f3e86]:
+      - generic [ref=f3e89]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=f3e90]
+        - paragraph [ref=f3e91]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=f3e92]:
+          - listitem [ref=f3e93]:
+            - button "Cuádriceps Zona con seguimiento Ver zona" [ref=f3e94]:
+              - generic [ref=f3e95]:
+                - generic [ref=f3e96]: Cuádriceps
+                - generic [ref=f3e97]: Zona con seguimiento
+              - generic [ref=f3e98]: Ver zona

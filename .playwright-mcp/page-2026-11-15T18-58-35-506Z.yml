@@ -1,0 +1,173 @@
+- generic [ref=f5e3]:
+  - banner [ref=f5e10]:
+    - generic [ref=f5e11]:
+      - heading "TwinNauta" [level=1] [ref=f5e12]
+      - generic [ref=f5e18]:
+        - text: Caso
+        - combobox "Caso" [ref=f5e19]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=f5e20]:
+        - generic [ref=f5e21]: Día de misión
+        - slider "Día de misión" [ref=f5e22]: "10"
+        - generic [ref=f5e23]: 10 / 70
+        - button "Evaluar día 10" [ref=f5e24]
+      - button "Pulso de ejemplo" [ref=f5e25]
+      - button "Biblioteca científica" [ref=f5e26]
+      - button "Cómo leer esta demo" [ref=f5e27]: Guía
+  - generic [ref=f5e50]:
+    - main [ref=f5e51]:
+      - generic:
+        - generic:
+          - generic [ref=f5e116]:
+            - button "← Volver al cuerpo" [ref=f5e117]
+            - group "Vista del grafo" [ref=f5e118]:
+              - button "Fundamento" [pressed] [ref=f5e119]
+              - button "Escenario" [ref=f5e120]
+              - button "Acciones" [ref=f5e121]
+            - group "Tipo de mapa" [ref=f5e122]:
+              - button "Mapa 3D" [pressed] [ref=f5e123]
+              - button "Mapa plano" [ref=f5e124]
+            - generic [ref=f5e125]: Contenido ilustrativo
+          - generic:
+            - list:
+              - listitem:
+                - 'button "Observación: Área transversal relativa del cuádriceps"'
+              - listitem:
+                - 'button "Observación: Torque de extensión de rodilla"'
+              - listitem:
+                - 'button "Ejercicio: Registro de ejercicio, día 9"'
+              - listitem:
+                - 'button "Ejercicio: Registro de ejercicio, día 10"'
+              - listitem:
+                - 'button "Hallazgo: Registro por revisar"'
+              - listitem:
+                - 'button "Fuente: Contenido sintético para maquetación"'
+            - generic [ref=f5e126]:
+              - paragraph [ref=f5e127]: Tipos de nodo
+              - list [ref=f5e128]:
+                - listitem [ref=f5e129]: Observación
+                - listitem [ref=f5e131]: Ejercicio
+                - listitem [ref=f5e133]: Hallazgo
+                - listitem [ref=f5e135]: Fuente
+              - paragraph [ref=f5e137]: Las flechas muestran de dónde sale cada dato o regla; no indican causalidad. Los colores agrupan tipos, no niveles de riesgo.
+            - paragraph: Toca una tarjeta para ver de dónde sale. Arrastra para girar.
+      - generic [ref=f5e53]:
+        - generic "Modelo anatómico 3D" [ref=f5e139]
+        - generic [ref=f5e90]:
+          - generic [ref=f5e91]:
+            - generic [ref=f5e92]: "Regiones:"
+            - button "Cuádriceps" [pressed] [ref=f5e93]
+          - list "Leyenda del modelo" [ref=f5e94]:
+            - listitem [ref=f5e95]: "Baliza: zona con algo por revisar"
+            - listitem [ref=f5e97]: Zona con seguimiento
+            - listitem [ref=f5e99]: Resto del cuerpo, sin evaluar
+            - listitem [ref=f5e101]: Los colores no indican estado de salud.
+          - paragraph [ref=f5e142]: "El modelo solo representa la capa superficial: el vasto intermedio no aparece, aunque forma parte del cuádriceps."
+          - paragraph [ref=f5e102]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=f5e103]:
+      - generic [ref=f5e143]:
+        - generic [ref=f5e144]:
+          - heading "Cuádriceps" [level=2] [ref=f5e145]
+          - button "Cerrar región" [ref=f5e146]: ×
+        - tablist "Pasos de la zona" [ref=f5e147]:
+          - tab "Qué pasa" [selected] [ref=f5e148]:
+            - generic [aria-hidden] [ref=f5e149]: "1"
+            - text: Qué pasa
+          - tab "Qué puede pasar" [ref=f5e150]:
+            - generic [aria-hidden] [ref=f5e151]: "2"
+            - text: Qué puede pasar
+          - tab "Qué hacer" [ref=f5e152]:
+            - generic [aria-hidden] [ref=f5e153]: "3"
+            - text: Qué hacer
+        - tabpanel "Qué pasa" [ref=f5e155]:
+          - generic "Hay información útil y partes que no pudieron calcularse." [ref=f5e156]:
+            - generic [ref=f5e157]: Evaluación Parcial
+            - generic [ref=f5e158]: Día 10
+            - generic [ref=f5e159]: Caso de práctica
+          - generic [ref=f5e160]:
+            - generic [ref=f5e161]:
+              - paragraph [ref=f5e162]: "Ejemplo de interfaz: hay una sesión sin registro y falta una evaluación de torque. Esto no demuestra pérdida muscular ni incumplimiento del ejercicio."
+              - list [ref=f5e163]:
+                - listitem [ref=f5e164]:
+                  - generic [ref=f5e165]:
+                    - generic [ref=f5e166]: Registro por revisar
+                    - generic [ref=f5e167]: Requiere revisión
+                  - paragraph [ref=f5e168]: Falta el registro de una sesión; no puede concluirse si se realizó.
+              - generic [ref=f5e169]:
+                - generic [ref=f5e170]:
+                  - heading "Área transversal relativa del cuádriceps" [level=4] [ref=f5e171]
+                  - paragraph [ref=f5e172]: 100% del basal
+                  - paragraph [ref=f5e175]: Medido el día 0
+                - generic [ref=f5e176]:
+                  - heading "Torque de extensión de rodilla" [level=4] [ref=f5e177]
+                  - paragraph [ref=f5e178]: Sin dato
+                  - paragraph [ref=f5e179]: No se cargó una evaluación bajo protocolo definido.
+                - generic [ref=f5e180]:
+                  - heading "Ejercicio" [level=4] [ref=f5e181]
+                  - generic [ref=f5e182]:
+                    - paragraph [ref=f5e183]: 1/2
+                    - paragraph [ref=f5e188]: sesiones con registro. Sin registro no significa que no se hizo.
+              - group [ref=f5e189]:
+                - generic "› Ver el detalle de los datos" [ref=f5e190] [cursor=pointer]:
+                  - generic [ref=f5e191]: ›
+                  - text: Ver el detalle de los datos
+              - group [ref=f5e192]:
+                - generic "› Límites y fuentes" [ref=f5e193] [cursor=pointer]:
+                  - generic [ref=f5e194]: ›
+                  - text: Límites y fuentes
+            - generic [ref=f5e195]:
+              - generic [ref=f5e196]:
+                - heading "De dónde sale esto" [level=3] [ref=f5e197]
+                - button "Abrir mapa 3D" [ref=f5e198]
+              - button "Ampliar el mapa de Fundamento" [ref=f5e199]:
+                - generic:
+                  - application:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img:
+                              - img "Edge from finding:finding_log to exercise:exercise_002"
+                            - img:
+                              - img "Edge from observation:obs_baseline to source:demo_seed"
+                            - img:
+                              - img "Edge from observation:obs_torque to source:demo_seed"
+                            - img:
+                              - img "Edge from exercise:exercise_001 to source:demo_seed"
+                            - img:
+                              - img "Edge from exercise:exercise_002 to source:demo_seed"
+                            - img:
+                              - img "Edge from finding:finding_log to source:demo_seed"
+                          - generic:
+                            - 'button "Observación: Área transversal relativa del cuádriceps. Intro para ver el detalle." [ref=f5e200]':
+                              - generic [ref=f5e201]:
+                                - generic [ref=f5e203]: Observación
+                                - paragraph [ref=f5e205]: Área transversal relativa del cuádriceps
+                            - 'button "Observación: Torque de extensión de rodilla. Intro para ver el detalle." [ref=f5e207]':
+                              - generic [ref=f5e208]:
+                                - generic [ref=f5e210]: Observación
+                                - paragraph [ref=f5e212]: Torque de extensión de rodilla
+                            - 'button "Ejercicio: Registro de ejercicio, día 9. Intro para ver el detalle." [ref=f5e214]':
+                              - generic [ref=f5e215]:
+                                - generic [ref=f5e217]: Ejercicio
+                                - paragraph [ref=f5e219]: Registro de ejercicio, día 9
+                            - 'button "Ejercicio: Registro de ejercicio, día 10. Intro para ver el detalle." [ref=f5e221]':
+                              - generic [ref=f5e222]:
+                                - generic [ref=f5e224]: Ejercicio
+                                - paragraph [ref=f5e226]: Registro de ejercicio, día 10
+                            - 'button "Hallazgo: Registro por revisar. Intro para ver el detalle." [ref=f5e228]':
+                              - generic [ref=f5e229]:
+                                - generic [ref=f5e231]: Hallazgo
+                                - paragraph [ref=f5e233]: Registro por revisar
+                            - 'button "Fuente: Contenido sintético para maquetación. Intro para ver el detalle." [ref=f5e235]':
+                              - generic [ref=f5e236]:
+                                - generic [ref=f5e238]: Fuente
+                                - paragraph [ref=f5e240]: Contenido sintético para maquetación
+                    - generic:
+                      - link "React Flow attribution":
+                        - /url: https://reactflow.dev/attribution
+                        - text: React Flow
+            - group [ref=f5e242]:
+              - generic "› Explicación ampliada" [ref=f5e243] [cursor=pointer]:
+                - generic [ref=f5e244]: ›
+                - text: Explicación ampliada

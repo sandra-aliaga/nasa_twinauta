@@ -1,0 +1,6 @@
+[     185ms] [INFO] %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold @ http://127.0.0.1:5173/node_modules/.vite/deps/client-D7P7Zikj.js?v=2552f5a3:15558
+[     840ms] [WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:5173/@vite/client:364
+[  248410ms] [WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:5173/@vite/client:364
+[  373977ms] [WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:5173/@vite/client:364
+[  417860ms] [WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:5173/@vite/client:364
+[  456827ms] [WARNING] THREE.Clock: This module has been deprecated. Please use THREE.Timer instead. @ http://127.0.0.1:5173/@vite/client:364

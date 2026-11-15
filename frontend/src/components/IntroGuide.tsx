@@ -1,105 +1,145 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 
-import { HEART_RATE_ENABLED } from "../lib/config";
-
 const SEEN_KEY = "twinauta.introSeen";
 
-type Step = { title: string; body: ReactNode };
+type Step = { title: string; body: string; art: ReactNode };
+
+/** Body silhouette with a pulsing beacon on the thigh. */
+const ART_BEACON = (
+  <svg viewBox="0 0 160 110" className="h-28 w-40" aria-hidden="true">
+    <circle cx="80" cy="18" r="9" className="fill-slate-600" />
+    <rect
+      x="66"
+      y="30"
+      width="28"
+      height="36"
+      rx="10"
+      className="fill-slate-600"
+    />
+    <rect
+      x="67"
+      y="64"
+      width="11"
+      height="40"
+      rx="5.5"
+      className="fill-slate-600"
+    />
+    <rect
+      x="82"
+      y="64"
+      width="11"
+      height="40"
+      rx="5.5"
+      className="fill-step-now"
+    />
+    <circle
+      cx="87.5"
+      cy="80"
+      r="14"
+      className="fill-none stroke-step-do"
+      strokeWidth="2"
+      opacity="0.45"
+    />
+    <circle
+      cx="87.5"
+      cy="80"
+      r="8"
+      className="fill-none stroke-step-do"
+      strokeWidth="2"
+    />
+    <circle cx="87.5" cy="80" r="3.5" className="fill-step-do" />
+  </svg>
+);
+
+/** The three steps of a zone as a route. */
+const ART_STEPS = (
+  <svg viewBox="0 0 200 110" className="h-28 w-48" aria-hidden="true">
+    <path
+      d="M36 55 H164"
+      className="stroke-slate-700"
+      strokeWidth="3"
+      strokeDasharray="2 7"
+      strokeLinecap="round"
+    />
+    <circle cx="36" cy="55" r="17" className="fill-step-now" />
+    <circle cx="100" cy="55" r="17" className="fill-step-next" />
+    <circle cx="164" cy="55" r="17" className="fill-step-do" />
+    <g
+      className="fill-slate-950 font-display"
+      fontSize="15"
+      textAnchor="middle"
+    >
+      <text x="36" y="60.5">
+        1
+      </text>
+      <text x="100" y="60.5">
+        2
+      </text>
+      <text x="164" y="60.5">
+        3
+      </text>
+    </g>
+  </svg>
+);
+
+/** A small relation map: where a conclusion comes from. */
+const ART_MAP = (
+  <svg viewBox="0 0 200 110" className="h-28 w-48" aria-hidden="true">
+    <path
+      d="M52 30 L104 55 L52 82 M104 55 H156"
+      className="fill-none stroke-slate-600"
+      strokeWidth="2"
+    />
+    <rect
+      x="22"
+      y="18"
+      width="48"
+      height="24"
+      rx="8"
+      className="fill-slate-700"
+    />
+    <rect
+      x="22"
+      y="70"
+      width="48"
+      height="24"
+      rx="8"
+      className="fill-slate-700"
+    />
+    <rect
+      x="80"
+      y="43"
+      width="48"
+      height="24"
+      rx="8"
+      className="fill-step-now"
+    />
+    <rect
+      x="140"
+      y="43"
+      width="42"
+      height="24"
+      rx="8"
+      className="fill-step-next"
+    />
+  </svg>
+);
 
 const STEPS: Step[] = [
   {
-    title: "Qué es TwinNauta",
-    body: (
-      <>
-        <p>
-          Prototipo exploratorio para seguir la salud muscular de un astronauta
-          en misiones largas y decidir qué comprobar a continuación.
-        </p>
-        <ul>
-          <li>
-            El caso es <strong>sintético</strong>: no hay datos de un astronauta
-            real.
-          </li>
-          <li>
-            No diagnostica ni prescribe. Las acciones son comprobaciones de
-            datos con un responsable humano.
-          </li>
-        </ul>
-      </>
-    ),
+    title: "Mira el gemelo",
+    body: "Es un astronauta virtual de práctica. Las balizas marcan las zonas donde hay algo por revisar.",
+    art: ART_BEACON,
   },
   {
-    title: "Elegir región y día",
-    body: (
-      <>
-        <p>
-          Seleccione el cuádriceps en el cuerpo o en «Regiones». Mueva el{" "}
-          <strong>día de misión</strong> y pulse «Evaluar».
-        </p>
-        <ul>
-          <li>
-            Cada evaluación es una instantánea con los datos disponibles hasta
-            ese día.
-          </li>
-          <li>
-            Los colores del cuerpo solo marcan qué se puede seleccionar; no
-            indican estado de salud.
-          </li>
-        </ul>
-      </>
-    ),
+    title: "Toca una zona",
+    body: "Verás tres pasos, siempre en este orden: qué pasa, qué puede pasar y qué hacer.",
+    art: ART_STEPS,
   },
   {
-    title: "Leer las tres pestañas",
-    body: (
-      <ul>
-        <li>
-          <strong>Evaluación de la zona:</strong> indicadores con su
-          procedencia. Un dato ausente se muestra como ausente, nunca como cero.
-        </li>
-        <li>
-          <strong>Evolución del escenario:</strong> qué se sabe de la evolución
-          sin seguimiento y con qué supuestos. No es un pronóstico individual.
-        </li>
-        <li>
-          <strong>Siguientes pasos:</strong> comprobaciones propuestas, su
-          elegibilidad y el registro de seguimiento.
-        </li>
-        <li>
-          Cuando existe una síntesis preparada, cada pestaña la muestra marcada
-          como generada por modelo y pendiente de revisión.
-        </li>
-      </ul>
-    ),
-  },
-  {
-    title: "Evidencia y biblioteca",
-    body: (
-      <>
-        <ul>
-          <li>
-            «¿Por qué?» y los grafos muestran de qué datos y fuentes sale cada
-            conclusión.
-          </li>
-          <li>
-            La <strong>Biblioteca científica</strong> reúne los artículos del
-            corpus con su resumen, análisis y aplicabilidad. Las citas de la
-            síntesis abren el artículo correspondiente.
-          </li>
-          <li>
-            La evidencia sigue pendiente de revisión por el equipo de Medicina;
-            una relación en el grafo no prueba eficacia.
-          </li>
-        </ul>
-        {HEART_RATE_ENABLED ? (
-          <p>
-            La <strong>frecuencia cardíaca</strong> es una grabación terrestre
-            de otra persona en cinta: solo didáctica, no pertenece al
-            astronauta.
-          </p>
-        ) : null}
-      </>
-    ),
+    title: "Pregunta de dónde sale",
+    body: "Cada paso trae su mapa de datos y estudios. Nada aquí es un diagnóstico ni reemplaza al equipo médico.",
+    art: ART_MAP,
   },
 ];
 
@@ -121,8 +161,8 @@ function writeSeen(): void {
 }
 
 /**
- * Short walkthrough for first-time viewers (jury, team). Opens once per
- * browser and again from the header button.
+ * Three-screen welcome for first-time viewers. Opens once per browser and
+ * again from the header button.
  */
 export function IntroGuide({
   open,
@@ -162,67 +202,66 @@ export function IntroGuide({
         event.preventDefault();
         close();
       }}
-      className="twin-dialog m-auto w-[min(36rem,calc(100vw-2rem))] rounded-xl border border-slate-700 bg-slate-900 p-0 text-slate-200 shadow-2xl shadow-black/50"
+      className="twin-dialog m-auto w-[min(26rem,calc(100vw-2rem))] rounded-2xl border border-slate-700 bg-slate-900 p-0 text-slate-200 shadow-2xl shadow-black/50"
     >
-      <div className="space-y-4 p-5">
-        <div className="flex items-start justify-between gap-3">
-          <div>
-            <p className="text-xs text-slate-400">
-              Cómo leer esta demo · paso {step + 1} de {STEPS.length}
-            </p>
-            <h2
-              id="intro-title"
-              className="mt-1 text-lg font-semibold text-slate-50"
-            >
-              {current.title}
-            </h2>
-          </div>
+      <div className="p-6 text-center">
+        <div className="flex justify-end">
           <button
             type="button"
             onClick={close}
-            aria-label="Cerrar guía"
-            className="rounded-md px-2 text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+            className="text-xs text-slate-400 hover:text-slate-100"
           >
-            ×
+            Saltar
           </button>
         </div>
 
-        <div
-          key={step}
-          className="animate-rise-in space-y-2 text-sm leading-relaxed [&_li]:ml-4 [&_li]:list-disc [&_ul]:space-y-1"
-        >
-          {current.body}
+        <div key={step} className="animate-rise-in">
+          <div className="flex h-32 items-center justify-center">
+            {current.art}
+          </div>
+          <h2
+            id="intro-title"
+            className="mt-3 font-display text-xl text-slate-50"
+          >
+            {current.title}
+          </h2>
+          <p className="mx-auto mt-2 max-w-[19rem] text-sm leading-relaxed text-slate-300">
+            {current.body}
+          </p>
         </div>
 
-        <div className="flex items-center justify-between gap-3 pt-1">
-          <div className="flex gap-1.5" aria-hidden="true">
-            {STEPS.map((item, index) => (
-              <span
-                key={item.title}
-                className={`h-1.5 w-6 rounded-full ${
-                  index === step ? "bg-sky-400" : "bg-slate-700"
-                }`}
-              />
-            ))}
-          </div>
-          <div className="flex gap-2">
-            {step > 0 ? (
-              <button
-                type="button"
-                onClick={() => setStep(step - 1)}
-                className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
-              >
-                Anterior
-              </button>
-            ) : null}
+        <div
+          className="mt-5 flex justify-center gap-1.5"
+          role="img"
+          aria-label={`Paso ${step + 1} de ${STEPS.length}`}
+        >
+          {STEPS.map((item, index) => (
+            <span
+              key={item.title}
+              className={`h-1.5 rounded-full transition-all ${
+                index === step ? "w-6 bg-sky-400" : "w-1.5 bg-slate-700"
+              }`}
+            />
+          ))}
+        </div>
+
+        <div className="mt-5 flex gap-2">
+          {step > 0 ? (
             <button
               type="button"
-              onClick={() => (last ? close() : setStep(step + 1))}
-              className="rounded-md bg-sky-500 px-3 py-1 text-sm font-medium text-slate-950 hover:bg-sky-400"
+              onClick={() => setStep(step - 1)}
+              className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-slate-500"
             >
-              {last ? "Empezar" : "Siguiente"}
+              Atrás
             </button>
-          </div>
+          ) : null}
+          <button
+            type="button"
+            onClick={() => (last ? close() : setStep(step + 1))}
+            className="flex-1 rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-400"
+          >
+            {last ? "Empezar" : "Siguiente"}
+          </button>
         </div>
       </div>
     </dialog>

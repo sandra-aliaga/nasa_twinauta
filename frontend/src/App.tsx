@@ -1,14 +1,18 @@
-import { lazy, Suspense, useEffect, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
-import { dataSource, type GraphView } from "./api";
+import { dataSource, type GraphView, type Region } from "./api";
 import { AnatomyStage } from "./components/AnatomyStage";
-import { CaseSheet } from "./components/CaseSheet";
-import { ErrorNotice, Notice, Skeleton } from "./components/common";
+import { ErrorNotice, Skeleton } from "./components/common";
 import { Header } from "./components/Header";
 import { IntroGuide, shouldShowIntro } from "./components/IntroGuide";
 import { RegionPanel, type PanelTab } from "./components/RegionPanel";
+import { StatusHud } from "./components/StatusHud";
 import { useAssessment } from "./hooks/useAssessment";
-import { usePresence } from "./hooks/usePresence";
+import { useGraph } from "./hooks/useGraph";
+import { explorerSource } from "./api/explorer";
+import { hasWebGL, HEART_ZONE_ID } from "./lib/anatomy";
+import { caseMap, studyMap } from "./lib/graph";
+import { useLoad } from "./hooks/useLoad";
 import { useCatalog, useRegions } from "./hooks/useCatalog";
 import {
   HEART_RATE_ENABLED,
@@ -18,19 +22,12 @@ import {
 } from "./lib/config";
 
 // Heavy views (graph library, charts) load only when first opened.
-const CardiacPanel = lazy(() =>
-  import("./components/CardiacPanel").then((m) => ({
-    default: m.CardiacPanel,
-  })),
+const HeartPanel = lazy(() =>
+  import("./components/HeartPanel").then((m) => ({ default: m.HeartPanel })),
 );
 const GraphExplorer = lazy(() =>
   import("./components/graph/GraphExplorer").then((m) => ({
     default: m.GraphExplorer,
-  })),
-);
-const MiniGraph = lazy(() =>
-  import("./components/graph/MiniGraph").then((m) => ({
-    default: m.MiniGraph,
   })),
 );
 const ExplorerView = lazy(() =>
@@ -54,14 +51,49 @@ export default function App() {
   const [regionId, setRegionId] = useState<string | null>(null);
   const [tab, setTab] = useState<PanelTab>("evaluation");
   const [graphView, setGraphView] = useState<GraphView | null>(null);
-  const [cardiacOpen, setCardiacOpen] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
   const [guideOpen, setGuideOpen] = useState(shouldShowIntro);
+  // Assessment map: 3D around the body by default, flat as an alternative.
+  const [can3d] = useState(hasWebGL);
+  const [graphMode, setGraphMode] = useState<"3d" | "flat">("3d");
+  const [graphNodeId, setGraphNodeId] = useState<string | null>(null);
+  // The map opens on the studies of the corpus; the case graph is one tap away.
+  const [graphSource, setGraphSource] = useState<"studies" | "case">("studies");
   // Paper to open when the library is reached from a citation.
   const [libraryPaperId, setLibraryPaperId] = useState<string | null>(null);
   const regions = useRegions(caseId);
-  const cardiac = usePresence(HEART_RATE_ENABLED && cardiacOpen, 200);
   const { state, evaluate, reset, replaceAction, refresh } = useAssessment();
+  const catalogLabels =
+    catalog.status === "ready"
+      ? Object.fromEntries(
+          catalog.data.indicators.map((item) => [item.id, item.label]),
+        )
+      : {};
+  const graphState = useGraph(
+    state.status === "ready" && graphView !== null
+      ? state.assessment.assessment_id
+      : null,
+    graphView ?? "evidence",
+    catalogLabels,
+  );
+  const studiesKey =
+    state.status === "ready" && graphView !== null && graphSource === "studies"
+      ? `${graphView}|${state.request.region_id}|${state.assessment.assessment_id}`
+      : null;
+  const studies = useLoad(studiesKey, (signal) => {
+    const [view, region_id, assessment_id] = (studiesKey ?? "").split("|");
+    return explorerSource.getKnowledgeGraph(
+      { view: view as GraphView, region_id, assessment_id },
+      signal,
+    );
+  });
+  const mapData = useMemo(() => {
+    if (graphView === null) return null;
+    if (graphSource === "studies") {
+      return studies?.status === "ready" ? studyMap(studies.data) : null;
+    }
+    return graphState?.status === "ready" ? caseMap(graphState.data) : null;
+  }, [graphView, graphSource, studies, graphState]);
 
   const cases = catalog.status === "ready" ? catalog.data.cases : [];
   const selectedCase = cases.find((item) => item.id === caseId) ?? null;
@@ -92,9 +124,29 @@ export default function App() {
     });
   }
 
+  // Open the first tracked zone on arrival, so the beacon and the general
+  // status are filled without asking the user to evaluate first.
+  const firstRegionId = regionList[0]?.id ?? null;
+  useEffect(() => {
+    if (caseId && firstRegionId && state.status === "idle") {
+      requestAssessment(firstRegionId, day);
+    }
+    // Runs when the regions of a case arrive; later days are evaluated
+    // explicitly with the header button.
+  }, [caseId, firstRegionId]);
+
   function handleSelectRegion(nextRegionId: string) {
     setRegionId(nextRegionId);
-    requestAssessment(nextRegionId, day);
+    // The heart zone is a frontend view; it has no assessment to request.
+    if (nextRegionId === HEART_ZONE_ID) {
+      setGraphView(null);
+      return;
+    }
+    const alreadyOpen =
+      (state.status === "ready" || state.status === "loading") &&
+      state.request.region_id === nextRegionId &&
+      state.request.mission_day === day;
+    if (!alreadyOpen) requestAssessment(nextRegionId, day);
   }
 
   function handleCaseChange(nextCaseId: string) {
@@ -102,15 +154,14 @@ export default function App() {
     setCaseId(nextCaseId);
     setRegionId(null);
     setGraphView(null);
-    setCardiacOpen(false);
     if (nextCase) setDay(Math.min(day, nextCase.duration_days));
     reset();
   }
 
   function handleClosePanel() {
+    // The assessment stays open: it feeds the beacon and the general status.
     setRegionId(null);
     setGraphView(null);
-    reset();
   }
 
   if (catalog.status === "loading") {
@@ -136,16 +187,31 @@ export default function App() {
     );
   }
 
-  const indicatorLabels = Object.fromEntries(
-    catalog.data.indicators.map((item) => [item.id, item.label]),
-  );
+  const openAssessment = state.status === "ready" ? state.assessment : null;
+  const assessmentRegionId =
+    state.status === "ready" ? state.request.region_id : null;
+  const toReview =
+    openAssessment?.findings.filter(
+      (item) => item.attention === "review_needed",
+    ) ?? [];
+  const flaggedRegionIds =
+    assessmentRegionId && toReview.length > 0 ? [assessmentRegionId] : [];
+  const evaluateRegionId =
+    (regionId === HEART_ZONE_ID ? null : regionId) ??
+    assessmentRegionId ??
+    firstRegionId;
   const caseSheet = (
-    <CaseSheet
+    <StatusHud
       caseItem={selectedCase}
       day={day}
       regions={regionList}
       indicators={catalog.data.indicators}
+      assessment={openAssessment}
+      assessmentRegionId={assessmentRegionId}
       onSelectRegion={handleSelectRegion}
+      onOpenHeartRate={
+        HEART_RATE_ENABLED ? () => handleSelectRegion(HEART_ZONE_ID) : undefined
+      }
     />
   );
   const evaluatedDay =
@@ -156,10 +222,19 @@ export default function App() {
   // body so the anatomical context stays visible behind it.
   const hideBody = libraryOpen;
 
-  function openGraph(view: GraphView) {
+  function openPaper(paperId: string) {
+    setGraphView(null);
+    setLibraryPaperId(paperId);
+    setLibraryOpen(true);
+  }
+
+  function openGraph(view: GraphView | null) {
     setLibraryOpen(false);
+    setGraphNodeId(null);
     setGraphView(view);
   }
+  const graph3d =
+    showGraph && can3d && (graphSource === "studies" || graphMode === "3d");
 
   return (
     <Shell>
@@ -170,16 +245,14 @@ export default function App() {
         day={day}
         onDayChange={setDay}
         evaluatedDay={evaluatedDay}
-        canEvaluate={selectedRegion !== null && state.status !== "loading"}
-        onEvaluate={() => regionId && requestAssessment(regionId, day)}
-        isDemo={dataSource.kind === "examples"}
-        cardiacAvailable={
-          HEART_RATE_ENABLED &&
-          (Boolean(selectedCase?.telemetry_recording_id) ||
-            dataSource.kind === "api")
+        canEvaluate={evaluateRegionId !== null && state.status !== "loading"}
+        onEvaluate={() =>
+          evaluateRegionId && requestAssessment(evaluateRegionId, day)
         }
-        cardiacOpen={cardiacOpen}
-        onToggleCardiac={() => setCardiacOpen((open) => !open)}
+        isDemo={dataSource.kind === "examples"}
+        cardiacAvailable={false}
+        cardiacOpen={false}
+        onToggleCardiac={() => {}}
         libraryOpen={libraryOpen}
         onToggleLibrary={() => {
           setGraphView(null);
@@ -205,26 +278,33 @@ export default function App() {
                 onBack={() => setLibraryOpen(false)}
               />
             ) : null}
-            {showGraph && graphView !== null && state.status === "ready" ? (
-              <div className="absolute inset-0 z-20 overflow-y-auto bg-slate-950/60 backdrop-blur-md">
+            {showGraph && graphView !== null ? (
+              <div
+                className={`absolute inset-0 z-20 overflow-y-auto ${
+                  graph3d
+                    ? "pointer-events-none"
+                    : "bg-slate-950/60 backdrop-blur-md"
+                }`}
+              >
                 <GraphExplorer
+                  state={graphState}
                   view={graphView}
-                  assessmentId={state.assessment.assessment_id}
-                  onViewChange={setGraphView}
-                  onBack={() => setGraphView(null)}
-                  labels={indicatorLabels}
+                  onViewChange={openGraph}
+                  onBack={() => openGraph(null)}
+                  selectedId={graphNodeId}
+                  onSelect={setGraphNodeId}
+                  mode={graphMode}
+                  onModeChange={setGraphMode}
+                  can3d={can3d}
+                  source={graphSource}
+                  onSourceChange={(next) => {
+                    setGraphNodeId(null);
+                    setGraphSource(next);
+                  }}
+                  studies={studies}
+                  onOpenPaper={openPaper}
                 />
               </div>
-            ) : null}
-          </Suspense>
-          <Suspense fallback={null}>
-            {!hideBody && !showGraph && state.status === "ready" ? (
-              <MiniGraph
-                assessmentId={state.assessment.assessment_id}
-                view={TAB_TO_VIEW[tab]}
-                onExpand={() => openGraph(TAB_TO_VIEW[tab])}
-                labels={indicatorLabels}
-              />
             ) : null}
           </Suspense>
           {regions?.status === "error" ? (
@@ -240,21 +320,37 @@ export default function App() {
                 selectedRegionId={regionId}
                 onSelect={handleSelectRegion}
                 sidePanel={caseSheet}
+                flaggedRegionIds={flaggedRegionIds}
+                graph={graph3d ? mapData : null}
+                heartEnabled={HEART_RATE_ENABLED}
+                selectedNodeId={graphNodeId}
+                onSelectNode={setGraphNodeId}
               />
             </div>
           )}
         </main>
 
         <aside className="min-h-0 bg-slate-950">
-          {selectedRegion === null ? (
+          {regionId === HEART_ZONE_ID ? (
+            <Suspense fallback={<ViewSkeleton />}>
+              <HeartPanel
+                caseRecordingId={selectedCase?.telemetry_recording_id ?? null}
+                onClose={handleClosePanel}
+                onOpenPaper={openPaper}
+              />
+            </Suspense>
+          ) : selectedRegion === null ? (
             <div className="h-full overflow-y-auto p-5">
               {/* Wide screens show the sheet over the 3D view instead. */}
               <div className="lg:hidden">{caseSheet}</div>
-              <div className="hidden lg:block">
-                <Notice title="Ninguna región seleccionada">
-                  Seleccione una región en el cuerpo o en la ficha del caso para
-                  solicitar su evaluación.
-                </Notice>
+              <div className="mt-5 lg:mt-0">
+                <ZonePrompt
+                  regions={regionList}
+                  flaggedRegionId={flaggedRegionIds[0] ?? null}
+                  findingTitle={toReview[0]?.title ?? null}
+                  onSelectRegion={handleSelectRegion}
+                  heartEnabled={HEART_RATE_ENABLED}
+                />
               </div>
             </div>
           ) : (
@@ -269,31 +365,96 @@ export default function App() {
               onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
               onActionUpdated={replaceAction}
               onConflict={refresh}
-              onOpenPaper={(paperId) => {
-                setGraphView(null);
-                setLibraryPaperId(paperId);
-                setLibraryOpen(true);
-              }}
+              onOpenPaper={openPaper}
             />
           )}
         </aside>
       </div>
-
-      {cardiac.mounted ? (
-        <div
-          className={
-            cardiac.leaving ? "animate-slide-down" : "animate-slide-up"
-          }
-        >
-          <Suspense fallback={<ViewSkeleton />}>
-            <CardiacPanel
-              caseRecordingId={selectedCase?.telemetry_recording_id ?? null}
-              onClose={() => setCardiacOpen(false)}
-            />
-          </Suspense>
-        </div>
-      ) : null}
     </Shell>
+  );
+}
+
+/** Right panel before a zone is chosen: one clear invitation to act. */
+function ZonePrompt({
+  regions,
+  flaggedRegionId,
+  findingTitle,
+  onSelectRegion,
+  heartEnabled,
+}: {
+  regions: Region[];
+  flaggedRegionId: string | null;
+  findingTitle: string | null;
+  onSelectRegion: (regionId: string) => void;
+  heartEnabled: boolean;
+}) {
+  return (
+    <div className="space-y-4">
+      <h2 className="font-display text-lg leading-snug text-slate-50">
+        Toca una zona del cuerpo para ver qué pasa ahí
+      </h2>
+      <p className="text-sm text-slate-300">
+        Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y
+        qué hacer.
+      </p>
+      <ul className="space-y-2">
+        {regions.map((region) => {
+          const flagged = region.id === flaggedRegionId;
+          return (
+            <li key={region.id}>
+              <button
+                type="button"
+                onClick={() => onSelectRegion(region.id)}
+                className="hud-panel flex w-full items-center justify-between gap-3 px-5 py-3 text-left"
+                style={
+                  {
+                    "--rail": flagged
+                      ? "var(--color-step-do)"
+                      : "var(--color-sky-400)",
+                  } as React.CSSProperties
+                }
+              >
+                <span>
+                  <span className="block font-medium text-slate-50">
+                    {region.label}
+                  </span>
+                  <span className="block text-xs text-slate-300">
+                    {flagged && findingTitle
+                      ? findingTitle
+                      : "Zona con seguimiento"}
+                  </span>
+                </span>
+                <span className="shrink-0 rounded-full bg-sky-500 px-3 py-1 text-xs font-semibold text-slate-950">
+                  Ver zona
+                </span>
+              </button>
+            </li>
+          );
+        })}
+        {heartEnabled ? (
+          <li>
+            <button
+              type="button"
+              onClick={() => onSelectRegion(HEART_ZONE_ID)}
+              className="hud-panel flex w-full items-center justify-between gap-3 px-5 py-3 text-left"
+              style={
+                { "--rail": "var(--color-step-next)" } as React.CSSProperties
+              }
+            >
+              <span>
+                <span className="block font-medium text-slate-50">Corazón</span>
+                <span className="block text-xs text-slate-300">
+                  Pulso de ejemplo y estudios
+                </span>
+              </span>
+              <span className="shrink-0 rounded-full bg-step-next px-3 py-1 text-xs font-semibold text-slate-950">
+                Ver zona
+              </span>
+            </button>
+          </li>
+        ) : null}
+      </ul>
+    </div>
   );
 }
 

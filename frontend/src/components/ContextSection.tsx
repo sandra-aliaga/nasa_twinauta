@@ -7,7 +7,7 @@ import type {
 import type { LoadState } from "../hooks/useCatalog";
 import { BASIS_LABELS, RELATION_LABELS } from "../lib/explorerLabels";
 import { REVIEW_LABELS, UNIT_LABELS } from "../lib/labels";
-import { ErrorNotice, Skeleton, Tag } from "./common";
+import { ErrorNotice, ReviewedTag, Skeleton, Tag } from "./common";
 
 export type ContextSectionKey = keyof ContextDraft;
 
@@ -91,9 +91,7 @@ export function ContextSection({
         <h4 className="text-sm font-medium text-slate-100">{title}</h4>
         <div className="flex flex-wrap gap-1">
           <Tag tone="violet">Síntesis generada por modelo</Tag>
-          <Tag tone={data.review_status === "reviewed" ? "emerald" : "amber"}>
-            {REVIEW_LABELS[data.review_status]}
-          </Tag>
+          <ReviewedTag status={data.review_status} />
         </div>
       </div>
       <p className="text-slate-200">{narrative.summary}</p>
