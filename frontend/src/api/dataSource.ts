@@ -1,4 +1,9 @@
 import type {
+  AssessmentContext,
+  AssessmentIndex,
+  Guidance,
+} from "./explorer/types";
+import type {
   Action,
   ActionUpdate,
   Assessment,
@@ -13,7 +18,7 @@ import type {
 } from "./types";
 
 /**
- * Single interface for the nine contract operations.
+ * Single interface for the case, assessment and telemetry operations.
  * The examples source and the HTTP source must return the same shapes.
  */
 export interface DataSource {
@@ -30,6 +35,17 @@ export interface DataSource {
     assessmentId: string,
     signal?: AbortSignal,
   ): Promise<Assessment>;
+  /** Existing snapshots of a case, to reuse one before creating another. */
+  listCaseAssessments(
+    caseId: string,
+    signal?: AbortSignal,
+  ): Promise<AssessmentIndex[]>;
+  /** Frozen contextual synthesis; "unavailable" is a 200 domain state. */
+  getContext(
+    assessmentId: string,
+    signal?: AbortSignal,
+  ): Promise<AssessmentContext>;
+  getGuidance(assessmentId: string, signal?: AbortSignal): Promise<Guidance>;
   getGraph(
     assessmentId: string,
     view: GraphView,

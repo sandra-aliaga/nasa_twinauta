@@ -1,11 +1,18 @@
-import type { Action, IndicatorDefinition, Region } from "../api";
+import {
+  dataSource,
+  type Action,
+  type IndicatorDefinition,
+  type Region,
+} from "../api";
 import type { AssessmentState } from "../hooks/useAssessment";
+import { useLoad } from "../hooks/useLoad";
 import {
   ASSESSMENT_STATUS_HINTS,
   ASSESSMENT_STATUS_LABELS,
 } from "../lib/labels";
 import { ActionsTab } from "./ActionsTab";
 import { ErrorNotice, Notice, Tag } from "./common";
+import { ContextSection, type ContextSectionKey } from "./ContextSection";
 import { EvaluationTab } from "./EvaluationTab";
 import { ScenarioTab } from "./ScenarioTab";
 
@@ -16,6 +23,12 @@ const TABS: { id: PanelTab; label: string }[] = [
   { id: "scenario", label: "Evolución del escenario" },
   { id: "actions", label: "Siguientes pasos" },
 ];
+
+const TAB_SECTIONS: Record<PanelTab, ContextSectionKey> = {
+  evaluation: "alert_assessment",
+  scenario: "inaction_scenario",
+  actions: "next_steps",
+};
 
 // Data availability, not severity: no red, no traffic-light semantics.
 const STATUS_TONES = {
@@ -35,6 +48,7 @@ type RegionPanelProps = {
   onOpenGraph: (tab: PanelTab) => void;
   onActionUpdated: (action: Action) => void;
   onConflict: () => Promise<void>;
+  onOpenPaper: (paperId: string) => void;
 };
 
 /** Contextual panel for the selected region with its three sections. */
@@ -49,7 +63,16 @@ export function RegionPanel({
   onOpenGraph,
   onActionUpdated,
   onConflict,
+  onOpenPaper,
 }: RegionPanelProps) {
+  // One prepared synthesis per assessment, shared by the three tabs.
+  const assessmentId =
+    state.status === "ready" ? state.assessment.assessment_id : null;
+  const context = useLoad(
+    assessmentId === null ? null : `context|${assessmentId}`,
+    (signal) => dataSource.getContext(assessmentId ?? "", signal),
+  );
+
   if (!region) {
     return (
       <div className="p-5">
@@ -193,6 +216,13 @@ export function RegionPanel({
                 onOpenGraph={() => onOpenGraph("actions")}
               />
             ) : null}
+            <ContextSection
+              context={context}
+              section={TAB_SECTIONS[tab]}
+              assessment={state.assessment}
+              indicators={indicators}
+              onOpenPaper={onOpenPaper}
+            />
           </>
         ) : null}
       </div>

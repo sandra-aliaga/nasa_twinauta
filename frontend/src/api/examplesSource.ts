@@ -6,6 +6,7 @@
 import assessmentExample from "../../../contracts/examples/assessment.json";
 import assessmentStatesExample from "../../../contracts/examples/assessment-states.json";
 import casesExample from "../../../contracts/examples/cases.json";
+import contextExample from "../../../contracts/examples/context.json";
 import graphsExample from "../../../contracts/examples/graphs.json";
 import indicatorsExample from "../../../contracts/examples/indicators.json";
 import recordingExample from "../../../contracts/examples/recording-metadata.json";
@@ -13,6 +14,7 @@ import regionsExample from "../../../contracts/examples/regions.json";
 import telemetryExample from "../../../contracts/examples/telemetry.json";
 import type { DataSource } from "./dataSource";
 import { ApiError } from "./errors";
+import type { AssessmentContext } from "./explorer/types";
 import type {
   Action,
   Assessment,
@@ -30,6 +32,11 @@ const regions = regionsExample as Region[];
 const graphs = graphsExample as Record<Graph["view"], Graph>;
 const recording = recordingExample as TelemetryRecording;
 const telemetry = telemetryExample as TelemetryWindow;
+
+const contexts = contextExample as unknown as {
+  context_available: AssessmentContext;
+  context_unavailable: AssessmentContext;
+};
 
 const assessmentStates = assessmentStatesExample as unknown as Record<
   string,
@@ -121,6 +128,44 @@ export function createExamplesSource(): DataSource {
       } catch (error) {
         return Promise.reject(error);
       }
+    },
+    // The examples have no stored index: every evaluation creates a copy.
+    listCaseAssessments: (caseId, signal) => {
+      if (!cases.some((item) => item.id === caseId)) {
+        return Promise.reject(notFound("El caso no existe."));
+      }
+      return respond([], signal);
+    },
+    getContext: (assessmentId, signal) => {
+      let assessment: Assessment;
+      try {
+        assessment = findAssessment(assessmentId);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+      // Only the documented demo snapshot has a prepared synthesis.
+      const prepared = contexts.context_available;
+      const source = assessmentId.startsWith(prepared.assessment_id)
+        ? prepared
+        : contexts.context_unavailable;
+      return respond(
+        { ...source, assessment_id: assessment.assessment_id },
+        signal,
+      );
+    },
+    getGuidance: (assessmentId, signal) => {
+      try {
+        findAssessment(assessmentId);
+      } catch (error) {
+        return Promise.reject(error);
+      }
+      const guidance = contexts.context_available.guidance;
+      if (!guidance) {
+        return Promise.reject(
+          notFound("Los ejemplos no incluyen orientación."),
+        );
+      }
+      return respond({ ...guidance, assessment_id: assessmentId }, signal);
     },
     getGraph: (assessmentId, view, signal) => {
       let assessment: Assessment;

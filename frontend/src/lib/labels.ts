@@ -96,11 +96,16 @@ export const CLAIM_KIND_LABELS: Record<EvidenceClaim["kind"], string> = {
 };
 
 /**
- * Single environment vocabulary (draft 0.3 Environment). The 0.2 enums for
- * claims and scenarios are subsets of it, so one map serves both.
+ * One map for every environment value. Papers use `bed_rest` and claims or
+ * scenarios use `bed_rest_analog` for the same analog; both read the same.
+ * (Unifying the value is a pending contract proposal.)
  */
-export const ENVIRONMENT_LABELS: Record<Environment, string> = {
+export const ENVIRONMENT_LABELS: Record<
+  Environment | EvidenceClaim["environment"],
+  string
+> = {
   spaceflight: "Vuelo espacial",
+  bed_rest: "Análogo terrestre (reposo en cama)",
   bed_rest_analog: "Análogo terrestre (reposo en cama)",
   terrestrial_exercise: "Ejercicio en Tierra",
   synthetic: "Sintético",

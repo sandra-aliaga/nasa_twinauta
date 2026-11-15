@@ -1,12 +1,13 @@
 /**
- * Mock adapter for the PROPOSED scientific explorer (contract draft 0.3).
- * It serves contracts/drafts/scientific-explorer-0.3/examples.json and never
- * fabricates content that is not in that fixture: a paper without a detail
- * example is a 404, and a view or neighbourhood without an example comes
- * back as an empty page.
+ * Examples-mode adapter for the scientific library. It serves the historical
+ * draft fixture (contracts/drafts/scientific-explorer-0.3/examples.json),
+ * converted to the current contract shapes, and never fabricates content: a
+ * paper without a detail example is a 404, and a view or neighbourhood
+ * without an example comes back as an empty page.
  */
 import examples from "../../../../contracts/drafts/scientific-explorer-0.3/examples.json";
 import { ApiError } from "../errors";
+import type { ExplorerSource } from "./source";
 import type {
   GraphPage,
   GraphQuery,
@@ -20,21 +21,27 @@ import type {
   PaperQuery,
 } from "./types";
 
-export type ExplorerSource = {
-  kind: "mock";
-  searchPapers(query: PaperQuery, signal?: AbortSignal): Promise<PaperPage>;
-  getPaper(paperId: string, signal?: AbortSignal): Promise<PaperDetail>;
-  getKnowledgeGraph(
-    query: GraphQuery,
-    signal?: AbortSignal,
-  ): Promise<GraphPage>;
-  getKnowledgeBase(signal?: AbortSignal): Promise<KnowledgeBaseMetadata>;
-  listModules(signal?: AbortSignal): Promise<ModuleCatalog>;
-  /** Fixture variants: "guidance" or an index of guidance_states. */
-  listGuidanceExamples(signal?: AbortSignal): Promise<Guidance[]>;
+/**
+ * Draft values renamed in the implemented contract. Only these differences
+ * are converted; everything else is served as written in the fixture.
+ */
+const RENAMED: Record<string, Record<string, string>> = {
+  environment: { bed_rest_analog: "bed_rest" },
+  kind: { sd: "standard_deviation", se: "standard_error" },
 };
 
-const fixture = examples as unknown as {
+function toCurrentContract(value: unknown, key = ""): unknown {
+  if (Array.isArray(value)) return value.map((item) => toCurrentContract(item));
+  if (value && typeof value === "object") {
+    return Object.fromEntries(
+      Object.entries(value).map(([k, v]) => [k, toCurrentContract(v, k)]),
+    );
+  }
+  if (typeof value === "string") return RENAMED[key]?.[value] ?? value;
+  return value;
+}
+
+const fixture = toCurrentContract(examples) as {
   papers: PaperPage;
   paper_details: PaperDetail[];
   graph_views: Partial<Record<LibraryView, GraphPage>>;
@@ -173,7 +180,7 @@ export function createExplorerMock(): ExplorerSource {
         signal,
       );
     },
-    getPaper(paperId, signal) {
+    getPaper(paperId, _assessmentId, signal) {
       const detail = fixture.paper_details.find(
         (item) => item.paper.id === paperId,
       );
@@ -274,5 +281,3 @@ export function createExplorerMock(): ExplorerSource {
       respond([fixture.guidance, ...fixture.guidance_states], signal),
   };
 }
-
-export const explorerSource: ExplorerSource = createExplorerMock();

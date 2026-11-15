@@ -2,7 +2,7 @@ import type { DataSource } from "./dataSource";
 import { ApiError, isApiErrorBody } from "./errors";
 
 /** Perform a JSON request and normalize non-2xx responses to ApiError. */
-async function requestJson<T>(
+export async function requestJson<T>(
   baseUrl: string,
   path: string,
   init: RequestInit = {},
@@ -55,6 +55,16 @@ export function createHttpSource(baseUrl: string): DataSource {
       }),
     getAssessment: (assessmentId, signal) =>
       requestJson(base, `/assessments/${enc(assessmentId)}`, { signal }),
+    listCaseAssessments: (caseId, signal) =>
+      requestJson(base, `/cases/${enc(caseId)}/assessments`, { signal }),
+    getContext: (assessmentId, signal) =>
+      requestJson(base, `/assessments/${enc(assessmentId)}/context`, {
+        signal,
+      }),
+    getGuidance: (assessmentId, signal) =>
+      requestJson(base, `/assessments/${enc(assessmentId)}/guidance`, {
+        signal,
+      }),
     getGraph: (assessmentId, view, signal) =>
       requestJson(base, `/assessments/${enc(assessmentId)}/graphs/${view}`, {
         signal,

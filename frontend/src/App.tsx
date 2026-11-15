@@ -34,6 +34,8 @@ export default function App() {
   const [graphView, setGraphView] = useState<GraphView | null>(null);
   const [cardiacOpen, setCardiacOpen] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
+  // Paper to open when the library is reached from a citation.
+  const [libraryPaperId, setLibraryPaperId] = useState<string | null>(null);
   const regions = useRegions(caseId);
   const { state, evaluate, reset, replaceAction, refresh } = useAssessment();
 
@@ -143,6 +145,7 @@ export default function App() {
         libraryOpen={libraryOpen}
         onToggleLibrary={() => {
           setGraphView(null);
+          setLibraryPaperId(null);
           setLibraryOpen((open) => !open);
         }}
       />
@@ -152,6 +155,10 @@ export default function App() {
           {libraryOpen ? (
             <ExplorerView
               regionId={regionId}
+              assessmentId={
+                state.status === "ready" ? state.assessment.assessment_id : null
+              }
+              initialPaperId={libraryPaperId}
               onBack={() => setLibraryOpen(false)}
             />
           ) : null}
@@ -199,6 +206,11 @@ export default function App() {
             onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
             onActionUpdated={replaceAction}
             onConflict={refresh}
+            onOpenPaper={(paperId) => {
+              setGraphView(null);
+              setLibraryPaperId(paperId);
+              setLibraryOpen(true);
+            }}
           />
         </aside>
       </div>

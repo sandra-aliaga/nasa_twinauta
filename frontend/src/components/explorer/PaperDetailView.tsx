@@ -1,4 +1,9 @@
-import type { PaperDetail, Statistic } from "../../api/explorer/types";
+import {
+  readDispersion,
+  readInterval,
+  type PaperDetail,
+  type Statistic,
+} from "../../api/explorer/types";
 import {
   ANALYSIS_KIND_LABELS,
   ANALYSIS_STATUS_LABELS,
@@ -261,7 +266,8 @@ function AccessLinks({
 }
 
 function StatisticRow({ statistic }: { statistic: Statistic }) {
-  const { dispersion, interval } = statistic;
+  const dispersion = readDispersion(statistic.dispersion);
+  const interval = readInterval(statistic.interval);
   return (
     <li className="rounded-md border border-slate-800 p-2 text-xs">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
@@ -272,17 +278,18 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
         <span className="tabular-nums text-slate-100">
           {num(statistic.value)} {unit(statistic.unit)}
           {dispersion
-            ? ` ± ${num(dispersion.value)} ${unit(dispersion.unit)} (${DISPERSION_LABELS[dispersion.kind]})`
+            ? ` ± ${num(dispersion.value)}${dispersion.unit ? ` ${unit(dispersion.unit)}` : ""} (${DISPERSION_LABELS[dispersion.kind]})`
             : ""}
         </span>
       </div>
       {interval ? (
         <p className="mt-0.5 tabular-nums text-slate-400">
-          {INTERVAL_LABELS[interval.kind]}
-          {interval.level !== null
+          {(interval.kind && INTERVAL_LABELS[interval.kind]) ?? "Intervalo"}
+          {interval.level != null
             ? ` ${Math.round(interval.level * 100)} %`
             : ""}
-          : {num(interval.lower)} a {num(interval.upper)} {unit(interval.unit)}
+          : {num(interval.lower)} a {num(interval.upper)}{" "}
+          {interval.unit ? unit(interval.unit) : ""}
         </p>
       ) : null}
       <p className="mt-0.5 text-slate-400">
