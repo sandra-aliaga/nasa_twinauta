@@ -1,0 +1,612 @@
+[
+  {
+    "paper_id": "literature_pmid_31098391",
+    "title": "A comparison of exercise interventions from bed rest studies for the prevention of musculoskeletal loss.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": true,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=31098391&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/31098391/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC6506471/fullTextXML",
+        "scope": "Texto completo en acceso abierto (Europe PMC, XML JATS de PMC6506471): cuerpo, tablas y leyendas de figuras. No incluye material suplementario ni las figuras como imagen"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "con_correcciones",
+    "item_checks": [
+      {
+        "item": "La pérdida de densidad mineral ósea fue más significativa en la cadera, con una reducción del 4,59% (p < 0,05).",
+        "verdict": "parcial",
+        "note": "La cifra existe (abstract; Tabla 2; Discusion: 'up to -4.59%'), pero corresponde al grupo control de un unico estudio (Cavanagh et al., n = 6, 84 dias, pQCT), no a un valor combinado. La misma frase del abstract original incluye -6% en epifisis tibial (Rittweger et al., LTBR, control n = 9, 90 dias), que el item omite por el truncamiento."
+      },
+      {
+        "item": "Los cambios en el área transversal muscular indicaron que la pantorrilla y el cuádriceps fueron los más afectados por el reposo en cama.",
+        "verdict": "sustentado",
+        "note": "Abstract y Tabla 4: pantorrilla control -18,0% a -33,0% (4 estudios); cuadriceps control -15,8% y -23,3% (2 estudios). Atencion: la Tabla 4 se titula 'CSA' pero mezcla area transversal por pQCT (Rittweger) con volumen por MRI (Cavanagh, Shackelford)."
+      },
+      {
+        "item": "Las intervenciones con ejercicio atenuaron significativamente la pérdida de masa muscular.",
+        "verdict": "sustentado",
+        "note": "Abstract; Resultados ('Muscle comparisons') y Tabla 4: en pantorrilla los 4 estudios muestran diferencia entre grupos (p < 0,05); en cuadriceps, 2 estudios. La magnitud medida es area transversal o volumen, no masa."
+      },
+      {
+        "item": "ZLS, cinta con LBNP y ejercicio resistivo atenuaron significativamente la pérdida ósea y muscular en la cadera en comparación con el valor basal y los controles.",
+        "verdict": "parcial",
+        "note": "Frase literal del abstract. En el texto completo solo el hueso de cadera esta sustentado (Tabla 2: ZLS +1,34% vs -4,59%; cinta LBNP +0,31% vs -1,64%; LBNP + RE -1,99% vs -4,03%; RE -0,90% vs -3,40%). No se informa musculo de cadera; la atenuacion muscular se describe en pantorrilla y cuadriceps con RE, volante de inercia y ZLS, y los estudios con cinta LBNP no aportan datos musculares en la Tabla 4."
+      },
+      {
+        "item": "A pesar de la intervención con ejercicio, todavía se observaron altas tasas de pérdida ósea.",
+        "verdict": "sustentado",
+        "note": "Abstract. Texto completo: p. ej. LBNP + RE aun pierde 1,99% en cadera (p < 0,05 vs basal) y la tibia distal por HR-pQCT pierde densidad en todos los brazos. Matiz: en dos estudios (Cavanagh, Zwart) la DMO de cadera aumento en el grupo de ejercicio, de modo que no es uniforme."
+      }
+    ],
+    "corrections": [
+      "Item 1, texto propuesto: 'Los sitios del miembro inferior tuvieron las mayores perdidas de densidad mineral osea: hasta 4,59% en cadera total (grupo control de un estudio, n = 6, 84 dias; p < 0,05) y 6% en epifisis tibial (grupo control de otro estudio, n = 9, 90 dias; p < 0,05). Son valores maximos por estudio, no una estimacion combinada.'",
+      "Item 4, texto propuesto: 'ZLS, cinta con LBNP y ejercicio resistivo atenuaron la perdida osea en la cadera frente al basal y a los controles. La perdida muscular en pantorrilla y cuadriceps fue atenuada por ejercicio resistivo, volante de inercia y ZLS. La revision no informa musculo de cadera.'",
+      "Resumen: sustituir 'La perdida osea mas significativa ocurrio en la cadera (4,59%)' por 'Las mayores perdidas oseas se observaron en el miembro inferior (hasta 4,59% en cadera y 6% en epifisis tibial en grupos control de estudios individuales)' y anadir 'El ejercicio atenuo la perdida osea en cadera y tibia distal frente a los controles (p < 0,05)'.",
+      "Resumen e items: decir 'area transversal o volumen muscular' en lugar de 'masa muscular' cuando se describa lo medido.",
+      "El campo abstract guardado en el archivo generado esta truncado: se perdio el texto situado entre un signo '<' y el siguiente '>' (probable limpieza de etiquetas HTML). Restaurar el abstract desde PubMed antes de regenerar la ficha. Texto perdido: '(p < 0.05) and the tibial epiphysis by 6% (p < 0.05). Exercise attenuated bone loss at the hip and distal tibia compared to controls (p < 0.05).'"
+    ],
+    "study_facts": {
+      "design": "Revision sistematica narrativa (PRISMA, sin metaanalisis) de 8 ensayos de reposo en cama con brazo de ejercicio y brazo control. El abstract cita MEDLINE; Metodos indica MEDLINE y Cochrane Library.",
+      "population": "Adultos sanos de 19 a 50 anos (criterio de elegibilidad); estudios solo de hombres, solo de mujeres o mixtos.",
+      "sample_size": "8 estudios; 11 a 25 participantes por estudio (media 18); brazos de ejercicio de 5 a 10 y control de 6 a 18. Shackelford: control n = 16 en Tablas 1 y 4 y n = 18 en Tabla 2 (inconsistencia del articulo).",
+      "environment": "Reposo en cama (analogo terrestre): 6 estudios con inclinacion de -6 grados y 2 horizontales. Sin datos originales de vuelo espacial.",
+      "exposure": "30 a 119 dias de reposo (media 70). Contramedidas: ejercicio resistivo, resistivo con vibracion, volante de inercia, cinta con presion negativa (LBNP), simulador de locomocion en gravedad cero (ZLS).",
+      "main_outcomes": "Cambio porcentual de DMO/CMO (DXA, pQCT, HR-pQCT) en 7 sitios; area transversal o volumen muscular de pantorrilla, antebrazo y cuadriceps; biomarcadores oseos (solo direccion del cambio)."
+    },
+    "limitations": [
+      "Declaradas: se presentan juntos DMO y CMO como cambio porcentual; HR-pQCT sensible a artefactos de movimiento.",
+      "Declaradas: gran variabilidad interindividual y muestras pequenas; duraciones muy distintas (30 a 119 dias).",
+      "Declaradas: diferencias por sexo en metabolismo oseo; es 'muy dificil' extrapolar a la duracion de una mision a Marte.",
+      "Declaradas (riesgo de sesgo): reporte selectivo de sitios o tiempos en varios estudios; 4 de 8 no indican control de adherencia; Shackelford asigno por orden de inscripcion (no aleatorio).",
+      "Declarada: los estudios combinan principios de ejercicio distintos, lo que impide saber que metodo tuvo mayor efecto."
+    ],
+    "applicability_note": "Sirve como apoyo cualitativo: en analogos el miembro inferior es el mas afectado y el ejercicio atenua pero no anula la perdida. No se puede: usar 4,59% (ni 6%) como perdida esperada de un astronauta; tratar los dispositivos como equivalentes entre si o al ARED; derivar una dosis optima; extrapolar mas alla de 119 dias; mezclar area transversal con volumen; presentar estos datos como de vuelo.",
+    "unverified": [
+      "Material suplementario (estrategia de busqueda, tabla de riesgo de sesgo) y figuras.",
+      "Los 8 estudios primarios no se consultaron: las cifras se comprobaron solo contra las tablas de la revision.",
+      "Inconsistencias internas no resueltas: cadera Zwart +0,31% (Tabla 2) vs 0,4% (Discusion); la perdida de 33% en pantorrilla se cita con la referencia 30 pero la Tabla 4 la atribuye a Cavanagh."
+    ]
+  },
+  {
+    "paper_id": "literature_pmid_33251515",
+    "title": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": true,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=33251515&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/33251515/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC7688251/fullTextXML",
+        "scope": "Texto completo en acceso abierto (Europe PMC, XML JATS de PMC7688251): cuerpo, tablas y leyendas de figuras. No incluye material suplementario ni las figuras como imagen"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "consistente",
+    "item_checks": [
+      {
+        "item": "Durante 70 días de reposo en cama sedentario, hubo una disminución lineal del área de sección transversal muscular en todos los músculos de la pierna excepto el recto femoral, que no cambió.",
+        "verdict": "sustentado",
+        "note": "Abstract; Resultados y Discusion. Matiz del texto completo: el ajuste lineal fue 'similar' al exponencial y al polinomico fraccional (eTable 2), es decir, no se demostro que el lineal sea mejor; n = 9."
+      },
+      {
+        "item": "La tasa de atrofia más alta durante el reposo en cama ocurrió en el sóleo (-0,33%/d).",
+        "verdict": "sustentado",
+        "note": "La cifra -0,33%/d figura en el abstract. El cuerpo del articulo remite a eTable 3 (suplemento no leido) y en la Discusion habla de tasas de ~0,1%/d en muslo y ~0,3%/d en pierna, y de las mayores tasas en isquiotibiales y soleo."
+      },
+      {
+        "item": "Tras 11 días de rehabilitación, el cuádriceps permaneció significativamente reducido en comparación con los valores previos al reposo (-3,74 cm²; IC 95%, -7,36 a -0,12; p = 0,04).",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados. Es la diferencia de area transversal (cm2) entre BR+10 y el basal BR-6."
+      },
+      {
+        "item": "Tras 11 días de rehabilitación, los isquiotibiales permanecieron significativamente reducidos en comparación con los valores previos al reposo (-2,30 cm²; IC 95%, -4,07 a -0,54; p = 0,01).",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados."
+      },
+      {
+        "item": "Tras 11 días de rehabilitación, el gastrocnemio medial permaneció significativamente reducido en comparación con los valores previos al reposo (-0,62 cm²; IC 95%, -1,10 a -0,14; p = 0,01).",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados."
+      },
+      {
+        "item": "Tras 11 días de rehabilitación, el sóleo permaneció significativamente reducido en comparación con los valores previos al reposo (-1,85 cm²; IC 95%, -2,90 a -0,81; p).",
+        "verdict": "parcial",
+        "note": "Las cifras son correctas, pero el valor p quedo cortado ('p'). En el original es p < 0,01 (abstract de PubMed y Resultados)."
+      },
+      {
+        "item": "El programa de rehabilitación de 11 días fue seguro y efectivo para iniciar una trayectoria rápida de recuperación muscular.",
+        "verdict": "parcial",
+        "note": "Es la conclusion literal de los autores. Limites: los 9 participantes recibieron la rehabilitacion (sin grupo de comparacion); 'seguro' significa que no hubo eventos adversos graves relacionados con la rehabilitacion en n = 9; a los 11 dias cuatro musculos seguian por debajo del basal."
+      },
+      {
+        "item": "El programa de rehabilitación de 11 días consistió en ejercicio de baja intensidad y progresó a mayor duración de ejercicio aeróbico, ejercicios pliométricos y ejercicio de resistencia de mayor intensidad.",
+        "verdict": "sustentado",
+        "note": "Abstract y Metodos (inicio con caminata de baja intensidad, flexibilidad y equilibrio). El detalle del programa esta en eTable 1 (suplemento no leido)."
+      }
+    ],
+    "corrections": [
+      "Item 6, texto corregido: 'Tras 11 dias de rehabilitacion, el soleo permanecio significativamente reducido en comparacion con los valores previos al reposo (-1,85 cm2; IC 95%, -2,90 a -0,81; p < 0,01).'",
+      "Item 7, texto propuesto: 'Segun los autores, el programa de rehabilitacion de 11 dias fue seguro (sin eventos adversos graves relacionados, n = 9) e inicio una recuperacion rapida; no hubo grupo de comparacion sin rehabilitacion y cuadriceps, isquiotibiales, gastrocnemio medial y soleo seguian por debajo del basal.'",
+      "Resumen: anadir 'Se analizaron 9 participantes (8 hombres, 1 mujer; 36 +/- 6 anos) del brazo sedentario de un ensayo aleatorizado' y precisar que el recto femoral no cambio.",
+      "El campo abstract guardado en el archivo generado esta truncado: se perdio el texto situado entre un signo '<' y el siguiente '>' (probable limpieza de etiquetas HTML). Restaurar el abstract desde PubMed antes de regenerar la ficha. Texto perdido: 'p < 0.01) remained significantly lower than baseline.'"
+    ],
+    "study_facts": {
+      "design": "Analisis preespecificado (subestudio) del brazo sedentario de un ensayo aleatorizado unicentrico (estudio de reposo en cama de 70 dias de NASA, 2011-2014). Seguimiento longitudinal sin comparador para la rehabilitacion.",
+      "population": "Adultos sanos; criterio 24-55 anos; muestra analizada 36 +/- 6 anos, 79 +/- 9 kg, 8 hombres y 1 mujer.",
+      "sample_size": "n = 9; 13 momentos de MRI (1 antes, 9 durante, 3 despues); 11 588 imagenes cuantificadas.",
+      "environment": "Reposo en cama sedentario con monitorizacion 24 h (la Discusion lo describe como head-down tilt; el angulo no aparece en el cuerpo del texto).",
+      "exposure": "70 dias de reposo sin ejercicio, seguidos de 11 dias de rehabilitacion multimodal progresiva.",
+      "main_outcomes": "Area transversal por MRI (promedio de cortes) de recto femoral, vasto lateral, cuadriceps, isquiotibiales, aductores, gastrocnemio medial y lateral y soleo; tasa de atrofia y de recuperacion; fuerza isocinetica de rodilla y su asociacion con el tamano (D de Somers 0,59 y 0,70)."
+    },
+    "limitations": [
+      "Declarada: participantes sanos; en pacientes hospitalizados la perdida podria ser mayor.",
+      "Declarada: la MRI requiere equipo no disponible a pie de cama.",
+      "Declarada: el contenido de agua muscular puede alterar el tamano medido (mitigado con 12 h sin ejercicio y 1 h en supino antes de la MRI).",
+      "Declarada: se midio cantidad y no calidad muscular (posible infiltracion lipidica).",
+      "Declarada: 11 dias de rehabilitacion pueden ser insuficientes.",
+      "Observada por el verificador, no declarada: n = 9 con una sola mujer y rehabilitacion sin grupo de comparacion."
+    ],
+    "applicability_note": "Es una referencia longitudinal de area transversal por MRI en un analogo sin ejercicio. Un astronauta en mision larga si hace ejercicio y esta en microgravedad real. No se puede: usar -0,33%/d como prediccion individual en vuelo; tratar el area transversal como volumen; extender la linealidad mas alla de 70 dias (los autores suponen que habria meseta); inferir diferencias por sexo; presentar la rehabilitacion como eficaz frente a no rehabilitar.",
+    "unverified": [
+      "Supplemental Digital Content (eMethods, eTable 1 a 3): tasas por musculo, angulo de inclinacion y detalle del programa. La cifra -0,33%/d solo se confirmo en el abstract.",
+      "Figuras 1 y 2 (curvas por musculo).",
+      "Publicaciones del ensayo principal (referencias 5 y 6 del articulo) no consultadas."
+    ]
+  },
+  {
+    "paper_id": "literature_pmid_33811556",
+    "title": "Daily 30-min exposure to artificial gravity during 60 days of bed rest does not maintain aerobic exercise capacity but mitigates some deteriorations of muscle function: results from the AGBRESA RCT.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": true,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=33811556&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/33811556/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC8192329/fullTextXML",
+        "scope": "Texto completo en acceso abierto (Europe PMC, XML JATS de PMC8192329): cuerpo, tablas y leyendas de figuras. No incluye material suplementario ni las figuras como imagen"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "consistente",
+    "item_checks": [
+      {
+        "item": "AG no tuvo efecto significativo en la capacidad de ejercicio aeróbico, función muscular flexora y fuerza de extensión isométrica de rodilla ni tasa de desarrollo de fuerza.",
+        "verdict": "sustentado",
+        "note": "Abstract y Tabla 1 (interaccion grupo*tiempo: VO2max relativo p = 0,31; MVC extension de rodilla p = 0,11; RFD extension de rodilla p = 0,41; flexion de rodilla p = 0,14; dorsiflexion p = 0,51). Matices: la RFD sin efecto es la de extension de rodilla (la de flexion plantar si mostro efecto) y el torque isocinetico de extension de rodilla tuvo interaccion significativa (p = 0,03; Tabla 1), dato que no esta en el abstract."
+      },
+      {
+        "item": "AG mitigó los efectos del reposo en cama sobre la potencia de salto (interacción grupo*tiempo del rmANOVA p...).",
+        "verdict": "parcial",
+        "note": "Hallazgo correcto pero cortado. Original: interaccion grupo*tiempo p < 0,001; iAG -25%, cAG -26%, CTRL -33% (abstract; Tabla 1). El item omite la fuerza de flexion plantar (p = 0,003; -35%, -31%, -48%) y la RFD de flexion plantar (p = 0,020; -28%, -12%, -40%)."
+      },
+      {
+        "item": "Los protocolos de AG no fueron adecuados para mantener la capacidad de ejercicio aeróbico, probablemente debido a la muy baja demanda cardiorrespiratoria de esta intervención.",
+        "verdict": "sustentado",
+        "note": "Conclusion del abstract; la Discusion lo apoya en que el consumo de oxigeno durante la centrifugacion se mantuvo en niveles de reposo (dato de otra publicacion del mismo grupo y cohorte)."
+      },
+      {
+        "item": "Sin embargo, mitigaron algunas pérdidas en la función muscular, potencialmente debido a las contracciones musculares de baja intensidad durante la centrifugación utilizadas para evitar el presíncope.",
+        "verdict": "sustentado",
+        "note": "Conclusion del abstract, formulada como hipotesis ('potentially'). El texto completo anade que el efecto protector no es suficiente para justificar la centrifugacion como unica contramedida."
+      },
+      {
+        "item": "Los participantes de los grupos de intervención completaron 30 min de centrifugación por día: cAG continuamente y iAG por 6×5 min, con una aceleración de 1g en el centro de masa.",
+        "verdict": "sustentado",
+        "note": "Abstract y Metodos (centrifuga de brazo corto de 3,8 m de radio, ~2 g en los pies, pausas de 3 min en iAG, sesiones en posicion horizontal)."
+      }
+    ],
+    "corrections": [
+      "Item 2, texto corregido: 'La AG mitigo los efectos del reposo en cama sobre la potencia de salto (interaccion grupo*tiempo del rmANOVA p < 0,001; iAG -25%, cAG -26%, CTRL -33%), la fuerza de flexion plantar (p = 0,003; iAG -35%, cAG -31%, CTRL -48%) y la tasa de desarrollo de fuerza de flexion plantar (p = 0,020; iAG -28%, cAG -12%, CTRL -40%).'",
+      "Resumen: anadir 'Tambien mitigo la perdida de fuerza y de tasa de desarrollo de fuerza de flexion plantar' y 'En el analisis agrupado (16 hombres, 8 mujeres) las mujeres perdieron mas potencia de salto (p < 0,001) y fuerza de extension de rodilla (p = 0,010)'.",
+      "Item 1: precisar 'tasa de desarrollo de fuerza de extension de rodilla'.",
+      "El campo abstract guardado en el archivo generado esta truncado: se perdio el texto situado entre un signo '<' y el siguiente '>' (probable limpieza de etiquetas HTML). Restaurar el abstract desde PubMed antes de regenerar la ficha. Texto perdido: desde 'p < 0.001; iAG - 25%...' hasta 'knee extension strength (p = 0.010).'"
+    ],
+    "study_facts": {
+      "design": "Ensayo aleatorizado unicentrico de grupos paralelos con 3 brazos (AGBRESA, DLR :envihab, Colonia, 2019); analisis por protocolo con rmANOVA; sin pruebas post hoc.",
+      "population": "24 adultos sanos (16 hombres, 8 mujeres), 33 +/- 9 anos, 74 +/- 10 kg.",
+      "sample_size": "n = 24: AG intermitente 8 (3 mujeres), AG continua 8 (3 mujeres), control 8 (2 mujeres).",
+      "environment": "Reposo en cama con inclinacion de cabeza de -6 grados (analogo terrestre), 24 h/dia.",
+      "exposure": "60 dias de reposo; 30 min diarios de centrifugacion (continua 1 x 30 min o intermitente 6 x 5 min) con 1 g en el centro de masa. Sin ejercicio.",
+      "main_outcomes": "VO2max en cicloergometro; fuerza isometrica maxima y tasa de desarrollo de fuerza de extension de rodilla y flexion plantar; torque isocinetico de rodilla, tobillo y tronco; potencia en salto con contramovimiento. Control: VO2max -24%, extension de rodilla isometrica -35%, flexion plantar -48% (Tabla 1)."
+    },
+    "limitations": [
+      "Declarada: muestra pequena (8 por grupo); por ello solo se informan pruebas omnibus, sin post hoc ni subgrupos.",
+      "Declarada: la comparacion por sexo agrupa los tres brazos (16 vs 8) y debe confirmarse con muestras mayores.",
+      "En Metodos, no listadas como limitacion: evaluadores no cegados de forma estricta; analisis por protocolo; en la segunda campana 4 participantes entraron 3 semanas despues como reemplazo.",
+      "Las dos modalidades de AG no se compararon en detalle entre si."
+    ],
+    "applicability_note": "Aporta la magnitud de la perdida funcional en 60 dias de analogo sin ejercicio y muestra que 30 min/dia de centrifugacion pasiva no bastan. La gravedad artificial no es una contramedida disponible en la ISS. No se puede: predecir la perdida de un astronauta que entrena; generalizar a otros niveles de g, duraciones o a centrifugacion con ejercicio; tomar la diferencia por sexo como hecho establecido; convertir estas perdidas de fuerza en perdida de area o volumen muscular (no se midieron aqui).",
+    "unverified": [
+      "Figuras 1 a 4 (solo leyendas).",
+      "Publicaciones relacionadas de AGBRESA citadas para explicar el mecanismo (actividad muscular y consumo de oxigeno durante la centrifugacion) no consultadas.",
+      "Independencia respecto de otros articulos de la misma cohorte AGBRESA."
+    ]
+  },
+  {
+    "paper_id": "literature_pmid_36883219",
+    "title": "Single-leg disuse decreases skeletal muscle strength, size, and power in uninjured adults: A systematic review and meta-analysis.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": true,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=36883219&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/36883219/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC10067508/fullTextXML",
+        "scope": "Texto completo en acceso abierto (Europe PMC, XML JATS de PMC10067508): cuerpo, tablas y leyendas de figuras. No incluye material suplementario ni las figuras como imagen"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "con_correcciones",
+    "item_checks": [
+      {
+        "item": "La fuerza extensora de la pierna disminuyó tras el desuso de una sola pierna; el tamaño del efecto global fue -0.80 (IC 95%: -0.92 a -0.68), con una disminución que alcanzó su nadir después de 14 días.",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados (Figura 2: N = 35 estudios, n = 429). Es g de Hedges (g_av), no un porcentaje. 'Nadir beyond 14 days' es interpretacion de los subgrupos (>7 a <=14 dias -0,93; >14 dias -0,95; ANOVA entre subgrupos P = 0,05); la Discusion habla de meseta tras 14 dias. En porcentaje descriptivo: -23 +/- 6% a los 14 dias (N = 24 estudios)."
+      },
+      {
+        "item": "El tamaño del extensor de la pierna disminuyó tras el desuso de una sola pierna; el tamaño del efecto global fue -0.41 (IC 95%: -0.51 a -0.31), con una disminución que alcanzó su nadir después de 14 días.",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados (Figura 3: N = 20 estudios, n = 233). Para el tamano, las diferencias entre subgrupos de duracion no fueron significativas (ANOVA P = 0,46), asi que el 'nadir despues de 14 dias' es debil para esta variable. En porcentaje descriptivo: cuadriceps -8 +/- 3% a los 14 dias (N = 12)."
+      },
+      {
+        "item": "Después de 14 días de desuso, los modelos con yeso y con ortesis mostraron disminuciones similares en la fuerza extensora de la pierna (yeso: -0.94; ortesis: -0.90) y en el tamaño (yeso: -0.61; ortesis: -0.48).",
+        "verdict": "sustentado",
+        "note": "Estimaciones puntuales correctas (abstract; Resultados; ANOVA yeso vs ortesis P = 0,86 fuerza y P = 0,68 tamano). El item omite los intervalos: para tamano con ortesis el IC 95% (-1,04 a 0,07) incluye el cero, con 3 estudios y n = 41 por modelo; los autores piden cautela por ser exploratorio."
+      },
+      {
+        "item": "Faltan estudios que incluyan a mujeres, hombres y adultos mayores de 40 años en la investigación sobre el desuso de una sola pierna.",
+        "verdict": "parcial",
+        "note": "Traduccion imprecisa. El original dice 'Studies including females and males and adults over 40 years of age are lacking'; el texto completo aclara que 31 de 86 estudios incluyeron mujeres, solo 1 presento datos desagregados por sexo y 11 incluyeron mayores de 40 anos. No faltan estudios en hombres."
+      }
+    ],
+    "corrections": [
+      "Item 4 y resumen, texto corregido: 'Faltan estudios que incluyan mujeres y desagreguen los datos por sexo, y estudios en adultos mayores de 40 anos (31 de 86 estudios incluyeron mujeres, 1 presento datos por sexo y 11 incluyeron mayores de 40).'",
+      "Resumen: sustituir '(g = -0.80)' y '(g = -0.41)' por '(g de Hedges -0,80; IC 95%: -0,92 a -0,68)' y '(g de Hedges -0,41; IC 95%: -0,51 a -0,31)', indicando que es un efecto estandarizado y no un porcentaje.",
+      "Item 3, texto propuesto: 'Tras 14 dias, yeso y ortesis no difirieron en la disminucion de fuerza (yeso -0,94 [-1,30; -0,59]; ortesis -0,90 [-1,18; -0,63]) ni de tamano (yeso -0,61 [-0,87; -0,35]; ortesis -0,48 [-1,04; 0,07], intervalo que incluye el cero); analisis exploratorio con pocos estudios.'",
+      "Resumen: anadir que no se hizo metaanalisis de potencia por datos insuficientes."
+    ],
+    "study_facts": {
+      "design": "Revision sistematica con metaanalisis de efectos aleatorios (PRISMA, prerregistrada); cambios pre-post dentro de grupos sin contramedida; subgrupos por duracion y por modelo.",
+      "population": "Adultos sin lesion, en su mayoria hombres jovenes; en el metaanalisis de fuerza, 68 de 429 participantes tenian 40 anos o mas y al menos 78 eran mujeres.",
+      "sample_size": "86 estudios en la revision; 40 en metaanalisis (35 de fuerza, n = 429; 20 de tamano, n = 233).",
+      "environment": "Desuso de una sola pierna en tierra (yeso, ortesis o suspension unilateral). No es reposo en cama ni vuelo espacial.",
+      "exposure": "Duraciones agrupadas en <=7 dias, >7 a <=14 dias y >14 dias; la mas frecuente fue 14 dias.",
+      "main_outcomes": "g de Hedges de fuerza extensora (isometrica preferente) y de tamano extensor (volumen o area transversal de cuadriceps o vasto lateral por MRI o TC); porcentajes descriptivos; potencia solo en revision narrativa."
+    },
+    "limitations": [
+      "Declarada: la formula d_av esta pensada para muestras independientes; no se disponia de la correlacion pre-post.",
+      "Declarada: la mayoria de estudios con riesgo de sesgo incierto o alto; los efectos podrian estar inflados.",
+      "Declarada: certeza GRADE rebajada por imprecision (muestras pequenas, intervalos amplios).",
+      "Declarada: pocos estudios con mujeres, con datos por sexo y con adultos de mediana edad o mayores; sin analisis por sexo o edad.",
+      "Declarada: la comparacion yeso vs ortesis se limita a 14 dias y pocos datos; los resultados en no lesionados pueden no reflejar escenarios clinicos.",
+      "Posible sesgo de publicacion en fuerza (Egger P = 0,03), que los autores consideran poco plausible."
+    ],
+    "applicability_note": "Es un contraste externo de fuerza y tamano en desuso, con una advertencia fuerte de transferencia: la otra pierna y el resto del cuerpo siguen cargados y no hay desplazamiento de fluidos. No se puede: convertir g en porcentaje de perdida; aplicar la meseta a 14 dias al vuelo o al reposo en cama; usar la razon fuerza/tamano como conversion individual; mezclar las medidas de tamano (el metaanalisis combina volumen y area transversal).",
+    "unverified": [
+      "Hojas suplementarias S1 a S12 (lista de estudios, datos extraidos, riesgo de sesgo, GRADE, subgrupos) y figuras (graficos de bosque).",
+      "Inconsistencias internas: fecha de la busqueda 30 de enero de 2022 (abstract) vs 20 de enero de 2022 (Metodos); en la Discusion los IC aparecen como [-0,94; -0,67] y [-0,52; -0,30], distintos de Resultados y abstract; numero de estudios por modelo en tamano (3 en Resultados, 'cuatro puntos' en Discusion).",
+      "Solapamiento de estudios primarios con otras sintesis del corpus."
+    ]
+  },
+  {
+    "paper_id": "literature_pmid_38874988",
+    "title": "The role of muscle disuse in muscular and cardiovascular fitness: A systematic review and meta-regression.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": true,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=38874988&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/38874988/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11235952/fullTextXML",
+        "scope": "Texto completo en acceso abierto (Europe PMC, XML JATS de PMC11235952): cuerpo, tablas y leyendas de figuras. No incluye material suplementario ni las figuras como imagen"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "con_correcciones",
+    "item_checks": [
+      {
+        "item": "Muscle disuse significantly reduced VO2max (SMD: -0.93; 95% CI: -1.27 to -0.58) and MM (SMD: -0.34; 95% CI: -0.57 to -0.10).",
+        "verdict": "sustentado",
+        "note": "Abstract y Tabla 1 (N = 14 muestras: VO2max -0,927 [-1,270; -0,583]; masa -0,337 [-0,571; -0,104]). El item omite 'en 14 estudios' por el truncamiento; el texto completo precisa 12 estudios con 14 muestras (n = 143), todos de reposo en cama salvo uno."
+      },
+      {
+        "item": "Data from 47 studies showed a decline in strength (-0.88; 95% CI: -1.04 to -0.73) and mass (SMD: -0.47; 95% CI: -0.58 to -0.36).",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados (47 estudios, 54 muestras, n = 570). Ambas cifras son diferencias de medias estandarizadas."
+      },
+      {
+        "item": "MS loss was twice as high as MM loss, but differences existed between anatomical regions.",
+        "verdict": "parcial",
+        "note": "'El doble' es la razon entre efectos estandarizados (-0,88 vs -0,47), no entre porcentajes. El analisis de subgrupos no hallo diferencias significativas entre regiones (fuerza p = 0,36; masa p = 0,20); lo que varia es la razon descriptiva fuerza/masa (pantorrilla 1,2; muslo 2,2; brazo 3,4) y las pendientes de la Figura 1."
+      },
+      {
+        "item": "Meta-regression analysis revealed that initial MS was inversely associated with MS decline.",
+        "verdict": "sustentado",
+        "note": "Abstract y Tabla 2 (30 estudios de extension de rodilla en Nm: pendiente -0,294 [-0,447; -0,140], p = 0,0002; ajustada por duracion -0,199, p = 0,003). Es metarregresion a nivel de estudio sobre perdida absoluta; no es prediccion individual."
+      },
+      {
+        "item": "A period of muscle disuse can have devastating consequences in old subjects with low muscular strength.",
+        "verdict": "parcial",
+        "note": "Frase literal del abstract, pero es una opinion. En el texto completo no hubo diferencia significativa entre mayores y jovenes en la perdida de fuerza (p = 0,381) ni de masa (p = 0,210), con solo 9 muestras de mayores."
+      }
+    ],
+    "corrections": [
+      "Resumen, texto propuesto en espanol: 'Revision sistematica con metaanalisis y metarregresion de 51 estudios en adultos sanos sometidos a reposo en cama, inmovilizacion o descarga de una extremidad (5 a 84 dias). El desuso redujo el VO2max (DME -0,93; IC 95%: -1,27 a -0,58) y la masa muscular (DME -0,34; IC 95%: -0,57 a -0,10) en 14 muestras; en 47 estudios disminuyeron la fuerza (DME -0,88; IC 95%: -1,04 a -0,73) y la masa (DME -0,47; IC 95%: -0,58 a -0,36). El efecto estandarizado sobre la fuerza fue aproximadamente el doble que sobre la masa; la razon vario por region sin diferencias estadisticamente significativas. A nivel de estudio, una mayor fuerza inicial de extension de rodilla se asocio con una mayor perdida absoluta de fuerza. Los autores advierten, como opinion, sobre las consecuencias en personas mayores con poca fuerza.'",
+      "Traducir los cinco items al espanol.",
+      "Item 3, texto propuesto: 'El efecto estandarizado del desuso sobre la fuerza fue aproximadamente el doble que sobre la masa muscular; la razon fuerza/masa vario por region (pantorrilla 1,2; muslo 2,2; brazo 3,4), sin diferencias estadisticamente significativas entre regiones.'",
+      "Item 4, texto propuesto: 'En la metarregresion (30 estudios de extension de rodilla), una mayor fuerza inicial se asocio con una mayor perdida de fuerza; es una asociacion entre estudios, no una prediccion individual.'",
+      "Item 5: marcar como opinion de los autores y anadir que el analisis no hallo diferencias significativas entre mayores y jovenes.",
+      "El campo abstract guardado en el archivo generado esta truncado: se perdio el texto situado entre un signo '<' y el siguiente '>' (probable limpieza de etiquetas HTML). Restaurar el abstract desde PubMed antes de regenerar la ficha. Texto perdido: '< 0.05. Data from the participants in 14 studies showed a decline in both VO2max'."
+    ],
+    "study_facts": {
+      "design": "Revision sistematica con metaanalisis de efectos aleatorios y metarregresion (PRISMA, PROSPERO); comparacion pre-post en grupos unicos o grupos control; busqueda en PubMed y Web of Science hasta 2022-12-31.",
+      "population": "Adultos sanos de 18 anos o mas; 43 estudios en jovenes y 9 en mayores (edad media > 60 anos). Sujetos no entrenados (VO2max inicial medio 42 y 25 mL/kg/min).",
+      "sample_size": "51 estudios. VO2max y masa: 12 estudios, 14 muestras, n = 143. Fuerza y masa: 47 estudios, 54 muestras, n = 570.",
+      "environment": "Sintesis mixta en tierra: reposo en cama (28 estudios), inmovilizacion de extremidad (18) y descarga o suspension (5). Sin vuelo espacial.",
+      "exposure": "Desuso de 5 a 84 dias (media de 33 dias en reposo en cama y 14 en inmovilizacion, segun la Discusion).",
+      "main_outcomes": "Diferencias de medias estandarizadas de VO2max, fuerza y masa muscular (un marcador por estudio: volumen > area transversal > masa magra de pierna); perdida de torque de extension de rodilla (-39,9 Nm), volumen de cuadriceps (-138 mL) y area transversal (-4,9 cm2); moderadores: duracion y valores iniciales."
+    },
+    "limitations": [
+      "Declarada: procedimientos distintos entre estudios generan heterogeneidad (abordada con subgrupos y duracion como moderador).",
+      "Declarada: no se contacto a los autores de dos estudios con datos faltantes.",
+      "En Resultados: prueba de Egger significativa para fuerza (p < 0,001) y masa (p = 0,005), compatible con sesgo de publicacion.",
+      "En Discusion: 10 de 14 estudios de VO2max midieron masa magra con DXA, menos precisa que la MRI; los sujetos no eran entrenados; faltan pruebas de potencia.",
+      "El marcador de masa mezcla volumen, area transversal y masa magra segun el estudio."
+    ],
+    "applicability_note": "Confirma la advertencia del corpus: las relaciones agregadas no sirven como conversion individual entre masa y fuerza. Apoya, a nivel cualitativo, que en desuso la fuerza y el VO2max caen mas que el tamano muscular. No se puede: usar la razon 2:1 como factor de conversion; afirmar que un astronauta mas fuerte perdera mas fuerza (asociacion entre estudios, perdida absoluta); trasladar las magnitudes al vuelo espacial o a una tripulacion que entrena; sostener con este articulo que las personas mayores pierden mas.",
+    "unverified": [
+      "Tablas suplementarias S1 a S7 y figuras suplementarias (lista de estudios, calidad, subgrupos, metarregresion de volumen y area).",
+      "Figuras 1 a 3 (solo leyendas).",
+      "Solapamiento de estudios primarios con otras sintesis del corpus (cita a Preobrazenski 2023, PMID 36883219)."
+    ]
+  },
+  {
+    "paper_id": "literature_pmid_39920735",
+    "title": "Resistance exercise training improves disuse-induced skeletal muscle atrophy in humans: a meta-analysis of randomized controlled trials.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": true,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=39920735&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/39920735/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC11806896/fullTextXML",
+        "scope": "Texto completo en acceso abierto (Europe PMC, XML JATS de PMC11806896): cuerpo, tablas y leyendas de figuras. No incluye material suplementario ni las figuras como imagen"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "con_correcciones",
+    "item_checks": [
+      {
+        "item": "RET preserve significativamente el volumen del cuádriceps durante el desuso (n=5, MD=252,56, IC 95%=151,92–353,21, p<0,05).",
+        "verdict": "parcial",
+        "note": "DM e IC correctos (abstract; Tabla 3: 5 estudios, 37 vs 39 participantes, I2 = 54%), pero el valor p es < 0,001, no < 0,05. 'n = 5' son estudios, no participantes. Las unidades de la DM no se indican en el abstract y la leyenda de la Figura 3 dice 'muscle volume (cm2)', unidad que no corresponde a un volumen."
+      },
+      {
+        "item": "RET mejoró la función muscular (pico de potencia, fuerza concéntrica, fuerza excéntrica, torque isométrico) durante inmovilización/desuso.",
+        "verdict": "parcial",
+        "note": "Las DM agrupadas favorecen al ejercicio frente al control (atenuan la perdida); no demuestran mejora respecto al basal. Varios desenlaces dependen de un solo estudio con dos momentos de medida (potencia pico y fuerzas concentrica y excentrica de pantorrilla: 16 vs 18). El numero de estudios del abstract no coincide con la Tabla 3 (p. ej. MVC de cuadriceps 4 vs 3; MVC de pantorrilla 3 vs 2). Heterogeneidad alta en torque de extension de rodilla (I2 = 79%) y potencia de cuadriceps (I2 = 93%)."
+      },
+      {
+        "item": "RET debe recomendarse para mantener la salud muscular y neuromuscular en vuelos espaciales, reposo en cama e inmovilización/desuso.",
+        "verdict": "parcial",
+        "note": "Es la recomendacion literal de los autores (Conclusiones), no un resultado. Los 11 ensayos son de reposo en cama con inclinacion de -6 grados (8) o suspension unilateral de miembro inferior (3) segun la Tabla 2; ninguno es de vuelo espacial."
+      },
+      {
+        "item": "Se necesitan más investigaciones en poblaciones diversas y condiciones de desuso, y más estudios de alta calidad para demostrar estos beneficios de forma concluyente.",
+        "verdict": "sustentado",
+        "note": "Conclusiones del abstract y seccion Limitaciones."
+      },
+      {
+        "item": "Entrenamiento de resistencia (RET) comparado con no ejercicio durante inmovilización/desuso.",
+        "verdict": "parcial",
+        "note": "Asi lo define el abstract, pero la Tabla 2 incluye como 'RET' intervenciones que no son entrenamiento de resistencia en sentido estricto: entrenamiento por intervalos al 40-80% del VO2pico (2 estudios) y saltos (1 estudio), ademas de volante de inercia, sentadillas, prensa e isometricos."
+      }
+    ],
+    "corrections": [
+      "Item 1, texto corregido: 'El RET atenuo la perdida de volumen del cuadriceps durante el desuso frente al control sin ejercicio (5 estudios; DM = 252,56; IC 95%: 151,92 a 353,21; p < 0,001; I2 = 54%).'",
+      "Resumen: cambiar 'p<0,05' por 'p < 0,001' y 'mejoro la funcion muscular' por 'atenuo la perdida de funcion muscular frente al control'.",
+      "Item 2, texto propuesto: 'Frente al control, el RET atenuo la perdida de fuerza maxima voluntaria, potencia pico, fuerza concentrica y excentrica y torque isometrico de rodilla; varios de estos desenlaces provienen de 1 a 3 estudios.'",
+      "Item 3 y resumen: anadir 'recomendacion de los autores; ninguno de los 11 ensayos se realizo en vuelo espacial (8 de reposo en cama, 3 de suspension unilateral)'.",
+      "Resumen: 'Este metaanalisis' en lugar de 'Esta metanalisis'.",
+      "El campo abstract guardado en el archivo generado esta truncado: se perdio el texto situado entre un signo '<' y el siguiente '>' (probable limpieza de etiquetas HTML). Restaurar el abstract desde PubMed antes de regenerar la ficha. Texto perdido: todos los resultados posteriores a 'p < 0.001). RET demonstrated...' hasta el final de Results."
+    ],
+    "study_facts": {
+      "design": "Metaanalisis de 11 ensayos controlados aleatorizados (PRISMA, PROSPERO; modelo de efectos aleatorios, diferencia de medias, RevMan 5.3); busqueda en Web of Science, PubMed, EBSCO y Cochrane hasta 2023-03-20.",
+      "population": "Adultos sanos; edades medias entre ~21 y ~42 anos; 8 estudios solo con hombres, 1 solo con mujeres (16) y 1 mixto (14 hombres, 7 mujeres), segun la Tabla 2.",
+      "sample_size": "11 ensayos, cada uno con 5 a 12 participantes por brazo. Por desenlace: volumen de cuadriceps 37 vs 39; torque de extension de rodilla 67 vs 75; desenlaces de pantorrilla 16 vs 18 a 24 vs 27.",
+      "environment": "Analogos en tierra: reposo en cama con inclinacion de -6 grados (8 ensayos) y suspension unilateral de miembro inferior (3 ensayos). Sin vuelo espacial.",
+      "exposure": "Desuso de 14 a 90 dias; ejercicio de 2 a 7 veces por semana, de tipo e intensidad muy variables.",
+      "main_outcomes": "Volumen de cuadriceps por MRI; fuerza maxima voluntaria, potencia pico y fuerza concentrica y excentrica de cuadriceps y pantorrilla; torque isometrico de extension y flexion de rodilla."
+    },
+    "limitations": [
+      "Declarada: variabilidad de programas de ejercicio y de modelos de desuso; no se puede identificar un protocolo optimo (tipo, intensidad, frecuencia, duracion).",
+      "Declarada: solo adultos sanos; no generalizable a otras poblaciones.",
+      "Declarada: faltan seguimientos a largo plazo.",
+      "En Resultados (riesgo de sesgo): todos los estudios con alto riesgo en ocultacion de la asignacion y cegamiento.",
+      "Observadas por el verificador: discrepancias entre el abstract y la Tabla 3 en el numero de estudios; unidades de la DM poco claras; una fila de la Tabla 2 (Bamman) indica 18 hombres con 8 + 8 participantes."
+    ],
+    "applicability_note": "Apoya la direccion del efecto: en analogos, ejercitar contra resistencia reduce la perdida de volumen y fuerza de cuadriceps y pantorrilla. No se puede: usar las DM como beneficio esperado para un astronauta (unidades inciertas, heterogeneidad, pocos estudios); derivar una dosis o protocolo; equiparar estas intervenciones con el equipo de ejercicio de una mision; afirmar que el efecto esta demostrado en vuelo espacial o en misiones largas (maximo 90 dias de reposo).",
+    "unverified": [
+      "Figuras 2 a 7 (riesgo de sesgo y graficos de bosque): no se pudieron ver; por eso no se confirmaron unidades ni pesos por estudio.",
+      "Los 11 ensayos primarios no se consultaron (clasificacion del modelo de desuso y del tipo de ejercicio tomada de la Tabla 2).",
+      "Solapamiento de ensayos primarios con otras sintesis del corpus."
+    ]
+  },
+  {
+    "paper_id": "literature_pmid_40828606",
+    "title": "Muscle-specific atrophy of the lower limb musculature in response to simulated microgravity exposure in women.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": false,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=40828606&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/40828606/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=ext_id:40828606%20src:med&resultType=core&format=json",
+        "scope": "Registro de Europe PMC: metadatos, financiacion y disponibilidad (no es acceso abierto; sin texto completo)"
+      },
+      {
+        "url": "https://journals.physiology.org/doi/full/10.1152/japplphysiol.00483.2025",
+        "scope": "Editorial: intento fallido (HTTP 403); no se leyo nada"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "con_correcciones",
+    "item_checks": [
+      {
+        "item": "Ocho mujeres (34±4 años) se sometieron a 60 días de microgravedad simulada mediante reposo en cama con inclinación de cabeza hacia abajo de 6°.",
+        "verdict": "sustentado",
+        "note": "Abstract. Es descripcion del metodo, no un hallazgo (el tipo 'finding' no corresponde)."
+      },
+      {
+        "item": "Se determinaron cambios en el volumen muscular determinado por resonancia magnética de 17 músculos de las extremidades inferiores después de 1 y 2 meses.",
+        "verdict": "sustentado",
+        "note": "Abstract. Es descripcion del metodo, no un hallazgo."
+      },
+      {
+        "item": "El volumen muscular disminuyó significativamente.",
+        "verdict": "sustentado",
+        "note": "Abstract, pero incompleto: el volumen disminuyo (P < 0,05) en los 17 musculos tras 1 y 2 meses; del menos afectado (recto femoral -10%) a los mas afectados (soleo -27%, gastrocnemio lateral -28%, gastrocnemio medial -29%)."
+      },
+      {
+        "item": "La atrofia del músculo esquelético inducida por microgravedad de las extremidades inferiores ocurre de manera específica según el músculo y el sexo.",
+        "verdict": "parcial",
+        "note": "La especificidad por musculo esta en el abstract (vastos -22% vs recto femoral -10%; semimembranoso y biceps femoral cabeza larga -20% vs gracil, biceps femoral cabeza corta y semitendinoso -12%). La especificidad por sexo se apoya en comparar con datos de hombres (33 +/- 7 anos) que 'previamente' pasaron mediciones similares: no es un grupo concurrente. Resultado: mayor atrofia en mujeres en 16 de 17 musculos (P < 0,05) y al menos el doble en 7."
+      },
+      {
+        "item": "Esta nueva información debería considerarse en el desarrollo de contramedidas de ejercicio para astronautas en misiones espaciales de larga duración.",
+        "verdict": "sustentado",
+        "note": "Abstract (frase final y apartado NEW & NOTEWORTHY). Es una recomendacion de los autores."
+      }
+    ],
+    "corrections": [
+      "Resumen, texto propuesto: 'Ocho mujeres (34 +/- 4 anos) completaron 60 dias de reposo en cama con inclinacion de cabeza de -6 grados. Por resonancia magnetica, el volumen de los 17 musculos del miembro inferior estudiados disminuyo (P < 0,05) tras 1 y 2 meses, desde -10% en el recto femoral hasta -27% a -29% en soleo y gastrocnemios. Hubo diferencias dentro de grupos musculares (vastos -22% frente a recto femoral -10%). Frente a datos de hombres (33 +/- 7 anos) obtenidos previamente con mediciones similares, las mujeres mostraron mayor atrofia en 16 de 17 musculos y al menos el doble en 7. Los autores proponen tenerlo en cuenta al disenar contramedidas de ejercicio.'",
+      "Item 3, texto corregido: 'El volumen muscular disminuyo (P < 0,05) en los 17 musculos tras 1 y 2 meses, entre -10% (recto femoral) y -27% a -29% (soleo y gastrocnemios).'",
+      "Item 4, texto propuesto: 'La atrofia fue especifica por musculo. En comparacion con datos de hombres obtenidos previamente (no concurrentes), las mujeres mostraron mayor atrofia en 16 de 17 musculos (P < 0,05).'",
+      "Items 1 y 2: reclasificar como metodo o poblacion, no como hallazgo.",
+      "Registrar en el corpus el comentario publicado (J Appl Physiol 2026;140(3):825-826).",
+      "El campo abstract guardado en el archivo generado esta truncado: se perdio el texto situado entre un signo '<' y el siguiente '>' (probable limpieza de etiquetas HTML). Restaurar el abstract desde PubMed antes de regenerar la ficha. Texto perdido: practicamente toda la seccion de resultados del abstract."
+    ],
+    "study_facts": {
+      "design": "Estudio longitudinal pre-post en un solo grupo de mujeres, con comparacion frente a datos de hombres obtenidos previamente (segun el abstract). No verificado en texto completo.",
+      "population": "8 mujeres de 34 +/- 4 anos; comparador: hombres de 33 +/- 7 anos (numero no indicado en el abstract).",
+      "sample_size": "n = 8 mujeres; n de hombres no verificable.",
+      "environment": "Reposo en cama con inclinacion de cabeza de -6 grados (microgravedad simulada).",
+      "exposure": "60 dias; mediciones tras 1 y 2 meses. El abstract no indica si hubo o no contramedidas ni la campana de procedencia.",
+      "main_outcomes": "Volumen por MRI de 17 musculos del miembro inferior: -10% (recto femoral) a -29% (gastrocnemio medial); vastos -22%."
+    },
+    "limitations": [
+      "No verificable: el abstract no declara limitaciones y no se accedio al texto completo.",
+      "Observadas por el verificador a partir del abstract: muestra de 8 participantes; comparacion por sexo con datos historicos; sin grupo control concurrente descrito."
+    ],
+    "applicability_note": "Pertinente para heterogeneidad por musculo y por sexo en un analogo de 60 dias, midiendo volumen. No se puede: tomar la diferencia por sexo como establecida (comparacion no concurrente, n = 8); convertir porcentajes de volumen en area transversal o en fuerza; aplicar estas magnitudes a una tripulacion que entrena en vuelo; atribuir los porcentajes a un mes concreto (el abstract no separa 1 y 2 meses por musculo).",
+    "unverified": [
+      "Todo el texto completo: Metodos, origen y tamano del grupo de hombres, campana de reposo en cama, presencia o ausencia de contramedidas, valores por musculo en cada momento, limitaciones declaradas.",
+      "Contenido del comentario publicado en 2026 y si cuestiona el analisis.",
+      "Europe PMC indica financiacion de NASA (NNJ04HF72G); no se pudo confirmar a que campana corresponde."
+    ]
+  },
+  {
+    "paper_id": "literature_pmid_41894197",
+    "title": "Impact of 14 days of head-down bed rest and an exercise countermeasure on skeletal muscle atrophy, proteome and circulatory cytokines in older adults.",
+    "verified_at": "2026-11-15",
+    "verifier": "Claude (verificacion asistida por IA; no es revision medica)",
+    "full_text_read": true,
+    "sources_read": [
+      {
+        "url": "https://eutils.ncbi.nlm.nih.gov/entrez/eutils/efetch.fcgi?db=pubmed&id=41894197&retmode=xml",
+        "scope": "Registro PubMed via API oficial E-utilities (mismo contenido que https://pubmed.ncbi.nlm.nih.gov/41894197/): metadatos y abstract completo"
+      },
+      {
+        "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/PMC13394170/fullTextXML",
+        "scope": "Texto completo en acceso abierto (Europe PMC, XML JATS de PMC13394170): cuerpo, tablas y leyendas de figuras. No incluye material suplementario ni las figuras como imagen"
+      }
+    ],
+    "bibliographic_ok": true,
+    "summary_verdict": "con_correcciones",
+    "item_checks": [
+      {
+        "item": "El reposo en cama indujo disminuciones significativas en la masa magra total y de las extremidades inferiores, la fuerza extensora de la rodilla y la calidad muscular.",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados: masa magra total -0,68 kg (-1,5%), de miembros inferiores -0,34 kg (-2,0%), fuerza extensora de rodilla -23,6 Nm (-13,4%), calidad muscular -0,28 Nm/cm3. Matiz: los cambios de masa magra quedan dentro del coeficiente de variacion de la DXA (~2%) y los autores piden interpretarlos con cautela."
+      },
+      {
+        "item": "La intervención de ejercicio mixto mitigó la pérdida de volumen del músculo del muslo.",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados: interaccion grupo por tiempo P = 0,0076; control -3,99 cm3 (P = 0,0005; n = 11); ejercicio -0,71 cm3 (P = 0,40; n = 7). Unidades tal como las da el articulo."
+      },
+      {
+        "item": "La intervención de ejercicio mixto no previno las reducciones en la masa magra total o de las extremidades inferiores, la fuerza o la calidad muscular.",
+        "verdict": "sustentado",
+        "note": "Abstract y Resultados: sin interaccion grupo por tiempo en masa magra (P >= 0,619), fuerza (P >= 0,407) ni calidad (P >= 0,652). Matiz: dentro de cada grupo la fuerza bajo 16,5% (control) y 6,7% (ejercicio); los autores reconocen potencia estadistica limitada."
+      },
+      {
+        "item": "Todos los participantes se recuperaron completamente después de 4 semanas de recuperación.",
+        "verdict": "parcial",
+        "note": "Frase literal del abstract. La Conclusion del texto completo anade una excepcion: 'except for thigh muscle volume in the control group'. Ademas el seguimiento a 4 semanas tiene n = 20 (2 controles retirados en el dia 3 de recuperacion)."
+      },
+      {
+        "item": "La participación diaria en un contramedida de ejercicio preserva el volumen del músculo del muslo durante 2 semanas de reposo en cama en adultos mayores sanos, pero es insuficiente para mitigar la fuerza muscular y la masa magra total.",
+        "verdict": "sustentado",
+        "note": "Conclusion del abstract y del texto completo."
+      },
+      {
+        "item": "Contramedida de ejercicio mixto con tres sesiones diarias de ejercicio durante el reposo en cama con inclinación de cabeza hacia abajo.",
+        "verdict": "sustentado",
+        "note": "Abstract y Metodos: tres sesiones diarias supervisadas (60 a 75 min/dia en total), aerobicas en cicloergometro (continuas, progresivas y por intervalos) y de resistencia con peso corporal, bandas y poleas; control con movilizacion pasiva."
+      }
+    ],
+    "corrections": [
+      "Item 4 y ultima frase del resumen, texto corregido: 'Tras 4 semanas de recuperacion, la masa magra, la fuerza extensora de rodilla y la calidad muscular ya no diferian del basal; segun la conclusion del texto completo, la excepcion fue el volumen del muslo del grupo control (seguimiento con n = 20).'",
+      "Resumen e items: 'una contramedida' en lugar de 'un contramedida'.",
+      "Item 1, anadir: 'Los cambios de masa magra (-1,5% total; -2,0% en miembros inferiores) estan dentro del error de medida de la DXA (~2%) y los autores piden interpretarlos con cautela.'",
+      "Item 6, texto propuesto: 'Contramedida de ejercicio mixto: tres sesiones diarias supervisadas (60 a 75 min/dia) de ejercicio aerobico en cicloergometro y de resistencia con bandas y poleas, frente a un grupo control con movilizacion pasiva.'"
+    ],
+    "study_facts": {
+      "design": "Ensayo aleatorizado de dos brazos paralelos dentro del estudio canadiense BROA (Bed Rest in Older Adults); modelos lineales mixtos. Parte de los datos (DXA, fuerza de rodilla, volumen de muslo pre y post) ya se habian publicado en otros articulos de la misma cohorte.",
+      "population": "Adultos sanos de 55 a 65 anos (mujeres posmenopausicas); 11 hombres y 11 mujeres completaron el reposo; mediana de edad 58 y 59 anos por grupo.",
+      "sample_size": "23 incluidos; 22 completaron el reposo (ejercicio 11, control 11); 20 completaron el protocolo. MRI con n menor en el grupo de ejercicio (7 a 9).",
+      "environment": "Reposo en cama con inclinacion de cabeza de -6 grados (analogo de microgravedad), en regimen de internamiento.",
+      "exposure": "14 dias de reposo; 7 dias de recuperacion internados y seguimientos a 4 semanas y 4 meses. Dieta de mantenimiento con al menos 1,2 g/kg/dia de proteina.",
+      "main_outcomes": "Masa magra y grasa por DXA; volumen y grasa del muslo por MRI; fuerza isometrica de extension de rodilla y de prension; calidad muscular (Nm por cm3); proteoma muscular y citocinas plasmaticas."
+    },
+    "limitations": [
+      "Declarada: potencia estadistica limitada por abandonos y pruebas no completadas.",
+      "Declarada: momento de las mediciones (fuerza el dia 2 y DXA el dia 3 de recuperacion), que pudo permitir cierta recuperacion.",
+      "Declarada: la ingesta energetica no difirio entre grupos, por lo que un grupo pudo estar en exceso o en deficit calorico.",
+      "Declarada: el ejercicio de alta intensidad puede no ser viable en personas mayores hospitalizadas.",
+      "En Discusion: los cambios de masa magra por DXA caen dentro del coeficiente de variacion del metodo; la dieta alta en proteina pudo atenuar las perdidas; la MRI solo cubre el muslo.",
+      "La calidad muscular combina fuerza y volumen medidos en dias distintos."
+    ],
+    "applicability_note": "Util para distinguir preservacion de volumen de preservacion de fuerza y calidad muscular, en adultos de 55 a 65 anos y en un analogo corto. No se puede: extrapolar 14 dias a una mision larga; asumir que conservar volumen conserva fuerza (no hubo correlacion entre ambos cambios); tratar el volumen del muslo como area transversal o como masa magra; trasladar el protocolo de ejercicio a una mision o a pacientes hospitalizados; contar este articulo como evidencia independiente de las otras publicaciones de la cohorte BROA.",
+    "unverified": [
+      "Figuras 1 a 8 y material suplementario.",
+      "Secciones de proteomica y citocinas: no se comprobaron en detalle (ningun item las cubre).",
+      "Publicaciones previas de la misma cohorte (Hajj-Boutros 2023 y 2024; Dulac 2025) no consultadas.",
+      "Resultado del volumen del muslo del grupo control a las 4 semanas: solo consta en la Conclusion, sin cifra en el texto leido. La fuerza aparece como -13,4% en Resultados y -11,6% en Discusion."
+    ]
+  }
+]

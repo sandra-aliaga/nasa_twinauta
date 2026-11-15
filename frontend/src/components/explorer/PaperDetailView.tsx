@@ -28,30 +28,39 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
   const { paper, summary, analysis, applicability } = detail;
   const doi = paper.identifiers.doi;
 
+  const authors =
+    paper.authors.slice(0, 4).join(", ") +
+    (paper.authors.length > 4 ? " y otros" : "");
+
   return (
-    <article className="space-y-4 text-sm">
+    <article className="space-y-5 text-sm">
       <header className="space-y-2">
-        <h3 className="text-base font-semibold leading-snug text-slate-50">
-          {paper.title}
-        </h3>
         <p className="text-xs text-slate-400">
-          {paper.authors.join(", ")} · {paper.year}
+          {paper.year} · {ENVIRONMENT_LABELS[paper.environment]}
           {paper.study_design ? ` · ${paper.study_design}` : ""}
         </p>
-        <div className="flex flex-wrap gap-1">
-          <Tag tone={paper.environment === "spaceflight" ? "sky" : "amber"}>
-            {ENVIRONMENT_LABELS[paper.environment]}
-          </Tag>
-          <Tag tone={paper.review_status === "reviewed" ? "emerald" : "slate"}>
+        <h3 className="font-display text-lg leading-snug text-slate-50">
+          {paper.title}
+        </h3>
+        <p className="text-xs text-slate-400">{authors}</p>
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          <a
+            href={paper.access.landing_url}
+            target="_blank"
+            rel="noreferrer noopener"
+            className="rounded-full bg-sky-500 px-4 py-1.5 text-sm font-semibold text-slate-950 hover:bg-sky-400"
+          >
+            Leer el estudio original
+          </a>
+          <Tag tone={paper.review_status === "reviewed" ? "emerald" : "subtle"}>
             Ficha: {REVIEW_LABELS[paper.review_status]}
           </Tag>
           <Tag tone="subtle">
             {AVAILABILITY_LABELS[paper.access.availability]}
           </Tag>
         </div>
+        <AccessLinks detail={detail} doi={doi} />
       </header>
-
-      <AccessLinks detail={detail} doi={doi} />
 
       {detail.cohort_overlap_status !== "unknown" ? (
         <Notice
@@ -63,85 +72,41 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
         </Notice>
       ) : null}
 
-      <section>
-        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-          Abstract del proveedor
+      <section className="hud-panel p-4 pl-5">
+        <h4 className="font-display text-sm text-slate-50">
+          En pocas palabras
         </h4>
-        <p className="mt-1 text-slate-300">
-          {detail.abstract ?? (
-            <span className="italic text-slate-400">
-              No se dispone del abstract en esta ficha.
-            </span>
-          )}
-        </p>
-      </section>
-
-      <section>
-        <div className="flex flex-wrap items-center gap-2">
-          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-            Resumen preparado
-          </h4>
-          <Tag tone={summary.status === "available" ? "sky" : "slate"}>
-            {SUMMARY_STATUS_LABELS[summary.status]}
-          </Tag>
-          <Tag
-            tone={summary.review_status === "reviewed" ? "emerald" : "slate"}
-          >
-            {REVIEW_LABELS[summary.review_status]}
-          </Tag>
-        </div>
         {summary.text ? (
-          <p className="mt-1 text-slate-200">{summary.text}</p>
-        ) : null}
-        <p className="mt-1 text-xs text-slate-400">
-          Basado en {SUMMARY_BASIS_LABELS[summary.basis]} ·{" "}
-          {SUMMARY_METHOD_LABELS[summary.method]}
-          {summary.source_locators.length > 0
-            ? ` · Ubicación: ${summary.source_locators.join("; ")}`
-            : ""}
+          <p className="mt-2 text-[15px] leading-relaxed text-slate-100">
+            {summary.text}
+          </p>
+        ) : (
+          <p className="mt-2 text-slate-400">
+            {SUMMARY_STATUS_LABELS[summary.status]}: todavía no hay un resumen
+            preparado para este estudio.
+          </p>
+        )}
+        <p className="mt-2 text-[11px] text-slate-400">
+          {SUMMARY_METHOD_LABELS[summary.method]}, a partir de{" "}
+          {SUMMARY_BASIS_LABELS[summary.basis]}.{" "}
+          {REVIEW_LABELS[summary.review_status]}.
         </p>
         <LimitList items={summary.limitations} />
       </section>
 
       {detail.population_description ? (
-        <p className="text-xs text-slate-400">
-          <span className="text-slate-400">Población: </span>
-          {detail.population_description}
-        </p>
+        <section>
+          <h4 className="text-sm font-medium text-slate-100">
+            Quiénes participaron
+          </h4>
+          <p className="mt-1 text-slate-300">{detail.population_description}</p>
+        </section>
       ) : null}
 
       <section>
-        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-          Resultados cuantitativos publicados
+        <h4 className="text-sm font-medium text-slate-100">
+          Lo que aporta este estudio
         </h4>
-        {detail.statistics.length === 0 ? (
-          <p className="mt-1 text-xs italic text-slate-400">
-            No hay resultados extraídos para esta publicación.
-          </p>
-        ) : (
-          <>
-            <p className="mt-1 text-xs text-slate-400">
-              Resultados agregados del estudio; no son mediciones del astronauta
-              virtual.
-            </p>
-            <ul className="mt-2 space-y-2">
-              {detail.statistics.map((statistic) => (
-                <StatisticRow key={statistic.id} statistic={statistic} />
-              ))}
-            </ul>
-          </>
-        )}
-      </section>
-
-      <section>
-        <div className="flex flex-wrap items-center gap-2">
-          <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-            Análisis asistido por IA
-          </h4>
-          <Tag tone={analysis.status === "failed" ? "amber" : "slate"}>
-            {ANALYSIS_STATUS_LABELS[analysis.status]}
-          </Tag>
-        </div>
         {analysis.status === "failed" ? (
           <p className="mt-1 text-xs text-amber-200">
             {analysis.failure_reason ?? "El backend no indicó el motivo."} No se
@@ -152,61 +117,101 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
         analysis.status === "queued" ||
         analysis.status === "running" ? (
           <p className="mt-1 text-xs text-slate-400">
-            Todavía no hay contenido generado para esta publicación.
+            Todavía no hay puntos extraídos para este estudio.
           </p>
         ) : null}
         {analysis.items.length > 0 ? (
-          <ul className="mt-2 space-y-2">
-            {analysis.items.map((item) => (
-              <li
-                key={item.id}
-                className="rounded-md border border-dashed border-amber-300/40 p-2"
-              >
-                <div className="flex flex-wrap gap-1">
-                  <Tag tone="amber">Sugerencia de IA</Tag>
-                  <Tag tone="subtle">{ANALYSIS_KIND_LABELS[item.kind]}</Tag>
-                  <Tag
-                    tone={
-                      item.review_status === "reviewed" ? "emerald" : "slate"
-                    }
-                  >
-                    {REVIEW_LABELS[item.review_status]}
-                  </Tag>
-                </div>
-                <p className="mt-1 text-slate-200">{item.text}</p>
-                <blockquote className="mt-1 border-l-2 border-slate-700 pl-2 text-xs italic text-slate-400">
-                  «{item.source_excerpt}» — {item.source_locator}
-                </blockquote>
-                <LimitList items={item.limitations} />
-              </li>
-            ))}
-          </ul>
-        ) : null}
-        {analysis.model_id ? (
-          <p className="mt-1 text-[11px] text-slate-400">
-            Modelo {analysis.model_id} · prompt {analysis.prompt_version ?? "?"}{" "}
-            · {analysis.generated_at ?? "fecha desconocida"}
-          </p>
+          <>
+            <p className="mt-1 text-xs text-slate-400">
+              Puntos extraídos por IA del resumen del estudio. Cada uno trae la
+              frase original en la que se apoya.
+            </p>
+            <ul className="mt-2 space-y-2">
+              {analysis.items.map((item) => (
+                <li
+                  key={item.id}
+                  className="hud-panel px-4 py-3"
+                  style={
+                    {
+                      "--rail": "var(--color-step-next)",
+                    } as React.CSSProperties
+                  }
+                >
+                  <p className="text-xs text-step-next">
+                    {ANALYSIS_KIND_LABELS[item.kind]}
+                    {item.review_status === "reviewed" ? " · revisado" : ""}
+                  </p>
+                  <p className="mt-1 text-slate-100">{item.text}</p>
+                  <details className="mt-1 text-xs text-slate-400">
+                    <summary className="cursor-pointer text-slate-300">
+                      Ver la frase del estudio
+                    </summary>
+                    <blockquote className="mt-1 border-l-2 border-slate-700 pl-2 italic">
+                      «{item.source_excerpt}» ({item.source_locator})
+                    </blockquote>
+                  </details>
+                  <LimitList items={item.limitations} />
+                </li>
+              ))}
+            </ul>
+          </>
         ) : null}
         {analysis.items.some((item) => item.kind === "studied_intervention") ? (
-          <p className="mt-1 text-xs text-slate-400">
-            Una intervención estudiada describe lo que investigó el paper; no es
-            una acción habilitada para el astronauta.
+          <p className="mt-2 text-xs text-slate-400">
+            Una intervención estudiada describe lo que investigó el estudio; no
+            es una acción habilitada para el astronauta.
+          </p>
+        ) : null}
+        {analysis.model_id ? (
+          <p className="mt-1 text-[11px] text-slate-500">
+            Modelo {analysis.model_id}, prompt {analysis.prompt_version ?? "?"},{" "}
+            {analysis.generated_at ?? "fecha desconocida"}
           </p>
         ) : null}
       </section>
 
-      <section className="rounded-md border border-slate-800 p-3">
-        <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-          {APPLICABILITY_LABELS[applicability.status]}
+      {detail.statistics.length > 0 ? (
+        <section>
+          <h4 className="text-sm font-medium text-slate-100">
+            Cifras publicadas
+          </h4>
+          <p className="mt-1 text-xs text-slate-400">
+            Resultados agregados del estudio; no son mediciones del astronauta
+            virtual.
+          </p>
+          <ul className="mt-2 space-y-2">
+            {detail.statistics.map((statistic) => (
+              <StatisticRow key={statistic.id} statistic={statistic} />
+            ))}
+          </ul>
+        </section>
+      ) : null}
+
+      <section
+        className="hud-panel p-4 pl-5"
+        style={{ "--rail": "var(--color-step-do)" } as React.CSSProperties}
+      >
+        <h4 className="font-display text-sm text-slate-50">
+          ¿Aplica a este caso?
         </h4>
-        <p className="mt-1 text-xs text-slate-300">
-          {applicability.explanation}
+        <p className="mt-1 text-xs text-step-do">
+          {APPLICABILITY_LABELS[applicability.status]}
         </p>
+        <p className="mt-1 text-slate-200">{applicability.explanation}</p>
       </section>
 
+      <Collapsible title="Abstract original del estudio (en inglés)">
+        <p className="pt-1 leading-relaxed text-slate-300">
+          {detail.abstract ?? (
+            <span className="italic text-slate-400">
+              No se dispone del abstract en esta ficha.
+            </span>
+          )}
+        </p>
+      </Collapsible>
+
       <LimitList items={detail.limitations} title="Limitaciones de la ficha" />
-      <p className="text-[11px] text-slate-400">
+      <p className="text-[11px] text-slate-500">
         Corpus {detail.corpus_version}
       </p>
     </article>
@@ -224,14 +229,6 @@ function AccessLinks({
   const link = "text-sky-300 underline-offset-2 hover:underline";
   return (
     <div className="flex flex-wrap gap-x-4 gap-y-1 text-xs">
-      <a
-        href={access.landing_url}
-        target="_blank"
-        rel="noreferrer noopener"
-        className={link}
-      >
-        Abrir original
-      </a>
       {access.full_text_url && access.full_text_url !== access.landing_url ? (
         <a
           href={access.full_text_url}
@@ -299,8 +296,9 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
         {statistic.sample_size !== null
           ? ` · n = ${statistic.sample_size}`
           : " · n desconocido"}{" "}
-        · Extracción{" "}
-        {REVIEW_LABELS[statistic.extraction_review_status].toLowerCase()}
+        {statistic.extraction_review_status === "reviewed"
+          ? "· extracción revisada"
+          : ""}
       </p>
       <p className="mt-0.5 text-slate-400">
         Variable y grupo tal como los publica la fuente (en inglés). Ubicación:{" "}

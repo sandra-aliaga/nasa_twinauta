@@ -43,21 +43,21 @@ export function Header({
   return (
     <header className="border-b border-slate-800 bg-slate-950/80 px-4 py-3 backdrop-blur">
       <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
-        <h1 className="flex items-center gap-2 text-lg font-semibold tracking-tight text-slate-50">
+        <h1 className="flex items-center gap-2 font-display text-base font-medium text-slate-50">
           <svg aria-hidden="true" viewBox="0 0 32 32" className="h-7 w-7">
-            <rect width="32" height="32" rx="8" fill="#0b1220" />
+            <rect width="32" height="32" rx="8" fill="#141842" />
             <ellipse
               cx="16"
               cy="16"
               rx="12"
               ry="5.5"
               fill="none"
-              stroke="#38bdf8"
+              stroke="#5aa0ff"
               strokeWidth="1.6"
               transform="rotate(-28 16 16)"
             />
             <circle cx="16" cy="16" r="4.2" fill="#e2e8f0" />
-            <circle cx="26" cy="10.6" r="2" fill="#38bdf8" />
+            <circle cx="26" cy="10.6" r="2" fill="#5aa0ff" />
           </svg>
           TwinNauta
         </h1>
@@ -104,7 +104,7 @@ export function Header({
                 ? "Crear una evaluación para este día"
                 : "Seleccione una región del cuerpo"
             }
-            className="rounded-md bg-sky-500 px-3 py-1 font-medium text-slate-950 hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+            className="rounded-full bg-sky-500 px-4 py-1 font-semibold text-slate-950 hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
           >
             Evaluar día {day}
           </button>
@@ -126,7 +126,7 @@ export function Header({
                 : "border-slate-700 text-slate-200 hover:border-slate-500"
             }`}
           >
-            Frecuencia cardíaca (didáctica)
+            Pulso de ejemplo
           </button>
         ) : null}
 
@@ -158,7 +158,7 @@ export function Header({
             className="rounded-md border border-amber-400/60 bg-amber-400/10 px-2 py-1 text-xs font-medium text-amber-200"
             title="Los datos provienen de contracts/examples: son sintéticos y no son resultados del backend."
           >
-            MODO DEMOSTRACIÓN · datos ficticios
+            Demo
           </span>
         ) : null}
       </div>

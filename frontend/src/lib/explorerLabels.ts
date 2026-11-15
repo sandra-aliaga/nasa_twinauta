@@ -153,7 +153,7 @@ export const INTERPRETATION_LABELS: Record<
   string
 > = {
   unavailable: "Interpretación no disponible",
-  review_pending: "Interpretación pendiente de revisión",
+  review_pending: "Interpretación en prototipo",
   reviewed: "Interpretación revisada",
 };
 

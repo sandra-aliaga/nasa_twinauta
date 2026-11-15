@@ -1,8 +1,46 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans:
-    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Figtree", ui-sans-serif, system-ui, "Segoe UI", sans-serif;
+  --font-display: "Unbounded", "Figtree", ui-sans-serif, sans-serif;
+
+  /*
+   * Brand palette "noche orbital". The neutral scale is a deep indigo
+   * instead of grey-black and the interactive scale is an electric blue, so
+   * every existing slate/sky utility follows the brand. Hues separate the
+   * three steps of the panel; none of them encodes severity.
+   */
+  --color-slate-950: #0b0e2a;
+  --color-slate-900: #141842;
+  --color-slate-800: #232a5c;
+  --color-slate-700: #353d78;
+  --color-slate-600: #4d5694;
+  --color-slate-500: #6f78b4;
+  --color-slate-400: #9ea6d8;
+  --color-slate-300: #c5caee;
+  --color-slate-200: #dee1f8;
+  --color-slate-100: #eef0fc;
+  --color-slate-50: #f8f9ff;
+  --color-sky-100: #dcebff;
+  --color-sky-200: #b8d6ff;
+  --color-sky-300: #8cbcff;
+  --color-sky-400: #5aa0ff;
+  --color-sky-500: #3d8bff;
+  --color-step-now: #5aa0ff;
+  --color-step-next: #b69cff;
+  --color-step-do: #ffb454;
+
+  --animate-beacon: beacon 2.4s ease-out infinite;
+  @keyframes beacon {
+    0% {
+      transform: scale(0.6);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1.8);
+      opacity: 0;
+    }
+  }
 
   /* Short, calm motion: it orients the eye, it never decorates data. */
   --animate-fade-in: fade-in 180ms ease-out both;
@@ -64,7 +102,7 @@
 
 /* One visible keyboard focus ring for every control. */
 :focus-visible {
-  outline: 2px solid #38bdf8;
+  outline: 2px solid #5aa0ff;
   outline-offset: 2px;
 }
 
@@ -92,18 +130,123 @@ dialog.twin-dialog:not([open]) {
   }
 }
 dialog.twin-dialog::backdrop {
-  background-color: rgb(2 6 23 / 0.7);
+  background-color: rgb(11 14 42 / 0.75);
   transition:
     background-color 200ms ease-out,
     overlay 200ms allow-discrete,
     display 200ms allow-discrete;
 }
 dialog.twin-dialog:not([open])::backdrop {
-  background-color: rgb(2 6 23 / 0);
+  background-color: rgb(11 14 42 / 0);
 }
 @starting-style {
   dialog.twin-dialog[open]::backdrop {
-    background-color: rgb(2 6 23 / 0);
+    background-color: rgb(11 14 42 / 0);
+  }
+}
+
+/*
+ * Brand components. "hud-panel" is the ship-console panel: two cut corners,
+ * a lit top edge and an accent rail on the left. The rail color comes from
+ * --rail so each step or state can tint it.
+ */
+.hud-panel {
+  --rail: var(--color-sky-400);
+  --cut: 14px;
+  position: relative;
+  background:
+    linear-gradient(var(--rail), var(--rail)) left / 3px 100% no-repeat,
+    linear-gradient(
+      165deg,
+      rgb(41 49 110 / 0.85) 0%,
+      rgb(20 24 66 / 0.92) 55%,
+      rgb(15 18 52 / 0.95) 100%
+    );
+  clip-path: polygon(
+    0 0,
+    calc(100% - var(--cut)) 0,
+    100% var(--cut),
+    100% 100%,
+    var(--cut) 100%,
+    0 calc(100% - var(--cut))
+  );
+  box-shadow: inset 0 1px 0 rgb(197 202 238 / 0.18);
+}
+.hud-panel-empty {
+  --rail: var(--color-slate-600);
+  background:
+    linear-gradient(var(--rail), var(--rail)) left / 3px 100% no-repeat,
+    repeating-linear-gradient(
+      135deg,
+      rgb(53 61 120 / 0.28) 0 6px,
+      transparent 6px 12px
+    );
+}
+
+/* Space behind the twin: stars and the lit edge of a planet below. */
+.orbital-stage {
+  background:
+    radial-gradient(
+      85% 42% at 50% 112%,
+      rgb(90 160 255 / 0.5) 0%,
+      rgb(182 156 255 / 0.32) 26%,
+      rgb(182 156 255 / 0.08) 48%,
+      transparent 62%
+    ),
+    radial-gradient(1.5px 1.5px at 12% 18%, #f8f9ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 31% 72%, #c5caee 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 47% 9%, #dee1f8 50%, transparent 51%),
+    radial-gradient(1px 1px at 58% 41%, #9ea6d8 50%, transparent 51%),
+    radial-gradient(1.5px 1.5px at 73% 23%, #f8f9ff 50%, transparent 51%),
+    radial-gradient(1px 1px at 86% 62%, #c5caee 50%, transparent 51%),
+    radial-gradient(1px 1px at 93% 12%, #dee1f8 50%, transparent 51%),
+    radial-gradient(1px 1px at 22% 47%, #9ea6d8 50%, transparent 51%),
+    radial-gradient(1px 1px at 66% 84%, #9ea6d8 50%, transparent 51%),
+    radial-gradient(1px 1px at 5% 80%, #c5caee 50%, transparent 51%),
+    linear-gradient(180deg, #070920 0%, #0b0e2a 60%, #10143a 100%);
+}
+
+/* Corner brackets that frame the stage like a visor. */
+.visor::before,
+.visor::after {
+  content: "";
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  border: 2px solid rgb(90 160 255 / 0.55);
+  pointer-events: none;
+  z-index: 5;
+}
+.visor::before {
+  top: 10px;
+  right: 10px;
+  border-left: 0;
+  border-bottom: 0;
+}
+.visor::after {
+  bottom: 10px;
+  right: 10px;
+  border-left: 0;
+  border-top: 0;
+}
+
+/* Heartbeat-style sweep used only on empty sensor slots (no data implied). */
+.sensor-idle {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgb(158 166 216 / 0.35) 50%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  animation: sensor-sweep 2.8s linear infinite;
+}
+@keyframes sensor-sweep {
+  from {
+    background-position: 200% 0;
+  }
+  to {
+    background-position: -200% 0;
   }
 }
 

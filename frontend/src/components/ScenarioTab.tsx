@@ -21,7 +21,6 @@ type Scenario = Assessment["scenario"];
 
 type ScenarioTabProps = {
   assessment: Assessment;
-  onOpenGraph: () => void;
 };
 
 /**
@@ -29,7 +28,7 @@ type ScenarioTabProps = {
  * the scenario as available; otherwise the reason is shown and no curve is
  * invented. The x axis is the reference protocol day, never a mission day.
  */
-export function ScenarioTab({ assessment, onOpenGraph }: ScenarioTabProps) {
+export function ScenarioTab({ assessment }: ScenarioTabProps) {
   const scenario = assessment.scenario;
   const available = scenario.status === "available";
 
@@ -42,14 +41,13 @@ export function ScenarioTab({ assessment, onOpenGraph }: ScenarioTabProps) {
         </Tag>
       </div>
 
-      <p className="text-sm leading-relaxed text-slate-200">
+      <p className="text-[15px] leading-relaxed text-slate-100">
         {scenario.summary}
       </p>
 
-      <Notice title="Trayectoria de referencia, no pronóstico individual">
-        Describe un protocolo de referencia con sus supuestos. No representa el
-        futuro clínico del astronauta ni se asigna a días de misión.
-      </Notice>
+      <p className="text-xs text-slate-400">
+        Es una referencia de estudios, no un pronóstico de este astronauta.
+      </p>
 
       {!available ? (
         <EmptyChart scenario={scenario} />
@@ -135,14 +133,6 @@ export function ScenarioTab({ assessment, onOpenGraph }: ScenarioTabProps) {
           </ul>
         </Collapsible>
       ) : null}
-
-      <button
-        type="button"
-        onClick={onOpenGraph}
-        className="w-full rounded-md border border-sky-500/60 px-3 py-2 text-sm font-medium text-sky-200 hover:bg-sky-500/10"
-      >
-        Ver grafo del escenario
-      </button>
     </div>
   );
 }

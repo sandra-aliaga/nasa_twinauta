@@ -1,0 +1,57 @@
+- generic [ref=f9e3]:
+  - banner [ref=f9e10]:
+    - generic [ref=f9e11]:
+      - heading "TwinNauta" [level=1] [ref=f9e12]
+      - generic [ref=f9e18]:
+        - text: Caso
+        - combobox "Caso" [ref=f9e19]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=f9e20]:
+        - generic [ref=f9e21]: Día de misión
+        - slider "Día de misión" [ref=f9e22]: "10"
+        - generic [ref=f9e23]: 10 / 70
+        - button "Evaluar día 10" [disabled] [ref=f9e24]
+      - button "Biblioteca científica" [ref=f9e25]
+      - button "Cómo leer esta demo" [ref=f9e26]: Guía
+  - generic [ref=f9e27]:
+    - main [ref=f9e28]:
+      - generic [ref=f9e30]:
+        - generic [ref=f9e31]:
+          - generic [ref=f9e32]: Preparando visor 3D…
+          - generic [ref=f9e33]:
+            - region "Estado general" [ref=f9e35]:
+              - generic [ref=f9e36]:
+                - generic [ref=f9e37]:
+                  - heading "Estado general" [level=2] [ref=f9e38]
+                  - paragraph [ref=f9e39]: Astronauta virtual
+                - paragraph [ref=f9e41]:
+                  - generic [ref=f9e42]: Día 10
+                  - text: de 70
+              - generic [ref=f9e47]:
+                - heading "Pulso" [level=3] [ref=f9e48]
+                - paragraph [ref=f9e51]: Cargando ejemplo…
+              - generic [ref=f9e52]:
+                - heading "Ejercicio con registro" [level=3] [ref=f9e53]
+                - paragraph [ref=f9e54]: Sin sesiones todavía.
+              - paragraph [ref=f9e55]: Sin evaluación de este día todavía.
+            - button "‹ Ocultar estado general" [ref=f9e56]
+        - generic [ref=f9e57]:
+          - generic [ref=f9e58]: "Regiones:"
+          - list "Leyenda del modelo" [ref=f9e60]:
+            - listitem [ref=f9e61]: "Baliza: zona con algo por revisar"
+            - listitem [ref=f9e63]: Zona con seguimiento
+            - listitem [ref=f9e65]: "Corazón: pulso de ejemplo"
+            - listitem [ref=f9e67]: Resto del cuerpo, sin evaluar
+            - listitem [ref=f9e69]: Los colores no indican estado de salud.
+          - paragraph [ref=f9e70]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=f9e71]:
+      - generic [ref=f9e74]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=f9e75]
+        - paragraph [ref=f9e76]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=f9e77]:
+          - listitem [ref=f9e78]:
+            - button "Corazón Pulso de ejemplo y estudios Ver zona" [ref=f9e79]:
+              - generic [ref=f9e80]:
+                - generic [ref=f9e81]: Corazón
+                - generic [ref=f9e82]: Pulso de ejemplo y estudios
+              - generic [ref=f9e83]: Ver zona

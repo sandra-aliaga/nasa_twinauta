@@ -37,9 +37,9 @@ export const REGION_MODEL_NOTES: Record<string, string> = {
 
 /** Colors mark interaction state only; they never encode risk or severity. */
 export const ANATOMY_COLORS = {
-  selectable: "#0369a1",
-  selected: "#38bdf8",
-  context: "#64748b",
+  selectable: "#2563d9",
+  selected: "#5aa0ff",
+  context: "#4d5694",
 } as const;
 
 /** Camera framing of the 3D body. */
@@ -55,3 +55,11 @@ export function hasWebGL(): boolean {
     return false;
   }
 }
+
+/**
+ * Frontend-only zone for the heart-rate example. The backend publishes no
+ * cardiac region; this id never reaches the API. The model has no heart
+ * mesh, so its beacon is anchored on the left chest muscle.
+ */
+export const HEART_ZONE_ID = "heart";
+export const HEART_ANCHOR_MESHES = ["Left pectoralis major"];

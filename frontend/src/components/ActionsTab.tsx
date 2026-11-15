@@ -12,7 +12,7 @@ import {
   EXECUTION_LABELS,
   REVIEW_LABELS,
 } from "../lib/labels";
-import { ErrorNotice, Notice, Tag } from "./common";
+import { ErrorNotice, ReviewedTag, Tag } from "./common";
 
 const EXECUTION_OPTIONS: Action["execution_status"][] = [
   "pending",
@@ -24,7 +24,6 @@ type ActionsTabProps = {
   assessment: Assessment;
   onActionUpdated: (action: Action) => void;
   onConflict: () => Promise<void>;
-  onOpenGraph: () => void;
 };
 
 function ActionCard({
@@ -73,15 +72,16 @@ function ActionCard({
   }
 
   return (
-    <li className="space-y-2 rounded-md border border-slate-800 px-3 py-3">
+    <li
+      className="hud-panel space-y-2 px-4 py-3"
+      style={{ "--rail": "var(--color-step-do)" } as React.CSSProperties}
+    >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-sm font-medium text-slate-100">
           {action.title}
         </span>
         <div className="flex flex-wrap gap-1">
-          <Tag tone={action.review_status === "reviewed" ? "emerald" : "amber"}>
-            {REVIEW_LABELS[action.review_status]}
-          </Tag>
+          <ReviewedTag status={action.review_status} />
           <Tag tone={eligible ? "sky" : "slate"}>
             {ELIGIBILITY_LABELS[action.eligibility]}
           </Tag>
@@ -89,22 +89,22 @@ function ActionCard({
       </div>
 
       <p className="text-sm text-slate-300">{action.rationale}</p>
-      <p className="text-xs text-slate-400">{action.eligibility_reason}</p>
 
-      {action.requirements.length > 0 ? (
-        <div>
-          <p className="text-xs font-medium text-slate-400">Requisitos</p>
-          <ul className="text-xs text-slate-300">
+      <details className="text-xs text-slate-400">
+        <summary className="cursor-pointer text-slate-300">Condiciones</summary>
+        <p className="mt-1">{action.eligibility_reason}</p>
+        {action.requirements.length > 0 ? (
+          <ul className="mt-1 list-disc pl-4">
             {action.requirements.map((requirement) => (
-              <li key={requirement}>• {requirement}</li>
+              <li key={requirement}>{requirement}</li>
             ))}
           </ul>
-        </div>
-      ) : null}
+        ) : null}
+      </details>
 
       <fieldset disabled={!trackingAllowed || saving} className="pt-1">
         <legend className="mb-1 text-xs text-slate-400">
-          Seguimiento (no certifica ejecución ni beneficio fisiológico)
+          Marca cómo va (solo es un registro)
         </legend>
         <div className="flex gap-1">
           {EXECUTION_OPTIONS.map((status) => {
@@ -138,20 +138,19 @@ export function ActionsTab({
   assessment,
   onActionUpdated,
   onConflict,
-  onOpenGraph,
 }: ActionsTabProps) {
   return (
     <div className="space-y-5">
-      <p className="text-sm leading-relaxed text-slate-200">
+      <p className="text-[15px] leading-relaxed text-slate-100">
         {assessment.action_summary}
       </p>
 
       {assessment.actions.some(
         (action) => action.review_status === "pending",
       ) ? (
-        <Notice title="Acciones pendientes de revisión" tone="warning">
-          No son recomendaciones aprobadas ni prescripciones médicas.
-        </Notice>
+        <p className="text-xs text-slate-400">
+          Son comprobaciones de datos, no indicaciones médicas.
+        </p>
       ) : null}
 
       {assessment.actions.length === 0 ? (
@@ -172,14 +171,6 @@ export function ActionsTab({
           ))}
         </ul>
       )}
-
-      <button
-        type="button"
-        onClick={onOpenGraph}
-        className="w-full rounded-md border border-sky-500/60 px-3 py-2 text-sm font-medium text-sky-200 hover:bg-sky-500/10"
-      >
-        Ver grafo de acciones
-      </button>
     </div>
   );
 }

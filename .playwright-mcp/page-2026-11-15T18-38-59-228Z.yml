@@ -1,0 +1,149 @@
+- generic [ref=f2e3]:
+  - banner [ref=f2e10]:
+    - generic [ref=f2e11]:
+      - heading "TwinNauta" [level=1] [ref=f2e12]
+      - generic [ref=f2e18]:
+        - text: Caso
+        - combobox "Caso" [ref=f2e19]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=f2e20]:
+        - generic [ref=f2e21]: Día de misión
+        - slider "Día de misión" [ref=f2e22]: "10"
+        - generic [ref=f2e23]: 10 / 70
+        - button "Evaluar día 10" [ref=f2e24]
+      - button "Pulso de ejemplo" [ref=f2e25]
+      - button "Biblioteca científica" [ref=f2e26]
+      - button "Cómo leer esta demo" [ref=f2e27]: Guía
+      - 'generic "Los datos provienen de contracts/examples: son sintéticos y no son resultados del backend." [ref=f2e28]': Demo
+  - generic [ref=f2e29]:
+    - main [ref=f2e30]:
+      - generic [ref=f2e32]:
+        - generic [ref=f2e33]:
+          - generic "Modelo anatómico 3D" [ref=f2e35]
+          - generic [ref=f2e38]:
+            - region "Estado general" [ref=f2e40]:
+              - generic [ref=f2e41]:
+                - heading "Estado general" [level=2] [ref=f2e42]
+                - paragraph [ref=f2e43]: Astronauta virtual, caso de práctica
+              - generic [ref=f2e44]:
+                - heading "Misión" [level=3] [ref=f2e45]
+                - paragraph [ref=f2e50]:
+                  - generic [ref=f2e51]: Día 10
+                  - generic [ref=f2e52]: de 70
+              - generic [ref=f2e53]:
+                - heading "Zonas por revisar" [level=3] [ref=f2e54]
+                - button "Cuádriceps Registro por revisar" [ref=f2e55]:
+                  - generic [ref=f2e59]:
+                    - generic [ref=f2e60]: Cuádriceps
+                    - generic [ref=f2e61]: Registro por revisar
+              - generic [ref=f2e62]:
+                - generic [ref=f2e63]:
+                  - heading "Ejercicio" [level=3] [ref=f2e64]
+                  - paragraph [ref=f2e65]: 1/2
+                  - img "1 de 2 sesiones con registro" [ref=f2e66]
+                  - paragraph [ref=f2e69]: sesiones con registro
+                - generic [ref=f2e70]:
+                  - heading "Mediciones" [level=3] [ref=f2e71]
+                  - paragraph [ref=f2e72]: 1/2
+                  - paragraph [ref=f2e73]: con dato en la zona
+                - generic [ref=f2e74]:
+                  - heading "Pulso" [level=3] [ref=f2e75]
+                  - paragraph [aria-hidden] [ref=f2e76]: – –
+                  - paragraph [ref=f2e77]: Sin sensor en este caso
+                  - button "Ver un ejemplo en Tierra" [ref=f2e78]
+                - generic [ref=f2e79]:
+                  - heading "Temperatura" [level=3] [ref=f2e80]
+                  - paragraph [aria-hidden] [ref=f2e81]: – –
+                  - paragraph [ref=f2e82]: Sin sensor en este caso
+            - button "‹ Ocultar estado general" [ref=f2e83]
+          - button "Ver cuerpo completo" [ref=f2e84]
+        - generic [ref=f2e85]:
+          - generic [ref=f2e86]:
+            - generic [ref=f2e87]: "Regiones:"
+            - button "Cuádriceps" [pressed] [ref=f2e88]
+          - list "Leyenda del modelo" [ref=f2e89]:
+            - listitem [ref=f2e90]: "Baliza: zona con algo por revisar"
+            - listitem [ref=f2e92]: Zona con seguimiento
+            - listitem [ref=f2e94]: Resto del cuerpo, sin evaluar
+            - listitem [ref=f2e96]: Los colores no indican estado de salud.
+          - paragraph [ref=f2e97]: "El modelo solo representa la capa superficial: el vasto intermedio no aparece, aunque forma parte del cuádriceps."
+          - paragraph [ref=f2e98]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=f2e99]:
+      - generic [ref=f2e100]:
+        - generic [ref=f2e101]:
+          - heading "Cuádriceps" [level=2] [ref=f2e102]
+          - button "Cerrar región" [ref=f2e103]: ×
+        - tablist "Pasos de la zona" [ref=f2e104]:
+          - tab "Qué pasa" [ref=f2e105]:
+            - generic [aria-hidden] [ref=f2e106]: "1"
+            - text: Qué pasa
+          - tab "Qué puede pasar" [ref=f2e107]:
+            - generic [aria-hidden] [ref=f2e108]: "2"
+            - text: Qué puede pasar
+          - tab "Qué hacer" [active] [selected] [ref=f2e109]:
+            - generic [aria-hidden] [ref=f2e110]: "3"
+            - text: Qué hacer
+        - tabpanel "Qué hacer" [ref=f2e188]:
+          - generic "Hay información útil y partes que no pudieron calcularse." [ref=f2e113]:
+            - generic [ref=f2e114]: Evaluación Parcial
+            - generic [ref=f2e115]: Día 10
+            - generic [ref=f2e116]: Caso de práctica
+          - generic [ref=f2e189]:
+            - generic [ref=f2e190]:
+              - paragraph [ref=f2e191]: "Ejemplo ilustrativo: revisar información faltante. No hay una prescripción clínica."
+              - paragraph [ref=f2e192]: Son comprobaciones de datos pendientes de revisión, no indicaciones médicas.
+              - list [ref=f2e193]:
+                - listitem [ref=f2e194]:
+                  - generic [ref=f2e195]:
+                    - generic [ref=f2e196]: Revisar el registro de la sesión
+                    - generic [ref=f2e197]:
+                      - generic [ref=f2e198]: Pendiente de revisión
+                      - generic [ref=f2e199]: Habilitada
+                  - paragraph [ref=f2e200]: Ejemplo editorial de seguimiento de información faltante, no una prescripción.
+                  - group [ref=f2e201]:
+                    - generic "Condiciones" [ref=f2e202] [cursor=pointer]
+                  - group "Marca cómo va (solo es un registro)" [ref=f2e203]:
+                    - generic [ref=f2e205]:
+                      - button "Pendiente" [pressed] [ref=f2e206]
+                      - button "Realizada" [ref=f2e207]
+                      - button "Omitida" [ref=f2e208]
+            - generic [ref=f2e209]:
+              - generic [ref=f2e210]:
+                - heading "De dónde sale esto" [level=3] [ref=f2e211]
+                - button "Ampliar el mapa" [ref=f2e212]
+              - button "Ampliar el mapa de Acciones" [ref=f2e213]:
+                - generic:
+                  - application:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - generic:
+                            - img:
+                              - img "Edge from action_log to finding_log"
+                            - img:
+                              - img "Edge from claim_demo to demo_seed"
+                          - generic:
+                            - 'button "Acción: Revisar registro. Intro para ver el detalle." [ref=f2e214]':
+                              - generic [ref=f2e215]:
+                                - generic [ref=f2e217]: Acción
+                                - paragraph [ref=f2e219]: Revisar registro
+                            - 'button "Hallazgo: Registro por revisar. Intro para ver el detalle." [ref=f2e221]':
+                              - generic [ref=f2e222]:
+                                - generic [ref=f2e224]: Hallazgo
+                                - paragraph [ref=f2e226]: Registro por revisar
+                            - 'button "Afirmación: Regla editorial ilustrativa. Intro para ver el detalle." [ref=f2e228]':
+                              - generic [ref=f2e229]:
+                                - generic [ref=f2e231]: Afirmación
+                                - paragraph [ref=f2e233]: Regla editorial ilustrativa
+                            - 'button "Fuente: Ejemplo sintético. Intro para ver el detalle." [ref=f2e235]':
+                              - generic [ref=f2e236]:
+                                - generic [ref=f2e238]: Fuente
+                                - paragraph [ref=f2e240]: Ejemplo sintético
+                    - generic:
+                      - link "React Flow attribution":
+                        - /url: https://reactflow.dev/attribution
+                        - text: React Flow
+            - group [ref=f2e242]:
+              - generic "› Explicación ampliada" [ref=f2e243] [cursor=pointer]:
+                - generic [ref=f2e244]: ›
+                - text: Explicación ampliada

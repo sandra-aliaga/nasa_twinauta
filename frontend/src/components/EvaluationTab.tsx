@@ -227,11 +227,102 @@ function ExerciseBars({ records }: { records: ExerciseRecord[] }) {
   );
 }
 
+/** Latest value of one indicator as a big, glanceable tile. */
+function StatTile({
+  indicator,
+  observations,
+}: {
+  indicator: IndicatorDefinition;
+  observations: Observation[];
+}) {
+  const latest = [...observations].sort(
+    (a, b) => b.mission_day - a.mission_day,
+  )[0];
+  const missing = !latest || latest.value === null;
+  return (
+    <div className={`hud-panel p-3 pl-4 ${missing ? "hud-panel-empty" : ""}`}>
+      <h4 className="text-xs leading-snug text-slate-300">{indicator.label}</h4>
+      {missing ? (
+        <>
+          <p className="mt-2 font-display text-xl text-slate-500">Sin dato</p>
+          <p className="mt-1 line-clamp-2 text-[11px] text-slate-400">
+            {latest?.missing_reason ?? "No hay mediciones hasta este día."}
+          </p>
+        </>
+      ) : (
+        <>
+          <p className="mt-2 font-display text-xl text-slate-50">
+            {latest.value}
+            <span className="ml-1 font-sans text-xs text-slate-400">
+              {UNIT_LABELS[latest.unit]}
+            </span>
+          </p>
+          {latest.unit === "percent_baseline" && latest.value !== null ? (
+            <div
+              className="mt-2 h-1.5 overflow-hidden rounded-full bg-slate-800"
+              aria-hidden="true"
+            >
+              <div
+                className="h-full rounded-full bg-step-now"
+                style={{
+                  width: `${Math.max(0, Math.min(100, latest.value))}%`,
+                }}
+              />
+            </div>
+          ) : null}
+          <p className="mt-1 text-[11px] text-slate-400">
+            Medido el día {latest.mission_day}
+          </p>
+        </>
+      )}
+    </div>
+  );
+}
+
+/** Sessions with a record out of the planned ones, as pips. */
+function ExerciseTile({ records }: { records: ExerciseRecord[] }) {
+  const recorded = records.filter(
+    (record) => record.record_status === "recorded",
+  ).length;
+  return (
+    <div className="hud-panel col-span-2 p-3 pl-4">
+      <h4 className="text-xs text-slate-300">Ejercicio</h4>
+      {records.length === 0 ? (
+        <p className="mt-2 text-xs text-slate-400">
+          Sin sesiones planificadas hasta este día.
+        </p>
+      ) : (
+        <div className="mt-2 flex items-center gap-3">
+          <p className="font-display text-xl text-slate-50">
+            {recorded}/{records.length}
+          </p>
+          <div className="min-w-0 flex-1">
+            <div className="flex gap-1" aria-hidden="true">
+              {records.map((record) => (
+                <span
+                  key={record.id}
+                  className={`h-2 flex-1 rounded-full ${
+                    record.record_status === "recorded"
+                      ? "bg-step-now"
+                      : "border border-dashed border-step-do/70"
+                  }`}
+                />
+              ))}
+            </div>
+            <p className="mt-1 text-[11px] text-slate-400">
+              sesiones con registro. Sin registro no significa que no se hizo.
+            </p>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
 type EvaluationTabProps = {
   assessment: Assessment;
   region: Region;
   indicators: IndicatorDefinition[];
-  onOpenGraph: () => void;
 };
 
 /** "Evaluacion de la zona": findings, related data, limits and sources. */
@@ -239,7 +330,6 @@ export function EvaluationTab({
   assessment,
   region,
   indicators,
-  onOpenGraph,
 }: EvaluationTabProps) {
   const regionIndicators = region.indicator_ids
     .map((id) => indicators.find((indicator) => indicator.id === id))
@@ -258,49 +348,45 @@ export function EvaluationTab({
   );
 
   return (
-    <div className="space-y-5">
-      <p className="text-sm leading-relaxed text-slate-200">
+    <div className="space-y-4">
+      <p className="text-[15px] leading-relaxed text-slate-100">
         {assessment.summary}
       </p>
 
-      <section>
-        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
-          Hallazgos
-        </h3>
-        {assessment.findings.length === 0 ? (
-          <p className="text-sm italic text-slate-400">
-            No hay hallazgos interpretativos para esta evaluación.
-          </p>
-        ) : (
-          <ul className="space-y-2">
-            {assessment.findings.map((finding) => (
-              <li
-                key={finding.id}
-                className="rounded-md border border-slate-800 px-3 py-2"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <span className="text-sm font-medium text-slate-100">
-                    {finding.title}
-                  </span>
-                  <Tag tone={ATTENTION_TONES[finding.attention]}>
-                    {ATTENTION_LABELS[finding.attention]}
-                  </Tag>
-                </div>
-                <p className="mt-1 text-sm text-slate-300">
-                  {finding.description}
-                </p>
-              </li>
-            ))}
-          </ul>
-        )}
-      </section>
+      {assessment.findings.length > 0 ? (
+        <ul className="space-y-2">
+          {assessment.findings.map((finding) => (
+            <li
+              key={finding.id}
+              className="hud-panel px-4 py-2.5"
+              style={
+                {
+                  "--rail":
+                    finding.attention === "review_needed"
+                      ? "var(--color-step-do)"
+                      : "var(--color-step-now)",
+                } as React.CSSProperties
+              }
+            >
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-sm font-semibold text-slate-50">
+                  {finding.title}
+                </span>
+                <Tag tone={ATTENTION_TONES[finding.attention]}>
+                  {ATTENTION_LABELS[finding.attention]}
+                </Tag>
+              </div>
+              <p className="mt-1 text-sm text-slate-300">
+                {finding.description}
+              </p>
+            </li>
+          ))}
+        </ul>
+      ) : null}
 
-      <section className="space-y-4">
-        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
-          Datos relacionados
-        </h3>
+      <div className="grid grid-cols-2 gap-2">
         {regionIndicators.map((indicator) => (
-          <IndicatorBlock
+          <StatTile
             key={indicator.id}
             indicator={indicator}
             observations={assessment.observations.filter(
@@ -308,62 +394,76 @@ export function EvaluationTab({
             )}
           />
         ))}
-        <ExerciseBlock records={assessment.exercise_records} />
-      </section>
+        <ExerciseTile records={assessment.exercise_records} />
+      </div>
 
-      <Collapsible title={`Límites de interpretación (${limitationCount})`}>
-        <dl className="space-y-2">
-          {limitationGroups.map(({ label, items }) => (
-            <div key={label}>
-              <dt className="text-xs font-medium text-slate-400">{label}</dt>
-              {items.length === 0 ? (
-                <dd className="text-xs italic text-slate-400">
-                  Sin elementos declarados.
-                </dd>
-              ) : (
-                items.map((item) => <dd key={item}>• {item}</dd>)
+      <Collapsible title="Ver el detalle de los datos">
+        <div className="space-y-4 pt-1">
+          {regionIndicators.map((indicator) => (
+            <IndicatorBlock
+              key={indicator.id}
+              indicator={indicator}
+              observations={assessment.observations.filter(
+                (observation) => observation.indicator_id === indicator.id,
               )}
-            </div>
+            />
           ))}
-        </dl>
+          <ExerciseBlock records={assessment.exercise_records} />
+        </div>
       </Collapsible>
 
-      <Collapsible title={`Fuentes (${assessment.sources.length})`}>
-        <ul className="space-y-2">
-          {assessment.sources.map((source) => (
-            <li key={source.id}>
-              <p className="text-slate-200">
-                {source.url ? (
-                  <a
-                    href={source.url}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="underline decoration-slate-500 hover:text-sky-300"
-                  >
-                    {source.title}
-                  </a>
-                ) : (
-                  source.title
-                )}
-              </p>
-              <p className="text-xs text-slate-400">
-                {source.locator} · {REVIEW_LABELS[source.review_status]}
-              </p>
-            </li>
-          ))}
-        </ul>
-      </Collapsible>
+      <Collapsible title="Límites y fuentes">
+        <div className="space-y-2 pt-1">
+          <Collapsible title={`Límites de interpretación (${limitationCount})`}>
+            <dl className="space-y-2">
+              {limitationGroups.map(({ label, items }) => (
+                <div key={label}>
+                  <dt className="text-xs font-medium text-slate-400">
+                    {label}
+                  </dt>
+                  {items.length === 0 ? (
+                    <dd className="text-xs italic text-slate-400">
+                      Sin elementos declarados.
+                    </dd>
+                  ) : (
+                    items.map((item) => <dd key={item}>• {item}</dd>)
+                  )}
+                </div>
+              ))}
+            </dl>
+          </Collapsible>
 
-      <button
-        type="button"
-        onClick={onOpenGraph}
-        className="w-full rounded-md border border-sky-500/60 px-3 py-2 text-sm font-medium text-sky-200 hover:bg-sky-500/10"
-      >
-        ¿Por qué? Ver fundamento
-      </button>
+          <Collapsible title={`Fuentes (${assessment.sources.length})`}>
+            <ul className="space-y-2">
+              {assessment.sources.map((source) => (
+                <li key={source.id}>
+                  <p className="text-slate-200">
+                    {source.url ? (
+                      <a
+                        href={source.url}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="underline decoration-slate-500 hover:text-sky-300"
+                      >
+                        {source.title}
+                      </a>
+                    ) : (
+                      source.title
+                    )}
+                  </p>
+                  <p className="text-xs text-slate-400">
+                    {source.locator}
+                    {source.review_status === "reviewed" ? " · revisado" : ""}
+                  </p>
+                </li>
+              ))}
+            </ul>
+          </Collapsible>
 
-      <Collapsible title="Orientación operativa de esta evaluación">
-        <GuidanceCard assessment={assessment} />
+          <Collapsible title="Orientación operativa de esta evaluación">
+            <GuidanceCard assessment={assessment} />
+          </Collapsible>
+        </div>
       </Collapsible>
     </div>
   );
