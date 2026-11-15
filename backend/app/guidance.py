@@ -2,7 +2,7 @@
 
 from datetime import datetime
 
-from app.schemas import Assessment, Guidance, GuidanceStep, ModuleCatalog
+from app.schemas import Assessment, Guidance, GuidanceStep, ModuleCatalog, Observation
 
 RULES_VERSION = "operational-0.1"
 
@@ -71,7 +71,7 @@ def build_guidance(
     observations = [
         item for item in assessment.observations if item.indicator_id in module.indicator_ids
     ]
-    latest = {}
+    latest: dict[str, Observation] = {}
     for item in sorted(observations, key=lambda item: (item.mission_day, item.id)):
         latest[item.indicator_id] = item
     missing = [

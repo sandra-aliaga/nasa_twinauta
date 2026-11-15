@@ -17,8 +17,10 @@ from app.papers import (
 from app.schemas import (
     GraphCounts,
     GraphPage,
+    GraphView,
     KnowledgeEdge,
     KnowledgeNode,
+    Page,
     PaperCard,
 )
 
@@ -63,7 +65,7 @@ def get_knowledge_graph(
     *,
     q: str | None,
     region_id: str | None,
-    view: str,
+    view: GraphView,
     review_status: str | None,
     year_from: int | None,
     year_to: int | None,
@@ -137,7 +139,7 @@ def paper_neighbors(
 def project_graph_page(
     matches: list[tuple[LiteraturePaperRecord, PaperCard]],
     *,
-    view: str,
+    view: GraphView,
     assessment_id: str | None,
     offset: int,
     limit: int,
@@ -169,7 +171,7 @@ def project_graph_page(
         view=view,
         nodes=paper_nodes + topic_nodes,
         edges=topic_edges,
-        page={"next_cursor": next_cursor, "has_more": has_more},
+        page=Page(next_cursor=next_cursor, has_more=has_more),
         scope_description=(
             "Relaciones temáticas editoriales del corpus candidato; no representan "
             "respaldo científico, causalidad ni independencia de cohortes."

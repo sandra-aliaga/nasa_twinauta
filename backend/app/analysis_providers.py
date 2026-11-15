@@ -2,7 +2,7 @@
 
 import json
 from hashlib import sha256
-from typing import Annotated, Literal, Protocol
+from typing import Annotated, Any, Literal, Protocol
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
 from urllib.request import HTTPRedirectHandler, Request, build_opener
@@ -79,6 +79,7 @@ class AnalysisProvider(Protocol):
 
     def analyze(self, *, paper_id: str, text: str) -> AnalysisDraft:
         """Return candidate content grounded in the supplied abstract."""
+        ...
 
 
 class NoRedirect(HTTPRedirectHandler):
@@ -102,6 +103,7 @@ class HTTPAnalysisProvider:
         if address.username or address.password or address.query or address.fragment:
             raise ValueError("Endpoint credentials must use ANALYSIS_API_KEY.")
         self.settings = settings
+        self.url = settings.analysis_url
         self.model = settings.analysis_model
         if (
             settings.analysis_thinking is not None
@@ -154,10 +156,12 @@ class HTTPAnalysisProvider:
         except (ValueError, KeyError):
             raise ProviderError("Provider returned an invalid analysis structure.") from None
 
-    def generate_json(self, *, instruction: str, content: dict, schema: dict) -> dict:
+    def generate_json(
+        self, *, instruction: str, content: dict[str, Any], schema: dict[str, Any]
+    ) -> dict[str, Any]:
         """Perform one JSON request and retain reported usage without credentials."""
         self.last_usage = {}
-        payload = {
+        payload: dict[str, object] = {
             "model": self.model,
             "stream": False,
             "messages": [
@@ -179,9 +183,7 @@ class HTTPAnalysisProvider:
         headers = {"Content-Type": "application/json"}
         if self.settings.analysis_api_key:
             headers["Authorization"] = "Bearer " + self.settings.analysis_api_key.get_secret_value()
-        request = Request(
-            self.settings.analysis_url, data=json.dumps(payload).encode(), headers=headers
-        )
+        request = Request(self.url, data=json.dumps(payload).encode(), headers=headers)
         try:
             with build_opener(NoRedirect()).open(
                 request, timeout=self.settings.analysis_timeout_seconds
@@ -214,15 +216,17 @@ class HTTPAnalysisProvider:
                     and value >= 0
                 }
             if self.settings.analysis_provider == "ollama":
-                content = result["message"]["content"]
+                response_content = result["message"]["content"]
                 if result.get("done") is not True:
                     raise ValueError("Incomplete response")
             else:
                 choice = result["choices"][0]
                 if choice.get("finish_reason") != "stop":
                     raise ValueError("Incomplete response")
-                content = choice["message"]["content"]
-            document = json.loads(content)
+                response_content = choice["message"]["content"]
+            if not isinstance(response_content, str):
+                raise ValueError("Expected JSON response text")
+            document = json.loads(response_content)
             if not isinstance(document, dict):
                 raise ValueError("Expected a JSON object")
             return document

@@ -5,6 +5,7 @@ import json
 from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
+from typing import Any, NotRequired, TypedDict
 
 from app.analysis import validate_draft
 from app.analysis_providers import (
@@ -19,7 +20,31 @@ from app.config import get_settings
 from app.prepare_context import write_document
 
 
-def cached_paper(paper: dict, directories: list[Path], model_id: str) -> dict | None:
+class PreparationRecord(TypedDict):
+    paper_id: str
+    status: str
+    usage: dict[str, int]
+    failure_reason: NotRequired[str]
+
+
+class AbstractManifest(TypedDict):
+    status: str
+    corpus_version: str
+    model_id: str
+    prompt_version: str
+    maximum_calls: int
+    calls_attempted: int
+    review_status: str
+    clinical_action_eligible: bool
+    records: list[PreparationRecord]
+    started_at: NotRequired[str]
+    finished_at: NotRequired[str]
+    reported_usage: NotRequired[dict[str, int]]
+
+
+def cached_paper(
+    paper: dict[str, Any], directories: list[Path], model_id: str
+) -> dict[str, Any] | None:
     """Reuse only matching current inputs whose generated excerpts still validate."""
     digest = sha256(paper["abstract_text"].encode()).hexdigest()
     for directory in directories:
@@ -43,7 +68,7 @@ def cached_paper(paper: dict, directories: list[Path], model_id: str) -> dict | 
 
 def prepare_abstracts(
     paper_ids: list[str], output_dir: Path, reuse_dirs: list[Path], *, execute: bool
-) -> dict:
+) -> AbstractManifest:
     """Process each requested paper once, preserving failures without automatic retries."""
     corpus = {paper["id"]: paper for paper in candidate_papers()}
     if (
@@ -54,7 +79,7 @@ def prepare_abstracts(
         raise ValueError("Select distinct identifiers from the installed corpus.")
     provider = HTTPAnalysisProvider(get_settings())
     model_id = f"{provider.provider_id}/{provider.model}"
-    records = []
+    records: list[PreparationRecord] = []
     cached = {}
     for paper_id in paper_ids:
         paper = corpus[paper_id]
@@ -66,7 +91,7 @@ def prepare_abstracts(
             if reuse:
                 cached[paper_id] = reuse
         records.append({"paper_id": paper_id, "status": status, "usage": {}})
-    manifest = {
+    manifest: AbstractManifest = {
         "status": "preview",
         "corpus_version": knowledge_base_metadata().corpus_version,
         "model_id": model_id,

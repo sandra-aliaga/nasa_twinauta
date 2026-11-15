@@ -3,7 +3,7 @@
 import base64
 import binascii
 import json
-from typing import Any
+from typing import Any, Literal
 
 from sqlalchemy import Text, cast, or_, select
 from sqlalchemy.orm import Session
@@ -12,6 +12,7 @@ from app.analysis import analysis_documents
 from app.database import AssessmentRecord, LiteraturePaperRecord
 from app.errors import DomainError, not_found
 from app.schemas import (
+    GraphView,
     Page,
     PaperAccess,
     PaperApplicability,
@@ -63,17 +64,23 @@ def _fingerprint(filters: dict[str, Any]) -> str:
     return json.dumps(filters, sort_keys=True, separators=(",", ":"))
 
 
-def _environment(value: str) -> str:
-    return {
+type PaperEnvironment = Literal[
+    "spaceflight", "bed_rest", "terrestrial_exercise", "other", "mixed", "unknown"
+]
+
+
+def _environment(value: str) -> PaperEnvironment:
+    environments: dict[str, PaperEnvironment] = {
         "spaceflight": "spaceflight",
         "head_down_bed_rest": "bed_rest",
         "horizontal_bed_rest": "bed_rest",
         "bed_rest": "bed_rest",
-    }.get(value, "mixed" if "_" in value else "unknown")
+    }
+    return environments.get(value, "mixed" if "_" in value else "unknown")
 
 
-def _sections(topics: list[str]) -> list[str]:
-    sections: list[str] = []
+def _sections(topics: list[str]) -> list[GraphView]:
+    sections: list[GraphView] = []
     if any(
         topic in topics for topic in ("status", "evolution", "measurement_protocol", "mechanisms")
     ):

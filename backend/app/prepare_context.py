@@ -2,9 +2,11 @@
 
 import argparse
 import json
+from collections.abc import Mapping
 from datetime import UTC, datetime
 from hashlib import sha256
 from pathlib import Path
+from typing import Any, NotRequired, TypedDict
 
 from app.analysis import validate_draft
 from app.analysis_providers import (
@@ -21,7 +23,27 @@ from app.guidance import build_guidance
 from app.schemas import Assessment
 
 
-def write_document(path: Path, document: dict) -> None:
+class ContextManifest(TypedDict):
+    """Track job progress with explicit counter and collection types."""
+
+    status: str
+    assessment_id: str
+    paper_ids: list[str]
+    maximum_calls: int
+    calls_attempted: int
+    review_status: str
+    clinical_action_eligible: bool
+    corpus_version: str
+    files: list[str]
+    reused_papers: list[str]
+    started_at: NotRequired[str]
+    finished_at: NotRequired[str]
+    model_id: NotRequired[str]
+    failure_reason: NotRequired[str]
+    last_call_usage: NotRequired[dict[str, int]]
+
+
+def write_document(path: Path, document: Mapping[str, object]) -> None:
     """Write preparation state without credentials or raw HTTP responses."""
     path.write_text(json.dumps(document, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
@@ -33,7 +55,7 @@ def prepare(
     *,
     execute: bool,
     prepared_papers_dir: Path | None = None,
-) -> dict:
+) -> ContextManifest:
     """Allow at most three abstract calls and one synthesis; never retry automatically."""
     if not paper_ids or len(paper_ids) > 3 or len(set(paper_ids)) != len(paper_ids):
         raise ValueError("Select one to three distinct papers for this pilot.")
@@ -51,7 +73,7 @@ def prepare(
     )
     if guidance.corpus_version is None:
         raise ValueError("This assessment does not have a supported contextual module.")
-    manifest = {
+    manifest: ContextManifest = {
         "status": "preview",
         "assessment_id": assessment.assessment_id,
         "paper_ids": paper_ids,
@@ -69,14 +91,15 @@ def prepare(
     if not settings.analysis_api_key or not settings.analysis_api_key.get_secret_value().strip():
         raise ValueError("Configure ANALYSIS_API_KEY in the private backend environment.")
     provider = HTTPAnalysisProvider(settings)
+    model_id = f"{provider.provider_id}/{provider.model}"
     output_dir.mkdir(parents=True, exist_ok=False)
     manifest.update(
         status="running",
         started_at=datetime.now(UTC).isoformat(),
-        model_id=f"{provider.provider_id}/{provider.model}",
+        model_id=model_id,
     )
     write_document(output_dir / "manifest.json", manifest)
-    papers = []
+    papers: list[dict[str, Any]] = []
     try:
         for paper_id in paper_ids:
             paper = corpus[paper_id]
@@ -88,7 +111,7 @@ def prepare(
                     cached.get("paper_id") != paper_id
                     or cached.get("input_sha256")
                     != sha256(paper["abstract_text"].encode()).hexdigest()
-                    or cached.get("model_id") != manifest["model_id"]
+                    or cached.get("model_id") != model_id
                     or cached.get("prompt_version") not in REUSABLE_PROMPT_VERSIONS
                     or cached.get("abstract") != paper["abstract_text"]
                 ):
@@ -104,14 +127,14 @@ def prepare(
                 draft = provider.analyze(paper_id=paper_id, text=paper["abstract_text"])
                 usage = provider.last_usage
             validate_draft(draft, paper["abstract_text"])
-            prepared = {
+            prepared: dict[str, Any] = {
                 "paper_id": paper_id,
                 "title": paper["title"],
                 "abstract": paper["abstract_text"],
                 "input_sha256": sha256(paper["abstract_text"].encode()).hexdigest(),
                 "prompt_version": analysis_prompt_version,
                 "review_status": "pending",
-                "model_id": manifest["model_id"],
+                "model_id": model_id,
                 "usage": usage,
                 "reused_from": str(prepared_papers_dir)
                 if prepared_papers_dir is not None
