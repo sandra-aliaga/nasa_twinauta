@@ -48,6 +48,8 @@ type AnatomyStageProps = {
   regions: Region[];
   selectedRegionId: string | null;
   onSelect: (regionId: string) => void;
+  /** Floating card over the empty left side of the 3D view (wide screens). */
+  sidePanel?: ReactNode;
 };
 
 /** Body view: 3D model when possible, 2D placeholder otherwise. */
@@ -55,8 +57,10 @@ export function AnatomyStage({
   regions,
   selectedRegionId,
   onSelect,
+  sidePanel,
 }: AnatomyStageProps) {
   const [webgl] = useState(hasWebGL);
+  const [sideOpen, setSideOpen] = useState(true);
   // A new selection frames its region; the user can return to the body.
   const [focus, setFocus] = useState<CameraFocus>("body");
   useEffect(() => {
@@ -105,11 +109,35 @@ export function AnatomyStage({
             />
           </Suspense>
         </FallbackBoundary>
+        {sidePanel ? (
+          sideOpen ? (
+            <div className="absolute bottom-4 left-4 top-4 z-10 hidden w-72 animate-slide-in-right flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-950/75 shadow-xl shadow-black/40 backdrop-blur lg:flex">
+              <div className="min-h-0 flex-1 overflow-y-auto p-4">
+                {sidePanel}
+              </div>
+              <button
+                type="button"
+                onClick={() => setSideOpen(false)}
+                className="border-t border-slate-800 px-4 py-2 text-left text-xs text-slate-400 hover:text-slate-200"
+              >
+                ‹ Ocultar ficha
+              </button>
+            </div>
+          ) : (
+            <button
+              type="button"
+              onClick={() => setSideOpen(true)}
+              className="absolute left-4 top-4 z-10 hidden rounded-md border border-slate-700 bg-slate-950/80 px-3 py-1 text-xs text-slate-200 hover:border-sky-400 lg:block"
+            >
+              Ficha del caso ›
+            </button>
+          )
+        ) : null}
         {selectedRegionId && REGION_MESHES[selectedRegionId] ? (
           <button
             type="button"
             onClick={() => setFocus(focus === "region" ? "body" : "region")}
-            className="absolute left-4 top-4 rounded-md border border-slate-700 bg-slate-950/80 px-3 py-1 text-xs text-slate-200 hover:border-sky-400"
+            className="absolute left-1/2 top-4 -translate-x-1/2 rounded-md border border-slate-700 bg-slate-950/80 px-3 py-1 text-xs text-slate-200 hover:border-sky-400"
           >
             {focus === "region" ? "Ver cuerpo completo" : "Enfocar región"}
           </button>

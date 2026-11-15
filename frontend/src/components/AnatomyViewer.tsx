@@ -1,12 +1,13 @@
 import {
   Bounds,
+  Float,
   OrbitControls,
   useBounds,
   useGLTF,
   useProgress,
 } from "@react-three/drei";
 import { Canvas, type ThreeEvent } from "@react-three/fiber";
-import { Suspense, useEffect, useMemo, useState } from "react";
+import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   Box3,
   Color,
@@ -220,7 +221,7 @@ function LoadingOverlay() {
   return (
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
       <p className="rounded-md bg-slate-900/80 px-3 py-1 text-sm text-slate-200">
-        Cargando modelo 3D (16 MB)…
+        Cargando modelo 3D (2,6 MB)…
       </p>
     </div>
   );
@@ -233,6 +234,26 @@ export default function AnatomyViewer({
   onSelect,
   focus,
 }: ModelProps) {
+  // Idle motion: the body turns slowly until someone interacts, then waits
+  // a few seconds before resuming. Off for reduced motion or a selection.
+  const [idle, setIdle] = useState(true);
+  const resumeRef = useRef<number | null>(null);
+  useEffect(
+    () => () => {
+      if (resumeRef.current !== null) window.clearTimeout(resumeRef.current);
+    },
+    [],
+  );
+  function pauseIdle() {
+    if (resumeRef.current !== null) window.clearTimeout(resumeRef.current);
+    setIdle(false);
+  }
+  function scheduleIdle() {
+    if (resumeRef.current !== null) window.clearTimeout(resumeRef.current);
+    resumeRef.current = window.setTimeout(() => setIdle(true), 8000);
+  }
+  const animate = !REDUCED_MOTION;
+
   return (
     <div className="relative h-full w-full">
       <Canvas
@@ -254,15 +275,31 @@ export default function AnatomyViewer({
             maxDuration={REDUCED_MOTION ? 0.01 : 0.6}
             interpolateFunc={easeInOutCubic}
           >
-            <Model
-              regionIds={regionIds}
-              selectedRegionId={selectedRegionId}
-              onSelect={onSelect}
-              focus={focus}
-            />
+            {/* Gentle drift, evocative of microgravity; it is not data. */}
+            <Float
+              enabled={animate}
+              speed={1.2}
+              floatIntensity={0.3}
+              rotationIntensity={0.1}
+            >
+              <Model
+                regionIds={regionIds}
+                selectedRegionId={selectedRegionId}
+                onSelect={onSelect}
+                focus={focus}
+              />
+            </Float>
           </Bounds>
         </Suspense>
-        <OrbitControls makeDefault enablePan={false} enableDamping />
+        <OrbitControls
+          makeDefault
+          enablePan={false}
+          enableDamping
+          autoRotate={animate && idle && selectedRegionId === null}
+          autoRotateSpeed={0.6}
+          onStart={pauseIdle}
+          onEnd={scheduleIdle}
+        />
       </Canvas>
       <LoadingOverlay />
     </div>
