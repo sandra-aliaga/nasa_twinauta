@@ -8,6 +8,32 @@ from typing import Annotated, Literal, Self
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
+def unique_ids(identifiers: list[str], label: str) -> set[str]:
+    """Reject ambiguous references within one payload."""
+    result = set(identifiers)
+    if len(result) != len(identifiers):
+        raise ValueError(f"{label} identifiers must be unique.")
+    return result
+
+
+def validate_claim_sources(
+    claims: list[EvidenceClaim], sources: list[Source], reviewed_claim_ids: set[str]
+) -> None:
+    """Check provenance and require reviewed support only where it is used."""
+    source_map = {source.id: source for source in sources}
+    for claim in claims:
+        if not set(claim.source_ids).issubset(source_map):
+            raise ValueError("An evidence claim references a missing source.")
+        if claim.id not in reviewed_claim_ids:
+            continue
+        if claim.review_status != "reviewed" or not claim.source_ids:
+            raise ValueError("Scientific support requires a reviewed claim and sources.")
+        for source_id in claim.source_ids:
+            source = source_map[source_id]
+            if source.review_status != "reviewed" or not source.url or not source.locator.strip():
+                raise ValueError("Scientific support requires reviewed, traceable sources.")
+
+
 class ContractModel(BaseModel):
     """Reject unexpected fields and non-finite numeric values."""
 
@@ -130,6 +156,15 @@ class ExerciseRecord(ContractModel):
     origin: Literal["synthetic", "human_dataset"]
     source_id: str
 
+    @model_validator(mode="after")
+    def validate_record_status(self) -> Self:
+        """Do not report an actual duration for a session without a record."""
+        if self.record_status == "not_recorded" and self.recorded_duration_min is not None:
+            raise ValueError("Unrecorded sessions cannot have a recorded duration.")
+        if (self.resistance_value is None) != (self.resistance_unit is None):
+            raise ValueError("Resistance requires both a value and a unit.")
+        return self
+
 
 class Finding(ContractModel):
     """Represent the Finding contract payload."""
@@ -180,6 +215,9 @@ class Scenario(ContractModel):
     @model_validator(mode="after")
     def validate_scenario(self) -> Self:
         """Require model metadata and enforce the declared temporal domain."""
+        unique_ids([parameter.id for parameter in self.parameters], "Parameter")
+        if any(parameter.source_id not in self.source_ids for parameter in self.parameters):
+            raise ValueError("Parameter sources must be included in the scenario.")
         if self.status != "available":
             if self.points or not self.reason:
                 raise ValueError("Unavailable scenarios require a reason and no points.")
@@ -257,11 +295,13 @@ class Assessment(ContractModel):
     @model_validator(mode="after")
     def validate_snapshot(self) -> Self:
         """Reject future records, invalid baselines and broken evidence references."""
+        observation_ids = unique_ids([item.id for item in self.observations], "Observation")
+        exercise_ids = unique_ids([item.id for item in self.exercise_records], "Exercise")
+        source_ids = unique_ids([item.id for item in self.sources], "Source")
+        claim_ids = unique_ids([item.id for item in self.claims], "Claim")
+        finding_ids = unique_ids([item.id for item in self.findings], "Finding")
+        unique_ids([item.id for item in self.actions], "Action")
         observations = {item.id: item for item in self.observations}
-        source_ids = {item.id for item in self.sources}
-        claim_ids = {item.id for item in self.claims}
-        if len(observations) != len(self.observations):
-            raise ValueError("Observation identifiers must be unique.")
         for item in [*self.observations, *self.exercise_records]:
             if item.mission_day > self.mission_day or item.source_id not in source_ids:
                 raise ValueError("Snapshot records cannot be future-dated or lack a source.")
@@ -270,11 +310,21 @@ class Assessment(ContractModel):
                 baseline = observations.get(item.baseline_observation_id)
                 if (
                     baseline is None
+                    or baseline.id == item.id
+                    or baseline.value is None
                     or baseline.mission_day > item.mission_day
                     or baseline.indicator_id != item.indicator_id
                     or baseline.method != item.method
+                    or baseline.statistic != item.statistic
+                    or baseline.origin != item.origin
                 ):
-                    raise ValueError("The baseline must be available and use the same method.")
+                    raise ValueError("The baseline must be available and comparable in context.")
+        for finding in self.findings:
+            if not set(finding.related_ids).issubset(observation_ids | exercise_ids):
+                raise ValueError("A finding references a missing record.")
+        for action in self.actions:
+            if not set(action.related_finding_ids).issubset(finding_ids):
+                raise ValueError("An action references a missing finding.")
         for item in [*self.findings, *self.actions, *self.claims]:
             if not set(item.source_ids).issubset(source_ids):
                 raise ValueError("An evidence source is missing from the snapshot.")
@@ -283,6 +333,14 @@ class Assessment(ContractModel):
                 raise ValueError("An evidence claim is missing from the snapshot.")
         if not set(self.scenario.source_ids).issubset(source_ids):
             raise ValueError("A scenario source is missing from the snapshot.")
+        reviewed_claim_ids = set()
+        if self.content_mode == "evidence_based":
+            reviewed_claim_ids = {
+                claim_id for item in [*self.findings, *self.actions] for claim_id in item.claim_ids
+            }
+            if any(action.review_status != "reviewed" for action in self.actions):
+                raise ValueError("Evidence-based actions must be reviewed.")
+        validate_claim_sources(self.claims, self.sources, reviewed_claim_ids)
         return self
 
 
@@ -337,11 +395,10 @@ class Graph(ContractModel):
     @model_validator(mode="after")
     def validate_connections(self) -> Self:
         """Ensure all displayed graph endpoints and evidence references exist."""
-        node_ids = {node.id for node in self.nodes}
-        source_ids = {source.id for source in self.sources}
-        claim_ids = {claim.id for claim in self.claims}
-        if len(node_ids) != len(self.nodes):
-            raise ValueError("Graph node identifiers must be unique.")
+        node_ids = unique_ids([node.id for node in self.nodes], "Graph node")
+        unique_ids([edge.id for edge in self.edges], "Graph edge")
+        source_ids = unique_ids([source.id for source in self.sources], "Graph source")
+        claim_ids = unique_ids([claim.id for claim in self.claims], "Graph claim")
         for node in self.nodes:
             if not set(node.source_ids).issubset(source_ids):
                 raise ValueError("A graph source is missing.")
@@ -352,6 +409,17 @@ class Graph(ContractModel):
                 raise ValueError("A graph edge references a missing claim.")
             if edge.relation == "supported_by" and not edge.claim_ids:
                 raise ValueError("Scientific support requires an explicit claim.")
+        reviewed_claim_ids = (
+            {
+                claim_id
+                for edge in self.edges
+                if edge.relation == "supported_by"
+                for claim_id in edge.claim_ids
+            }
+            if self.content_mode == "evidence_based"
+            else set()
+        )
+        validate_claim_sources(self.claims, self.sources, reviewed_claim_ids)
         return self
 
 
@@ -387,6 +455,22 @@ class TelemetryWindow(ContractModel):
     source: Source
     recording_end_s: Annotated[float, Field(ge=0, strict=True)]
     next_start_s: Annotated[float, Field(ge=0, strict=True)] | None
+
+    @model_validator(mode="after")
+    def validate_window(self) -> Self:
+        """Validate clipping, sample order and the independent playback cursor."""
+        if self.end_s <= self.start_s or self.end_s - self.start_s > 120:
+            raise ValueError("Telemetry windows must span more than zero and at most 120 seconds.")
+        effective_end = min(self.end_s, self.recording_end_s)
+        times = [point.time_s for point in self.points]
+        if times != sorted(set(times)):
+            raise ValueError("Telemetry sample times must be ordered and unique.")
+        if any(not self.start_s <= time < effective_end for time in times):
+            raise ValueError("A telemetry sample lies outside the clipped window.")
+        expected_next = effective_end if effective_end < self.recording_end_s else None
+        if self.next_start_s != expected_next:
+            raise ValueError("The playback cursor does not match the recording bounds.")
+        return self
 
 
 class AnatomyAsset(ContractModel):
@@ -448,6 +532,13 @@ class ScenarioDomain(ContractModel):
     baseline_definition: str
     individual_prediction: Literal[False]
 
+    @model_validator(mode="after")
+    def validate_bounds(self) -> Self:
+        """Reject reversed model-domain bounds."""
+        if self.min_reference_day > self.max_reference_day:
+            raise ValueError("The model domain cannot end before it starts.")
+        return self
+
 
 class TelemetryRecording(ContractModel):
     """Represent the TelemetryRecording contract payload."""
@@ -465,6 +556,13 @@ class TelemetryRecording(ContractModel):
     max_window_seconds: Literal[120]
     max_points: Literal[2000]
     source: Source
+
+    @model_validator(mode="after")
+    def validate_duration(self) -> Self:
+        """Require a positive recording interval."""
+        if self.end_s <= self.start_s:
+            raise ValueError("A recording must end after it starts.")
+        return self
 
 
 for model in tuple(globals().values()):

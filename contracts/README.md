@@ -2,6 +2,8 @@
 
 Acuerdo inicial para desarrollar en paralelo. [openapi.yaml](openapi.yaml) describe la API del backend inicial para contenido ilustrativo. La integración científica sigue pendiente. Los ejemplos en [examples/](examples/) son documentación sintética, no evidencia ni pruebas automatizadas.
 
+La aclaración de producto incorpora un explorador de múltiples papers, resúmenes de IA trazables, estadísticas y aplicabilidad contextual. Está definido por separado en la [propuesta 0.3](drafts/scientific-explorer-0.3/README.md), con OpenAPI, esquemas y ejemplos para frontend. **Es una propuesta aún no implementada; no sustituye este contrato 0.2.** Los grafos iniciales de una evaluación no cubren por sí solos esa biblioteca.
+
 ## Convenciones
 
 - Base propuesta: `http://localhost:8000/api/v1`. HTTP con JSON y claves `snake_case`. IDs opacos de tipo string.

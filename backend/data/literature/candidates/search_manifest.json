@@ -1,0 +1,67 @@
+{
+  "retrieved_at": "2026-11-14T20:02:36.992413+00:00",
+  "api": "https://www.ebi.ac.uk/europepmc/webservices/rest/search",
+  "result_type": "core",
+  "page_size": 40,
+  "queries": [
+    {
+      "id": "seed_studies",
+      "query": "DOI:10.1097/CCE.0000000000000269 OR DOI:10.1152/japplphysiol.00489.2023 OR DOI:10.1249/MSS.0000000000001617 OR TITLE:\"Exercise Training Mitigates Multisystem Deconditioning during Bed Rest\"",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A10.1097%2FCCE.0000000000000269+OR+DOI%3A10.1152%2Fjapplphysiol.00489.2023+OR+DOI%3A10.1249%2FMSS.0000000000001617+OR+TITLE%3A%22Exercise+Training+Mitigates+Multisystem+Deconditioning+during+Bed+Rest%22&format=json&resultType=core&pageSize=40",
+      "file": "raw/seed_studies.json",
+      "total_hits": 4,
+      "retrieved_records": 4,
+      "next_cursor_mark": null
+    },
+    {
+      "id": "recent_quadriceps_disuse",
+      "query": "(TITLE_ABS:quadriceps OR TITLE_ABS:\"knee extensor\") AND (TITLE_ABS:\"bed rest\" OR TITLE_ABS:unloading OR TITLE_ABS:disuse) AND FIRST_PDATE:[2020-01-01 TO 2026-11-14]",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%28TITLE_ABS%3Aquadriceps+OR+TITLE_ABS%3A%22knee+extensor%22%29+AND+%28TITLE_ABS%3A%22bed+rest%22+OR+TITLE_ABS%3Aunloading+OR+TITLE_ABS%3Adisuse%29+AND+FIRST_PDATE%3A%5B2020-01-01+TO+2026-11-14%5D&format=json&resultType=core&pageSize=40",
+      "file": "raw/recent_quadriceps_disuse.json",
+      "total_hits": 96,
+      "retrieved_records": 40,
+      "next_cursor_mark": "AoIIQBxGZSg0Mjg0MDY2NA=="
+    },
+    {
+      "id": "spaceflight_muscle",
+      "query": "TITLE_ABS:spaceflight AND (TITLE_ABS:\"muscle strength\" OR TITLE_ABS:\"muscle volume\" OR TITLE_ABS:\"muscle atrophy\") AND FIRST_PDATE:[2018-01-01 TO 2026-11-14]",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE_ABS%3Aspaceflight+AND+%28TITLE_ABS%3A%22muscle+strength%22+OR+TITLE_ABS%3A%22muscle+volume%22+OR+TITLE_ABS%3A%22muscle+atrophy%22%29+AND+FIRST_PDATE%3A%5B2018-01-01+TO+2026-11-14%5D&format=json&resultType=core&pageSize=40",
+      "file": "raw/spaceflight_muscle.json",
+      "total_hits": 144,
+      "retrieved_records": 40,
+      "next_cursor_mark": "AoIIQD0CKig1MDAxMzQ4Mg=="
+    },
+    {
+      "id": "bedrest_countermeasures",
+      "query": "TITLE_ABS:\"bed rest\" AND (TITLE_ABS:exercise OR TITLE_ABS:\"artificial gravity\") AND (TITLE_ABS:torque OR TITLE_ABS:\"cross-sectional area\") AND FIRST_PDATE:[2018-01-01 TO 2026-11-14]",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=TITLE_ABS%3A%22bed+rest%22+AND+%28TITLE_ABS%3Aexercise+OR+TITLE_ABS%3A%22artificial+gravity%22%29+AND+%28TITLE_ABS%3Atorque+OR+TITLE_ABS%3A%22cross-sectional+area%22%29+AND+FIRST_PDATE%3A%5B2018-01-01+TO+2026-11-14%5D&format=json&resultType=core&pageSize=40",
+      "file": "raw/bedrest_countermeasures.json",
+      "total_hits": 16,
+      "retrieved_records": 16,
+      "next_cursor_mark": null
+    },
+    {
+      "id": "disuse_syntheses",
+      "query": "(TITLE_ABS:\"bed rest\" OR TITLE_ABS:disuse) AND TITLE_ABS:muscle AND (TITLE_ABS:\"systematic review\" OR TITLE_ABS:\"meta-analysis\") AND FIRST_PDATE:[2022-01-01 TO 2026-11-14]",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=%28TITLE_ABS%3A%22bed+rest%22+OR+TITLE_ABS%3Adisuse%29+AND+TITLE_ABS%3Amuscle+AND+%28TITLE_ABS%3A%22systematic+review%22+OR+TITLE_ABS%3A%22meta-analysis%22%29+AND+FIRST_PDATE%3A%5B2022-01-01+TO+2026-11-14%5D&format=json&resultType=core&pageSize=40",
+      "file": "raw/disuse_syntheses.json",
+      "total_hits": 26,
+      "retrieved_records": 26,
+      "next_cursor_mark": null
+    },
+    {
+      "id": "targeted_flight_and_analog",
+      "query": "DOI:10.1038/s41526-020-00111-x OR DOI:10.1038/s41526-023-00256-5 OR DOI:10.1007/s00421-021-04673-w OR DOI:10.1038/s41526-026-00611-2",
+      "url": "https://www.ebi.ac.uk/europepmc/webservices/rest/search?query=DOI%3A10.1038%2Fs41526-020-00111-x+OR+DOI%3A10.1038%2Fs41526-023-00256-5+OR+DOI%3A10.1007%2Fs00421-021-04673-w+OR+DOI%3A10.1038%2Fs41526-026-00611-2&format=json&resultType=core&pageSize=40",
+      "file": "raw/targeted_flight_and_analog.json",
+      "total_hits": 4,
+      "retrieved_records": 4,
+      "next_cursor_mark": null
+    }
+  ],
+  "limitations": [
+    "Only the first page of each query is retrieved",
+    "Relevance ranking and date limits can omit pertinent studies",
+    "Indexed metadata and abstracts are not a full-text scientific audit"
+  ]
+}

@@ -1,0 +1,257 @@
+openapi: 3.1.2
+info:
+  title: TwinNauta — explorador científico (propuesta)
+  version: 0.3.0-draft
+  description: Ampliación aditiva propuesta. No implementada. El contrato0.2 sigue
+    vigente.
+servers:
+- url: http://localhost:8000/api/v1
+paths:
+  /papers:
+    get:
+      operationId: search_papers
+      summary: Buscar papers del corpus publicado
+      parameters:
+      - &id001
+        name: q
+        in: query
+        required: false
+        description: Palabras clave sobre el corpus publicado, no una búsqueda externa
+          en vivo.
+        schema:
+          type: string
+          maxLength: 200
+      - &id002
+        name: region_id
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+      - &id003
+        name: view
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+          enum:
+          - evidence
+          - scenario
+          - actions
+      - &id004
+        name: review_status
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: string
+          enum:
+          - pending
+          - reviewed
+      - &id005
+        name: year_from
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: integer
+          minimum: 1800
+      - &id006
+        name: year_to
+        in: query
+        required: false
+        description: ''
+        schema:
+          type: integer
+          minimum: 1800
+      - &id007
+        name: cursor
+        in: query
+        required: false
+        description: Cursor opaco ligado a filtros y versión del corpus.
+        schema:
+          type: string
+      - &id008
+        name: limit
+        in: query
+        required: false
+        description: Número máximo de papers en la página.
+        schema:
+          type: integer
+          minimum: 1
+          maximum: 100
+          default: 25
+      - name: indicator_id
+        in: query
+        required: false
+        description: Indicador del catálogo; la coincidencia bibliográfica no prueba
+          aplicabilidad.
+        schema:
+          type: string
+      - name: module_id
+        in: query
+        required: false
+        description: Módulo del catálogo de cobertura.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Respuesta de la propuesta; endpoint todavía no implementado.
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas.json#/$defs/PaperPage
+        '422':
+          description: Filtro inválido.
+          content:
+            application/json:
+              schema:
+                $ref: ../../openapi.yaml#/components/schemas/Error
+        '409': &id009
+          description: Cursor obsoleto o incompatible con los filtros.
+          content:
+            application/json:
+              schema:
+                $ref: ../../openapi.yaml#/components/schemas/Error
+  /papers/{paper_id}:
+    get:
+      operationId: get_paper
+      summary: Consultar ficha, resumen y resultados del paper
+      parameters:
+      - name: paper_id
+        in: path
+        required: true
+        description: ''
+        schema:
+          type: string
+      - name: assessment_id
+        in: query
+        required: false
+        description: Evaluación opcional para comprobar aplicabilidad mediante reglas
+          revisadas.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Respuesta de la propuesta; endpoint todavía no implementado.
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas.json#/$defs/PaperDetail
+        '422':
+          description: Filtro inválido.
+          content:
+            application/json:
+              schema:
+                $ref: ../../openapi.yaml#/components/schemas/Error
+        '404':
+          description: Entidad desconocida.
+          content:
+            application/json:
+              schema:
+                $ref: ../../openapi.yaml#/components/schemas/Error
+  /knowledge-graph:
+    get:
+      operationId: get_knowledge_graph
+      summary: Explorar una vista del conocimiento científico
+      parameters:
+      - *id001
+      - *id002
+      - *id003
+      - *id004
+      - *id005
+      - *id006
+      - name: paper_id
+        in: query
+        required: false
+        description: Expansión del vecindario de un paper del corpus.
+        schema:
+          type: string
+      - name: assessment_id
+        in: query
+        required: false
+        description: Contexto opcional de evaluación; no convierte candidatos en evidencia
+          aplicable.
+        schema:
+          type: string
+      - *id007
+      - *id008
+      - name: indicator_id
+        in: query
+        required: false
+        description: Indicador del catálogo; la coincidencia bibliográfica no prueba
+          aplicabilidad.
+        schema:
+          type: string
+      - name: module_id
+        in: query
+        required: false
+        description: Módulo del catálogo de cobertura.
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Respuesta de la propuesta; endpoint todavía no implementado.
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas.json#/$defs/GraphPage
+        '422':
+          description: Filtro inválido.
+          content:
+            application/json:
+              schema:
+                $ref: ../../openapi.yaml#/components/schemas/Error
+        '404':
+          description: Entidad desconocida.
+          content:
+            application/json:
+              schema:
+                $ref: ../../openapi.yaml#/components/schemas/Error
+        '409': *id009
+  /knowledge-base/metadata:
+    get:
+      operationId: get_knowledge_base_metadata
+      summary: Consultar versión y disponibilidad local de la biblioteca
+      responses:
+        '200':
+          description: Paquete científico instalado; ruta propuesta todavía no implementada.
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas.json#/$defs/KnowledgeBaseMetadata
+  /health-modules:
+    get:
+      operationId: list_health_modules
+      summary: Consultar cobertura de regiones e indicadores
+      responses:
+        '200':
+          description: Propuesta 0.3 no implementada.
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas.json#/$defs/ModuleCatalog
+  /assessments/{assessment_id}/guidance:
+    get:
+      operationId: get_assessment_guidance
+      summary: Leer interpretación contextual congelada de un módulo
+      parameters:
+      - name: assessment_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Propuesta 0.3 no implementada.
+          content:
+            application/json:
+              schema:
+                $ref: ./schemas.json#/$defs/Guidance
+        '404':
+          description: Entidad inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: ../../openapi.yaml#/components/schemas/Error
