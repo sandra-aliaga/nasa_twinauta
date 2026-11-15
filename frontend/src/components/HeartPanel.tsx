@@ -4,6 +4,10 @@ import { explorerSource } from "../api/explorer";
 import type { PaperCard } from "../api/explorer/types";
 import { useLoad } from "../hooks/useLoad";
 import { CardiacPanel } from "./CardiacPanel";
+import {
+  FlightLaboratoryPanel,
+  ObservedExercisePanel,
+} from "./ObservedDataPanels";
 import { ErrorNotice, Skeleton } from "./common";
 
 // The corpus is about muscle; these searches find its cardiovascular papers.
@@ -81,6 +85,9 @@ export function HeartPanel({
           caseRecordingId={caseRecordingId}
           onClose={onClose}
         />
+
+        <ObservedExercisePanel />
+        <FlightLaboratoryPanel />
 
         <section>
           <h3 className="text-sm font-medium text-slate-100">

@@ -6,6 +6,14 @@
   "sha256": "5eb1e7f025dd8443a9e70111e62bc32afae3432753024489c5c013e401d709d9",
   "rows": 28,
   "columns": 58,
-  "status": "inspected_candidate_not_integrated",
-  "covers_current_muscle_torque_heart_rate_indicators": false
+  "status": "integrated_reference_laboratories",
+  "covers_current_muscle_torque_heart_rate_indicators": false,
+  "selected_metrics": [
+    "glucose",
+    "calcium",
+    "potassium",
+    "sodium",
+    "creatinine",
+    "albumin"
+  ]
 }

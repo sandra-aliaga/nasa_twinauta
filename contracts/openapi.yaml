@@ -40,6 +40,78 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /api/v1/reference-laboratories:
+    get:
+      summary: Get Reference Laboratories
+      description: Return NASA flight samples with original laboratory units and ranges.
+      operationId: get_reference_laboratories
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FlightLaboratories'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /api/v1/reference-exercise:
+    get:
+      summary: Get Reference Exercise
+      description: Return the selected observed terrestrial exercise session.
+      operationId: get_reference_exercise
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ExerciseSession'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /api/v1/cases/{case_id}/assessments:
     get:
       summary: List Case Assessments
@@ -1707,6 +1779,96 @@ components:
       - source_id
       title: ExerciseRecord
       description: Represent the ExerciseRecord contract payload.
+    ExerciseSample:
+      properties:
+        time_s:
+          type: number
+          title: Time S
+        speed_kmh:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Speed Kmh
+        heart_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Heart Rate
+        oxygen_ml_min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Oxygen Ml Min
+        carbon_dioxide_ml_min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Carbon Dioxide Ml Min
+        respiratory_rate:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Respiratory Rate
+        ventilation_l_min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ventilation L Min
+        source_row:
+          type: integer
+          title: Source Row
+      type: object
+      required:
+      - time_s
+      - speed_kmh
+      - heart_rate
+      - oxygen_ml_min
+      - carbon_dioxide_ml_min
+      - respiratory_rate
+      - ventilation_l_min
+      - source_row
+      title: ExerciseSample
+    ExerciseSession:
+      properties:
+        test_id:
+          type: string
+          title: Test Id
+        participant_id:
+          type: string
+          title: Participant Id
+        source_url:
+          type: string
+          title: Source Url
+        source_sha256:
+          type: string
+          title: Source Sha256
+        samples:
+          items:
+            $ref: '#/components/schemas/ExerciseSample'
+          type: array
+          title: Samples
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+        nasa_monitoring_url:
+          type: string
+          title: Nasa Monitoring Url
+        nasa_monitoring_context:
+          type: string
+          title: Nasa Monitoring Context
+      type: object
+      required:
+      - test_id
+      - participant_id
+      - source_url
+      - source_sha256
+      - samples
+      - limitations
+      - nasa_monitoring_url
+      - nasa_monitoring_context
+      title: ExerciseSession
     Finding:
       properties:
         id:
@@ -1753,6 +1915,39 @@ components:
       - claim_ids
       title: Finding
       description: Represent the Finding contract payload.
+    FlightLaboratories:
+      properties:
+        dataset_id:
+          type: string
+          title: Dataset Id
+        source_url:
+          type: string
+          title: Source Url
+        publication_url:
+          type: string
+          title: Publication Url
+        source_sha256:
+          type: string
+          title: Source Sha256
+        samples:
+          items:
+            $ref: '#/components/schemas/LabSample'
+          type: array
+          title: Samples
+        limitations:
+          items:
+            type: string
+          type: array
+          title: Limitations
+      type: object
+      required:
+      - dataset_id
+      - source_url
+      - publication_url
+      - source_sha256
+      - samples
+      - limitations
+      title: FlightLaboratories
     Graph:
       properties:
         assessment_id:
@@ -2398,6 +2593,72 @@ components:
       - review_status
       title: KnowledgeNode
       description: Represent a paper or editorial topic in the discovery graph.
+    LabSample:
+      properties:
+        sample_id:
+          type: string
+          title: Sample Id
+        participant_id:
+          type: string
+          title: Participant Id
+        phase:
+          type: string
+          title: Phase
+        timepoint:
+          type: string
+          title: Timepoint
+        relative_day:
+          type: integer
+          title: Relative Day
+        values:
+          items:
+            $ref: '#/components/schemas/LabValue'
+          type: array
+          title: Values
+      type: object
+      required:
+      - sample_id
+      - participant_id
+      - phase
+      - timepoint
+      - relative_day
+      - values
+      title: LabSample
+    LabValue:
+      properties:
+        id:
+          type: string
+          title: Id
+        label:
+          type: string
+          title: Label
+        value:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Value
+        unit:
+          type: string
+          title: Unit
+        laboratory_min:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Laboratory Min
+        laboratory_max:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Laboratory Max
+      type: object
+      required:
+      - id
+      - label
+      - value
+      - unit
+      - laboratory_min
+      - laboratory_max
+      title: LabValue
     Measurement:
       properties:
         date:

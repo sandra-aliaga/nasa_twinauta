@@ -196,7 +196,9 @@ export default function App() {
       (item) => item.attention === "review_needed",
     ) ?? [];
   const flaggedRegionIds =
-    assessmentRegionId && toReview.length > 0 ? [assessmentRegionId] : [];
+    dataSource.kind === "examples" && assessmentRegionId && toReview.length > 0
+      ? [assessmentRegionId]
+      : [];
   const evaluateRegionId =
     (regionId === HEART_ZONE_ID ? null : regionId) ??
     assessmentRegionId ??
@@ -251,7 +253,8 @@ export default function App() {
           onEvaluate={() =>
             evaluateRegionId && requestAssessment(evaluateRegionId, day)
           }
-          isDemo={false}
+          isDemo={dataSource.kind === "examples"}
+          referenceMode={dataSource.kind === "api"}
           cardiacAvailable={false}
           cardiacOpen={false}
           onToggleCardiac={() => {}}
@@ -424,7 +427,7 @@ function ZonePrompt({
                   <span className="block text-xs text-slate-300">
                     {flagged && findingTitle
                       ? findingTitle
-                      : "Zona con seguimiento"}
+                      : "Datos de investigación disponibles"}
                   </span>
                 </span>
                 <span className="shrink-0 rounded-full bg-sky-500 px-3 py-1 text-xs font-semibold text-slate-950">

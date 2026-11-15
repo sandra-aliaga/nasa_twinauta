@@ -183,7 +183,6 @@ export function RegionPanel({
               className="flex flex-wrap items-center gap-1.5"
               title={ASSESSMENT_STATUS_HINTS[state.assessment.status]}
             >
-              <Tag tone="subtle">Día {state.assessment.mission_day}</Tag>
               <Tag tone="subtle">Referencias científicas</Tag>
             </div>
             {state.assessment.mission_day !== state.request.mission_day ? (

@@ -1,6 +1,6 @@
 # Datos humanos NASA: búsqueda de ampliación
 
-OSD-575, Inspiration4: CSV oficial descargado e inspeccionado el 15 de noviembre de 2026. Contiene 28 filas y 58 columnas de un panel metabólico: glucosa, creatinina, electrolitos, enzimas y otras pruebas con unidades y rangos. No contiene área muscular, torque ni frecuencia cardíaca. No se ha integrado ni se usa para rellenar esos indicadores. Los identificadores y puntos temporales deben mapearse contra los metadatos antes de interpretar series individuales.
+OSD-575, Inspiration4: CSV oficial descargado e inspeccionado el 15 de noviembre de 2026. Contiene 28 filas y 58 columnas de un panel metabólico: glucosa, creatinina, electrolitos, enzimas y otras pruebas con unidades y rangos. No contiene área muscular, torque ni frecuencia cardíaca. Se integraron seis variables en GET /reference-laboratories y en la vista del corazón como muestras de vuelo independientes. No se usan para reemplazar los indicadores musculares o la frecuencia cardíaca. Los identificadores y puntos temporales deben mapearse contra los metadatos antes de interpretar series individuales.
 
 La copia original se conserva sin transformar; URL y SHA-256 en manifest.json. Página del estudio: https://osdr.nasa.gov/bio/repo/data/studies/OSD-575 .
 

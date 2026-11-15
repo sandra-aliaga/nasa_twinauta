@@ -60,6 +60,43 @@ def _topic_nodes_and_edges(
     return list(topics.values()), edges
 
 
+def _documentary_nodes(
+    records: list[LiteraturePaperRecord], view: GraphView
+) -> tuple[list[KnowledgeNode], list[KnowledgeEdge]]:
+    """Link reviewed summaries and limits without inferring causal relationships."""
+    nodes = []
+    edges = []
+    for record in records:
+        review = record.payload.get("documentary_review")
+        if not review:
+            continue
+        text = review["limitations"][0] if view == "scenario" else review["summary"]
+        node_id = f"documentary:{view}:{record.id}"
+        nodes.append(
+            KnowledgeNode(
+                id=node_id,
+                kind="claim",
+                label=text,
+                paper_id=record.id,
+                entity_id=None,
+                review_status="reviewed",
+            )
+        )
+        edges.append(
+            KnowledgeEdge(
+                id=f"edge:{node_id}",
+                source=node_id if view == "scenario" else record.id,
+                target=record.id if view == "scenario" else node_id,
+                relation="qualifies" if view == "scenario" else "reports",
+                basis="reviewed_extraction",
+                source_paper_ids=[record.id],
+                source_locators=[f"{review['source_url']} Abstract", review["version"]],
+                review_status="reviewed",
+            )
+        )
+    return nodes, edges
+
+
 def get_knowledge_graph(
     session: Session,
     *,
@@ -152,6 +189,7 @@ def project_graph_page(
     page_ids = {card.id for card in page_cards}
     page_records = [record for record, _ in matches if record.id in page_ids]
     topic_nodes, topic_edges = _topic_nodes_and_edges(page_records)
+    documentary_nodes, documentary_edges = _documentary_nodes(page_records, view)
     paper_nodes = [
         KnowledgeNode(
             id=card.id,
@@ -169,12 +207,13 @@ def project_graph_page(
         corpus_version=CORPUS_VERSION,
         assessment_id=assessment_id,
         view=view,
-        nodes=paper_nodes + topic_nodes,
-        edges=topic_edges,
+        nodes=paper_nodes + topic_nodes + documentary_nodes,
+        edges=topic_edges + documentary_edges,
         page=Page(next_cursor=next_cursor, has_more=has_more),
         scope_description=(
-            "Relaciones temáticas editoriales del corpus candidato; no representan "
-            "respaldo científico, causalidad ni independencia de cohortes."
+            "Temas editoriales y síntesis documentales de abstracts con fuentes. "
+            "La vista de evolución muestra límites de interpretación. "
+            "No representan causalidad, pronósticos individuales ni independencia de cohortes."
         ),
         counts=GraphCounts(
             papers_matching=total,

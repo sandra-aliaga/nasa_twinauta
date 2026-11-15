@@ -1,8 +1,8 @@
-# Handoff: video-voxel-pdf-v4 — Enriquecer video con PDF y transiciones continuas
+# Handoff: HEART-AUTOPLAY — Iniciar automáticamente la reproducción cardíaca
 
 **Status:** complete
 **Delivery:** recorded
-**From agent:** codex:3ca01dad
+**From agent:** codex:1b0bf139
 **To agent:** not offered
 **Task version:** 2
 **Expires:** not set
@@ -10,7 +10,7 @@
 
 ## What changed
 
-Integrado PDF de usuaria: cinco fondos extraidos al 24%, tarjetas flotantes de calidad y metadatos, flujo persistente capturar-comprobar-interpretar-seguimiento. Camara continua, astronauta siempre visible con desplazamiento y gestos, entradas/salidas suaves y fundidos. Actualizados MP4 y ZIP; version previa conservada.
+El reproductor cardíaco comienza automáticamente al abrirlo, después de cargar las primeras muestras. Se conserva pausa, repetición y velocidad; el temporizador no avanza antes de tener datos.
 
 ## Reported outcome
 
@@ -18,23 +18,14 @@ _Not reported_
 
 ## Changed files
 
-- `presentacion/video-voxel-30s/motion.js`
-- `presentacion/video-voxel-30s/assets/`
-- `presentacion/video-voxel-30s/TwinNauta_voxel_EN.mp4`
-- `presentacion/video-voxel-30s/TwinNauta_voxel_editable.zip`
-- `presentacion/video-voxel-30s/LEEME.md`
-- `presentacion/video-voxel-30s/version-anterior/`
+- `frontend/src/components/CardiacPanel.tsx`
 
 ## Tests run
 
-- `Texto y estructura de PDF de 16 paginas inspeccionados; cinco imagenes extraidas`
-- `Playwright: nueve capturas incluyendo antes/despues de transiciones 4s y 12s`
-- `Carga de clip real de prueba en slot final verificada`
-- `Prettier check, node --check y hooks existentes (sin archivos aplicables)`
-- `Exportacion navegador a velocidad reducida y conversion MP4`
-- `FFprobe: audio/video 30.000s, H264 FullHD 30fps, 900 fotogramas`
-- `Decodificacion completa FFmpeg sin errores y fotograma de MP4 revisado`
-- `ZIP integro con 12 archivos y todos los fondos`
+- `npm run build: TypeScript y Vite pasaron`
+- `Playwright Firefox: autoplay=true y paused=true; comprobado avance de cursor y detención tras Pausa`
+- `prek run frontend-format-check --files frontend/src/components/CardiacPanel.tsx: passed`
+- `git diff --check passed`
 
 ## Assumptions
 
@@ -46,8 +37,7 @@ _None_
 
 ## Known risks
 
-- Estados y comprobaciones del PDF representados como flujo conceptual, no reglas clinicas validadas.
-- La locucion y captura final de plataforma quedan a cargo del equipo.
+_None_
 
 ## Guardrails checked
 

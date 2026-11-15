@@ -6,7 +6,7 @@ Software exploratorio de salud espacial para comprender indicadores, consultar s
 
 ## Estado
 
-Contrato compartido 0.3.0 y backend de integración. Incluye backend FastAPI/PostgreSQL con datos sintéticos y setup mínimo de React/TypeScript/Vite/Tailwind. El modelo científico, la anatomía y las pantallas de producto siguen pendientes.
+Contrato compartido 0.3.0 y dashboard React/TypeScript con anatomía 3D, biblioteca científica y FastAPI/PostgreSQL. Se conectaron mediciones NASA de torque, resultados grupales musculares, prueba cardiorrespiratoria terrestre y muestras de laboratorio de Inspiration4. [Cobertura, fuentes formales y límites](docs/evidencia/cobertura-datos-2026-11-15.md). El caso virtual histórico se conserva separado; no hay pronóstico clínico individual validado.
 
 La implementación del backend inicial y el setup mínimo del frontend están autorizados. No se ha desplegado infraestructura ni creado CI o una suite de pruebas. Consultar [backend](backend/README.md) y [frontend](frontend/README.md) para instalación y límites de verificación.
 

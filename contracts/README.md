@@ -131,3 +131,5 @@ El contrato inicial sirve al caso precargado; no contempla todavía login, carga
 Referencia: [OpenAPI 3.1.2](https://spec.openapis.org/oas/v3.1.2.html).
 
 `GET /api/v1/reference-dashboard` devuelve las referencias reales del dashboard: 16 participantes de NASA Campaign 17 con dos mediciones KES60 por fecha, dos tasas grupales de área muscular y cuatro medias de torque SPRINT. Conserva método, unidades, URL y fila de los CSV. [Ejemplo](examples/reference-dashboard.json). No depende del día de misión seleccionado ni escribe observaciones en el caso virtual. La discrepancia de fase de Campaign 17 se conserva en `torque_limitations`.
+
+`GET /api/v1/reference-laboratories` consulta seis analitos de 28 muestras originales OSD-575, con participante, fase, punto temporal, unidades y rangos del laboratorio. `GET /api/v1/reference-exercise` entrega 602 muestras originales de la prueba terrestre seleccionada: velocidad, HR, VO2, VCO2, RR y ventilación. Los esquemas OpenAPI conservan ausencia como `null`. La nueva cobertura y las discrepancias de origen están en [este registro](../docs/evidencia/cobertura-datos-2026-11-15.md).

@@ -1,0 +1,22 @@
+{
+  "laboratory_samples": 28,
+  "laboratory_values_checked_against_csv": 168,
+  "participants": 4,
+  "exercise_samples": 602,
+  "missing_hr": 2,
+  "speed_peak_kmh": 16.3,
+  "graphs": {
+    "evidence": {
+      "papers": 22,
+      "documentary_nodes": 21
+    },
+    "scenario": {
+      "papers": 23,
+      "documentary_nodes": 22
+    },
+    "actions": {
+      "papers": 17,
+      "documentary_nodes": 17
+    }
+  }
+}

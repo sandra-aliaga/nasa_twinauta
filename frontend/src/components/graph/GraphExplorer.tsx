@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 
-import type { Graph, GraphView } from "../../api";
+import { dataSource, type Graph, type GraphView } from "../../api";
 import type { GraphPage } from "../../api/explorer/types";
 import {
   BASIS_LABELS,
@@ -55,8 +55,10 @@ export function GraphExplorer({
   onOpenPaper,
 }: GraphExplorerProps) {
   const setSelectedId = onSelect;
-  const showStudies = source === "studies" && can3d;
-  const is3d = showStudies || (mode === "3d" && can3d);
+  const showStudies = source === "studies";
+  const is3d = can3d && (showStudies || mode === "3d");
+  const sourceOptions: GraphSource[] =
+    dataSource.kind === "api" ? ["studies"] : ["studies", "case"];
   const rootRef = useRef<HTMLDivElement>(null);
 
   // On narrow screens the panel sits below; bring the graph into view.
@@ -106,7 +108,7 @@ export function GraphExplorer({
             aria-label="Qué muestra el mapa"
             className="flex rounded-full bg-slate-800 p-0.5 text-xs"
           >
-            {(["studies", "case"] as const).map((item) => (
+            {sourceOptions.map((item) => (
               <button
                 key={item}
                 type="button"
@@ -162,6 +164,7 @@ export function GraphExplorer({
             selectedId={selectedId}
             onSelect={setSelectedId}
             onOpenPaper={onOpenPaper}
+            showNodeList={!can3d}
           />
         ) : state === null || state.status === "loading" ? (
           <div className="p-6">
@@ -227,11 +230,13 @@ function StudiesChrome({
   selectedId,
   onSelect,
   onOpenPaper,
+  showNodeList,
 }: {
   studies: LoadState<GraphPage> | null;
   selectedId: string | null;
   onSelect: (nodeId: string | null) => void;
   onOpenPaper: (paperId: string) => void;
+  showNodeList: boolean;
 }) {
   if (studies === null || studies.status === "loading") {
     return (
@@ -265,7 +270,13 @@ function StudiesChrome({
   );
   return (
     <>
-      <ul className="sr-only">
+      <ul
+        className={
+          showNodeList
+            ? "pointer-events-auto grid gap-2 overflow-auto p-4 text-sm text-slate-300"
+            : "sr-only"
+        }
+      >
         {page.nodes.map((item) => (
           <li key={item.id}>
             <button type="button" onClick={() => onSelect(item.id)}>
@@ -280,9 +291,16 @@ function StudiesChrome({
           {page.page.has_more ? " (hay más en la biblioteca)" : ""}
         </p>
         <p className="mt-1 text-[11px] leading-snug text-slate-400">
-          {page.counts.papers_reviewed_returned} revisados. Una conexión indica
-          de qué trata un estudio; no prueba eficacia.
+          {page.counts.papers_reviewed_returned} con revisión documental.{" "}
+          {page.nodes.filter((item) => item.kind === "claim").length} síntesis o
+          límites vinculados.
         </p>
+        <details className="mt-1 text-[11px] leading-snug text-slate-400">
+          <summary className="cursor-pointer">
+            Alcance de las conexiones
+          </summary>
+          <p>{page.scope_description}</p>
+        </details>
       </div>
       {node ? (
         <section

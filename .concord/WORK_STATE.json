@@ -1,43 +1,24 @@
 {
-  "generated_at": "2026-11-15T21:02:55.635Z",
+  "generated_at": "2026-11-15T23:37:59.248Z",
   "presence": [
-    {
-      "agent_id": "codex:3ca01dad",
-      "kind": "codex",
-      "owner": null,
-      "summary": "Enriquecer video con PDF y transiciones continuas",
-      "status": "active",
-      "reported_status": "active",
-      "execution_status": "executing",
-      "liveness": "live",
-      "last_seen": "2026-11-15T21:02:55.634Z",
-      "age_seconds": 0,
-      "heartbeat_at": "2026-11-15T21:02:43.238Z",
-      "heartbeat_liveness": "live",
-      "heartbeat_age_seconds": 12,
-      "activity_at": "2026-11-15T21:02:55.634Z",
-      "activity_age_seconds": 0,
-      "summary_updated_at": "2026-11-15T20:55:51.561Z",
-      "summary_age_seconds": 424
-    },
     {
       "agent_id": "codex:1b0bf139",
       "kind": "codex",
       "owner": "Sandra",
-      "summary": "Conectar resultados reales al dashboard",
+      "summary": "Iniciar automáticamente la reproducción cardíaca",
       "status": "active",
       "reported_status": "active",
       "execution_status": "executing",
       "liveness": "live",
-      "last_seen": "2026-11-15T21:01:44.868Z",
-      "age_seconds": 70,
-      "heartbeat_at": "2026-11-15T21:01:44.868Z",
+      "last_seen": "2026-11-15T23:37:59.247Z",
+      "age_seconds": 0,
+      "heartbeat_at": "2026-11-15T23:37:52.440Z",
       "heartbeat_liveness": "live",
-      "heartbeat_age_seconds": 70,
-      "activity_at": "2026-11-15T20:47:34.793Z",
-      "activity_age_seconds": 920,
-      "summary_updated_at": "2026-11-15T20:47:34.782Z",
-      "summary_age_seconds": 920
+      "heartbeat_age_seconds": 6,
+      "activity_at": "2026-11-15T23:37:59.247Z",
+      "activity_age_seconds": 0,
+      "summary_updated_at": "2026-11-15T23:36:04.680Z",
+      "summary_age_seconds": 114
     }
   ],
   "tasks": [
@@ -1093,12 +1074,12 @@
     {
       "task_id": "REAL-DASHBOARD",
       "title": "Conectar resultados reales al dashboard",
-      "status": "active",
+      "status": "complete",
       "agent": "codex",
       "agent_id": "codex:1b0bf139",
       "assigned_agent_id": null,
-      "version": 1,
-      "updated_at": "2026-11-15T20:47:34.792Z",
+      "version": 2,
+      "updated_at": "2026-11-15T21:06:44.256Z",
       "lease_expires_at": null,
       "owner": null,
       "branch": null,
@@ -1131,6 +1112,52 @@
       "domains": [],
       "expected_files": [
         "presentacion/video-voxel-30s/"
+      ]
+    },
+    {
+      "task_id": "DATA-COVERAGE",
+      "title": "Auditar cobertura y conectar datos adicionales comprobados",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T23:34:27.214Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "data-coverage"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/",
+        "backend/data/raw/",
+        "frontend/src/components/",
+        "contracts/",
+        "docs/evidencia/"
+      ]
+    },
+    {
+      "task_id": "HEART-AUTOPLAY",
+      "title": "Iniciar automáticamente la reproducción cardíaca",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T23:37:59.247Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "cardiac-player"
+      ],
+      "domains": [],
+      "expected_files": [
+        "frontend/src/components/CardiacPanel.tsx"
       ]
     }
   ]

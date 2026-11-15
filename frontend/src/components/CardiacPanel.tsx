@@ -135,7 +135,7 @@ function RecordingPlayer({
 }) {
   const state = useTelemetry(recordingId);
   const [time, setTime] = useState<number | null>(null);
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const [speed, setSpeed] = useState<(typeof SPEEDS)[number]>(5);
 
   const ready = state.status === "ready" ? state : null;
@@ -143,13 +143,14 @@ function RecordingPlayer({
   const endS = ready?.recording.end_s ?? 0;
   const loadedUntil = ready?.loadedUntil ?? 0;
   const cursor = time ?? startS;
+  const canPlay = ready !== null && ready.points.length > 0;
 
   // Keep the latest bounds for the interval without restarting it.
   const bounds = useRef({ endS, loadedUntil });
   bounds.current = { endS, loadedUntil };
 
   useEffect(() => {
-    if (!playing) return;
+    if (!playing || !canPlay) return;
     const id = window.setInterval(() => {
       setTime((current) => {
         const { endS: end, loadedUntil: loaded } = bounds.current;
@@ -163,7 +164,7 @@ function RecordingPlayer({
       });
     }, TICK_MS);
     return () => window.clearInterval(id);
-  }, [playing, speed, startS]);
+  }, [playing, speed, startS, canPlay]);
 
   const points = useMemo(() => ready?.points ?? [], [ready?.points]);
   const yDomain = useMemo(() => {

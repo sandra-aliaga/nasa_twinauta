@@ -24,6 +24,46 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
+  "/api/v1/reference-laboratories": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Reference Laboratories
+     * @description Return NASA flight samples with original laboratory units and ranges.
+     */
+    get: operations["get_reference_laboratories"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/reference-exercise": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Reference Exercise
+     * @description Return the selected observed terrestrial exercise session.
+     */
+    get: operations["get_reference_exercise"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/api/v1/cases/{case_id}/assessments": {
     parameters: {
       query?: never;
@@ -777,6 +817,44 @@ export interface components {
       /** Source Id */
       source_id: string;
     };
+    /** ExerciseSample */
+    ExerciseSample: {
+      /** Time S */
+      time_s: number;
+      /** Speed Kmh */
+      speed_kmh: number | null;
+      /** Heart Rate */
+      heart_rate: number | null;
+      /** Oxygen Ml Min */
+      oxygen_ml_min: number | null;
+      /** Carbon Dioxide Ml Min */
+      carbon_dioxide_ml_min: number | null;
+      /** Respiratory Rate */
+      respiratory_rate: number | null;
+      /** Ventilation L Min */
+      ventilation_l_min: number | null;
+      /** Source Row */
+      source_row: number;
+    };
+    /** ExerciseSession */
+    ExerciseSession: {
+      /** Test Id */
+      test_id: string;
+      /** Participant Id */
+      participant_id: string;
+      /** Source Url */
+      source_url: string;
+      /** Source Sha256 */
+      source_sha256: string;
+      /** Samples */
+      samples: components["schemas"]["ExerciseSample"][];
+      /** Limitations */
+      limitations: string[];
+      /** Nasa Monitoring Url */
+      nasa_monitoring_url: string;
+      /** Nasa Monitoring Context */
+      nasa_monitoring_context: string;
+    };
     /**
      * Finding
      * @description Represent the Finding contract payload.
@@ -799,6 +877,21 @@ export interface components {
       attention: "informational" | "review_needed" | "unknown";
       /** Claim Ids */
       claim_ids: string[];
+    };
+    /** FlightLaboratories */
+    FlightLaboratories: {
+      /** Dataset Id */
+      dataset_id: string;
+      /** Source Url */
+      source_url: string;
+      /** Publication Url */
+      publication_url: string;
+      /** Source Sha256 */
+      source_sha256: string;
+      /** Samples */
+      samples: components["schemas"]["LabSample"][];
+      /** Limitations */
+      limitations: string[];
     };
     /**
      * Graph
@@ -1158,6 +1251,36 @@ export interface components {
        * @enum {string}
        */
       review_status: "pending" | "reviewed";
+    };
+    /** LabSample */
+    LabSample: {
+      /** Sample Id */
+      sample_id: string;
+      /** Participant Id */
+      participant_id: string;
+      /** Phase */
+      phase: string;
+      /** Timepoint */
+      timepoint: string;
+      /** Relative Day */
+      relative_day: number;
+      /** Values */
+      values: components["schemas"]["LabValue"][];
+    };
+    /** LabValue */
+    LabValue: {
+      /** Id */
+      id: string;
+      /** Label */
+      label: string;
+      /** Value */
+      value: number | null;
+      /** Unit */
+      unit: string;
+      /** Laboratory Min */
+      laboratory_min: number | null;
+      /** Laboratory Max */
+      laboratory_max: number | null;
     };
     /** Measurement */
     Measurement: {
@@ -1869,6 +1992,118 @@ export interface operations {
         };
         content: {
           "application/json": components["schemas"]["ReferenceDashboard"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_reference_laboratories: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["FlightLaboratories"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_reference_exercise: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ExerciseSession"];
         };
       };
       /** @description Not Found */

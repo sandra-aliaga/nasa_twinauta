@@ -10,6 +10,7 @@ type HeaderProps = {
   canEvaluate: boolean;
   onEvaluate: () => void;
   isDemo: boolean;
+  referenceMode?: boolean;
   cardiacAvailable: boolean;
   cardiacOpen: boolean;
   onToggleCardiac: () => void;
@@ -29,6 +30,7 @@ export function Header({
   canEvaluate,
   onEvaluate,
   isDemo,
+  referenceMode = false,
   cardiacAvailable,
   cardiacOpen,
   onToggleCardiac,
@@ -62,59 +64,67 @@ export function Header({
           TwinNauta
         </h1>
 
-        <label className="flex items-center gap-2 text-sm text-slate-300">
-          Caso
-          <select
-            value={caseId ?? ""}
-            onChange={(event) => onCaseChange(event.target.value)}
-            className="max-w-[13rem] truncate rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100 2xl:max-w-none"
-          >
-            {cases.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.label}
-                {item.is_virtual ? " (virtual)" : ""}
-              </option>
-            ))}
-          </select>
-        </label>
+        {referenceMode ? (
+          <p className="flex-1 text-xs text-slate-300">
+            NASA · estudios musculares · muestras de vuelo · pruebas de
+            ejercicio
+          </p>
+        ) : (
+          <>
+            <label className="flex items-center gap-2 text-sm text-slate-300">
+              Caso
+              <select
+                value={caseId ?? ""}
+                onChange={(event) => onCaseChange(event.target.value)}
+                className="max-w-[13rem] truncate rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100 2xl:max-w-none"
+              >
+                {cases.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.label}
+                    {item.is_virtual ? " (virtual)" : ""}
+                  </option>
+                ))}
+              </select>
+            </label>
 
-        <div className="flex flex-1 flex-wrap items-center gap-3 text-sm text-slate-300">
-          <label htmlFor="mission-day" className="whitespace-nowrap">
-            Día de misión
-          </label>
-          <input
-            id="mission-day"
-            type="range"
-            min={0}
-            max={maxDay}
-            value={day}
-            disabled={!selectedCase}
-            onChange={(event) => onDayChange(Number(event.target.value))}
-            className="w-32 accent-sky-400 sm:w-36 xl:w-40 2xl:w-56"
-          />
-          <span className="w-16 tabular-nums text-slate-100">
-            {day} / {maxDay}
-          </span>
-          <button
-            type="button"
-            onClick={onEvaluate}
-            disabled={!canEvaluate}
-            title={
-              canEvaluate
-                ? "Crear una evaluación para este día"
-                : "Seleccione una región del cuerpo"
-            }
-            className="rounded-full bg-sky-500 px-4 py-1 font-semibold text-slate-950 hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
-          >
-            Evaluar día {day}
-          </button>
-          {dayChanged ? (
-            <span className="text-xs text-amber-300">
-              La evaluación mostrada es del día {evaluatedDay}.
-            </span>
-          ) : null}
-        </div>
-
+            <div className="flex flex-1 flex-wrap items-center gap-3 text-sm text-slate-300">
+              <label htmlFor="mission-day" className="whitespace-nowrap">
+                Día de misión
+              </label>
+              <input
+                id="mission-day"
+                type="range"
+                min={0}
+                max={maxDay}
+                value={day}
+                disabled={!selectedCase}
+                onChange={(event) => onDayChange(Number(event.target.value))}
+                className="w-32 accent-sky-400 sm:w-36 xl:w-40 2xl:w-56"
+              />
+              <span className="w-16 tabular-nums text-slate-100">
+                {day} / {maxDay}
+              </span>
+              <button
+                type="button"
+                onClick={onEvaluate}
+                disabled={!canEvaluate}
+                title={
+                  canEvaluate
+                    ? "Crear una evaluación para este día"
+                    : "Seleccione una región del cuerpo"
+                }
+                className="rounded-full bg-sky-500 px-4 py-1 font-semibold text-slate-950 hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
+              >
+                Evaluar día {day}
+              </button>
+              {dayChanged ? (
+                <span className="text-xs text-amber-300">
+                  La evaluación mostrada es del día {evaluatedDay}.
+                </span>
+              ) : null}
+            </div>
+          </>
+        )}
         {cardiacAvailable ? (
           <button
             type="button"

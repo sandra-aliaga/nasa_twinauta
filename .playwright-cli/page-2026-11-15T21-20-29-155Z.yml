@@ -1,0 +1,48 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "TwinNauta" [level=1] [ref=e6]
+      - paragraph [ref=e12]: NASA · estudios musculares · muestras de vuelo · pruebas de ejercicio
+      - button "Biblioteca científica" [ref=e13]
+      - button "Cómo leer esta demo" [ref=e14]: Guía
+  - dialog [ref=e15]:
+    - generic [ref=e16]:
+      - button "Saltar" [active] [ref=e18]
+      - generic [ref=e19]:
+        - heading "Mira el gemelo" [level=2] [ref=e29]
+        - paragraph [ref=e30]: Es un astronauta virtual de práctica. Las balizas marcan las zonas donde hay algo por revisar.
+      - img "Paso 1 de 3" [ref=e31]
+      - button "Siguiente" [ref=e36]
+  - generic [ref=e37]:
+    - main [ref=e38]:
+      - generic [ref=e40]:
+        - generic [ref=e41]:
+          - generic [ref=e42]: Preparando visor 3D…
+          - generic [ref=e43]:
+            - region [ref=e45]:
+              - heading "Datos de investigación" [level=2] [ref=e46]
+              - generic [ref=e47]:
+                - heading "Pulso" [level=3] [ref=e48]
+                - paragraph [ref=e51]: Sin señal de pulso disponible en este modo.
+              - status "Cargando mediciones originales" [ref=e52]
+            - button "‹ Ocultar estado general" [ref=e57]
+        - generic [ref=e58]:
+          - generic [ref=e59]: "Regiones:"
+          - list "Leyenda del modelo" [ref=e61]:
+            - listitem [ref=e62]: "Baliza: zona con algo por revisar"
+            - listitem [ref=e64]: Zona con seguimiento
+            - listitem [ref=e66]: "Corazón: pulso de ejemplo"
+            - listitem [ref=e68]: Resto del cuerpo, sin evaluar
+            - listitem [ref=e70]: Los colores no indican estado de salud.
+          - paragraph [ref=e71]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=e72]:
+      - generic [ref=e75]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=e76]
+        - paragraph [ref=e77]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=e78]:
+          - listitem [ref=e79]:
+            - button "Corazón Pulso de ejemplo y estudios Ver zona" [ref=e80]:
+              - generic [ref=e81]:
+                - generic [ref=e82]: Corazón
+                - generic [ref=e83]: Pulso de ejemplo y estudios
+              - generic [ref=e84]: Ver zona

@@ -31,6 +31,12 @@ from app.schemas import (
     TelemetryRecording,
     TelemetryWindow,
 )
+from app.supplementary_data import (
+    ExerciseSession,
+    FlightLaboratories,
+    exercise_session,
+    flight_laboratories,
+)
 
 router = APIRouter(
     prefix="/api/v1",
@@ -46,6 +52,24 @@ router = APIRouter(
 def get_reference_dashboard() -> ReferenceDashboard:
     """Return real reference measurements and published group statistics."""
     return reference_dashboard()
+
+
+@router.get(
+    "/reference-laboratories",
+    response_model=FlightLaboratories,
+    operation_id="get_reference_laboratories",
+)
+def get_reference_laboratories() -> FlightLaboratories:
+    """Return NASA flight samples with original laboratory units and ranges."""
+    return flight_laboratories()
+
+
+@router.get(
+    "/reference-exercise", response_model=ExerciseSession, operation_id="get_reference_exercise"
+)
+def get_reference_exercise() -> ExerciseSession:
+    """Return the selected observed terrestrial exercise session."""
+    return exercise_session()
 
 
 def get_session(request: Request) -> Iterator[Session]:

@@ -4,6 +4,7 @@ import { requestJson } from "../api/httpSource";
 import type { components } from "../api/schema";
 import { useLoad } from "../hooks/useLoad";
 import { ErrorNotice, Skeleton } from "./common";
+import { ObservedExercisePanel } from "./ObservedDataPanels";
 
 type Reference = components["schemas"]["ReferenceDashboard"];
 
@@ -283,6 +284,7 @@ export function ReferenceDashboard({
           ) : null}
         </section>
       ) : null}
+      {view !== "scenario" ? <ObservedExercisePanel /> : null}
     </div>
   );
 }
