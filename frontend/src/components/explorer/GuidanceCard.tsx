@@ -15,7 +15,7 @@ import {
   EXECUTION_LABELS,
   REVIEW_LABELS,
 } from "../../lib/labels";
-import { ErrorNotice, Notice, Tag } from "../common";
+import { ErrorNotice, Notice, Skeleton, Tag } from "../common";
 
 /** Proposed link to a 0.2 action; absent in the implemented contract. */
 type StepWithLink = GuidanceStep & { action_id?: string | null };
@@ -44,7 +44,7 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
   const [index, setIndex] = useState(0);
 
   if (examples === null || examples.status === "loading") {
-    return <p className="text-xs text-slate-400">Cargando orientación…</p>;
+    return <Skeleton lines={3} label="Cargando orientación" />;
   }
   if (examples.status === "error")
     return <ErrorNotice error={examples.error} />;

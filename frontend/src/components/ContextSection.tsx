@@ -7,7 +7,7 @@ import type {
 import type { LoadState } from "../hooks/useCatalog";
 import { BASIS_LABELS, RELATION_LABELS } from "../lib/explorerLabels";
 import { REVIEW_LABELS, UNIT_LABELS } from "../lib/labels";
-import { ErrorNotice, Tag } from "./common";
+import { ErrorNotice, Skeleton, Tag } from "./common";
 
 export type ContextSectionKey = keyof ContextDraft;
 
@@ -51,7 +51,11 @@ export function ContextSection({
 }) {
   const title = SECTION_TITLES[section];
   if (context === null || context.status === "loading") {
-    return <p className="text-xs text-slate-400">Cargando síntesis…</p>;
+    return (
+      <div className="rounded-lg border border-slate-800 p-3">
+        <Skeleton lines={4} label="Cargando síntesis" />
+      </div>
+    );
   }
   if (context.status === "error") return <ErrorNotice error={context.error} />;
 
@@ -169,7 +173,7 @@ export function ContextSection({
                 </blockquote>
                 <figcaption className="mt-1 flex flex-wrap items-center gap-2">
                   {snippet ? (
-                    <Tag>
+                    <Tag tone="subtle">
                       {LOCATOR_LABELS[snippet.locator] ?? snippet.locator}
                     </Tag>
                   ) : null}
@@ -203,7 +207,11 @@ export function ContextSection({
                   {RELATION_LABELS[edge.relation]}
                 </span>{" "}
                 «{truncate(labelOf(edge.target))}»{" "}
-                <Tag>{BASIS_LABELS[edge.basis]}</Tag>
+                <Tag
+                  tone={edge.basis === "llm_suggestion" ? "amber" : "subtle"}
+                >
+                  {BASIS_LABELS[edge.basis]}
+                </Tag>
               </li>
             ))}
           </ul>

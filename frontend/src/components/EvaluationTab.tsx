@@ -49,14 +49,15 @@ function ObservationRow({ observation }: { observation: Observation }) {
         </p>
       ) : null}
       <div className="mt-2 flex flex-wrap gap-1">
-        <Tag>{ORIGIN_LABELS[observation.origin]}</Tag>
-        <Tag>{DERIVATION_LABELS[observation.derivation]}</Tag>
-        <Tag>{STATISTIC_LABELS[observation.statistic]}</Tag>
+        {/* Status first; provenance as quieter metadata. */}
         <Tag tone={observation.quality === "available" ? "slate" : "amber"}>
           {QUALITY_LABELS[observation.quality]}
         </Tag>
+        <Tag tone="subtle">{ORIGIN_LABELS[observation.origin]}</Tag>
+        <Tag tone="subtle">{DERIVATION_LABELS[observation.derivation]}</Tag>
+        <Tag tone="subtle">{STATISTIC_LABELS[observation.statistic]}</Tag>
         {observation.sample_size !== null ? (
-          <Tag>n = {observation.sample_size}</Tag>
+          <Tag tone="subtle">n = {observation.sample_size}</Tag>
         ) : null}
       </div>
       <p className="mt-1 text-xs text-slate-400">

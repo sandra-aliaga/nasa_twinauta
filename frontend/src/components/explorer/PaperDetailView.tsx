@@ -45,7 +45,9 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
           <Tag tone={paper.review_status === "reviewed" ? "emerald" : "slate"}>
             Ficha: {REVIEW_LABELS[paper.review_status]}
           </Tag>
-          <Tag>{AVAILABILITY_LABELS[paper.access.availability]}</Tag>
+          <Tag tone="subtle">
+            {AVAILABILITY_LABELS[paper.access.availability]}
+          </Tag>
         </div>
       </header>
 
@@ -162,7 +164,7 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
               >
                 <div className="flex flex-wrap gap-1">
                   <Tag tone="amber">Sugerencia de IA</Tag>
-                  <Tag>{ANALYSIS_KIND_LABELS[item.kind]}</Tag>
+                  <Tag tone="subtle">{ANALYSIS_KIND_LABELS[item.kind]}</Tag>
                   <Tag
                     tone={
                       item.review_status === "reviewed" ? "emerald" : "slate"

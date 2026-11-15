@@ -8,7 +8,7 @@ import {
   ENVIRONMENT_LABELS,
   REVIEW_LABELS,
 } from "../../lib/labels";
-import { ErrorNotice, Notice, Tag } from "../common";
+import { ErrorNotice, Notice, Skeleton, Tag } from "../common";
 import { GraphCanvas } from "./GraphCanvas";
 
 type GraphExplorerProps = {
@@ -16,6 +16,8 @@ type GraphExplorerProps = {
   view: GraphView;
   onViewChange: (view: GraphView) => void;
   onBack: () => void;
+  /** Catalog labels used for nodes whose label is a bare identifier. */
+  labels?: Record<string, string>;
 };
 
 /** Expanded graph: canvas, view selector, legend and a node detail card. */
@@ -24,8 +26,9 @@ export function GraphExplorer({
   view,
   onViewChange,
   onBack,
+  labels,
 }: GraphExplorerProps) {
-  const state = useGraph(assessmentId, view);
+  const state = useGraph(assessmentId, view, labels);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const rootRef = useRef<HTMLDivElement>(null);
 
@@ -42,7 +45,10 @@ export function GraphExplorer({
   const graph = state?.status === "ready" ? state.data : null;
 
   return (
-    <div ref={rootRef} className="flex h-full min-h-[480px] flex-col">
+    <div
+      ref={rootRef}
+      className="flex h-full min-h-[480px] animate-fade-in flex-col"
+    >
       <div className="flex flex-wrap items-center gap-3 border-b border-slate-800 px-4 py-3">
         <button
           type="button"
@@ -80,7 +86,7 @@ export function GraphExplorer({
       <div className="relative min-h-0 flex-1">
         {state === null || state.status === "loading" ? (
           <div className="p-6">
-            <Notice title="Cargando grafo…" />
+            <Skeleton lines={5} label="Cargando grafo" />
           </div>
         ) : state.status === "error" ? (
           <div className="p-6">

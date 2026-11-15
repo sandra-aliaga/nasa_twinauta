@@ -14,7 +14,7 @@ import { dataSource } from "../api";
 import { useTelemetry } from "../hooks/useTelemetry";
 import { REFERENCE_RECORDINGS } from "../lib/config";
 import { ORIGIN_LABELS } from "../lib/labels";
-import { Collapsible, ErrorNotice, Notice, Tag } from "./common";
+import { Collapsible, ErrorNotice, Notice, Skeleton, Tag } from "./common";
 
 // Visible span of the chart; it matches the API window size.
 const VIEW_SPAN_S = 120;
@@ -35,14 +35,15 @@ type CardiacPanelProps = {
 export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
   const options = useMemo(() => {
     const list: { id: string; label: string }[] = [];
-    if (caseRecordingId) {
-      list.push({ id: caseRecordingId, label: "Grabación asociada al caso" });
-    }
-    // The reference recording only exists in the real API.
+    // The reference recording only exists in the real API. It goes first:
+    // the case recording is a short synthetic placeholder (a few samples).
     if (dataSource.kind === "api") {
       for (const item of REFERENCE_RECORDINGS) {
         if (item.id !== caseRecordingId) list.push({ ...item });
       }
+    }
+    if (caseRecordingId) {
+      list.push({ id: caseRecordingId, label: "Grabación asociada al caso" });
     }
     return list;
   }, [caseRecordingId]);
@@ -148,7 +149,7 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
   }, [points]);
 
   if (state.status === "loading") {
-    return <p className="mt-2 text-xs text-slate-400">Cargando metadatos…</p>;
+    return <Skeleton lines={4} label="Cargando metadatos" className="mt-3" />;
   }
   if (state.status === "error") {
     return (

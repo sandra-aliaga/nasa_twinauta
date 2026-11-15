@@ -9,7 +9,7 @@ import {
   LIBRARY_VIEW_LABELS,
 } from "../../lib/explorerLabels";
 import { ENVIRONMENT_LABELS, REVIEW_LABELS } from "../../lib/labels";
-import { ErrorNotice, Notice, Tag } from "../common";
+import { ErrorNotice, Notice, Skeleton, Tag } from "../common";
 import { LibraryGraph } from "./LibraryGraph";
 import { PaperDetailView } from "./PaperDetailView";
 
@@ -98,7 +98,7 @@ export function ExplorerView({
   );
 
   return (
-    <div className="flex h-full flex-col">
+    <div className="flex h-full animate-fade-in flex-col">
       <div className="space-y-3 border-b border-slate-800 px-4 py-3">
         <div className="flex flex-wrap items-center gap-3">
           <button
@@ -331,7 +331,7 @@ export function ExplorerView({
                               {REVIEW_LABELS[paper.review_status]}
                             </Tag>
                             {paper.sections.map((section) => (
-                              <Tag key={section}>
+                              <Tag key={section} tone="subtle">
                                 {LIBRARY_VIEW_LABELS[section]}
                               </Tag>
                             ))}
@@ -404,7 +404,7 @@ export function ExplorerView({
             ) : modules?.status === "error" ? (
               <ErrorNotice error={modules.error} />
             ) : (
-              <p className="mt-2 text-xs text-slate-400">Cargando catálogo…</p>
+              <Skeleton lines={2} label="Cargando catálogo" className="mt-2" />
             )}
           </section>
         </div>
@@ -414,18 +414,20 @@ export function ExplorerView({
           aria-label="Ficha de la publicación"
           className="min-h-0 scroll-mt-4"
         >
-          {paperId === null ? (
-            <Notice title="Ninguna publicación seleccionada">
-              Elige una publicación de la lista o un nodo del grafo para abrir
-              su ficha.
-            </Notice>
-          ) : detail === null || detail.status === "loading" ? (
-            <Notice title="Cargando ficha…" />
-          ) : detail.status === "error" ? (
-            <ErrorNotice error={detail.error} />
-          ) : (
-            <PaperDetailView detail={detail.data} />
-          )}
+          <div key={paperId ?? "none"} className="animate-slide-in-right">
+            {paperId === null ? (
+              <Notice title="Ninguna publicación seleccionada">
+                Elige una publicación de la lista o un nodo del grafo para abrir
+                su ficha.
+              </Notice>
+            ) : detail === null || detail.status === "loading" ? (
+              <Skeleton lines={8} label="Cargando ficha" />
+            ) : detail.status === "error" ? (
+              <ErrorNotice error={detail.error} />
+            ) : (
+              <PaperDetailView detail={detail.data} />
+            )}
+          </div>
         </aside>
       </div>
     </div>

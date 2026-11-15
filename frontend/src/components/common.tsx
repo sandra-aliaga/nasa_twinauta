@@ -59,13 +59,16 @@ export function ErrorNotice({
   );
 }
 
-/** Small pill used for statuses and provenance tags. */
+/**
+ * Small pill used for statuses and provenance tags. "subtle" is for
+ * secondary metadata (origin, method) so statuses stay the first read.
+ */
 export function Tag({
   children,
   tone = "slate",
 }: {
   children: ReactNode;
-  tone?: "slate" | "sky" | "amber" | "violet" | "emerald" | "rose";
+  tone?: "slate" | "sky" | "amber" | "violet" | "emerald" | "rose" | "subtle";
 }) {
   const tones = {
     slate: "border-slate-600 text-slate-300",
@@ -74,6 +77,7 @@ export function Tag({
     violet: "border-violet-500/50 text-violet-200",
     emerald: "border-emerald-500/50 text-emerald-200",
     rose: "border-rose-500/50 text-rose-200",
+    subtle: "border-transparent bg-slate-800/70 text-slate-300",
   } as const;
   return (
     <span
@@ -107,5 +111,31 @@ export function Collapsible({
       </summary>
       <div className="px-4 pb-3 text-sm text-slate-300">{children}</div>
     </details>
+  );
+}
+
+/** Pulsing placeholder with the shape of the content being loaded. */
+export function Skeleton({
+  lines = 3,
+  label,
+  className = "",
+}: {
+  lines?: number;
+  /** Announced to screen readers; the blocks themselves are decorative. */
+  label: string;
+  className?: string;
+}) {
+  return (
+    <div role="status" aria-label={label} className={`space-y-2 ${className}`}>
+      {Array.from({ length: lines }, (_, index) => (
+        <div
+          key={index}
+          aria-hidden="true"
+          className={`h-3 animate-pulse rounded bg-slate-800 ${
+            index === 0 ? "w-2/5" : index % 2 === 0 ? "w-4/5" : "w-full"
+          }`}
+        />
+      ))}
+    </div>
   );
 }
