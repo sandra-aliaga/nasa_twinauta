@@ -1,0 +1,70 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "TwinNauta" [level=1] [ref=e6]
+      - generic [ref=e12]:
+        - text: Caso
+        - combobox "Caso" [ref=e13]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=e14]:
+        - generic [ref=e15]: Día de misión
+        - slider "Día de misión" [ref=e16]: "10"
+        - generic [ref=e17]: 10 / 70
+        - button "Evaluar día 10" [ref=e18]
+      - button "Biblioteca científica" [ref=e19]
+      - button "Cómo leer esta demo" [ref=e20]: Guía
+  - generic [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - generic "Modelo anatómico 3D" [ref=e71]
+          - generic [ref=e49]:
+            - region [ref=e74]:
+              - generic [ref=e75]:
+                - generic [ref=e76]:
+                  - heading "Estado general" [level=2] [ref=e77]
+                  - paragraph [ref=e78]: Astronauta virtual
+                - paragraph [ref=e80]:
+                  - generic [ref=e81]: Día 10
+                  - text: de 70
+              - generic [ref=e85]:
+                - generic [ref=e86]:
+                  - heading "Pulso" [level=3] [ref=e87]
+                  - paragraph [ref=e90]: Sin señal de pulso disponible en este modo.
+                - generic [ref=e91]:
+                  - heading "Área transversal relativa del cuádriceps" [level=3] [ref=e92]
+                  - paragraph [ref=e93]: 100% del basal
+                - generic [ref=e94]:
+                  - heading "Torque de extensión de rodilla" [level=3] [ref=e95]
+                  - paragraph [ref=e96]: Sin dato
+              - generic [ref=e97]:
+                - heading "Ejercicio con registro" [level=3] [ref=e98]
+                - generic [ref=e99]:
+                  - paragraph [ref=e100]: 1/2
+                  - img "1 de 2 sesiones con registro" [ref=e101]
+              - 'button "Cuádriceps: algo por revisar Registro por revisar" [ref=e104]':
+                - generic [ref=e108]:
+                  - generic [ref=e109]: "Cuádriceps: algo por revisar"
+                  - generic [ref=e110]: Registro por revisar
+            - button "‹ Ocultar estado general" [ref=e51]
+        - generic [ref=e52]:
+          - generic [ref=e53]:
+            - generic [ref=e54]: "Regiones:"
+            - button "Cuádriceps" [ref=e111]
+          - list "Leyenda del modelo" [ref=e55]:
+            - listitem [ref=e56]: "Baliza: zona con algo por revisar"
+            - listitem [ref=e58]: Zona con seguimiento
+            - listitem [ref=e60]: Resto del cuerpo, sin evaluar
+            - listitem [ref=e62]: Los colores no indican estado de salud.
+          - paragraph [ref=e63]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=e64]:
+      - generic [ref=e67]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=e68]
+        - paragraph [ref=e69]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=e112]:
+          - listitem [ref=e113]:
+            - button "Cuádriceps Registro por revisar Ver zona" [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: Cuádriceps
+                - generic [ref=e117]: Registro por revisar
+              - generic [ref=e118]: Ver zona

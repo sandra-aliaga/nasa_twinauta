@@ -1,0 +1,42 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "TwinNauta" [level=1] [ref=e6]
+      - generic [ref=e12]:
+        - text: Caso
+        - combobox "Caso" [ref=e13]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=e14]:
+        - generic [ref=e15]: Día de misión
+        - slider "Día de misión" [disabled] [ref=e16]: "0"
+        - generic [ref=e17]: 10 / 0
+        - button "Evaluar día 10" [disabled] [ref=e18]
+      - button "Biblioteca científica" [ref=e19]
+      - button "Cómo leer esta demo" [ref=e20]: Guía
+  - dialog [ref=e21]:
+    - generic [ref=e22]:
+      - button "Saltar" [active] [ref=e24]
+      - generic [ref=e25]:
+        - heading "Mira el gemelo" [level=2] [ref=e35]
+        - paragraph [ref=e36]: Es un astronauta virtual de práctica. Las balizas marcan las zonas donde hay algo por revisar.
+      - img "Paso 1 de 3" [ref=e37]
+      - button "Siguiente" [ref=e42]
+  - generic [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - generic [ref=e48]: Preparando visor 3D…
+          - button "‹ Ocultar estado general" [ref=e51]
+        - generic [ref=e52]:
+          - generic [ref=e53]: "Regiones:"
+          - list "Leyenda del modelo" [ref=e55]:
+            - listitem [ref=e56]: "Baliza: zona con algo por revisar"
+            - listitem [ref=e58]: Zona con seguimiento
+            - listitem [ref=e60]: Resto del cuerpo, sin evaluar
+            - listitem [ref=e62]: Los colores no indican estado de salud.
+          - paragraph [ref=e63]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=e64]:
+      - generic [ref=e67]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=e68]
+        - paragraph [ref=e69]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list

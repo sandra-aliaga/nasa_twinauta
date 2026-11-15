@@ -1,0 +1,17 @@
+- main [ref=e2]:
+  - generic [ref=e3]:
+    - heading "TWINNAUTA / MOTION EDITOR" [level=1] [ref=e4]
+    - generic [ref=e5]: 30 seconds · 1920 × 1080 · English · No voice
+  - generic [ref=e7]:
+    - button "Play / Pause" [ref=e8] [cursor=pointer]
+    - slider [ref=e9]: "0"
+    - generic [ref=e10]: 0.00 / 30
+  - navigation [ref=e11]:
+    - generic [ref=e12] [cursor=pointer]:
+      - text: "Final 5 seconds:"
+      - button "Final 5 seconds:" [ref=e13]
+    - button "Export WebM" [ref=e14] [cursor=pointer]
+    - generic [ref=e15]: Ready
+  - group [ref=e16]:
+    - generic "Edit the on-screen script" [ref=e17]
+  - paragraph [ref=e18]: "Conceptual visuals and illustrative data. Research prototype. Final footage slot: 25–30 s."

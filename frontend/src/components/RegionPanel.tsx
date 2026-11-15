@@ -1,28 +1,10 @@
-import { lazy, Suspense } from "react";
-
-import {
-  dataSource,
-  type Action,
-  type IndicatorDefinition,
-  type Region,
-} from "../api";
+import type { Action, IndicatorDefinition, Region } from "../api";
 import type { AssessmentState } from "../hooks/useAssessment";
-import { useLoad } from "../hooks/useLoad";
-import {
-  ASSESSMENT_STATUS_HINTS,
-  ASSESSMENT_STATUS_LABELS,
-} from "../lib/labels";
-import { ActionsTab } from "./ActionsTab";
-import { Collapsible, ErrorNotice, Notice, Skeleton, Tag } from "./common";
-import { ContextSection, type ContextSectionKey } from "./ContextSection";
-import { EvaluationTab } from "./EvaluationTab";
-import { ScenarioTab } from "./ScenarioTab";
+import { ASSESSMENT_STATUS_HINTS } from "../lib/labels";
+import { ErrorNotice, Notice, Skeleton, Tag } from "./common";
+import { ReferenceDashboard } from "./ReferenceDashboard";
 
 export type PanelTab = "evaluation" | "scenario" | "actions";
-
-const MiniGraph = lazy(() =>
-  import("./graph/MiniGraph").then((m) => ({ default: m.MiniGraph })),
-);
 
 // The panel is a real sequence: what is happening, what could happen, what
 // to do. Each step keeps one hue so it is recognisable; hues are not severity.
@@ -56,19 +38,6 @@ const TABS: {
   },
 ];
 
-const TAB_SECTIONS: Record<PanelTab, ContextSectionKey> = {
-  evaluation: "alert_assessment",
-  scenario: "inaction_scenario",
-  actions: "next_steps",
-};
-
-// Data availability, not severity: no red, no traffic-light semantics.
-const STATUS_TONES = {
-  complete: "sky",
-  partial: "amber",
-  insufficient_data: "slate",
-} as const;
-
 type RegionPanelProps = {
   region: Region | null;
   indicators: IndicatorDefinition[];
@@ -86,30 +55,15 @@ type RegionPanelProps = {
 /** Contextual panel for the selected region with its three sections. */
 export function RegionPanel({
   region,
-  indicators,
   state,
   tab,
   onTabChange,
   onClose,
   onRetry,
   onOpenGraph,
-  onActionUpdated,
-  onConflict,
   onOpenPaper,
 }: RegionPanelProps) {
-  // One prepared synthesis per assessment, shared by the three tabs.
-  const assessmentId =
-    state.status === "ready" ? state.assessment.assessment_id : null;
-  const context = useLoad(
-    assessmentId === null ? null : `context|${assessmentId}`,
-    (signal) => dataSource.getContext(assessmentId ?? "", signal),
-  );
-
   const activeTab = TABS.find((item) => item.id === tab) ?? TABS[0];
-  const graphLabels = Object.fromEntries(
-    indicators.map((item) => [item.id, item.label]),
-  );
-
   if (!region) {
     return (
       <div className="p-5">
@@ -229,15 +183,8 @@ export function RegionPanel({
               className="flex flex-wrap items-center gap-1.5"
               title={ASSESSMENT_STATUS_HINTS[state.assessment.status]}
             >
-              <Tag tone={STATUS_TONES[state.assessment.status]}>
-                Evaluación {ASSESSMENT_STATUS_LABELS[state.assessment.status]}
-              </Tag>
               <Tag tone="subtle">Día {state.assessment.mission_day}</Tag>
-              {state.assessment.content_mode === "illustrative" ? (
-                <Tag tone="subtle">Caso de práctica</Tag>
-              ) : (
-                <Tag tone="emerald">Basado en evidencia revisada</Tag>
-              )}
+              <Tag tone="subtle">Referencias científicas</Tag>
             </div>
             {state.assessment.mission_day !== state.request.mission_day ? (
               <Notice
@@ -251,23 +198,7 @@ export function RegionPanel({
             ) : null}
 
             <div key={tab} className="animate-rise-in space-y-4">
-              {tab === "evaluation" ? (
-                <EvaluationTab
-                  assessment={state.assessment}
-                  region={region}
-                  indicators={indicators}
-                />
-              ) : null}
-              {tab === "scenario" ? (
-                <ScenarioTab assessment={state.assessment} />
-              ) : null}
-              {tab === "actions" ? (
-                <ActionsTab
-                  assessment={state.assessment}
-                  onActionUpdated={onActionUpdated}
-                  onConflict={onConflict}
-                />
-              ) : null}
+              <ReferenceDashboard view={tab} />
               <section
                 className="hud-panel"
                 style={
@@ -286,31 +217,25 @@ export function RegionPanel({
                     Abrir mapa 3D
                   </button>
                 </div>
-                <Suspense
-                  fallback={
-                    <Skeleton lines={3} label="Cargando mapa" className="p-3" />
-                  }
-                >
-                  <MiniGraph
-                    inline
-                    assessmentId={state.assessment.assessment_id}
-                    view={activeTab.graphView}
-                    onExpand={() => onOpenGraph(tab)}
-                    labels={graphLabels}
-                  />
-                </Suspense>
+                <p className="p-3 text-xs text-slate-400">
+                  Explora los estudios, sus métodos y resultados en la
+                  biblioteca.
+                </p>
               </section>
-              <Collapsible title="Explicación ampliada">
-                <div className="pt-1">
-                  <ContextSection
-                    context={context}
-                    section={TAB_SECTIONS[tab]}
-                    assessment={state.assessment}
-                    indicators={indicators}
-                    onOpenPaper={onOpenPaper}
-                  />
-                </div>
-              </Collapsible>
+              <div className="flex flex-wrap gap-2">
+                <button
+                  className="rounded border border-slate-700 px-3 py-2 text-xs text-sky-300"
+                  onClick={() => onOpenPaper("literature_pmid_33251515")}
+                >
+                  Área muscular · Scott 2020
+                </button>
+                <button
+                  className="rounded border border-slate-700 px-3 py-2 text-xs text-sky-300"
+                  onClick={() => onOpenPaper("literature_pmid_38328821")}
+                >
+                  Ejercicio y torque · SPRINT 2024
+                </button>
+              </div>
             </div>
           </>
         ) : null}

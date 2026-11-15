@@ -1,0 +1,417 @@
+{
+  "retrieved_at": "2026-11-15",
+  "source_doi": "10.83263/bk5h-r757",
+  "files": [
+    {
+      "file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+      "url": "https://nlsp.nasa.gov/api/v1/files/c8c5572c-d2ef-55e3-8c79-ac99b31deade/download",
+      "sha256": "0adbec38a10311d9c5a59fc0b5cc7d0e4b8ad3439a3418ac0368006647ffe413",
+      "rows": 17
+    },
+    {
+      "file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+      "url": "https://nlsp.nasa.gov/api/v1/files/9754781a-83e8-5cb2-b7ce-8f24006dcc4b/download",
+      "sha256": "3bd50f84c06b9e95ca78a8a248a0e9a4a90fe2cb41364b006f6f63e7aab6a793",
+      "rows": 16
+    }
+  ],
+  "dictionary_original": "backend/data/raw/research_pending/MR079G_Campaign_17_Isokinetic_DataSum_Parameter_Reference_ALL.csv",
+  "verified_parameter": {
+    "code": "KES60",
+    "unit_original": "Nm",
+    "speed_degrees_per_second": 60,
+    "method": "Biodex isokinetic dynamometer; seated knee extension; five repetitions"
+  },
+  "available_paired_subjects": 16,
+  "limits": [
+    "File labelled BR+6 has Test_Phase=PRE_TEST; preserve conflict and display original acquisition dates.",
+    "Do not map BR_Day onto virtual mission day or infer intervention assignments.",
+    "No CSA or session adherence data in these files."
+  ],
+  "paired_measurements": {
+    "5875": [
+      {
+        "date": "5/16/11",
+        "value": 126.9,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 3,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "12",
+        "br_day_label_original": null
+      },
+      {
+        "date": "6/17/2011",
+        "value": 112.0,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 2,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "6135": [
+      {
+        "date": "5/30/2011",
+        "value": 158.7,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 4,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "7/1/2011",
+        "value": 149.5,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 3,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "6245": [
+      {
+        "date": "8/24/2011",
+        "value": 168.1,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 5,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "9/25/2011",
+        "value": 162.5,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 4,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "6356": [
+      {
+        "date": "6/13/2011",
+        "value": 155.1,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 6,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "7",
+        "br_day_label_original": null
+      },
+      {
+        "date": "7/11/2011",
+        "value": 162.9,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 5,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "6516": [
+      {
+        "date": "5/12/11",
+        "value": 154.5,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 7,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "12",
+        "br_day_label_original": null
+      },
+      {
+        "date": "6/13/2011",
+        "value": 104.7,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 6,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "6629": [
+      {
+        "date": "7/20/2011",
+        "value": 189.2,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 8,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "8/21/2011",
+        "value": 155.1,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 7,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "7868": [
+      {
+        "date": "7/13/2011",
+        "value": 229.0,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 9,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "8/13/2011",
+        "value": 217.2,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 8,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "5",
+        "br_day_label_original": "BR+5"
+      }
+    ],
+    "9279": [
+      {
+        "date": "9/22/2011",
+        "value": 127.7,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 10,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "10/23/2011",
+        "value": 105.2,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 9,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "9365": [
+      {
+        "date": "8/17/2011",
+        "value": 113.5,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 11,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "12",
+        "br_day_label_original": null
+      },
+      {
+        "date": "9/18/2011",
+        "value": 76.9,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 10,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "5953": [
+      {
+        "date": "9/29/2011",
+        "value": 184.2,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 12,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "12",
+        "br_day_label_original": null
+      },
+      {
+        "date": "10/29/2011",
+        "value": 168.3,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 11,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "5",
+        "br_day_label_original": "BR+5"
+      }
+    ],
+    "9672": [
+      {
+        "date": "11/17/2011",
+        "value": 170.4,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 13,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "12",
+        "br_day_label_original": null
+      },
+      {
+        "date": "12/18/2011",
+        "value": 145.5,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 12,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "7510": [
+      {
+        "date": "11/23/2011",
+        "value": 225.0,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 14,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "12/23/2011",
+        "value": 225.5,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 13,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "5775": [
+      {
+        "date": "12/2/2011",
+        "value": 160.0,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 15,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "1/2/2012",
+        "value": 177.7,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 14,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "7128": [
+      {
+        "date": "12/20/2011",
+        "value": 162.8,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 16,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "1/20/2012",
+        "value": 165.4,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 15,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "9693": [
+      {
+        "date": "1/5/2010",
+        "value": 224.8,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 17,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "2/3/2012",
+        "value": 218.2,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 16,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ],
+    "6232": [
+      {
+        "date": "1/12/2012",
+        "value": 314.6,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR-12_ALL.csv",
+        "source_line": 18,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "11",
+        "br_day_label_original": null
+      },
+      {
+        "date": "2/10/2012",
+        "value": 320.2,
+        "unit": "N.m",
+        "parameter": "KES60",
+        "source_file": "MR079G_Campaign_17_Isokinetic_DataSum_BR+6_ALL.csv",
+        "source_line": 17,
+        "test_phase_original": "PRE_TEST",
+        "br_day_original": "6",
+        "br_day_label_original": "BR+6"
+      }
+    ]
+  }
+}

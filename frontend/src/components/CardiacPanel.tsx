@@ -48,7 +48,7 @@ export function CardiacPanel({
         if (item.id !== caseRecordingId) list.push({ ...item });
       }
     }
-    if (caseRecordingId) {
+    if (caseRecordingId && dataSource.kind !== "api") {
       list.push({ id: caseRecordingId, label: "Grabación asociada al caso" });
     }
     return list;

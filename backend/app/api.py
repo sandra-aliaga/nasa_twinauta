@@ -11,6 +11,7 @@ from app import assessments, catalog, knowledge_graph, papers, telemetry
 from app.database import CaseRecord, LiteraturePaperRecord
 from app.errors import not_found
 from app.prepared_contexts import AssessmentContext, AssessmentIndex, get_context, list_assessments
+from app.reference_dashboard import ReferenceDashboard, reference_dashboard
 from app.schemas import (
     Action,
     ActionUpdate,
@@ -35,6 +36,16 @@ router = APIRouter(
     prefix="/api/v1",
     responses={code: {"model": Error} for code in (404, 409, 422, 500)},
 )
+
+
+@router.get(
+    "/reference-dashboard",
+    response_model=ReferenceDashboard,
+    operation_id="get_reference_dashboard",
+)
+def get_reference_dashboard() -> ReferenceDashboard:
+    """Return real reference measurements and published group statistics."""
+    return reference_dashboard()
 
 
 def get_session(request: Request) -> Iterator[Session]:
@@ -70,7 +81,12 @@ def get_assessment_context(assessment_id: str, session: DatabaseSession) -> Asse
 def list_cases(session: DatabaseSession) -> list[Case]:
     """List cases installed by the explicit seed command."""
     return [
-        Case.model_validate(record.payload["case"])
+        Case.model_validate(
+            {
+                **record.payload["case"],
+                "label": "Misión de referencia",
+            }
+        )
         for record in session.scalars(select(CaseRecord).order_by(CaseRecord.id))
     ]
 

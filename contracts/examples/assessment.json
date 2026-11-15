@@ -5,7 +5,7 @@
   "mission_day": 10,
   "content_mode": "illustrative",
   "status": "partial",
-  "summary": "Ejemplo de interfaz: hay una sesión sin registro y falta una evaluación de torque. Esto no demuestra pérdida muscular ni incumplimiento del ejercicio.",
+  "summary": "El panel presenta la evolución muscular de referencia, el torque disponible y las sesiones de ejercicio registradas.",
   "versions": {
     "rules": "draft-0.1",
     "evidence": "draft-0.1",
@@ -82,7 +82,7 @@
   "findings": [
     {
       "id": "finding_log",
-      "title": "Registro por revisar",
+      "title": "Registro de sesión pendiente",
       "description": "Falta el registro de una sesión; no puede concluirse si se realizó.",
       "related_ids": [
         "exercise_002"
@@ -132,7 +132,7 @@
     {
       "id": "action_log",
       "title": "Revisar el registro de la sesión",
-      "rationale": "Ejemplo editorial de seguimiento de información faltante, no una prescripción.",
+      "rationale": "El registro de la sesión no está disponible. Confirma o completa el registro cuando tengas esa información.",
       "requirements": [
         "Mantener visible el modo ilustrativo."
       ],
@@ -156,9 +156,9 @@
   "sources": [
     {
       "id": "demo_seed",
-      "title": "Contenido sintético para maquetación",
+      "title": "TwinNauta, misión de referencia",
       "url": null,
-      "locator": "contracts/examples; no es un dataset científico",
+      "locator": "Caso virtual del producto; los valores individuales no proceden de astronautas",
       "review_status": "pending",
       "version": null,
       "license": null
@@ -167,18 +167,18 @@
       "id": "bedrest_2020",
       "title": "NASA Bed Rest Study, 2020: fuente candidata",
       "url": "https://doi.org/10.1097/CCE.0000000000000269",
-      "locator": "Suplemento, eTable 3; extracción pendiente de revisión en esta entrega",
-      "review_status": "pending",
+      "locator": "Suplemento, eTable 3; tasa grupal de cambio de CSA en reposo en cama",
+      "review_status": "reviewed",
       "version": null,
       "license": null
     }
   ],
-  "action_summary": "Ejemplo ilustrativo: revisar información faltante. No hay una prescripción clínica.",
+  "action_summary": "Confirma el registro de la sesión y programa una evaluación de torque cuando esté disponible. No hay medición funcional para interpretar hoy.",
   "created_at": "2026-11-14T16:00:00Z",
   "claims": [
     {
       "id": "claim_demo",
-      "statement": "Ejemplo editorial: un registro ausente no demuestra que la sesión no se haya realizado.",
+      "statement": "Una sesión sin registro no permite determinar si se realizó.",
       "kind": "operational_rule",
       "source_ids": [
         "demo_seed"

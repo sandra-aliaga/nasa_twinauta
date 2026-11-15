@@ -1,0 +1,201 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "TwinNauta" [level=1] [ref=e6]
+      - generic [ref=e12]:
+        - text: Caso
+        - combobox "Caso" [ref=e13]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=e14]:
+        - generic [ref=e15]: Día de misión
+        - slider "Día de misión" [ref=e16]: "10"
+        - generic [ref=e17]: 10 / 70
+        - button "Evaluar día 10" [ref=e18]
+      - button "Biblioteca científica" [pressed] [ref=e19]
+      - button "Cómo leer esta demo" [ref=e20]: Guía
+  - generic [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e119]:
+        - generic [ref=e120]:
+          - generic [ref=e121]:
+            - button "← Volver al cuerpo" [ref=e122]
+            - heading "Biblioteca" [level=2] [ref=e123]
+            - generic [ref=e124]: 27 estudios, 26 con revisión documental
+          - generic [ref=e125]:
+            - generic [ref=e126]:
+              - generic [ref=e127]:
+                - generic [ref=e128]: Buscar estudios
+                - searchbox "Buscar estudios" [ref=e129]: SPRINT
+              - button "Buscar" [ref=e130]
+            - group "Qué quieres saber" [ref=e131]:
+              - button "Todo" [pressed] [ref=e132]
+              - button "Estado y explicación" [ref=e133]
+              - button "Implicaciones y evolución" [ref=e134]
+              - button "Contramedidas estudiadas" [ref=e135]
+            - group [ref=e136]:
+              - generic "Más filtros" [ref=e137] [cursor=pointer]
+              - option "Pendientes y revisadas" [selected]
+              - option "Pendiente de revisión"
+              - option "Revisado"
+          - group "Modo de exploración" [ref=e138]:
+            - button "Lista" [pressed] [ref=e139]
+            - button "Mapa de estudios" [ref=e140]
+        - generic [ref=e141]:
+          - generic [ref=e142]:
+            - region "Resultados" [ref=e143]:
+              - paragraph [ref=e311]: 4 publicaciones del corpus coinciden · los más recientes primero
+              - list [ref=e312]:
+                - listitem [ref=e313]:
+                  - button [active] [ref=e314]:
+                    - paragraph [ref=e315]: 2024 · Análogo terrestre (reposo en cama) · revisado
+                    - paragraph [ref=e316]: NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity.
+                    - paragraph [ref=e317]: Trappe TA, Minchev K, Perkins RK y otros
+                    - paragraph [ref=e318]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+                - listitem [ref=e319]:
+                  - button [ref=e320]:
+                    - paragraph [ref=e321]: 2023 · Vuelo espacial · revisado
+                    - paragraph [ref=e322]: Effects of exercise countermeasures on multisystem function in long duration spaceflight astronauts.
+                    - paragraph [ref=e323]: Scott JM, Feiveson AH, English KL y otros
+                    - paragraph [ref=e324]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+                - listitem [ref=e325]:
+                  - button [ref=e326]:
+                    - paragraph [ref=e327]: 2020 · Vuelo espacial · revisado
+                    - paragraph [ref=e328]: "High intensity training during spaceflight: results from the NASA Sprint Study."
+                    - paragraph [ref=e329]: English KL, Downs M, Goetchius E y otros
+                    - paragraph [ref=e330]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+                - listitem [ref=e331]:
+                  - button [ref=e332]:
+                    - paragraph [ref=e333]: 2018 · Análogo terrestre (reposo en cama) · revisado
+                    - paragraph [ref=e334]: Exercise Training Mitigates Multisystem Deconditioning during Bed Rest.
+                    - paragraph [ref=e335]: Ploutz-Snyder LL, Downs M, Goetchius E y otros
+                    - paragraph [ref=e336]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+            - region "Cobertura de módulos" [ref=e296]:
+              - heading "Cobertura de módulos" [level=3] [ref=e297]
+              - list [ref=e298]:
+                - listitem [ref=e299]:
+                  - paragraph [ref=e300]: Salud muscular del cuádriceps · v0.1-draft
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: Prototipo
+                    - generic [ref=e303]: Interpretación en prototipo
+                  - paragraph [ref=e304]: Módulo técnico inicial para identificar cobertura de cuádriceps; el motor contextual aún no está habilitado.
+                - listitem [ref=e305]: Las regiones sin módulo no se interpretan; no significa que estén sanas.
+          - complementary "Ficha de la publicación" [ref=e306]:
+            - article [ref=e338]:
+              - generic [ref=e339]:
+                - paragraph [ref=e340]: 2024 · Análogo terrestre (reposo en cama) · Ensayo de contramedidas en reposo en cama
+                - heading "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity." [level=3] [ref=e341]
+                - paragraph [ref=e342]: Trappe TA, Minchev K, Perkins RK, Lavin KM y otros
+                - generic [ref=e343]:
+                  - link "Leer el estudio original" [ref=e344] [cursor=pointer]:
+                    - /url: https://europepmc.org/article/MED/38328821
+                  - generic [ref=e345]: "Ficha: revisión documental"
+                  - generic [ref=e346]: Acceso abierto
+                - generic [ref=e347]:
+                  - link "Texto completo" [ref=e348] [cursor=pointer]:
+                    - /url: https://pmc.ncbi.nlm.nih.gov/articles/PMC11365553/
+                  - generic [ref=e349]: Sin PDF enlazado
+                  - generic [ref=e350]: DOI 10.1152/japplphysiol.00489.2023
+                  - generic [ref=e351]: Requiere conexión para abrir el documento
+              - generic [ref=e352]:
+                - heading "En pocas palabras" [level=4] [ref=e353]
+                - paragraph [ref=e354]: SPRINT evaluó tamaño y función muscular durante reposo en cama. La protección difirió entre cuádriceps y sóleo y entre variables celulares y funcionales. El artículo no encontró beneficios musculares adicionales consistentes de añadir testosterona. La tabla 1 permite comparar torque antes y después por grupo.
+                - paragraph [ref=e355]: asistido por IA, a partir de solo el abstract. Revisión documental completada.
+                - list [ref=e356]:
+                  - listitem [ref=e357]: Revisión documental asistida por IA del abstract original; no es aprobación médica, evaluación de riesgo de sesgo ni validación individual.
+                  - listitem [ref=e358]: Los ensayos funcionales repetidos pudieron actuar como contramedida. No se prescribe testosterona ni se reconstruye torque diario a partir de dos mediciones.
+              - generic [ref=e359]:
+                - heading "Quiénes participaron" [level=4] [ref=e360]
+                - paragraph [ref=e361]: "26 participantes: BR 9, ejercicio BRE 9 y ejercicio con testosterona 8; 70 días a 6°."
+              - generic [ref=e362]:
+                - heading "Lo que aporta este estudio" [level=4] [ref=e363]
+                - paragraph [ref=e364]: Síntesis documental asistida por IA. Consulte el abstract completo y sus límites para interpretar cada resultado.
+                - list [ref=e365]:
+                  - listitem [ref=e366]:
+                    - paragraph [ref=e367]: Hallazgo · revisado
+                    - paragraph [ref=e368]: SPRINT evaluó tamaño y función muscular durante reposo en cama. La protección difirió entre cuádriceps y sóleo y entre variables celulares y funcionales. El artículo no encontró beneficios musculares adicionales consistentes de añadir testosterona. La tabla 1 permite comparar torque antes y después por grupo.
+                    - group [ref=e369]:
+                      - generic "Ver fragmento y localizador del estudio" [ref=e370] [cursor=pointer]
+                    - list [ref=e371]:
+                      - listitem [ref=e372]: Revisión documental asistida por IA del abstract original; no es aprobación médica, evaluación de riesgo de sesgo ni validación individual.
+                      - listitem [ref=e373]: Los ensayos funcionales repetidos pudieron actuar como contramedida. No se prescribe testosterona ni se reconstruye torque diario a partir de dos mediciones.
+                - paragraph [ref=e374]: Modelo codex/documentary-editorial-review, prompt documentary-release-2026-11-15-v1, 2026-11-15T14:54:56.723637-05:00
+              - generic [ref=e375]:
+                - heading "Cifras publicadas" [level=4] [ref=e376]
+                - paragraph [ref=e377]: Resultados agregados del estudio; no son mediciones del astronauta virtual.
+                - list [ref=e378]:
+                  - listitem [ref=e379]:
+                    - generic [ref=e380]:
+                      - generic [ref=e381]: knee_extension_torque · BR · baseline_peak
+                      - generic [ref=e382]: 200 N·m ± 47 (DE)
+                    - paragraph [ref=e383]: Media de grupo · n = 9 · extracción revisada
+                    - paragraph [ref=e384]: "Variable y grupo tal como los publica la fuente (en inglés). Ubicación: PDF page 3, printed page 1017, Table 1, Quadriceps strength, Pre, BR"
+                    - list [ref=e385]:
+                      - listitem [ref=e386]: Extracción documental; no son observaciones de un astronauta ni umbrales clínicos.
+                      - listitem [ref=e387]: Treating group means as individual astronaut observations
+                      - listitem [ref=e388]: Interpreting standard deviations as confidence intervals or individual safety limits
+                      - listitem [ref=e389]: Interpolating a measured daily torque trajectory
+                      - listitem [ref=e390]: Using the Table 1 muscle volume as Scott-style CSA
+                      - listitem [ref=e391]: Prescribing the study regimen or testosterone to a user
+                  - listitem [ref=e392]:
+                    - generic [ref=e393]:
+                      - generic [ref=e394]: knee_extension_torque · BR · BR+2
+                      - generic [ref=e395]: 148 N·m ± 42 (DE)
+                    - paragraph [ref=e396]: Media de grupo · n = 9 · extracción revisada
+                    - paragraph [ref=e397]: "Variable y grupo tal como los publica la fuente (en inglés). Ubicación: PDF page 3, printed page 1017, Table 1, Quadriceps strength, Post, BR"
+                    - list [ref=e398]:
+                      - listitem [ref=e399]: Extracción documental; no son observaciones de un astronauta ni umbrales clínicos.
+                      - listitem [ref=e400]: Treating group means as individual astronaut observations
+                      - listitem [ref=e401]: Interpreting standard deviations as confidence intervals or individual safety limits
+                      - listitem [ref=e402]: Interpolating a measured daily torque trajectory
+                      - listitem [ref=e403]: Using the Table 1 muscle volume as Scott-style CSA
+                      - listitem [ref=e404]: Prescribing the study regimen or testosterone to a user
+                  - listitem [ref=e405]:
+                    - generic [ref=e406]:
+                      - generic [ref=e407]: knee_extension_torque · BRE · baseline_peak
+                      - generic [ref=e408]: 211 N·m ± 32 (DE)
+                    - paragraph [ref=e409]: Media de grupo · n = 9 · extracción revisada
+                    - paragraph [ref=e410]: "Variable y grupo tal como los publica la fuente (en inglés). Ubicación: PDF page 3, printed page 1017, Table 1, Quadriceps strength, Pre, BRE"
+                    - list [ref=e411]:
+                      - listitem [ref=e412]: Extracción documental; no son observaciones de un astronauta ni umbrales clínicos.
+                      - listitem [ref=e413]: Treating group means as individual astronaut observations
+                      - listitem [ref=e414]: Interpreting standard deviations as confidence intervals or individual safety limits
+                      - listitem [ref=e415]: Interpolating a measured daily torque trajectory
+                      - listitem [ref=e416]: Using the Table 1 muscle volume as Scott-style CSA
+                      - listitem [ref=e417]: Prescribing the study regimen or testosterone to a user
+                  - listitem [ref=e418]:
+                    - generic [ref=e419]:
+                      - generic [ref=e420]: knee_extension_torque · BRE · BR+2
+                      - generic [ref=e421]: 198 N·m ± 27 (DE)
+                    - paragraph [ref=e422]: Media de grupo · n = 9 · extracción revisada
+                    - paragraph [ref=e423]: "Variable y grupo tal como los publica la fuente (en inglés). Ubicación: PDF page 3, printed page 1017, Table 1, Quadriceps strength, Post, BRE"
+                    - list [ref=e424]:
+                      - listitem [ref=e425]: Extracción documental; no son observaciones de un astronauta ni umbrales clínicos.
+                      - listitem [ref=e426]: Treating group means as individual astronaut observations
+                      - listitem [ref=e427]: Interpreting standard deviations as confidence intervals or individual safety limits
+                      - listitem [ref=e428]: Interpolating a measured daily torque trajectory
+                      - listitem [ref=e429]: Using the Table 1 muscle volume as Scott-style CSA
+                      - listitem [ref=e430]: Prescribing the study regimen or testosterone to a user
+              - generic [ref=e431]:
+                - heading "¿Aplica a este caso?" [level=4] [ref=e432]
+                - paragraph [ref=e433]: Aplicabilidad no evaluada
+                - paragraph [ref=e434]: La aplicabilidad contextual aún no está implementada; la ficha bibliográfica no autoriza una conclusión individual.
+              - group [ref=e435]:
+                - generic "› Abstract original del estudio (en inglés)" [ref=e436] [cursor=pointer]:
+                  - generic [ref=e437]: ›
+                  - text: Abstract original del estudio (en inglés)
+              - group [ref=e438]:
+                - generic "› Limitaciones de la ficha (2)" [ref=e439] [cursor=pointer]:
+                  - generic [ref=e440]: ›
+                  - text: Limitaciones de la ficha (2)
+              - paragraph [ref=e441]: Corpus candidate-corpus-2026-11-14
+    - complementary [ref=e64]:
+      - generic [ref=e67]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=e68]
+        - paragraph [ref=e69]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=e112]:
+          - listitem [ref=e113]:
+            - button "Cuádriceps Registro por revisar Ver zona" [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: Cuádriceps
+                - generic [ref=e117]: Registro por revisar
+              - generic [ref=e118]: Ver zona

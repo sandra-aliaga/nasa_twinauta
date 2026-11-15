@@ -1,0 +1,139 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "TwinNauta" [level=1] [ref=e6]
+      - generic [ref=e12]:
+        - text: Caso
+        - combobox "Caso" [ref=e13]:
+          - option "Misión de referencia (virtual)" [selected]
+      - generic [ref=e14]:
+        - generic [ref=e15]: Día de misión
+        - slider "Día de misión" [ref=e16]: "10"
+        - generic [ref=e17]: 10 / 70
+        - button "Evaluar día 10" [ref=e18]
+      - button "Biblioteca científica" [ref=e19]
+      - button "Cómo leer esta demo" [ref=e20]: Guía
+  - generic [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e46]:
+        - generic [ref=e47]:
+          - generic "Modelo anatómico 3D" [ref=e92]
+          - generic [ref=e49]:
+            - region [ref=e51]:
+              - heading "Datos de investigación" [level=2] [ref=e52]
+              - 'button "Pulso de ejemplo en Tierra: 99 latidos por minuto. Abrir la zona del corazón." [ref=e127]':
+                - generic [ref=e96]:
+                  - generic [ref=e97]: Pulso
+                  - generic [ref=e100]: Ejemplo en Tierra
+                - generic [ref=e101]: 99lpm
+                - generic [ref=e106]: De otra persona en cinta, no del astronauta.
+              - generic [ref=e107]:
+                - paragraph [ref=e108]: Resultados reales de referencia
+                - generic [ref=e109]:
+                  - generic [ref=e110]:
+                    - paragraph [ref=e111]: Torque · participante 5875
+                    - paragraph [ref=e112]: 112 N·m
+                    - paragraph [ref=e113]: NASA MR079G · 6/17/2011
+                  - generic [ref=e114]:
+                    - paragraph [ref=e115]: Área del cuádriceps
+                    - paragraph [ref=e116]: "-0,11 % basal/día"
+                    - paragraph [ref=e117]: Scott 2020 · tasa grupal, n=9
+                - paragraph [ref=e118]: Torque individual y área grupal de estudios distintos.
+            - button "‹ Ocultar estado general" [ref=e63]
+          - button "Ver cuerpo completo" [ref=e128]
+        - generic [ref=e64]:
+          - generic [ref=e65]:
+            - generic [ref=e66]: "Regiones:"
+            - button "Cuádriceps" [pressed] [ref=e119]
+          - list "Leyenda del modelo" [ref=e67]:
+            - listitem [ref=e68]: "Baliza: zona con algo por revisar"
+            - listitem [ref=e70]: Zona con seguimiento
+            - listitem [ref=e72]: "Corazón: pulso de ejemplo"
+            - listitem [ref=e74]: Resto del cuerpo, sin evaluar
+            - listitem [ref=e76]: Los colores no indican estado de salud.
+          - paragraph [ref=e129]: "El modelo solo representa la capa superficial: el vasto intermedio no aparece, aunque forma parte del cuádriceps."
+          - paragraph [ref=e77]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=e78]:
+      - generic [ref=e130]:
+        - generic [ref=e131]:
+          - heading "Cuádriceps" [level=2] [ref=e132]
+          - button "Cerrar región" [ref=e133]: ×
+        - tablist "Pasos de la zona" [ref=e134]:
+          - tab "Qué pasa" [selected] [ref=e135]:
+            - generic [aria-hidden] [ref=e136]: "1"
+            - text: Qué pasa
+          - tab "Qué puede pasar" [ref=e137]:
+            - generic [aria-hidden] [ref=e138]: "2"
+            - text: Qué puede pasar
+          - tab "Qué hacer" [ref=e139]:
+            - generic [aria-hidden] [ref=e140]: "3"
+            - text: Qué hacer
+        - tabpanel "Qué pasa" [ref=e142]:
+          - generic "Hay información útil y partes que no pudieron calcularse." [ref=e143]:
+            - generic [ref=e144]: Día 10
+            - generic [ref=e145]: Referencias científicas
+          - generic [ref=e146]:
+            - generic [ref=e147]:
+              - paragraph [ref=e148]: DATOS OBSERVADOS Y RESULTADOS PUBLICADOS
+              - generic [ref=e149]:
+                - heading "Torque de extensión de rodilla" [level=3] [ref=e150]
+                - generic [ref=e151]:
+                  - text: Participante NASA
+                  - combobox "Participante NASA" [ref=e152]:
+                    - option "5775"
+                    - option "5875" [selected]
+                    - option "5953"
+                    - option "6135"
+                    - option "6232"
+                    - option "6245"
+                    - option "6356"
+                    - option "6516"
+                    - option "6629"
+                    - option "7128"
+                    - option "7510"
+                    - option "7868"
+                    - option "9279"
+                    - option "9365"
+                    - option "9672"
+                    - option "9693"
+                - generic [ref=e153]:
+                  - generic [ref=e154]:
+                    - paragraph [ref=e155]: Evaluación 1 · 5/16/11
+                    - paragraph [ref=e156]: 126,9 N·m
+                    - link "CSV NASA · fila 3" [ref=e159] [cursor=pointer]:
+                      - /url: https://nlsp.nasa.gov/api/v1/files/c8c5572c-d2ef-55e3-8c79-ac99b31deade/download
+                  - generic [ref=e160]:
+                    - paragraph [ref=e161]: Evaluación 2 · 6/17/2011
+                    - paragraph [ref=e162]: 112 N·m
+                    - link "CSV NASA · fila 2" [ref=e165] [cursor=pointer]:
+                      - /url: https://nlsp.nasa.gov/api/v1/files/9754781a-83e8-5cb2-b7ce-8f24006dcc4b/download
+                - paragraph [ref=e166]:
+                  - text: "Cambio entre evaluaciones:"
+                  - strong [ref=e167]: "-11,74 %"
+                - paragraph [ref=e168]: Calculado como (segunda − primera) / primera. No hay mediciones intermedias.
+                - paragraph [ref=e169]: Biodex · extensión de rodilla a 60°/s · cinco repeticiones.
+                - group [ref=e170]:
+                  - generic "Método y fechas del depósito" [ref=e171] [cursor=pointer]
+              - generic [ref=e172]:
+                - heading "Cambio de área muscular durante reposo en cama" [level=3] [ref=e173]
+                - paragraph [ref=e174]: 70 días · MRI · nueve participantes · Scott 2020
+                - generic [ref=e175]:
+                  - generic [ref=e176]:
+                    - paragraph [ref=e177]: Cuádriceps
+                    - paragraph [ref=e178]: "-0,11"
+                    - paragraph [ref=e179]: "% del basal por día"
+                  - generic [ref=e180]:
+                    - paragraph [ref=e181]: Sóleo
+                    - paragraph [ref=e182]: "-0,33"
+                    - paragraph [ref=e183]: "% del basal por día"
+                - paragraph [ref=e184]: Tasas publicadas del grupo; describen el área transversal respecto al basal. No son mediciones actuales del participante de torque.
+                - link "Estudio y suplemento · eTable 3" [ref=e185] [cursor=pointer]:
+                  - /url: https://pmc.ncbi.nlm.nih.gov/articles/PMC7688251/
+            - generic [ref=e186]:
+              - generic [ref=e187]:
+                - heading "De dónde sale esto" [level=3] [ref=e188]
+                - button "Abrir mapa 3D" [ref=e189]
+              - paragraph [ref=e190]: Explora los estudios, sus métodos y resultados en la biblioteca.
+            - generic [ref=e191]:
+              - button "Área muscular · Scott 2020" [ref=e192]
+              - button "Ejercicio y torque · SPRINT 2024" [ref=e193]

@@ -9,7 +9,7 @@ import {
 } from "../api";
 import { useLoad } from "../hooks/useLoad";
 import { REFERENCE_RECORDINGS } from "../lib/config";
-import { UNIT_LABELS } from "../lib/labels";
+import { ReferenceDashboard } from "./ReferenceDashboard";
 
 const rail = (color: string) => ({ "--rail": color }) as CSSProperties;
 
@@ -42,134 +42,16 @@ export function StatusHud({
 }) {
   if (!caseItem) return null;
 
-  const toReview =
-    assessment?.findings.filter((item) => item.attention === "review_needed") ??
-    [];
-  const records = assessment?.exercise_records ?? [];
-  const recorded = records.filter(
-    (record) => record.record_status === "recorded",
-  ).length;
-  const region = regions.find((item) => item.id === assessmentRegionId);
-  const zoneIndicators = (region?.indicator_ids ?? [])
-    .map((id) => indicators.find((item) => item.id === id))
-    .filter((item): item is IndicatorDefinition => item !== undefined);
-  const progress = Math.min(1, day / Math.max(1, caseItem.duration_days));
-
   return (
     <section aria-labelledby="hud-title" className="space-y-3">
-      <div className="flex items-center justify-between gap-2">
-        <div>
-          <h2
-            id="hud-title"
-            className="font-display text-sm font-medium text-slate-50"
-          >
-            Estado general
-          </h2>
-          <p className="mt-0.5 text-xs text-slate-400">
-            {caseItem.is_virtual ? "Astronauta virtual" : caseItem.label}
-          </p>
-        </div>
-        <div className="flex items-center gap-2 text-right">
-          <p className="text-xs leading-tight text-slate-300">
-            <span className="block font-display text-sm text-slate-50">
-              Día {day}
-            </span>
-            de {caseItem.duration_days}
-          </p>
-          <MissionRing progress={progress} />
-        </div>
-      </div>
-
-      <div className="grid grid-cols-2 gap-2">
-        <PulseExample onOpen={onOpenHeartRate} />
-
-        {zoneIndicators.map((indicator) => {
-          const latest = [...(assessment?.observations ?? [])]
-            .filter((item) => item.indicator_id === indicator.id)
-            .sort((a, b) => b.mission_day - a.mission_day)[0];
-          const missing = !latest || latest.value === null;
-          return (
-            <div
-              key={indicator.id}
-              className={`hud-panel p-2.5 pl-3.5 ${missing ? "hud-panel-empty" : ""}`}
-            >
-              <h3 className="line-clamp-2 text-[11px] leading-tight text-slate-300">
-                {indicator.label}
-              </h3>
-              {missing ? (
-                <p className="mt-1 font-display text-lg text-slate-500">
-                  Sin dato
-                </p>
-              ) : (
-                <p className="mt-1 font-display text-lg text-slate-50">
-                  {latest.value}
-                  <span className="ml-1 font-sans text-[11px] text-slate-400">
-                    {UNIT_LABELS[latest.unit]}
-                  </span>
-                </p>
-              )}
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="hud-panel p-2.5 pl-3.5">
-        <h3 className="text-[11px] text-slate-300">Ejercicio con registro</h3>
-        {records.length === 0 ? (
-          <p className="mt-1 text-xs text-slate-400">Sin sesiones todavía.</p>
-        ) : (
-          <div className="mt-1 flex items-center gap-3">
-            <p className="font-display text-lg text-slate-50">
-              {recorded}/{records.length}
-            </p>
-            <div
-              className="flex flex-1 gap-1"
-              role="img"
-              aria-label={`${recorded} de ${records.length} sesiones con registro`}
-            >
-              {records.map((record) => (
-                <span
-                  key={record.id}
-                  className={`h-2 flex-1 rounded-full ${
-                    record.record_status === "recorded"
-                      ? "bg-step-now"
-                      : "border border-dashed border-slate-500"
-                  }`}
-                />
-              ))}
-            </div>
-          </div>
-        )}
-      </div>
-
-      {toReview.length > 0 && region ? (
-        <button
-          type="button"
-          onClick={() => onSelectRegion(region.id)}
-          style={rail("var(--color-step-do)")}
-          className="hud-panel flex w-full items-center gap-2.5 p-2.5 pl-3.5 text-left"
-        >
-          <span className="relative flex h-3 w-3 shrink-0">
-            <span className="absolute inset-0 animate-beacon rounded-full bg-step-do" />
-            <span className="relative h-3 w-3 rounded-full bg-step-do" />
-          </span>
-          <span className="min-w-0">
-            <span className="block text-sm font-semibold text-slate-50">
-              {region.label}: algo por revisar
-            </span>
-            <span className="block truncate text-xs text-slate-300">
-              {toReview[0].title}
-              {toReview.length > 1 ? ` y ${toReview.length - 1} más` : ""}
-            </span>
-          </span>
-        </button>
-      ) : (
-        <p className="text-xs text-slate-400">
-          {assessment
-            ? "Nada por revisar en la zona evaluada."
-            : "Sin evaluación de este día todavía."}
-        </p>
-      )}
+      <h2
+        id="hud-title"
+        className="font-display text-sm font-medium text-slate-50"
+      >
+        Datos de investigación
+      </h2>
+      <PulseExample onOpen={onOpenHeartRate} />
+      <ReferenceDashboard compact />
     </section>
   );
 }

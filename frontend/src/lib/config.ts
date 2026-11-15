@@ -22,8 +22,8 @@ export const REFERENCE_RECORDINGS = [
 ] as const;
 
 /**
- * The heart-rate panel shows a terrestrial PhysioNet recording whose
- * redistribution licence is unresolved, so it stays off unless enabled.
+ * The heart-rate panel shows a terrestrial PhysioNet recording. The recording stays
+ * separate from the muscular study; public redistribution terms need review.
  */
 export const HEART_RATE_ENABLED =
-  import.meta.env.VITE_ENABLE_HEART_RATE === "true";
+  import.meta.env.VITE_ENABLE_HEART_RATE !== "false";

@@ -1,0 +1,96 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - generic [ref=e5]:
+      - heading "TwinNauta" [level=1] [ref=e6]
+      - generic [ref=e12]:
+        - text: Caso
+        - combobox "Caso" [ref=e13]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=e14]:
+        - generic [ref=e15]: Día de misión
+        - slider "Día de misión" [ref=e16]: "10"
+        - generic [ref=e17]: 10 / 70
+        - button "Evaluar día 10" [ref=e18]
+      - button "Biblioteca científica" [pressed] [ref=e19]
+      - button "Cómo leer esta demo" [ref=e20]: Guía
+  - generic [ref=e43]:
+    - main [ref=e44]:
+      - generic [ref=e119]:
+        - generic [ref=e120]:
+          - generic [ref=e121]:
+            - button "← Volver al cuerpo" [ref=e122]
+            - heading "Biblioteca" [level=2] [ref=e123]
+            - generic [ref=e124]: 27 estudios, 26 con revisión documental
+          - generic [ref=e125]:
+            - generic [ref=e126]:
+              - generic [ref=e127]:
+                - generic [ref=e128]: Buscar estudios
+                - searchbox "Buscar estudios" [ref=e129]: SPRINT
+              - button "Buscar" [active] [ref=e130]
+            - group "Qué quieres saber" [ref=e131]:
+              - button "Todo" [pressed] [ref=e132]
+              - button "Estado y explicación" [ref=e133]
+              - button "Implicaciones y evolución" [ref=e134]
+              - button "Contramedidas estudiadas" [ref=e135]
+            - group [ref=e136]:
+              - generic "Más filtros" [ref=e137] [cursor=pointer]
+              - option "Pendientes y revisadas" [selected]
+              - option "Pendiente de revisión"
+              - option "Revisado"
+          - group "Modo de exploración" [ref=e138]:
+            - button "Lista" [pressed] [ref=e139]
+            - button "Mapa de estudios" [ref=e140]
+        - generic [ref=e141]:
+          - generic [ref=e142]:
+            - region "Resultados" [ref=e143]:
+              - paragraph [ref=e311]: 4 publicaciones del corpus coinciden · los más recientes primero
+              - list [ref=e312]:
+                - listitem [ref=e313]:
+                  - button [ref=e314]:
+                    - paragraph [ref=e315]: 2024 · Análogo terrestre (reposo en cama) · revisado
+                    - paragraph [ref=e316]: NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity.
+                    - paragraph [ref=e317]: Trappe TA, Minchev K, Perkins RK y otros
+                    - paragraph [ref=e318]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+                - listitem [ref=e319]:
+                  - button [ref=e320]:
+                    - paragraph [ref=e321]: 2023 · Vuelo espacial · revisado
+                    - paragraph [ref=e322]: Effects of exercise countermeasures on multisystem function in long duration spaceflight astronauts.
+                    - paragraph [ref=e323]: Scott JM, Feiveson AH, English KL y otros
+                    - paragraph [ref=e324]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+                - listitem [ref=e325]:
+                  - button [ref=e326]:
+                    - paragraph [ref=e327]: 2020 · Vuelo espacial · revisado
+                    - paragraph [ref=e328]: "High intensity training during spaceflight: results from the NASA Sprint Study."
+                    - paragraph [ref=e329]: English KL, Downs M, Goetchius E y otros
+                    - paragraph [ref=e330]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+                - listitem [ref=e331]:
+                  - button [ref=e332]:
+                    - paragraph [ref=e333]: 2018 · Análogo terrestre (reposo en cama) · revisado
+                    - paragraph [ref=e334]: Exercise Training Mitigates Multisystem Deconditioning during Bed Rest.
+                    - paragraph [ref=e335]: Ploutz-Snyder LL, Downs M, Goetchius E y otros
+                    - paragraph [ref=e336]: "Trata: estado y explicación, implicaciones y evolución, contramedidas estudiadas"
+            - region "Cobertura de módulos" [ref=e296]:
+              - heading "Cobertura de módulos" [level=3] [ref=e297]
+              - list [ref=e298]:
+                - listitem [ref=e299]:
+                  - paragraph [ref=e300]: Salud muscular del cuádriceps · v0.1-draft
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: Prototipo
+                    - generic [ref=e303]: Interpretación en prototipo
+                  - paragraph [ref=e304]: Módulo técnico inicial para identificar cobertura de cuádriceps; el motor contextual aún no está habilitado.
+                - listitem [ref=e305]: Las regiones sin módulo no se interpretan; no significa que estén sanas.
+          - complementary "Ficha de la publicación" [ref=e306]:
+            - status [ref=e308]:
+              - paragraph [ref=e309]: Ninguna publicación seleccionada
+              - generic [ref=e310]: Elige una publicación de la lista o un nodo del grafo para abrir su ficha.
+    - complementary [ref=e64]:
+      - generic [ref=e67]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=e68]
+        - paragraph [ref=e69]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=e112]:
+          - listitem [ref=e113]:
+            - button "Cuádriceps Registro por revisar Ver zona" [ref=e114]:
+              - generic [ref=e115]:
+                - generic [ref=e116]: Cuádriceps
+                - generic [ref=e117]: Registro por revisar
+              - generic [ref=e118]: Ver zona

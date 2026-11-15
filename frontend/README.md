@@ -20,7 +20,7 @@ Usar Node 22.12 o posterior compatible con Vite 8. La página de desarrollo usa 
 
 La biblioteca puede mostrar revisión documental completada de abstracts y cifras publicadas. Esto no convierte el caso virtual en datos individuales reales ni implica aprobación clínica. Véase [alcance de la publicación documental](../docs/evidencia/revision-documental-2026-11-15.md).
 
-`VITE_ENABLE_HEART_RATE=true` muestra el panel de frecuencia cardíaca. Está desactivado por defecto porque la licencia de redistribución de la grabación de PhysioNet no está aclarada (la página del dataset y el `LICENSE.txt` del paquete indican licencias distintas). Activarlo solo en demostraciones locales hasta tener respuesta.
+`VITE_ENABLE_HEART_RATE` muestra el panel didáctico de frecuencia cardíaca (`true` por defecto). Presenta la fuente terrestre por separado del caso virtual; La licencia de redistribución presenta una discrepancia pendiente de aclarar; conservar este panel para uso local hasta resolverla. La ficha conserva la atribución.
 
 React y React DOM están fijados a `~19.3.0`: `@react-three/fiber` 9.8 exige React menor que 19.4. No subir React sin revisar esa compatibilidad.
 
@@ -114,3 +114,5 @@ El setup no incluye pantallas de producto, pruebas o CI. El estilo visual defini
 ## Verificación de esta entrega
 
 Instalación completada con `package-lock.json` generado; `npm audit` sin vulnerabilidades. `make frontend-check` (Prettier y `tsc` + `vite build`) pasa. Se comprobó que el servidor de desarrollo sirve los ejemplos de `contracts/`. No se probó todavía contra el backend real ni hay pruebas automatizadas; la revisión visual del recorrido es manual.
+
+El dashboard principal consume `/reference-dashboard`: torque individual NASA seleccionable, tasas publicadas de área muscular y comparación de ejercicio SPRINT. Las fechas de adquisición y las poblaciones son propias de cada fuente; el selector de día del caso no transforma estos resultados. La vista cardíaca API ofrece exclusivamente la grabación terrestre real. Los archivos originales Campaign 17 y los PDF de extracción deben acompañar al backend desplegado; la ruta no requiere nuevas migraciones ni claves de IA.

@@ -1,3 +1,4 @@
+import { ReferenceParticipantProvider } from "./components/ReferenceDashboard";
 import { lazy, Suspense, useEffect, useMemo, useState } from "react";
 
 import { dataSource, type GraphView, type Region } from "./api";
@@ -237,140 +238,142 @@ export default function App() {
     showGraph && can3d && (graphSource === "studies" || graphMode === "3d");
 
   return (
-    <Shell>
-      <Header
-        cases={cases}
-        caseId={caseId}
-        onCaseChange={handleCaseChange}
-        day={day}
-        onDayChange={setDay}
-        evaluatedDay={evaluatedDay}
-        canEvaluate={evaluateRegionId !== null && state.status !== "loading"}
-        onEvaluate={() =>
-          evaluateRegionId && requestAssessment(evaluateRegionId, day)
-        }
-        isDemo={dataSource.kind === "examples"}
-        cardiacAvailable={false}
-        cardiacOpen={false}
-        onToggleCardiac={() => {}}
-        libraryOpen={libraryOpen}
-        onToggleLibrary={() => {
-          setGraphView(null);
-          setLibraryPaperId(null);
-          setLibraryOpen((open) => !open);
-        }}
-        onOpenGuide={() => setGuideOpen(true)}
-      />
-      <IntroGuide open={guideOpen} onClose={() => setGuideOpen(false)} />
+    <ReferenceParticipantProvider>
+      <Shell>
+        <Header
+          cases={cases}
+          caseId={caseId}
+          onCaseChange={handleCaseChange}
+          day={day}
+          onDayChange={setDay}
+          evaluatedDay={evaluatedDay}
+          canEvaluate={evaluateRegionId !== null && state.status !== "loading"}
+          onEvaluate={() =>
+            evaluateRegionId && requestAssessment(evaluateRegionId, day)
+          }
+          isDemo={false}
+          cardiacAvailable={false}
+          cardiacOpen={false}
+          onToggleCardiac={() => {}}
+          libraryOpen={libraryOpen}
+          onToggleLibrary={() => {
+            setGraphView(null);
+            setLibraryPaperId(null);
+            setLibraryOpen((open) => !open);
+          }}
+          onOpenGuide={() => setGuideOpen(true)}
+        />
+        <IntroGuide open={guideOpen} onClose={() => setGuideOpen(false)} />
 
-      <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] lg:overflow-hidden">
-        <main className="relative min-h-[420px] border-slate-800 lg:border-r">
-          <Suspense fallback={<ViewSkeleton />}>
-            {libraryOpen ? (
-              <ExplorerView
-                regionId={regionId}
-                assessmentId={
-                  state.status === "ready"
-                    ? state.assessment.assessment_id
-                    : null
-                }
-                initialPaperId={libraryPaperId}
-                onBack={() => setLibraryOpen(false)}
-              />
-            ) : null}
-            {showGraph && graphView !== null ? (
-              <div
-                className={`absolute inset-0 z-20 overflow-y-auto ${
-                  graph3d
-                    ? "pointer-events-none"
-                    : "bg-slate-950/60 backdrop-blur-md"
-                }`}
-              >
-                <GraphExplorer
-                  state={graphState}
-                  view={graphView}
-                  onViewChange={openGraph}
-                  onBack={() => openGraph(null)}
-                  selectedId={graphNodeId}
-                  onSelect={setGraphNodeId}
-                  mode={graphMode}
-                  onModeChange={setGraphMode}
-                  can3d={can3d}
-                  source={graphSource}
-                  onSourceChange={(next) => {
-                    setGraphNodeId(null);
-                    setGraphSource(next);
-                  }}
-                  studies={studies}
+        <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] lg:overflow-hidden">
+          <main className="relative min-h-[420px] border-slate-800 lg:border-r">
+            <Suspense fallback={<ViewSkeleton />}>
+              {libraryOpen ? (
+                <ExplorerView
+                  regionId={regionId}
+                  assessmentId={
+                    state.status === "ready"
+                      ? state.assessment.assessment_id
+                      : null
+                  }
+                  initialPaperId={libraryPaperId}
+                  onBack={() => setLibraryOpen(false)}
+                />
+              ) : null}
+              {showGraph && graphView !== null ? (
+                <div
+                  className={`absolute inset-0 z-20 overflow-y-auto ${
+                    graph3d
+                      ? "pointer-events-none"
+                      : "bg-slate-950/60 backdrop-blur-md"
+                  }`}
+                >
+                  <GraphExplorer
+                    state={graphState}
+                    view={graphView}
+                    onViewChange={openGraph}
+                    onBack={() => openGraph(null)}
+                    selectedId={graphNodeId}
+                    onSelect={setGraphNodeId}
+                    mode={graphMode}
+                    onModeChange={setGraphMode}
+                    can3d={can3d}
+                    source={graphSource}
+                    onSourceChange={(next) => {
+                      setGraphNodeId(null);
+                      setGraphSource(next);
+                    }}
+                    studies={studies}
+                    onOpenPaper={openPaper}
+                  />
+                </div>
+              ) : null}
+            </Suspense>
+            {regions?.status === "error" ? (
+              <div className="p-6">
+                <ErrorNotice error={regions.error} />
+              </div>
+            ) : (
+              // Kept mounted while the graph is shown: unmounting the WebGL
+              // canvas is costly and reloading the model is avoidable.
+              <div className={hideBody ? "hidden" : "h-full"}>
+                <AnatomyStage
+                  regions={regionList}
+                  selectedRegionId={regionId}
+                  onSelect={handleSelectRegion}
+                  sidePanel={caseSheet}
+                  flaggedRegionIds={flaggedRegionIds}
+                  graph={graph3d ? mapData : null}
+                  heartEnabled={HEART_RATE_ENABLED}
+                  selectedNodeId={graphNodeId}
+                  onSelectNode={setGraphNodeId}
+                />
+              </div>
+            )}
+          </main>
+
+          <aside className="min-h-0 bg-slate-950">
+            {regionId === HEART_ZONE_ID ? (
+              <Suspense fallback={<ViewSkeleton />}>
+                <HeartPanel
+                  caseRecordingId={selectedCase?.telemetry_recording_id ?? null}
+                  onClose={handleClosePanel}
                   onOpenPaper={openPaper}
                 />
+              </Suspense>
+            ) : selectedRegion === null ? (
+              <div className="h-full overflow-y-auto p-5">
+                {/* Wide screens show the sheet over the 3D view instead. */}
+                <div className="lg:hidden">{caseSheet}</div>
+                <div className="mt-5 lg:mt-0">
+                  <ZonePrompt
+                    regions={regionList}
+                    flaggedRegionId={flaggedRegionIds[0] ?? null}
+                    findingTitle={toReview[0]?.title ?? null}
+                    onSelectRegion={handleSelectRegion}
+                    heartEnabled={HEART_RATE_ENABLED}
+                  />
+                </div>
               </div>
-            ) : null}
-          </Suspense>
-          {regions?.status === "error" ? (
-            <div className="p-6">
-              <ErrorNotice error={regions.error} />
-            </div>
-          ) : (
-            // Kept mounted while the graph is shown: unmounting the WebGL
-            // canvas is costly and reloading the model is avoidable.
-            <div className={hideBody ? "hidden" : "h-full"}>
-              <AnatomyStage
-                regions={regionList}
-                selectedRegionId={regionId}
-                onSelect={handleSelectRegion}
-                sidePanel={caseSheet}
-                flaggedRegionIds={flaggedRegionIds}
-                graph={graph3d ? mapData : null}
-                heartEnabled={HEART_RATE_ENABLED}
-                selectedNodeId={graphNodeId}
-                onSelectNode={setGraphNodeId}
-              />
-            </div>
-          )}
-        </main>
-
-        <aside className="min-h-0 bg-slate-950">
-          {regionId === HEART_ZONE_ID ? (
-            <Suspense fallback={<ViewSkeleton />}>
-              <HeartPanel
-                caseRecordingId={selectedCase?.telemetry_recording_id ?? null}
+            ) : (
+              <RegionPanel
+                region={selectedRegion}
+                indicators={catalog.data.indicators}
+                state={state}
+                tab={tab}
+                onTabChange={setTab}
                 onClose={handleClosePanel}
+                onRetry={() => regionId && requestAssessment(regionId, day)}
+                onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
+                onActionUpdated={replaceAction}
+                onConflict={refresh}
                 onOpenPaper={openPaper}
               />
-            </Suspense>
-          ) : selectedRegion === null ? (
-            <div className="h-full overflow-y-auto p-5">
-              {/* Wide screens show the sheet over the 3D view instead. */}
-              <div className="lg:hidden">{caseSheet}</div>
-              <div className="mt-5 lg:mt-0">
-                <ZonePrompt
-                  regions={regionList}
-                  flaggedRegionId={flaggedRegionIds[0] ?? null}
-                  findingTitle={toReview[0]?.title ?? null}
-                  onSelectRegion={handleSelectRegion}
-                  heartEnabled={HEART_RATE_ENABLED}
-                />
-              </div>
-            </div>
-          ) : (
-            <RegionPanel
-              region={selectedRegion}
-              indicators={catalog.data.indicators}
-              state={state}
-              tab={tab}
-              onTabChange={setTab}
-              onClose={handleClosePanel}
-              onRetry={() => regionId && requestAssessment(regionId, day)}
-              onOpenGraph={(fromTab) => openGraph(TAB_TO_VIEW[fromTab])}
-              onActionUpdated={replaceAction}
-              onConflict={refresh}
-              onOpenPaper={openPaper}
-            />
-          )}
-        </aside>
-      </div>
-    </Shell>
+            )}
+          </aside>
+        </div>
+      </Shell>
+    </ReferenceParticipantProvider>
   );
 }
 

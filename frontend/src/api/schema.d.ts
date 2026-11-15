@@ -4,6 +4,26 @@
  */
 
 export interface paths {
+  "/api/v1/reference-dashboard": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Reference Dashboard
+     * @description Return real reference measurements and published group statistics.
+     */
+    get: operations["get_reference_dashboard"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
   "/api/v1/cases/{case_id}/assessments": {
     parameters: {
       query?: never;
@@ -1139,6 +1159,19 @@ export interface components {
        */
       review_status: "pending" | "reviewed";
     };
+    /** Measurement */
+    Measurement: {
+      /** Date */
+      date: string;
+      /** Value */
+      value: number;
+      /** Source Url */
+      source_url: string;
+      /** Source Row */
+      source_row: number;
+      /** Phase Original */
+      phase_original: string;
+    };
     /**
      * ModuleCatalog
      * @description Represent the versioned catalog of scientific modules.
@@ -1537,6 +1570,32 @@ export interface components {
       /** Limitations */
       limitations: string[];
     };
+    /** Participant */
+    Participant: {
+      /** Id */
+      id: string;
+      /** Measurements */
+      measurements: components["schemas"]["Measurement"][];
+    };
+    /** ReferenceDashboard */
+    ReferenceDashboard: {
+      /** Version */
+      version: string;
+      /** Torque Unit */
+      torque_unit: string;
+      /** Torque Method */
+      torque_method: string;
+      /** Torque Source Url */
+      torque_source_url: string;
+      /** Torque Limitations */
+      torque_limitations: string[];
+      /** Participants */
+      participants: components["schemas"]["Participant"][];
+      /** Muscle Statistics */
+      muscle_statistics: components["schemas"]["PaperStatistic"][];
+      /** Published Torque */
+      published_torque: components["schemas"]["PaperStatistic"][];
+    };
     /**
      * Region
      * @description Represent the Region contract payload.
@@ -1794,6 +1853,62 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+  get_reference_dashboard: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ReferenceDashboard"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
   list_case_assessments: {
     parameters: {
       query?: never;

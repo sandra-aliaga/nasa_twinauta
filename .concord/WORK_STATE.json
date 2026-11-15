@@ -1,24 +1,43 @@
 {
-  "generated_at": "2026-11-14T20:29:45.114Z",
+  "generated_at": "2026-11-15T21:02:55.635Z",
   "presence": [
     {
-      "agent_id": "codex:1b0bf139",
+      "agent_id": "codex:3ca01dad",
       "kind": "codex",
-      "owner": "Sandra",
-      "summary": "Priorizar paquete frontend con contrato modular, mocks y backlog de continuación",
+      "owner": null,
+      "summary": "Enriquecer video con PDF y transiciones continuas",
       "status": "active",
       "reported_status": "active",
       "execution_status": "executing",
       "liveness": "live",
-      "last_seen": "2026-11-14T20:29:45.113Z",
+      "last_seen": "2026-11-15T21:02:55.634Z",
       "age_seconds": 0,
-      "heartbeat_at": "2026-11-14T20:28:58.468Z",
+      "heartbeat_at": "2026-11-15T21:02:43.238Z",
       "heartbeat_liveness": "live",
-      "heartbeat_age_seconds": 46,
-      "activity_at": "2026-11-14T20:29:45.113Z",
+      "heartbeat_age_seconds": 12,
+      "activity_at": "2026-11-15T21:02:55.634Z",
       "activity_age_seconds": 0,
-      "summary_updated_at": "2026-11-14T20:22:49.918Z",
-      "summary_age_seconds": 415
+      "summary_updated_at": "2026-11-15T20:55:51.561Z",
+      "summary_age_seconds": 424
+    },
+    {
+      "agent_id": "codex:1b0bf139",
+      "kind": "codex",
+      "owner": "Sandra",
+      "summary": "Conectar resultados reales al dashboard",
+      "status": "active",
+      "reported_status": "active",
+      "execution_status": "executing",
+      "liveness": "live",
+      "last_seen": "2026-11-15T21:01:44.868Z",
+      "age_seconds": 70,
+      "heartbeat_at": "2026-11-15T21:01:44.868Z",
+      "heartbeat_liveness": "live",
+      "heartbeat_age_seconds": 70,
+      "activity_at": "2026-11-15T20:47:34.793Z",
+      "activity_age_seconds": 920,
+      "summary_updated_at": "2026-11-15T20:47:34.782Z",
+      "summary_age_seconds": 920
     }
   ],
   "tasks": [
@@ -377,6 +396,741 @@
         "docs/backlog-backend-v2.md",
         "docs/backlog-backend.md",
         "README.md"
+      ]
+    },
+    {
+      "task_id": "REVIEW-COPILOT",
+      "title": "Revisar commits y avance de Copilot",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T02:07:50.612Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "review"
+      ],
+      "domains": [],
+      "expected_files": []
+    },
+    {
+      "task_id": "FIX-COPILOT",
+      "title": "Corregir búsqueda, filtros y contexto bibliográfico",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T02:21:31.261Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "literature-fixes"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/papers.py",
+        "backend/app/knowledge_graph.py",
+        "backend/app/analysis.py"
+      ]
+    },
+    {
+      "task_id": "KB-04",
+      "title": "Ejecutar análisis trazable de abstracts con proveedor configurable",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T02:33:34.679Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "literature-analysis"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/analysis.py",
+        "backend/app/analysis_providers.py",
+        "backend/app/analyze_papers.py",
+        "backend/app/config.py",
+        "backend/app/papers.py",
+        "backend/app/database.py",
+        "backend/migrations/versions/0004_analysis_summary.py",
+        "backend/.env.example",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md"
+      ]
+    },
+    {
+      "task_id": "KB-06-07",
+      "title": "Orientación contextual modular y congelada",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 3,
+      "updated_at": "2026-11-15T02:56:23.199Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "contextual-guidance"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/guidance.py",
+        "backend/app/schemas.py",
+        "backend/app/assessments.py",
+        "backend/app/api.py",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md",
+        "docs/ENTREGA_FRONTEND.md",
+        "contracts/README.md",
+        "contracts/drafts/scientific-explorer-0.3/README.md"
+      ]
+    },
+    {
+      "task_id": "KB-09",
+      "title": "Paquete científico local con manifiesto y carga verificable",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T03:09:02.741Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "scientific-bundle"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/scientific_bundle.py",
+        "backend/app/catalog.py",
+        "backend/app/config.py",
+        "backend/.env.example",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md"
+      ]
+    },
+    {
+      "task_id": "KB-05-PREP",
+      "title": "Inventario local de calidad y cola de revision cientifica",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T03:15:10.467Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "literature-audit"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/audit_literature.py",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md"
+      ]
+    },
+    {
+      "task_id": "KB-05-VALIDATE",
+      "title": "Validacion local de fichas y trazabilidad previa a incorporacion",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T03:19:52.661Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "literature-review"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/review_literature.py",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md"
+      ]
+    },
+    {
+      "task_id": "KB-08-EXPORT",
+      "title": "Exportacion local de las tres vistas del grafo para consulta y frontend",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T03:25:12.386Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "knowledge-graph"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/knowledge_graph.py",
+        "backend/app/export_knowledge_graph.py",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md"
+      ]
+    },
+    {
+      "task_id": "KB-05-CORE",
+      "title": "Extracciones verificables de estudios centrales y contraste NASA",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T03:41:48.230Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "scientific-evidence"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/data/literature/extractions/core-studies.json",
+        "docs/revision-evidencia-nucleo.md",
+        "docs/backlog-backend-v2.md",
+        "backend/README.md"
+      ]
+    },
+    {
+      "task_id": "KB-04-DEEPSEEK-CONFIG",
+      "title": "Configuracion privada DeepSeek lista para pegar clave",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T03:51:41.463Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "analysis-provider"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/.env",
+        "backend/.env.example",
+        "backend/app/config.py",
+        "backend/app/analysis_providers.py",
+        "backend/README.md"
+      ]
+    },
+    {
+      "task_id": "KB-04-PILOT-CONTEXT",
+      "title": "Piloto real DeepSeek y sintesis contextual trazable en tres secciones",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T04:24:07.560Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "context-synthesis",
+        "analysis-provider"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/context_synthesis.py",
+        "backend/app/prepare_context.py",
+        "backend/app/analysis_providers.py",
+        "backend/data/literature/generated/",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md"
+      ]
+    },
+    {
+      "task_id": "KB-04-COMPLETE-RUNS",
+      "title": "Completar sintesis corregida y procesamiento del corpus disponible",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 3,
+      "updated_at": "2026-11-15T05:17:31.332Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "analysis-preparation"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/prepare_abstracts.py",
+        "backend/data/literature/generated/",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md",
+        "backend/app/analysis_providers.py",
+        "backend/app/prepare_context.py"
+      ]
+    },
+    {
+      "task_id": "KB-03-IMPORT-PREPARED",
+      "title": "Importacion versionada de resumenes preparados a biblioteca PostgreSQL",
+      "status": "review_ready",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 4,
+      "updated_at": "2026-11-15T05:34:51.552Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "literature-persistence",
+        "local-database"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/import_prepared_analyses.py",
+        "backend/README.md",
+        "docs/backlog-backend-v2.md",
+        "backend/.env",
+        "backend/.local/",
+        " .gitignore",
+        ".gitignore",
+        "Makefile"
+      ]
+    },
+    {
+      "task_id": "KB-01-CONTEXT-HANDOFF",
+      "title": "Publicar sintesis contextual, contrato vigente y respaldo frontend",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 3,
+      "updated_at": "2026-11-15T07:25:01.956Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "context-publication",
+        "api-contract",
+        "database-handoff"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/prepared_contexts.py",
+        "backend/app/api.py",
+        "backend/app/database.py",
+        "backend/migrations/versions/0005_prepared_contexts.py",
+        "contracts/",
+        "docs/ENTREGA_FRONTEND.md",
+        "backend/README.md",
+        "backups/",
+        "backend/app/main.py",
+        "docs/backlog-backend-v2.md",
+        "frontend/README.md",
+        "README.md"
+      ]
+    },
+    {
+      "task_id": "GIT-INTEGRATE-FRONTEND",
+      "title": "Integrar avance remoto de frontend conservando backend local",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T07:54:54.853Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "git-integration"
+      ],
+      "domains": [],
+      "expected_files": [
+        "frontend/",
+        "backend/alembic.ini",
+        "docs/evidencia/",
+        ".claude/agents/"
+      ]
+    },
+    {
+      "task_id": "FIX-GRAPH-EDITOR-TYPES",
+      "title": "Corregir tipos del grafo señalados por el editor",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 4,
+      "updated_at": "2026-11-15T07:54:53.242Z",
+      "lease_expires_at": null,
+      "owner": "Sandra",
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "knowledge-graph",
+        "backend-types"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/knowledge_graph.py",
+        "backend/app/export_knowledge_graph.py",
+        "backend/app/",
+        "pyrightconfig.json"
+      ]
+    },
+    {
+      "task_id": "REVIEW-RUN-FRONTEND",
+      "title": "Revisar e integrar frontend remoto y ejecutar aplicación completa",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T17:34:17.195Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "integration"
+      ],
+      "domains": [],
+      "expected_files": [
+        "frontend/",
+        "backend/app/"
+      ]
+    },
+    {
+      "task_id": "PITCH-REDESIGN",
+      "title": "Redisenar pitch visual de cinco minutos con fuentes NASA",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T17:54:01.161Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "pitch"
+      ],
+      "domains": [],
+      "expected_files": [
+        "presentacion/"
+      ]
+    },
+    {
+      "task_id": "PITCH-EARTH-COMPARISON",
+      "title": "Reutilizar contraste astronauta-paciente y agregar comparacion cientifica",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T18:23:09.525Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "pitch"
+      ],
+      "domains": [],
+      "expected_files": [
+        "presentacion/pitch-2026-11-15/"
+      ]
+    },
+    {
+      "task_id": "PITCH-PROJECT-AUDIT-HEART",
+      "title": "Analizar fortalezas y pendientes del proyecto y sumar telemetria al pitch",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T18:52:27.596Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "pitch",
+        "project-review"
+      ],
+      "domains": [],
+      "expected_files": [
+        "presentacion/pitch-2026-11-15/",
+        "docs/revisiones/"
+      ]
+    },
+    {
+      "task_id": "PITCH-ORIGINAL-COVER-EARTH",
+      "title": "Adaptar portada y dos diapositivas originales al estilo actual",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T19:35:22.500Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "pitch"
+      ],
+      "domains": [],
+      "expected_files": [
+        "presentacion/pitch-2026-11-15/"
+      ]
+    },
+    {
+      "task_id": "EVIDENCE-FINAL-REVIEW",
+      "title": "Revisar corpus y publicar alcance documental sin simular validacion clinica",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 3,
+      "updated_at": "2026-11-15T20:10:44.534Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "evidence-review",
+        "frontend-integration"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/papers.py",
+        "backend/data/literature/",
+        "docs/evidencia/",
+        "frontend/",
+        "backend/app/",
+        "backend/data/",
+        "docs/revisiones/"
+      ]
+    },
+    {
+      "task_id": "pitch-es-20261115",
+      "title": "Traducir pitch EN al espanol",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:3ca01dad",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T20:16:56.108Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": [
+        "presentacion/pitch-2026-11-15/TwinNauta_pitch_ES.pptx",
+        "presentacion/pitch-2026-11-15/TwinNauta_pitch_ES.pdf"
+      ]
+    },
+    {
+      "task_id": "MVP-FINAL-DISPLAY",
+      "title": "Pulir el estado visible de la evaluación para la demo MVP",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T20:15:39.590Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "mvp-demo-copy"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/api.py",
+        "backend/data/demo/assessment.json",
+        "frontend/src/components/RegionPanel.tsx",
+        "frontend/src/components/EvaluationTab.tsx"
+      ]
+    },
+    {
+      "task_id": "video-pitch-30s",
+      "title": "Video editable TwinNauta 30 segundos",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:3ca01dad",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T20:26:13.015Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": [
+        "presentacion/video-30s/"
+      ]
+    },
+    {
+      "task_id": "video-html-v2",
+      "title": "Rehacer video dinamico HTML problema y solucion",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:3ca01dad",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T20:41:40.905Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": [
+        "presentacion/video-html-30s/"
+      ]
+    },
+    {
+      "task_id": "NASA-DATA-DISCOVERY",
+      "title": "Buscar e inspeccionar datos humanos NASA descargables",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T20:35:43.567Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "data-research"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/data/raw/nasa_inspiration4/"
+      ]
+    },
+    {
+      "task_id": "video-voxel-v3",
+      "title": "Video voxel 3D fiel a app TwinNauta",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:3ca01dad",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T20:53:39.717Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": [
+        "presentacion/video-voxel-30s/"
+      ]
+    },
+    {
+      "task_id": "PANEL-DATA-RESEARCH",
+      "title": "Localizar mediciones utilizables para paneles musculares y cardíacos",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T20:46:30.322Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "data-research"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/data/raw/nasa_mr079g/MR079G_Campaign_17/",
+        "backend/data/raw/planica_2021/",
+        "docs/evidencia/datos-paneles-2026-11-15.md"
+      ]
+    },
+    {
+      "task_id": "REAL-DASHBOARD",
+      "title": "Conectar resultados reales al dashboard",
+      "status": "active",
+      "agent": "codex",
+      "agent_id": "codex:1b0bf139",
+      "assigned_agent_id": null,
+      "version": 1,
+      "updated_at": "2026-11-15T20:47:34.792Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [
+        "reference-dashboard"
+      ],
+      "domains": [],
+      "expected_files": [
+        "backend/app/",
+        "frontend/src/components/",
+        "frontend/src/api/",
+        "contracts/"
+      ]
+    },
+    {
+      "task_id": "video-voxel-pdf-v4",
+      "title": "Enriquecer video con PDF y transiciones continuas",
+      "status": "complete",
+      "agent": "codex",
+      "agent_id": "codex:3ca01dad",
+      "assigned_agent_id": null,
+      "version": 2,
+      "updated_at": "2026-11-15T21:02:55.633Z",
+      "lease_expires_at": null,
+      "owner": null,
+      "branch": null,
+      "parent_task_id": null,
+      "modules": [],
+      "domains": [],
+      "expected_files": [
+        "presentacion/video-voxel-30s/"
       ]
     }
   ]

@@ -4,6 +4,42 @@ info:
   description: Backend inicial con contenido ilustrativo; sin modelo clínico habilitado.
   version: 0.3.0
 paths:
+  /api/v1/reference-dashboard:
+    get:
+      summary: Get Reference Dashboard
+      description: Return real reference measurements and published group statistics.
+      operationId: get_reference_dashboard
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReferenceDashboard'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal Server Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /api/v1/cases/{case_id}/assessments:
     get:
       summary: List Case Assessments
@@ -2362,6 +2398,31 @@ components:
       - review_status
       title: KnowledgeNode
       description: Represent a paper or editorial topic in the discovery graph.
+    Measurement:
+      properties:
+        date:
+          type: string
+          title: Date
+        value:
+          type: number
+          title: Value
+        source_url:
+          type: string
+          title: Source Url
+        source_row:
+          type: integer
+          title: Source Row
+        phase_original:
+          type: string
+          title: Phase Original
+      type: object
+      required:
+      - date
+      - value
+      - source_url
+      - source_row
+      - phase_original
+      title: Measurement
     ModuleCatalog:
       properties:
         catalog_version:
@@ -3127,6 +3188,66 @@ components:
       - limitations
       title: PaperSummary
       description: Describe whether a reviewed summary is available for a paper.
+    Participant:
+      properties:
+        id:
+          type: string
+          title: Id
+        measurements:
+          items:
+            $ref: '#/components/schemas/Measurement'
+          type: array
+          title: Measurements
+      type: object
+      required:
+      - id
+      - measurements
+      title: Participant
+    ReferenceDashboard:
+      properties:
+        version:
+          type: string
+          title: Version
+        torque_unit:
+          type: string
+          title: Torque Unit
+        torque_method:
+          type: string
+          title: Torque Method
+        torque_source_url:
+          type: string
+          title: Torque Source Url
+        torque_limitations:
+          items:
+            type: string
+          type: array
+          title: Torque Limitations
+        participants:
+          items:
+            $ref: '#/components/schemas/Participant'
+          type: array
+          title: Participants
+        muscle_statistics:
+          items:
+            $ref: '#/components/schemas/PaperStatistic'
+          type: array
+          title: Muscle Statistics
+        published_torque:
+          items:
+            $ref: '#/components/schemas/PaperStatistic'
+          type: array
+          title: Published Torque
+      type: object
+      required:
+      - version
+      - torque_unit
+      - torque_method
+      - torque_source_url
+      - torque_limitations
+      - participants
+      - muscle_statistics
+      - published_torque
+      title: ReferenceDashboard
     Region:
       properties:
         id:

@@ -129,3 +129,5 @@ Modificar primero la especificación y los ejemplos, describir el cambio y coord
 El contrato inicial sirve al caso precargado; no contempla todavía login, carga de datos personales, editor de misión/ejercicios, streaming o proveedor de IA. No usar esta API de demostración para datos clínicos reales.
 
 Referencia: [OpenAPI 3.1.2](https://spec.openapis.org/oas/v3.1.2.html).
+
+`GET /api/v1/reference-dashboard` devuelve las referencias reales del dashboard: 16 participantes de NASA Campaign 17 con dos mediciones KES60 por fecha, dos tasas grupales de área muscular y cuatro medias de torque SPRINT. Conserva método, unidades, URL y fila de los CSV. [Ejemplo](examples/reference-dashboard.json). No depende del día de misión seleccionado ni escribe observaciones en el caso virtual. La discrepancia de fase de Campaign 17 se conserva en `torque_limitations`.

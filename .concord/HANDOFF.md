@@ -1,8 +1,8 @@
-# Handoff: BE-HANDOFF — Contrato modular y traspaso para frontend y otra IA
+# Handoff: video-voxel-pdf-v4 — Enriquecer video con PDF y transiciones continuas
 
 **Status:** complete
 **Delivery:** recorded
-**From agent:** codex:1b0bf139
+**From agent:** codex:3ca01dad
 **To agent:** not offered
 **Task version:** 2
 **Expires:** not set
@@ -10,7 +10,7 @@
 
 ## What changed
 
-Entrega prioritariafrontendautocontenida; contrato0.3 ampliado a6operaciones con módulos,orientacióncontextual, filtros yvariantes; backlogv2KB01..10 y traspasoparaotraIA.0.2vigente intacto yningunaruta0.3implementada.
+Integrado PDF de usuaria: cinco fondos extraidos al 24%, tarjetas flotantes de calidad y metadatos, flujo persistente capturar-comprobar-interpretar-seguimiento. Camara continua, astronauta siempre visible con desplazamiento y gestos, entradas/salidas suaves y fundidos. Actualizados MP4 y ZIP; version previa conservada.
 
 ## Reported outcome
 
@@ -18,23 +18,23 @@ _Not reported_
 
 ## Changed files
 
-- `docs/ENTREGA_FRONTEND.md`
-- `docs/CONTINUAR_CON_OTRA_IA.md`
-- `docs/backlog-backend-v2.md`
-- `docs/backlog-backend.md`
-- `contracts/drafts/scientific-explorer-0.3/README.md`
-- `contracts/drafts/scientific-explorer-0.3/openapi.yaml`
-- `contracts/drafts/scientific-explorer-0.3/schemas.json`
-- `contracts/drafts/scientific-explorer-0.3/examples.json`
-- `frontend/README.md`
-- `README.md`
+- `presentacion/video-voxel-30s/motion.js`
+- `presentacion/video-voxel-30s/assets/`
+- `presentacion/video-voxel-30s/TwinNauta_voxel_EN.mp4`
+- `presentacion/video-voxel-30s/TwinNauta_voxel_editable.zip`
+- `presentacion/video-voxel-30s/LEEME.md`
+- `presentacion/video-voxel-30s/version-anterior/`
 
 ## Tests run
 
-- `AJVDraft2020-12:6ejemplos y4variantesguidanceválidos;formatosURI/dateexcluidos`
-- `6rutasOpenAPIparseadas yreferenciaslocalesresueltas`
-- `Enlacesdocumentosentrega yextremosgrafoverificados`
-- `git diff --check aprobado`
+- `Texto y estructura de PDF de 16 paginas inspeccionados; cinco imagenes extraidas`
+- `Playwright: nueve capturas incluyendo antes/despues de transiciones 4s y 12s`
+- `Carga de clip real de prueba en slot final verificada`
+- `Prettier check, node --check y hooks existentes (sin archivos aplicables)`
+- `Exportacion navegador a velocidad reducida y conversion MP4`
+- `FFprobe: audio/video 30.000s, H264 FullHD 30fps, 900 fotogramas`
+- `Decodificacion completa FFmpeg sin errores y fotograma de MP4 revisado`
+- `ZIP integro con 12 archivos y todos los fondos`
 
 ## Assumptions
 
@@ -42,16 +42,12 @@ _None_
 
 ## Decisions
 
-- Frontend leeENTREGA_FRONTENDprimero,usa adaptadormock0.3separadodeAPI0.2
-- Motor modular conalcanceMVPexplícito y múltiplesestados, sinsoporteficticiodetodoelcuerpo
-- ProveedorIAconfigurableyconsultaofflinepreprocesada;sinllamadasIAejecutadas
-- Backlogv2sustituyeordenprevio;novolveraimplementarBE01/03/14
+_None_
 
 ## Known risks
 
-- Cambioslocalessincommit/push;incluirarchivosnuevosalcompartir
-- 0.3propuestapendienteacuerdoeimplementación
-- Noproyectofinalofflineoavalclínicoverificados
+- Estados y comprobaciones del PDF representados como flujo conceptual, no reglas clinicas validadas.
+- La locucion y captura final de plataforma quedan a cargo del equipo.
 
 ## Guardrails checked
 
@@ -63,6 +59,4 @@ _None_
 
 ## Next steps
 
-- Sandra comparte/subearchivosindicadosa frontend
-- SiguienteIAleeCONTINUAR_CON_OTRA_IAyconsolidaKB01confrontend
-- RegistrarticketsKB al asignarsinreutilizarIDConcordanterior
+_None_

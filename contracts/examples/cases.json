@@ -1,7 +1,7 @@
 [
   {
     "id": "virtual_case_001",
-    "label": "Caso virtual de maquetación",
+    "label": "Misión de referencia",
     "is_virtual": true,
     "duration_days": 70,
     "telemetry_recording_id": "recording_illustrative_001",

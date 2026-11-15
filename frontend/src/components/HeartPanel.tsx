@@ -67,12 +67,12 @@ export function HeartPanel({
           style={{ "--rail": "var(--color-step-next)" } as CSSProperties}
         >
           <p className="text-sm font-semibold text-slate-50">
-            Todavía no hay datos del corazón de este astronauta
+            Frecuencia cardíaca durante ejercicio
           </p>
           <p className="mt-1 text-xs text-slate-300">
-            Aquí ves cómo se comporta el pulso durante el ejercicio con una
-            grabación de otra persona en Tierra. Sirve para aprender a leerlo,
-            no para evaluar al astronauta.
+            Reproducción de una prueba real en cinta de PhysioNet, con tiempo,
+            unidad y procedencia de cada medición. Esta fuente terrestre se
+            consulta de forma independiente de los estudios musculares.
           </p>
         </div>
 
