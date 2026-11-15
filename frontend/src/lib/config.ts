@@ -20,3 +20,10 @@ export const REFERENCE_RECORDINGS = [
     label: "Referencia real: prueba en cinta (PhysioNet)",
   },
 ] as const;
+
+/**
+ * The heart-rate panel shows a terrestrial PhysioNet recording whose
+ * redistribution licence is unresolved, so it stays off unless enabled.
+ */
+export const HEART_RATE_ENABLED =
+  import.meta.env.VITE_ENABLE_HEART_RATE === "true";
