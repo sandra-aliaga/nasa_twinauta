@@ -42,8 +42,23 @@ export function Header({
 
   return (
     <header className="border-b border-slate-800 bg-slate-950/80 px-4 py-3 backdrop-blur">
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-3">
-        <h1 className="text-lg font-semibold tracking-tight text-slate-50">
+      <div className="flex flex-wrap items-center gap-x-4 gap-y-3">
+        <h1 className="flex items-center gap-2 text-lg font-semibold tracking-tight text-slate-50">
+          <svg aria-hidden="true" viewBox="0 0 32 32" className="h-7 w-7">
+            <rect width="32" height="32" rx="8" fill="#0b1220" />
+            <ellipse
+              cx="16"
+              cy="16"
+              rx="12"
+              ry="5.5"
+              fill="none"
+              stroke="#38bdf8"
+              strokeWidth="1.6"
+              transform="rotate(-28 16 16)"
+            />
+            <circle cx="16" cy="16" r="4.2" fill="#e2e8f0" />
+            <circle cx="26" cy="10.6" r="2" fill="#38bdf8" />
+          </svg>
           TwinNauta
         </h1>
 
@@ -52,7 +67,7 @@ export function Header({
           <select
             value={caseId ?? ""}
             onChange={(event) => onCaseChange(event.target.value)}
-            className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
+            className="max-w-[13rem] truncate rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100 2xl:max-w-none"
           >
             {cases.map((item) => (
               <option key={item.id} value={item.id}>
@@ -75,7 +90,7 @@ export function Header({
             value={day}
             disabled={!selectedCase}
             onChange={(event) => onDayChange(Number(event.target.value))}
-            className="w-40 accent-sky-400 sm:w-56"
+            className="w-32 accent-sky-400 sm:w-36 xl:w-40 2xl:w-56"
           />
           <span className="w-16 tabular-nums text-slate-100">
             {day} / {maxDay}
@@ -131,9 +146,11 @@ export function Header({
         <button
           type="button"
           onClick={onOpenGuide}
+          aria-label="Cómo leer esta demo"
+          title="Cómo leer esta demo"
           className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
         >
-          Cómo leer esta demo
+          Guía
         </button>
 
         {isDemo ? (

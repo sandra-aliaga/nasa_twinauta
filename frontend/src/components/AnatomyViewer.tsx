@@ -28,6 +28,15 @@ const SELECTED_COLOR = new Color(ANATOMY_COLORS.selected);
 const HOVER_COLOR = new Color("#7dd3fc");
 const NO_EMISSION = new Color("#000000");
 
+// Camera moves between body and region; disabled for reduced motion.
+const REDUCED_MOTION =
+  typeof window !== "undefined" &&
+  window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+function easeInOutCubic(t: number): number {
+  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2;
+}
+
 // Neutral material for the rest of the body while a region is selected.
 const CONTEXT_MATERIAL = new MeshStandardMaterial({
   color: ANATOMY_COLORS.context,
@@ -237,7 +246,14 @@ export default function AnatomyViewer({
         <directionalLight position={[3, 5, 4]} intensity={1.6} />
         <directionalLight position={[-4, 2, -3]} intensity={0.6} />
         <Suspense fallback={null}>
-          <Bounds fit clip observe margin={1.15}>
+          <Bounds
+            fit
+            clip
+            observe
+            margin={1.15}
+            maxDuration={REDUCED_MOTION ? 0.01 : 0.6}
+            interpolateFunc={easeInOutCubic}
+          >
             <Model
               regionIds={regionIds}
               selectedRegionId={selectedRegionId}

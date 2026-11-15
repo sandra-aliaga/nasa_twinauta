@@ -31,7 +31,7 @@ import {
   RELATION_LABELS,
 } from "../../lib/explorerLabels";
 import { REVIEW_LABELS } from "../../lib/labels";
-import { ErrorNotice, Notice } from "../common";
+import { ErrorNotice, Notice, Skeleton } from "../common";
 
 const WIDTH = 220;
 const HEIGHT = 66;
@@ -188,7 +188,11 @@ export function LibraryGraph({
 
   if (!merged) {
     if (error) return <ErrorNotice error={error} />;
-    return <Notice title="Cargando grafo de la biblioteca…" />;
+    return (
+      <div className="h-[55vh] min-h-[340px] rounded-lg border border-slate-800 p-4">
+        <Skeleton lines={5} label="Cargando grafo de la biblioteca" />
+      </div>
+    );
   }
 
   return (

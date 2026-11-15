@@ -162,7 +162,7 @@ export function IntroGuide({
         event.preventDefault();
         close();
       }}
-      className="m-auto w-[min(36rem,calc(100vw-2rem))] rounded-xl border border-slate-700 bg-slate-900 p-0 text-slate-200 backdrop:bg-slate-950/70"
+      className="twin-dialog m-auto w-[min(36rem,calc(100vw-2rem))] rounded-xl border border-slate-700 bg-slate-900 p-0 text-slate-200 shadow-2xl shadow-black/50"
     >
       <div className="space-y-4 p-5">
         <div className="flex items-start justify-between gap-3">
@@ -187,7 +187,10 @@ export function IntroGuide({
           </button>
         </div>
 
-        <div className="space-y-2 text-sm leading-relaxed [&_li]:ml-4 [&_li]:list-disc [&_ul]:space-y-1">
+        <div
+          key={step}
+          className="animate-rise-in space-y-2 text-sm leading-relaxed [&_li]:ml-4 [&_li]:list-disc [&_ul]:space-y-1"
+        >
           {current.body}
         </div>
 

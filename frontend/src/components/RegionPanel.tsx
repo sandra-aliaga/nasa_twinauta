@@ -11,7 +11,7 @@ import {
   ASSESSMENT_STATUS_LABELS,
 } from "../lib/labels";
 import { ActionsTab } from "./ActionsTab";
-import { ErrorNotice, Notice, Tag } from "./common";
+import { ErrorNotice, Notice, Skeleton, Tag } from "./common";
 import { ContextSection, type ContextSectionKey } from "./ContextSection";
 import { EvaluationTab } from "./EvaluationTab";
 import { ScenarioTab } from "./ScenarioTab";
@@ -84,7 +84,7 @@ export function RegionPanel({
   }
 
   return (
-    <div className="flex h-full flex-col">
+    <div key={region.id} className="flex h-full animate-fade-in flex-col">
       <div className="flex items-center justify-between border-b border-slate-800 px-5 py-3">
         <h2 className="text-base font-semibold text-slate-50">
           {region.label}
@@ -102,7 +102,7 @@ export function RegionPanel({
       <div
         role="tablist"
         aria-label="Secciones de la región"
-        className="flex border-b border-slate-800 px-2"
+        className="relative flex border-b border-slate-800 px-2"
         onKeyDown={(event) => {
           // WAI-ARIA tabs: arrows move between tabs, Home/End jump to ends.
           const index = TABS.findIndex((item) => item.id === tab);
@@ -132,15 +132,24 @@ export function RegionPanel({
             aria-controls="region-tabpanel"
             tabIndex={tab === item.id ? 0 : -1}
             onClick={() => onTabChange(item.id)}
-            className={`flex-1 border-b-2 px-2 py-2 text-xs font-medium sm:text-sm ${
+            className={`flex-1 px-2 py-2.5 text-xs font-medium transition-colors sm:text-sm ${
               tab === item.id
-                ? "border-sky-400 text-sky-100"
-                : "border-transparent text-slate-400 hover:text-slate-200"
+                ? "text-sky-100"
+                : "text-slate-400 hover:text-slate-200"
             }`}
           >
             {item.label}
           </button>
         ))}
+        {/* One indicator that slides to the active tab (equal-width tabs). */}
+        <span
+          aria-hidden="true"
+          className="absolute bottom-0 left-2 h-0.5 rounded-full bg-sky-400 transition-transform duration-300 ease-out"
+          style={{
+            width: `calc((100% - 1rem) / ${TABS.length})`,
+            transform: `translateX(${TABS.findIndex((item) => item.id === tab) * 100}%)`,
+          }}
+        />
       </div>
 
       <div
@@ -156,9 +165,13 @@ export function RegionPanel({
         ) : null}
 
         {state.status === "loading" ? (
-          <Notice title="Cargando evaluación…">
-            Día {state.request.mission_day}.
-          </Notice>
+          <div className="space-y-4">
+            <p className="text-xs text-slate-400">
+              Preparando la evaluación del día {state.request.mission_day}…
+            </p>
+            <Skeleton lines={3} label="Cargando evaluación" />
+            <Skeleton lines={5} label="Cargando indicadores" />
+          </div>
         ) : null}
 
         {state.status === "error" ? (
@@ -194,35 +207,37 @@ export function RegionPanel({
               ) : null}
             </div>
 
-            {tab === "evaluation" ? (
-              <EvaluationTab
+            <div key={tab} className="animate-rise-in space-y-4">
+              {tab === "evaluation" ? (
+                <EvaluationTab
+                  assessment={state.assessment}
+                  region={region}
+                  indicators={indicators}
+                  onOpenGraph={() => onOpenGraph("evaluation")}
+                />
+              ) : null}
+              {tab === "scenario" ? (
+                <ScenarioTab
+                  assessment={state.assessment}
+                  onOpenGraph={() => onOpenGraph("scenario")}
+                />
+              ) : null}
+              {tab === "actions" ? (
+                <ActionsTab
+                  assessment={state.assessment}
+                  onActionUpdated={onActionUpdated}
+                  onConflict={onConflict}
+                  onOpenGraph={() => onOpenGraph("actions")}
+                />
+              ) : null}
+              <ContextSection
+                context={context}
+                section={TAB_SECTIONS[tab]}
                 assessment={state.assessment}
-                region={region}
                 indicators={indicators}
-                onOpenGraph={() => onOpenGraph("evaluation")}
+                onOpenPaper={onOpenPaper}
               />
-            ) : null}
-            {tab === "scenario" ? (
-              <ScenarioTab
-                assessment={state.assessment}
-                onOpenGraph={() => onOpenGraph("scenario")}
-              />
-            ) : null}
-            {tab === "actions" ? (
-              <ActionsTab
-                assessment={state.assessment}
-                onActionUpdated={onActionUpdated}
-                onConflict={onConflict}
-                onOpenGraph={() => onOpenGraph("actions")}
-              />
-            ) : null}
-            <ContextSection
-              context={context}
-              section={TAB_SECTIONS[tab]}
-              assessment={state.assessment}
-              indicators={indicators}
-              onOpenPaper={onOpenPaper}
-            />
+            </div>
           </>
         ) : null}
       </div>
