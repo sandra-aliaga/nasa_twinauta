@@ -27,6 +27,9 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
   const examples = useLoad("guidance", (signal) =>
     explorerSource.listGuidanceExamples(signal),
   );
+  const modules = useLoad("modules", (signal) =>
+    explorerSource.listModules(signal),
+  );
   const [index, setIndex] = useState(0);
 
   if (examples === null || examples.status === "loading") {
@@ -74,7 +77,12 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
         <Tag>Atención: {GUIDANCE_ATTENTION_LABELS[guidance.attention]}</Tag>
         {guidance.module_id ? (
           <Tag>
-            Módulo {guidance.module_id} · v{guidance.module_version}
+            Módulo{" "}
+            {(modules?.status === "ready"
+              ? modules.data.modules.find((m) => m.id === guidance.module_id)
+                  ?.label
+              : undefined) ?? guidance.module_id}{" "}
+            · v{guidance.module_version}
           </Tag>
         ) : (
           <Tag>Sin módulo</Tag>

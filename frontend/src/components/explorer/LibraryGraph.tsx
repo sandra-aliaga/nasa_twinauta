@@ -184,7 +184,7 @@ export function LibraryGraph({ query, onOpenPaper }: LibraryGraphProps) {
   }
 
   return (
-    <div className="flex h-full min-h-[420px] flex-col gap-2">
+    <div className="flex flex-col gap-2">
       <div className="flex flex-wrap items-center gap-2 text-xs text-slate-400">
         {merged.notes.map((note) => (
           <span key={note} className="rounded bg-slate-900 px-2 py-1">
@@ -210,49 +210,57 @@ export function LibraryGraph({ query, onOpenPaper }: LibraryGraphProps) {
           No hay publicaciones ni relaciones en el corpus para esta combinación.
         </Notice>
       ) : (
-        <div className="relative min-h-0 flex-1 rounded-lg border border-slate-800">
-          <ReactFlowProvider>
-            <ReactFlow
-              nodes={flow?.nodes ?? []}
-              edges={flow?.edges ?? []}
-              nodeTypes={nodeTypes}
-              colorMode="dark"
-              fitView
-              fitViewOptions={{ padding: 0.2 }}
-              nodesDraggable={false}
-              nodesConnectable={false}
-              edgesFocusable={false}
-              minZoom={0.2}
-              onNodeClick={(_, node) => setSelected(node.id)}
-              onPaneClick={() => setSelected(null)}
-              onKeyDown={(event) => {
-                const id = nodeIdFromKey(event);
-                if (id) setSelected(id);
-              }}
-              style={{ background: "transparent" }}
-            >
-              <Background gap={22} color="#1e293b" />
-              <Controls showInteractive={false} />
-            </ReactFlow>
-          </ReactFlowProvider>
-          <Legend />
-          {selectedNode ? (
-            <NodeCard
-              node={selectedNode}
-              edges={[...merged.edges.values()].filter(
-                (edge) =>
-                  edge.source === selectedNode.id ||
-                  edge.target === selectedNode.id,
-              )}
-              loading={loading}
-              onExpand={() =>
-                load({ paper_id: selectedNode.paper_id ?? undefined })
-              }
-              onOpenPaper={onOpenPaper}
-              onClose={() => setSelected(null)}
-            />
-          ) : null}
-        </div>
+        <>
+          <div className="h-[55vh] min-h-[340px] rounded-lg border border-slate-800">
+            <ReactFlowProvider>
+              <ReactFlow
+                nodes={flow?.nodes ?? []}
+                edges={flow?.edges ?? []}
+                nodeTypes={nodeTypes}
+                colorMode="dark"
+                fitView
+                fitViewOptions={{ padding: 0.2 }}
+                nodesDraggable={false}
+                nodesConnectable={false}
+                edgesFocusable={false}
+                minZoom={0.2}
+                onNodeClick={(_, node) => setSelected(node.id)}
+                onPaneClick={() => setSelected(null)}
+                onKeyDown={(event) => {
+                  const id = nodeIdFromKey(event);
+                  if (id) setSelected(id);
+                }}
+                style={{ background: "transparent" }}
+              >
+                <Background gap={22} color="#1e293b" />
+                <Controls showInteractive={false} />
+              </ReactFlow>
+            </ReactFlowProvider>
+          </div>
+          <div className="grid gap-2 lg:grid-cols-2">
+            {selectedNode ? (
+              <NodeCard
+                node={selectedNode}
+                edges={[...merged.edges.values()].filter(
+                  (edge) =>
+                    edge.source === selectedNode.id ||
+                    edge.target === selectedNode.id,
+                )}
+                loading={loading}
+                onExpand={() =>
+                  load({ paper_id: selectedNode.paper_id ?? undefined })
+                }
+                onOpenPaper={onOpenPaper}
+                onClose={() => setSelected(null)}
+              />
+            ) : (
+              <p className="rounded-lg border border-dashed border-slate-800 p-3 text-xs text-slate-400">
+                Selecciona un nodo (clic o Intro) para ver sus relaciones.
+              </p>
+            )}
+            <Legend />
+          </div>
+        </>
       )}
     </div>
   );
@@ -314,7 +322,7 @@ function toFlow(merged: Merged, focus: string | null) {
 
 function Legend() {
   return (
-    <div className="absolute bottom-3 right-3 max-w-xs rounded-lg border border-slate-800 bg-slate-900/90 px-3 py-2 text-[11px] text-slate-300">
+    <div className="rounded-lg border border-slate-800 bg-slate-900/90 px-3 py-2 text-[11px] text-slate-300">
       <p className="mb-1 text-[10px] uppercase tracking-wide text-slate-400">
         Origen de la relación
       </p>
@@ -364,7 +372,7 @@ function NodeCard({
   return (
     <section
       aria-label="Detalle del nodo"
-      className="absolute right-3 top-3 max-h-[calc(100%-1.5rem)] w-80 overflow-y-auto rounded-lg border border-slate-700 bg-slate-900/95 p-4 text-sm shadow-xl"
+      className="rounded-lg border border-slate-700 bg-slate-900/95 p-4 text-sm"
     >
       <div className="flex items-start justify-between gap-2">
         <div>

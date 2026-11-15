@@ -803,7 +803,7 @@
       "module_version": "0.1-draft",
       "status": "review_pending",
       "attention": "unknown",
-      "summary": "Paso de orientación enlazado a la acción 0.2 'action_log' de contracts/examples/assessment.json.",
+      "summary": "Paso de orientación materializado como una acción de la evaluación: «Revisar el registro de la sesión».",
       "reason": "No hay reglas clínicas habilitadas; el paso solo demuestra seguimiento editorial en modo ilustrativo.",
       "observation_ids": [
         "obs_baseline",
@@ -815,7 +815,7 @@
         {
           "id": "step_review_session_log",
           "title": "Revisar el registro de la sesión",
-          "description": "Este paso se materializa como la acción 0.2 'action_log'; su ejecución se registra solo allí.",
+          "description": "Este paso corresponde a una acción de la evaluación; su ejecución se registra solo en esa acción.",
           "kind": "operational_review",
           "eligibility": "eligible",
           "eligibility_reason": "Solo demostración de seguimiento editorial en modo ilustrativo.",

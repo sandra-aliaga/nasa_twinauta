@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { explorerSource } from "../../api/explorer/mockSource";
 import type { LibraryView, PaperQuery } from "../../api/explorer/types";
@@ -57,6 +57,14 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
   const [useRegion, setUseRegion] = useState(regionId !== null);
   const [mode, setMode] = useState<"list" | "graph">("list");
   const [paperId, setPaperId] = useState<string | null>(null);
+  const asideRef = useRef<HTMLElement>(null);
+
+  // On narrow screens the record opens below the list: bring it into view.
+  useEffect(() => {
+    if (paperId && window.matchMedia("(max-width: 1279px)").matches) {
+      asideRef.current?.scrollIntoView({ block: "start" });
+    }
+  }, [paperId]);
 
   const query = toQuery(filters, useRegion ? regionId : null);
   const queryKey = JSON.stringify(query);
@@ -106,7 +114,7 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
           }}
         >
           <label className="flex min-w-48 flex-1 flex-col gap-1">
-            Palabras clave (corpus incorporado)
+            Buscar en el corpus incorporado
             <input
               type="search"
               value={draft.q}
@@ -197,6 +205,16 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
           >
             Buscar
           </button>
+          <button
+            type="button"
+            onClick={() => {
+              setDraft(EMPTY);
+              setFilters(EMPTY);
+            }}
+            className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
+          >
+            Limpiar
+          </button>
         </form>
 
         <div
@@ -227,7 +245,11 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
         </div>
       </div>
 
-      <div className="grid min-h-0 flex-1 gap-4 overflow-y-auto p-4 xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]">
+      <div
+        className={`grid min-h-0 flex-1 gap-4 overflow-y-auto p-4 ${
+          mode === "list" ? "xl:grid-cols-[minmax(0,1fr)_minmax(0,1fr)]" : ""
+        }`}
+      >
         <div className="min-h-0 space-y-4">
           {mode === "list" ? (
             <section aria-label="Resultados">
@@ -243,9 +265,10 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
               ) : (
                 <>
                   <p className="mb-2 text-xs text-slate-400">
-                    {papers.data.total_matching} publicaciones del corpus
-                    coinciden · orden: año descendente, sin puntuación de
-                    relevancia
+                    {papers.data.total_matching === 1
+                      ? "1 publicación del corpus coincide"
+                      : `${papers.data.total_matching} publicaciones del corpus coinciden`}{" "}
+                    · orden: año descendente, sin puntuación de relevancia
                   </p>
                   <ul className="space-y-2">
                     {papers.data.items.map((paper) => (
@@ -355,7 +378,11 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
           </section>
         </div>
 
-        <aside aria-label="Ficha de la publicación" className="min-h-0">
+        <aside
+          ref={asideRef}
+          aria-label="Ficha de la publicación"
+          className="min-h-0 scroll-mt-4"
+        >
           {paperId === null ? (
             <Notice title="Ninguna publicación seleccionada">
               Elige una publicación de la lista o un nodo del grafo para abrir

@@ -270,9 +270,9 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
           {statistic.timepoint_label}
         </span>
         <span className="tabular-nums text-slate-100">
-          {statistic.value} {unit(statistic.unit)}
+          {num(statistic.value)} {unit(statistic.unit)}
           {dispersion
-            ? ` ± ${dispersion.value} ${unit(dispersion.unit)} (${DISPERSION_LABELS[dispersion.kind]})`
+            ? ` ± ${num(dispersion.value)} ${unit(dispersion.unit)} (${DISPERSION_LABELS[dispersion.kind]})`
             : ""}
         </span>
       </div>
@@ -282,7 +282,7 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
           {interval.level !== null
             ? ` ${Math.round(interval.level * 100)} %`
             : ""}
-          : {interval.lower} a {interval.upper} {unit(interval.unit)}
+          : {num(interval.lower)} a {num(interval.upper)} {unit(interval.unit)}
         </p>
       ) : null}
       <p className="mt-0.5 text-slate-400">
@@ -294,7 +294,8 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
         {REVIEW_LABELS[statistic.extraction_review_status].toLowerCase()}
       </p>
       <p className="mt-0.5 text-slate-400">
-        Ubicación: {statistic.source_locator}
+        Variable y grupo tal como los publica la fuente (en inglés). Ubicación:{" "}
+        {statistic.source_locator}
       </p>
       <LimitList items={statistic.limitations} />
     </li>
@@ -317,7 +318,18 @@ function LimitList({ items, title }: { items: string[]; title?: string }) {
   );
 }
 
+const UNIT_DISPLAY: Record<string, string> = {
+  "N.m": "N·m",
+  cm2: "cm²",
+  percent_baseline_per_day: "% del basal por día",
+};
+
 /** Display form of contract unit ids (the id itself stays unchanged). */
 function unit(id: string): string {
-  return id === "N.m" ? "N·m" : id;
+  return UNIT_DISPLAY[id] ?? id;
+}
+
+/** Published values keep their precision; only the decimal mark changes. */
+function num(value: number): string {
+  return value.toLocaleString("es", { maximumFractionDigits: 6 });
 }
