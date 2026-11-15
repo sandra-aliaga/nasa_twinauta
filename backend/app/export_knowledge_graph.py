@@ -11,6 +11,7 @@ from app.catalog import candidate_papers, knowledge_base_metadata
 from app.database import LiteraturePaperRecord
 from app.knowledge_graph import paper_neighbors, project_graph_page
 from app.papers import CORPUS_VERSION, MAX_LIMIT, _fingerprint, _paper_card
+from app.schemas import GraphView
 
 
 def local_records() -> list[LiteraturePaperRecord]:
@@ -81,7 +82,8 @@ def export_graphs(
             }
 
         write_json("paper-cards.json", [card.model_dump(mode="json") for _, card in cards])
-        for view in ("evidence", "scenario", "actions"):
+        views: tuple[GraphView, ...] = ("evidence", "scenario", "actions")
+        for view in views:
             matches = paper_neighbors(
                 [(record, card) for record, card in cards if view in card.sections], selected
             )

@@ -41,7 +41,9 @@ def numeric_value(value: str, field: str, row_number: int) -> float:
     return parsed
 
 
-def extract_recording(raw_dir: Path, test_id: str) -> tuple[dict, list[dict], dict]:
+def extract_recording(
+    raw_dir: Path, test_id: str
+) -> tuple[dict[str, str], list[dict[str, str | float | bool | int | None]], dict[str, int]]:
     """Select one adult test and retain source timing and missing HR samples."""
     with (raw_dir / "subject-info.csv").open(encoding="utf-8-sig", newline="") as stream:
         matches = [row for row in csv.DictReader(stream) if row["ID_test"] == test_id]
@@ -83,7 +85,7 @@ def extract_recording(raw_dir: Path, test_id: str) -> tuple[dict, list[dict], di
     return participant, points, audit
 
 
-def prepare(raw_dir: Path, output_dir: Path, test_id: str) -> dict:
+def prepare(raw_dir: Path, output_dir: Path, test_id: str) -> dict[str, object]:
     """Write derived CSV and provenance for review, without changing API fixtures."""
     if not test_id or any(character not in "0123456789_" for character in test_id):
         raise ValueError("Test ID must contain only digits and underscores.")
@@ -98,7 +100,7 @@ def prepare(raw_dir: Path, output_dir: Path, test_id: str) -> dict:
         writer.writeheader()
         writer.writerows(points)
 
-    provenance = {
+    provenance: dict[str, object] = {
         "preparation_version": "1.0.0",
         "dataset_id": "physionet_treadmill_1.0.1",
         "test_id": test_id,

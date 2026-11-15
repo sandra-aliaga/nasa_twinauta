@@ -1,0 +1,282 @@
+import type {
+  Assessment,
+  ExerciseRecord,
+  IndicatorDefinition,
+  Observation,
+  Region,
+} from "../api";
+import {
+  ATTENTION_LABELS,
+  DERIVATION_LABELS,
+  ORIGIN_LABELS,
+  QUALITY_LABELS,
+  REVIEW_LABELS,
+  STATISTIC_LABELS,
+  UNIT_LABELS,
+} from "../lib/labels";
+import { Collapsible, Tag } from "./common";
+
+// Presentation only: attention is not clinical severity.
+const ATTENTION_TONES = {
+  informational: "sky",
+  review_needed: "amber",
+  unknown: "slate",
+} as const;
+
+function formatValue(observation: Observation): string {
+  if (observation.value === null) return "Dato ausente";
+  return `${observation.value} ${UNIT_LABELS[observation.unit]}`;
+}
+
+function ObservationRow({ observation }: { observation: Observation }) {
+  const missing = observation.value === null;
+  return (
+    <li className="rounded-md border border-slate-800 px-3 py-2">
+      <div className="flex items-baseline justify-between gap-3">
+        <span
+          className={`text-base tabular-nums ${missing ? "italic text-slate-400" : "text-slate-50"}`}
+        >
+          {formatValue(observation)}
+        </span>
+        <span className="text-xs text-slate-400">
+          día {observation.mission_day}
+        </span>
+      </div>
+      {missing && observation.missing_reason ? (
+        <p className="mt-1 text-xs text-slate-400">
+          Motivo: {observation.missing_reason}
+        </p>
+      ) : null}
+      <div className="mt-2 flex flex-wrap gap-1">
+        <Tag>{ORIGIN_LABELS[observation.origin]}</Tag>
+        <Tag>{DERIVATION_LABELS[observation.derivation]}</Tag>
+        <Tag>{STATISTIC_LABELS[observation.statistic]}</Tag>
+        <Tag tone={observation.quality === "available" ? "slate" : "amber"}>
+          {QUALITY_LABELS[observation.quality]}
+        </Tag>
+        {observation.sample_size !== null ? (
+          <Tag>n = {observation.sample_size}</Tag>
+        ) : null}
+      </div>
+      <p className="mt-1 text-xs text-slate-500">
+        Método: {observation.method}
+      </p>
+    </li>
+  );
+}
+
+function IndicatorBlock({
+  indicator,
+  observations,
+}: {
+  indicator: IndicatorDefinition;
+  observations: Observation[];
+}) {
+  return (
+    <div>
+      <h4 className="text-sm font-medium text-slate-200">{indicator.label}</h4>
+      <p className="text-xs text-slate-500">
+        {indicator.baseline_interpretation}
+      </p>
+      {observations.length === 0 ? (
+        <p className="mt-2 text-xs italic text-slate-400">
+          Sin observaciones disponibles hasta este día.
+        </p>
+      ) : (
+        <ul className="mt-2 space-y-2">
+          {observations.map((observation) => (
+            <ObservationRow key={observation.id} observation={observation} />
+          ))}
+        </ul>
+      )}
+    </div>
+  );
+}
+
+function ExerciseBlock({ records }: { records: ExerciseRecord[] }) {
+  const recorded = records.filter(
+    (record) => record.record_status === "recorded",
+  ).length;
+  return (
+    <div>
+      <h4 className="text-sm font-medium text-slate-200">
+        Ejercicio registrado frente al plan
+      </h4>
+      <p className="text-xs text-slate-500">
+        Una sesión sin registro no demuestra que no se haya realizado.
+      </p>
+      {records.length === 0 ? (
+        <p className="mt-2 text-xs italic text-slate-400">
+          Sin sesiones planificadas hasta este día.
+        </p>
+      ) : (
+        <>
+          <p className="mt-2 text-base tabular-nums text-slate-50">
+            {recorded} de {records.length} sesiones con registro
+          </p>
+          <ul className="mt-2 space-y-1 text-xs text-slate-300">
+            {records.map((record) => (
+              <li key={record.id} className="flex justify-between gap-2">
+                <span>
+                  Día {record.mission_day} · {record.modality}
+                  {record.planned_duration_min !== null
+                    ? ` · plan ${record.planned_duration_min} min`
+                    : ""}
+                </span>
+                <span
+                  className={
+                    record.record_status === "recorded"
+                      ? "text-slate-300"
+                      : "italic text-amber-300"
+                  }
+                >
+                  {record.record_status === "recorded"
+                    ? `registrado${record.recorded_duration_min !== null ? ` ${record.recorded_duration_min} min` : ""}`
+                    : "sin registro"}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  );
+}
+
+type EvaluationTabProps = {
+  assessment: Assessment;
+  region: Region;
+  indicators: IndicatorDefinition[];
+  onOpenGraph: () => void;
+};
+
+/** "Evaluacion de la zona": findings, related data, limits and sources. */
+export function EvaluationTab({
+  assessment,
+  region,
+  indicators,
+  onOpenGraph,
+}: EvaluationTabProps) {
+  const regionIndicators = region.indicator_ids
+    .map((id) => indicators.find((indicator) => indicator.id === id))
+    .filter((item): item is IndicatorDefinition => item !== undefined);
+
+  const { data_quality, evidence_applicability, model_limitations } =
+    assessment.evidence_context;
+  const limitationGroups = [
+    { label: "Calidad de datos", items: data_quality },
+    { label: "Aplicabilidad de la evidencia", items: evidence_applicability },
+    { label: "Límites del modelo", items: model_limitations },
+  ];
+  const limitationCount = limitationGroups.reduce(
+    (total, group) => total + group.items.length,
+    0,
+  );
+
+  return (
+    <div className="space-y-5">
+      <p className="text-sm leading-relaxed text-slate-200">
+        {assessment.summary}
+      </p>
+
+      <section>
+        <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Hallazgos
+        </h3>
+        {assessment.findings.length === 0 ? (
+          <p className="text-sm italic text-slate-400">
+            No hay hallazgos interpretativos para esta evaluación.
+          </p>
+        ) : (
+          <ul className="space-y-2">
+            {assessment.findings.map((finding) => (
+              <li
+                key={finding.id}
+                className="rounded-md border border-slate-800 px-3 py-2"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <span className="text-sm font-medium text-slate-100">
+                    {finding.title}
+                  </span>
+                  <Tag tone={ATTENTION_TONES[finding.attention]}>
+                    {ATTENTION_LABELS[finding.attention]}
+                  </Tag>
+                </div>
+                <p className="mt-1 text-sm text-slate-300">
+                  {finding.description}
+                </p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </section>
+
+      <section className="space-y-4">
+        <h3 className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Datos relacionados
+        </h3>
+        {regionIndicators.map((indicator) => (
+          <IndicatorBlock
+            key={indicator.id}
+            indicator={indicator}
+            observations={assessment.observations.filter(
+              (observation) => observation.indicator_id === indicator.id,
+            )}
+          />
+        ))}
+        <ExerciseBlock records={assessment.exercise_records} />
+      </section>
+
+      <Collapsible title={`Límites de interpretación (${limitationCount})`}>
+        <dl className="space-y-2">
+          {limitationGroups.map(({ label, items }) => (
+            <div key={label}>
+              <dt className="text-xs font-medium text-slate-400">{label}</dt>
+              {items.length === 0 ? (
+                <dd className="text-xs italic text-slate-500">
+                  Sin elementos declarados.
+                </dd>
+              ) : (
+                items.map((item) => <dd key={item}>• {item}</dd>)
+              )}
+            </div>
+          ))}
+        </dl>
+      </Collapsible>
+
+      <Collapsible title={`Fuentes (${assessment.sources.length})`}>
+        <ul className="space-y-2">
+          {assessment.sources.map((source) => (
+            <li key={source.id}>
+              <p className="text-slate-200">
+                {source.url ? (
+                  <a
+                    href={source.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="underline decoration-slate-500 hover:text-sky-300"
+                  >
+                    {source.title}
+                  </a>
+                ) : (
+                  source.title
+                )}
+              </p>
+              <p className="text-xs text-slate-500">
+                {source.locator} · {REVIEW_LABELS[source.review_status]}
+              </p>
+            </li>
+          ))}
+        </ul>
+      </Collapsible>
+
+      <button
+        type="button"
+        onClick={onOpenGraph}
+        className="w-full rounded-md border border-sky-500/60 px-3 py-2 text-sm font-medium text-sky-200 hover:bg-sky-500/10"
+      >
+        ¿Por qué? Ver fundamento
+      </button>
+    </div>
+  );
+}

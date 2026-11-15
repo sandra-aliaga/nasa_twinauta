@@ -4,6 +4,7 @@ import argparse
 import json
 from hashlib import sha256
 from pathlib import Path
+from typing import Any
 from uuid import NAMESPACE_URL, uuid5
 
 from pydantic import AwareDatetime, TypeAdapter
@@ -19,7 +20,7 @@ from app.database import LiteratureAnalysisRecord, LiteraturePaperRecord, create
 from app.schemas import PaperAnalysisItem, PaperSummary
 
 
-def load_prepared(directory: Path) -> list[dict]:
+def load_prepared(directory: Path) -> list[dict[str, Any]]:
     """Validate all selected source files before opening a database transaction."""
     manifest = json.loads((directory / "manifest.json").read_bytes())
     if manifest.get("status") != "ready_for_review":
@@ -105,7 +106,9 @@ def load_prepared(directory: Path) -> list[dict]:
     return prepared
 
 
-def import_prepared(session: Session, prepared: list[dict], corpus_version: str) -> dict:
+def import_prepared(
+    session: Session, prepared: list[dict[str, Any]], corpus_version: str
+) -> dict[str, int]:
     """Stage an atomic, idempotent import; the caller owns commit/rollback."""
     imported = reused = 0
     for values in prepared:
@@ -122,9 +125,12 @@ def import_prepared(session: Session, prepared: list[dict], corpus_version: str)
             insert(LiteratureAnalysisRecord)
             .values(**values)
             .on_conflict_do_nothing(index_elements=[LiteratureAnalysisRecord.id])
+            .returning(LiteratureAnalysisRecord.id)
         )
-        imported += result.rowcount
-        reused += 1 - result.rowcount
+        if result.scalar_one_or_none() is not None:
+            imported += 1
+        else:
+            reused += 1
     return {"imported": imported, "already_present": reused}
 
 

@@ -344,6 +344,9 @@ class Assessment(ContractModel):
         return self
 
 
+type GraphView = Literal["evidence", "scenario", "actions"]
+
+
 class GraphNode(ContractModel):
     """Represent the GraphNode contract payload."""
 

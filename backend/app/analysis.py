@@ -62,15 +62,17 @@ def latest_analysis(
 
 def project_analysis(persisted: LiteratureAnalysisRecord) -> PaperAnalysis:
     """Project a stored attempt without changing its review status."""
-    return PaperAnalysis(
-        status=persisted.status,
-        input_basis=persisted.input_basis,
-        input_sha256=persisted.input_sha256,
-        prompt_version=persisted.prompt_version,
-        model_id=persisted.model_id,
-        generated_at=persisted.generated_at,
-        items=[PaperAnalysisItem.model_validate(item) for item in persisted.items],
-        failure_reason=persisted.failure_reason,
+    return PaperAnalysis.model_validate(
+        {
+            "status": persisted.status,
+            "input_basis": persisted.input_basis,
+            "input_sha256": persisted.input_sha256,
+            "prompt_version": persisted.prompt_version,
+            "model_id": persisted.model_id,
+            "generated_at": persisted.generated_at,
+            "items": persisted.items,
+            "failure_reason": persisted.failure_reason,
+        }
     )
 
 
@@ -147,7 +149,7 @@ def analyze_paper(
     if paper is None:
         raise ValueError("The selected paper does not exist in the migrated database.")
     current = analysis_for_paper(paper)
-    if current.input_sha256 is None:
+    if current.input_sha256 is None or paper.abstract_text is None:
         return "skipped_no_abstract"
     text = paper.abstract_text
     model_id = f"{provider.provider_id}/{provider.model}"
@@ -161,8 +163,8 @@ def analyze_paper(
         and not force
     ):
         return "cached"
-    attempt = PaperAnalysis(
-        **{
+    attempt = PaperAnalysis.model_validate(
+        {
             **current.model_dump(),
             "status": "running",
             "model_id": model_id,
@@ -192,8 +194,8 @@ def analyze_paper(
             )
             for index, item in enumerate(draft.items)
         ]
-        attempt = PaperAnalysis(
-            **{
+        attempt = PaperAnalysis.model_validate(
+            {
                 **attempt.model_dump(),
                 "status": "ready",
                 "generated_at": datetime.now(UTC),
@@ -211,8 +213,8 @@ def analyze_paper(
         )
     except (ProviderError, ValueError, OSError) as error:
         reason = str(error) if isinstance(error, ProviderError) else "Analysis preparation failed."
-        attempt = PaperAnalysis(
-            **{**attempt.model_dump(), "status": "failed", "failure_reason": reason[:2000]}
+        attempt = PaperAnalysis.model_validate(
+            {**attempt.model_dump(), "status": "failed", "failure_reason": reason[:2000]}
         )
     persist_analysis(session, paper_id=paper_id, analysis=attempt, summary=summary)
     session.commit()

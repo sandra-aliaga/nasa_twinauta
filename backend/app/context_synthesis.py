@@ -2,12 +2,21 @@
 
 import json
 from hashlib import sha256
-from typing import Annotated
+from typing import Annotated, Any
 
 from pydantic import BaseModel, ConfigDict, Field, StringConstraints
 
 from app.analysis_providers import HTTPAnalysisProvider, ProviderError
-from app.schemas import Assessment, GraphCounts, GraphPage, Guidance, KnowledgeEdge, KnowledgeNode
+from app.schemas import (
+    Assessment,
+    GraphCounts,
+    GraphPage,
+    GraphView,
+    Guidance,
+    KnowledgeEdge,
+    KnowledgeNode,
+    Page,
+)
 
 PROMPT_VERSION = "context-synthesis-0.3"
 Text = Annotated[str, StringConstraints(strip_whitespace=True, min_length=1, max_length=3000)]
@@ -46,7 +55,7 @@ def validate_context(
     assessment: Assessment,
     guidance: Guidance,
     abstracts: dict[str, str],
-    snippets: dict[str, dict],
+    snippets: dict[str, dict[str, str]],
 ) -> None:
     """Reject fabricated references; semantic accuracy still needs human review."""
     observation_ids = {item.id for item in assessment.observations}
@@ -72,11 +81,14 @@ def synthesize_context(
     provider: HTTPAnalysisProvider,
     assessment: Assessment,
     guidance: Guidance,
-    papers: list[dict],
-) -> dict:
+    papers: list[dict[str, Any]],
+) -> dict[str, Any]:
     """Explicitly generate one pending narrative snapshot; never invoke from a GET."""
     if guidance.assessment_id != assessment.assessment_id:
         raise ValueError("Guidance and assessment must refer to the same snapshot.")
+    corpus_version = guidance.corpus_version
+    if corpus_version is None:
+        raise ValueError("Context requires a declared corpus version.")
     abstracts = {paper["paper_id"]: paper["abstract"] for paper in papers}
     if (
         len(abstracts) != len(papers)
@@ -143,11 +155,12 @@ def synthesize_context(
         raise ProviderError("Provider returned an invalid contextual structure.") from None
     validate_context(draft, assessment, guidance, abstracts, snippets)
     graphs = {}
-    for name, view in (
+    views: tuple[tuple[str, GraphView], ...] = (
         ("alert_assessment", "evidence"),
         ("inaction_scenario", "scenario"),
         ("next_steps", "actions"),
-    ):
+    )
+    for name, view in views:
         section = getattr(draft, name)
         node_id = f"narrative:{assessment.assessment_id}:{name}"
         paper_ids = sorted({citation.paper_id for citation in section.citations})
@@ -190,12 +203,12 @@ def synthesize_context(
             for paper_id in paper_ids
         ]
         graphs[view] = GraphPage(
-            corpus_version=guidance.corpus_version,
+            corpus_version=corpus_version,
             assessment_id=assessment.assessment_id,
             view=view,
             nodes=nodes,
             edges=edges,
-            page={"next_cursor": None, "has_more": False},
+            page=Page(next_cursor=None, has_more=False),
             scope_description="Citas propuestas por IA; revisión pendiente, sin respaldo clínico aprobado.",
             counts=GraphCounts(
                 papers_matching=len(paper_ids),

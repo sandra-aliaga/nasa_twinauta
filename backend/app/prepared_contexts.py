@@ -5,7 +5,7 @@ import json
 from datetime import datetime
 from hashlib import sha256
 from pathlib import Path
-from typing import Literal
+from typing import Any, Literal
 from uuid import NAMESPACE_URL, uuid5
 
 from pydantic import BaseModel, ConfigDict, model_validator
@@ -102,9 +102,12 @@ class AssessmentIndex(BaseModel):
     has_context: bool
 
 
-def project_context(document: dict) -> AssessmentContext:
+def project_context(document: dict[str, Any]) -> AssessmentContext:
     """Expose prepared content without leaking preparation files or token accounting."""
     guidance = Guidance.model_validate(document["authoritative_guidance"])
+    corpus_version = guidance.corpus_version
+    if corpus_version is None:
+        raise ValueError("Published context requires a declared corpus version.")
     return AssessmentContext(
         assessment_id=document["assessment_id"],
         status="available",
@@ -117,7 +120,7 @@ def project_context(document: dict) -> AssessmentContext:
             input_sha256=document["input_sha256"],
             prompt_version=document["prompt_version"],
             model_id=document["model_id"],
-            corpus_version=guidance.corpus_version,
+            corpus_version=corpus_version,
         ),
         review_status=document["review_status"],
     )
@@ -175,7 +178,7 @@ def list_assessments(session: Session, case_id: str) -> list[AssessmentIndex]:
     ]
 
 
-def load_context(directory: Path, assessment_path: Path) -> tuple[Assessment, dict]:
+def load_context(directory: Path, assessment_path: Path) -> tuple[Assessment, dict[str, Any]]:
     """Bind the prepared narrative to its exact original assessment and inputs."""
     document = json.loads((directory / "context.json").read_bytes())
     manifest = json.loads((directory / "manifest.json").read_bytes())
@@ -230,7 +233,7 @@ def load_context(directory: Path, assessment_path: Path) -> tuple[Assessment, di
     return assessment, document
 
 
-def install_context(session: Session, assessment: Assessment, document: dict) -> str:
+def install_context(session: Session, assessment: Assessment, document: dict[str, Any]) -> str:
     """Add a context version and its original snapshot without replacing history."""
     if session.get(CaseRecord, assessment.case_id) is None:
         raise ValueError("Install the source case before its assessment context.")
@@ -277,8 +280,9 @@ def install_context(session: Session, assessment: Assessment, document: dict) ->
         insert(PreparedContextRecord)
         .values(id=record_id, assessment_id=assessment.assessment_id, payload=document)
         .on_conflict_do_nothing(index_elements=[PreparedContextRecord.id])
+        .returning(PreparedContextRecord.id)
     )
-    return "installed" if result.rowcount else "already_installed"
+    return "installed" if result.scalar_one_or_none() is not None else "already_installed"
 
 
 def main() -> None:
