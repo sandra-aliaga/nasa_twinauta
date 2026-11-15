@@ -8,6 +8,7 @@ import { GraphExplorer } from "./components/graph/GraphExplorer";
 import { MiniGraph } from "./components/graph/MiniGraph";
 import { ExplorerView } from "./components/explorer/ExplorerView";
 import { Header } from "./components/Header";
+import { IntroGuide, shouldShowIntro } from "./components/IntroGuide";
 import { RegionPanel, type PanelTab } from "./components/RegionPanel";
 import { useAssessment } from "./hooks/useAssessment";
 import { useCatalog, useRegions } from "./hooks/useCatalog";
@@ -35,6 +36,7 @@ export default function App() {
   const [graphView, setGraphView] = useState<GraphView | null>(null);
   const [cardiacOpen, setCardiacOpen] = useState(false);
   const [libraryOpen, setLibraryOpen] = useState(false);
+  const [guideOpen, setGuideOpen] = useState(shouldShowIntro);
   // Paper to open when the library is reached from a citation.
   const [libraryPaperId, setLibraryPaperId] = useState<string | null>(null);
   const regions = useRegions(caseId);
@@ -150,7 +152,9 @@ export default function App() {
           setLibraryPaperId(null);
           setLibraryOpen((open) => !open);
         }}
+        onOpenGuide={() => setGuideOpen(true)}
       />
+      <IntroGuide open={guideOpen} onClose={() => setGuideOpen(false)} />
 
       <div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_420px] lg:overflow-hidden">
         <main className="relative min-h-[420px] border-slate-800 lg:border-r">

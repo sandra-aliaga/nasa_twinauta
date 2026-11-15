@@ -41,7 +41,7 @@ make frontend-check
 | Cabecera | Selector de caso, día de misión con botón «Evaluar» y etiqueta de demostración. |
 | Cuerpo | Visor 3D (`AnatomyViewer.tsx`, carga diferida) con el GLB de `public/models/` (Innerscene, CC0 según sus metadatos). `src/lib/anatomy.ts` mapea `quadriceps` a recto femoral, vasto lateral y vasto medial de ambos lados; el vasto intermedio no está en la capa superficial. Si no hay WebGL o falla la carga, vuelve a la silueta 2D. |
 | Evaluación de la zona | Resumen, hallazgos, indicadores con procedencia y ausencias, ejercicio, límites y fuentes. |
-| Evolución del escenario | Estado, motivo y supuestos; tabla de puntos si está disponible. Gráfica pendiente. |
+| Evolución del escenario | Estado, motivo y supuestos. Con puntos: gráfica de la trayectoria de referencia (días del protocolo, basal al 100 %) y tabla. Sin puntos: marco vacío con el motivo del backend; no se inventa una curva. |
 | Siguientes pasos | Acciones, elegibilidad, revisión y seguimiento con `expected_revision` y recarga ante 409. |
 | Síntesis contextual | `ContextSection.tsx` muestra en cada pestaña la sección de `/assessments/{id}/context` (resumen, incertidumbre, mediciones, pasos, citas con su localizador, relaciones y procedencia), marcada como generada por modelo y pendiente de revisión. Sin síntesis muestra el motivo. |
 | Grafos | Grafo de la evaluación (Graph, `/graphs/{view}`) con React Flow; grafo de la biblioteca (GraphPage, `/knowledge-graph`) con paginación y expansión de vecinos. |

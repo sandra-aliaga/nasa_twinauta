@@ -15,6 +15,7 @@ type HeaderProps = {
   onToggleCardiac: () => void;
   libraryOpen: boolean;
   onToggleLibrary: () => void;
+  onOpenGuide: () => void;
 };
 
 /** Top bar: case selector, mission day slider with explicit evaluate button. */
@@ -33,6 +34,7 @@ export function Header({
   onToggleCardiac,
   libraryOpen,
   onToggleLibrary,
+  onOpenGuide,
 }: HeaderProps) {
   const selectedCase = cases.find((item) => item.id === caseId) ?? null;
   const maxDay = selectedCase?.duration_days ?? 0;
@@ -124,6 +126,14 @@ export function Header({
           }`}
         >
           Biblioteca científica
+        </button>
+
+        <button
+          type="button"
+          onClick={onOpenGuide}
+          className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
+        >
+          Cómo leer esta demo
         </button>
 
         {isDemo ? (

@@ -52,9 +52,7 @@ export function ScenarioTab({ assessment, onOpenGraph }: ScenarioTabProps) {
       </Notice>
 
       {!available ? (
-        <Notice title="No se muestra una trayectoria" tone="warning">
-          {scenario.reason ?? "El backend no indicó el motivo."}
-        </Notice>
+        <EmptyChart scenario={scenario} />
       ) : (
         <section className="space-y-3">
           <dl className="grid grid-cols-2 gap-2 text-xs text-slate-300">
@@ -241,6 +239,57 @@ function ScenarioChart({ scenario }: { scenario: Scenario }) {
         protocolo, no días de misión. Los puntos son salidas del modelo, no
         mediciones; la línea solo los une y no se extiende fuera de su dominio.
       </figcaption>
+    </figure>
+  );
+}
+
+const EMPTY_HINTS: Record<Scenario["status"], string> = {
+  available: "",
+  insufficient_data:
+    "Para dibujarla hace falta un modelo habilitado con parámetros revisados y datos suficientes del caso.",
+  out_of_domain:
+    "La solicitud queda fuera del dominio del modelo; extrapolar daría una curva sin respaldo.",
+};
+
+/**
+ * Placeholder with the chart's footprint, so the layout does not jump and the
+ * absence reads as a deliberate state, not as a loading error.
+ */
+function EmptyChart({ scenario }: { scenario: Scenario }) {
+  return (
+    <figure
+      role="img"
+      aria-label="Sin trayectoria de referencia"
+      className="flex h-48 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-slate-700 px-6 text-center"
+    >
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 120 40"
+        className="h-8 w-24 text-slate-700"
+      >
+        <path
+          d="M2 38 H118 M2 38 V2"
+          stroke="currentColor"
+          strokeWidth="1.5"
+          fill="none"
+        />
+        <path
+          d="M2 12 H118"
+          stroke="currentColor"
+          strokeWidth="1"
+          strokeDasharray="4 4"
+          fill="none"
+        />
+      </svg>
+      <p className="text-sm font-medium text-slate-300">
+        No se dibuja una trayectoria
+      </p>
+      <p className="text-xs text-slate-400">
+        {scenario.reason ?? "El backend no indicó el motivo."}
+      </p>
+      <p className="text-[11px] text-slate-500">
+        {EMPTY_HINTS[scenario.status]}
+      </p>
     </figure>
   );
 }
