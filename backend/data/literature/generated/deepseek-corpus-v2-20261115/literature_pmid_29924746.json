@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_29924746",
+  "title": "Exercise Training Mitigates Multisystem Deconditioning during Bed Rest.",
+  "abstract": "Introduction This study investigated the safety and effectiveness of a new integrated aerobic and resistance exercise training prescription (SPRINT) using two different sets of exercise equipment: a suite of large International Space Station-like exercise equipment similar to what is found on the International Space Station and a single device with aerobic and resistance exercise capability in the spaceflight analog of bed rest (BR). Methods Subjects (n = 34) completed 70 d of 6° head down tilt BR: 9 were randomized to remain sedentary (CONT), 9 to exercise training using traditional equipment (EX), 8 to exercise using traditional equipment and low-dose testosterone supplementation (ExT), and 8 to exercise using a combined resistance and aerobic flywheel device. Peak aerobic capacity, ventilatory threshold, cardiac morphology and function (echocardiography), muscle mass (magnetic resonance imaging) and strength/power (isokinetic, leg press, and vertical jump), and bone health (bone mineral density, blood and urine bone markers) were assessed before and after BR. Results The SPRINT protocol mitigated BR-induced muscle and cardiac deconditioning regardless of the exercise device used. Molecular markers of bone did not change in the CONT or EX groups. Peak aerobic capacity was maintained from pre- to post-BR in all exercise groups similarly, whereas significant declines were observed in the CONT group (~10%). Significant interaction effects between the CONT group and all EX groups were observed for muscle performance including leg press total work, isokinetic upper and lower leg strength, vertical jump power, and maximal jump height as well as muscle size. Conclusions This is the first trial to evaluate multisystem deconditioning and the role of an integrated exercise countermeasure. These findings have important implications for the design and implementation of exercise-based countermeasures on future long-duration spaceflight missions.",
+  "input_sha256": "bb1ce0c3fe58ca34e2c2cc650eba375865b7ec876a2a60b3b570db247be10ef4",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 876,
+    "completion_tokens": 492,
+    "total_tokens": 1368,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 876
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "En un ensayo de reposo en cama con inclinación cefálica descendente de 6° por 70 días, un protocolo integrado de ejercicio aeróbico y de resistencia (SPRINT) mitigó la desacondicionamiento muscular y cardíaco, independientemente del tipo de equipo, y mantuvo la capacidad aeróbica máxima en todos los grupos de ejercicio, a diferencia del grupo de control sedentario, que mostró una disminución de aproximadamente el 10 %.",
+    "summary_excerpt": "used. Molecular markers of bone did not change in the CONT or EX groups. Peak aerobic capacity was maintained from pre- to post-BR in all exercise groups similarly, whereas significant declines were observed in the CONT group (~10%). Significant interaction effects between the CONT group and all EX groups were observed for muscle performance including leg press total work, isokinetic upper and ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "El protocolo SPRINT mitigó la desacondicionamiento muscular y cardíaco inducido por el reposo en cama, independientemente del dispositivo de ejercicio utilizado.",
+        "source_excerpt": "ventilatory threshold, cardiac morphology and function (echocardiography), muscle mass (magnetic resonance imaging) and strength/power (isokinetic, leg press, and vertical jump), and bone health (bone mineral density, blood and urine bone markers) were assessed before and after BR. Results The SPRINT protocol mitigated BR-induced muscle and cardiac deconditioning regardless of the exercise device "
+      },
+      {
+        "kind": "finding",
+        "text": "La capacidad aeróbica máxima se mantuvo de antes a después del reposo en cama en todos los grupos de ejercicio, mientras que el grupo de control mostró una disminución significativa de aproximadamente el 10 %.",
+        "source_excerpt": "used. Molecular markers of bone did not change in the CONT or EX groups. Peak aerobic capacity was maintained from pre- to post-BR in all exercise groups similarly, whereas significant declines were observed in the CONT group (~10%). Significant interaction effects between the CONT group and all EX groups were observed for muscle performance including leg press total work, isokinetic upper and "
+      },
+      {
+        "kind": "finding",
+        "text": "Los marcadores moleculares de hueso no cambiaron en los grupos de control o de ejercicio.",
+        "source_excerpt": "used. Molecular markers of bone did not change in the CONT or EX groups. Peak aerobic capacity was maintained from pre- to post-BR in all exercise groups similarly, whereas significant declines were observed in the CONT group (~10%). Significant interaction effects between the CONT group and all EX groups were observed for muscle performance including leg press total work, isokinetic upper and "
+      },
+      {
+        "kind": "finding",
+        "text": "Se observaron efectos de interacción significativos entre el grupo de control y todos los grupos de ejercicio para el rendimiento muscular, incluido el trabajo total en prensa de piernas, fuerza isocinética de extremidades superiores e inferiores, potencia en salto vertical y altura máxima de salto, así como el tamaño muscular.",
+        "source_excerpt": "used. Molecular markers of bone did not change in the CONT or EX groups. Peak aerobic capacity was maintained from pre- to post-BR in all exercise groups similarly, whereas significant declines were observed in the CONT group (~10%). Significant interaction effects between the CONT group and all EX groups were observed for muscle performance including leg press total work, isokinetic upper and "
+      },
+      {
+        "kind": "implication",
+        "text": "Estos hallazgos tienen implicaciones importantes para el diseño e implementación de contramedidas basadas en ejercicio en futuras misiones de vuelo espacial de larga duración.",
+        "source_excerpt": "lower leg strength, vertical jump power, and maximal jump height as well as muscle size. Conclusions This is the first trial to evaluate multisystem deconditioning and the role of an integrated exercise countermeasure. These findings have important implications for the design and implementation of exercise-based countermeasures on future long-duration spaceflight missions."
+      }
+    ]
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "paper_id": "literature_pmid_33347733",
+  "title": "The effect of short-term exercise prehabilitation on skeletal muscle protein synthesis and atrophy during bed rest in older men.",
+  "abstract": "Background Poor recovery from periods of disuse accelerates age-related muscle loss, predisposing individuals to the development of secondary adverse health outcomes. Exercise prior to disuse (prehabilitation) may prevent muscle deterioration during subsequent unloading. The present study aimed to investigate the effect of short-term resistance exercise training (RET) prehabilitation on muscle morphology and regulatory mechanisms during 5 days of bed rest in older men. Methods Ten healthy older men aged 65-80 years underwent four bouts of high-volume unilateral leg RET over 7 days prior to 5 days of inpatient bed rest. Physical activity and step-count were monitored over the course of RET prehabilitation and bed rest, whilst dietary intake was recorded throughout. Prior to and following bed rest, quadriceps cross-sectional area (CSA), and hormone/lipid profiles were determined. Serial muscle biopsies and dual-stable isotope tracers were used to determine integrated myofibrillar protein synthesis (iMyoPS) over RET prehabilitation and bed rest phases, and acute postabsorptive and postprandial myofibrillar protein synthesis (aMyoPS) rates at the end of bed rest. Results During bed rest, daily step-count and light and moderate physical activity time decreased, whilst sedentary time increased when compared with habitual levels (P  Conclusions Short-term resistance exercise prehabilitation augmented iMyoPS rates in older men but did not offset the relative decline in iMyoPS and muscle mass during bed rest.",
+  "input_sha256": "5b2434d18a2350eb50cfbc3c683f763af47e2decae8be2565eba582e6d3a2eb5",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 761,
+    "completion_tokens": 523,
+    "total_tokens": 1284,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 377
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "En hombres mayores de 65-80 años, el entrenamiento de resistencia previo al reposo en cama (prehabilitación) aumentó la síntesis de proteína miofibrilar integrada (iMyoPS) durante el entrenamiento, pero no evitó la disminución relativa de iMyoPS ni la pérdida de masa muscular durante 5 días de reposo en cama. La actividad física disminuyó y el tiempo sedentario aumentó durante el reposo.",
+    "summary_excerpt": "Short-term resistance exercise prehabilitation augmented iMyoPS rates in older men but did not offset the relative decline in iMyoPS and muscle mass during bed rest.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "El entrenamiento de resistencia de corta duración antes del reposo en cama aumentó las tasas de síntesis de proteína miofibrilar integrada (iMyoPS) en hombres mayores.",
+        "source_excerpt": "Short-term resistance exercise prehabilitation augmented iMyoPS rates in older men"
+      },
+      {
+        "kind": "finding",
+        "text": "Durante el reposo en cama, el recuento diario de pasos y el tiempo de actividad física ligera y moderada disminuyeron, mientras que el tiempo sedentario aumentó en comparación con los niveles habituales.",
+        "source_excerpt": "During bed rest, daily step-count and light and moderate physical activity time decreased, whilst sedentary time increased when compared with habitual levels"
+      },
+      {
+        "kind": "implication",
+        "text": "La prehabilitación con ejercicio de resistencia no compensó la disminución relativa de la síntesis de proteína miofibrilar integrada y la masa muscular durante el reposo en cama.",
+        "source_excerpt": "did not offset the relative decline in iMyoPS and muscle mass during bed rest"
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Se investigó el efecto de cuatro sesiones de entrenamiento de resistencia de pierna unilateral de alto volumen durante 7 días antes de 5 días de reposo en cama en hombres mayores.",
+        "source_excerpt": "Ten healthy older men aged 65-80 years underwent four bouts of high-volume unilateral leg RET over 7 days prior to 5 days of inpatient bed rest."
+      }
+    ]
+  }
+}

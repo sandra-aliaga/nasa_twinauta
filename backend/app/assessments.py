@@ -7,9 +7,11 @@ from uuid import uuid4
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from app.catalog import health_modules, indicators, knowledge_base_metadata
 from app.database import ActionState, AssessmentRecord, CaseRecord
 from app.errors import DomainError, not_found
 from app.graphs import build_graphs
+from app.guidance import build_guidance, unavailable_guidance
 from app.schemas import (
     Action,
     ActionUpdate,
@@ -19,6 +21,7 @@ from app.schemas import (
     ExerciseRecord,
     Finding,
     Graph,
+    Guidance,
     Observation,
     Source,
     Versions,
@@ -87,11 +90,20 @@ def create_assessment(session: Session, request: AssessmentRequest) -> Assessmen
         claims=[],
     )
     graphs = build_graphs(assessment)
+    guidance = build_guidance(
+        assessment,
+        health_modules(),
+        knowledge_base_metadata().corpus_version,
+        {item.id: item.label for item in indicators()},
+    )
     session.add(
         AssessmentRecord(
             id=assessment.assessment_id,
             case_id=assessment.case_id,
-            payload=assessment.model_dump(mode="json"),
+            payload={
+                **assessment.model_dump(mode="json"),
+                "guidance": guidance.model_dump(mode="json"),
+            },
             graphs={view: graph.model_dump(mode="json") for view, graph in graphs.items()},
             created_at=now,
         )
@@ -169,6 +181,7 @@ def get_assessment(session: Session, assessment_id: str) -> Assessment:
     if record is None:
         raise not_found("la evaluación")
     payload = deepcopy(record.payload)
+    payload.pop("guidance", None)
     states = {
         state.action_id: state
         for state in session.scalars(
@@ -183,6 +196,22 @@ def get_assessment(session: Session, assessment_id: str) -> Assessment:
             updated_at=state.updated_at,
         )
     return Assessment.model_validate(payload)
+
+
+def get_guidance(session: Session, assessment_id: str) -> Guidance:
+    """Read stored guidance; legacy records never trigger a fresh interpretation."""
+    record = session.get(AssessmentRecord, assessment_id)
+    if record is None:
+        raise not_found("la evaluación")
+    payload = record.payload.get("guidance")
+    if payload is None:
+        return unavailable_guidance(
+            assessment_id, "Esta evaluación anterior no contiene orientación contextual guardada."
+        )
+    guidance = Guidance.model_validate(payload)
+    if guidance.assessment_id != assessment_id:
+        raise ValueError("Stored guidance belongs to a different assessment.")
+    return guidance
 
 
 def get_graph(session: Session, assessment_id: str, view: str) -> Graph:

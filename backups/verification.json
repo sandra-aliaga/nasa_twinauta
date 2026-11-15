@@ -1,0 +1,37 @@
+{
+  "status": "restored_and_verified",
+  "tables": {
+    "action_states": {
+      "rows": 1,
+      "sha256": "42b29fb0f3d5dcf1e6eaeafeecaf6e9c5716132a5b59269c5ebd0398551a70df"
+    },
+    "alembic_version": {
+      "rows": 1,
+      "sha256": "0ba8af1240a4f0c8d0590808cddd5e7a45ea813e7b99f5185b67ea60e7bb417a"
+    },
+    "assessments": {
+      "rows": 1,
+      "sha256": "f40b1b2a872e8ac36fc0d85a899bb06775beb249bb6a131a8561e2c4f479e8bd"
+    },
+    "demo_cases": {
+      "rows": 1,
+      "sha256": "9282cb0269318d2bebe50244a6515561d02fe2ef386b0619c3a32c42cbd3ec43"
+    },
+    "literature_analyses": {
+      "rows": 26,
+      "sha256": "c6b1649a8e773c4573794ab77917d67f83d1901d121276d42e1e6e89a475b891"
+    },
+    "literature_papers": {
+      "rows": 27,
+      "sha256": "d28a385d95a099f147e519184aae4f55b8c1a3779fa97cd5afe04ccdb6a9fc12"
+    },
+    "prepared_contexts": {
+      "rows": 1,
+      "sha256": "ae747216c135c3ea78a5a99216b463ce4902496298fa25351b3cc9ca4c7b870d"
+    }
+  },
+  "http_context": "available",
+  "paper_summary": "available",
+  "provider_calls": 0,
+  "restore_required_local_roles": false
+}

@@ -1,0 +1,43 @@
+{
+  "paper_id": "literature_pmid_32864428",
+  "title": "High intensity training during spaceflight: results from the NASA Sprint Study.",
+  "abstract": "Historically, International Space Station (ISS) exercise countermeasures have not fully protected astronauts' musculoskeletal and cardiorespiratory fitness. Although these losses have been reduced on more recent missions, decreasing the time required to perform in-flight exercise would permit reallocation of that time to other tasks. To evaluate the effectiveness of a new training prescription, ISS crewmembers performed either the high intensity/lower volume integrated Sprint resistance (3 d wk -1 ) and aerobic (interval and continuous workouts, each 3 d wk -1  in alternating fashion) exercise program ( n  = 9: 8M/1F, 48 ± 7 y, 178 ± 5 cm, 77.7 ± 12.0 kg) or the standard ISS countermeasure consisting of daily resistance and aerobic exercise ( n  = 17: 14M/3F, 46 ± 6 y, 176 ± 6 cm, 80.6 ± 10.5 kg) during long-duration spaceflight. Bone mineral density (dual energy X-ray absorptiometry (DXA)), muscle strength (isokinetic dynamometry), muscle function (cone agility test), and cardiorespiratory fitness (VO 2peak ) were assessed pre- and postflight. Mixed-effects modeling was used to analyze dependent measures with alpha set at  P   2peak  (-6.1%) were decreased in both groups (simple main effects of time, all  P  < 0.05) with a few group × time interaction effects detected for which Sprint experienced either attenuated or no loss compared to control. Although physiologic outcomes were not appreciably different between the two exercise programs, to conserve time and optimally prepare crewmembers for the performance of physically demanding mission tasks, high intensity/lower volume training should be an indispensable component of spaceflight exercise countermeasure prescriptions.",
+  "input_sha256": "2108319560b3b99eaf8b81466ef89301affad18cd4c4556f01c76a3b2d230f56",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 982,
+    "completion_tokens": 414,
+    "total_tokens": 1396,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 982
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "The abstract compares a high intensity/lower volume integrated Sprint exercise program (resistance 3 d/wk and aerobic interval/continuous workouts alternating 3 d/wk) with the standard daily ISS countermeasure among long-duration spaceflight crewmembers. Bone density, muscle strength, muscle function, and VO2peak were assessed pre- and postflight. Both groups showed decreases over time, with some group×time interactions where Sprint had attenuated or no loss. The abstract concludes high intensity/lower volume training should be an indispensable component of spaceflight exercise countermeasure prescriptions to conserve time.",
+    "summary_excerpt": "(simple main effects of time, all  P  < 0.05) with a few group × time interaction effects detected for which Sprint experienced either attenuated or no loss compared to control. Although physiologic outcomes were not appreciably different between the two exercise programs, to conserve time and optimally prepare crewmembers for the performance of physically demanding mission tasks, high ",
+    "items": [
+      {
+        "kind": "studied_intervention",
+        "text": "The study compared a high intensity/lower volume integrated Sprint resistance (3 d wk-1) and aerobic (interval and continuous workouts, each 3 d wk-1 in alternating fashion) exercise program versus the standard ISS countermeasure of daily resistance and aerobic exercise during long-duration spaceflight.",
+        "source_excerpt": "ISS crewmembers performed either the high intensity/lower volume integrated Sprint resistance (3 d wk -1 ) and aerobic (interval and continuous workouts, each 3 d wk -1  in alternating fashion) exercise program ( n  = 9: 8M/1F, 48 ± 7 y, 178 ± 5 cm, 77.7 ± 12.0 kg) or the standard ISS countermeasure consisting of daily resistance and aerobic exercise ( n  = 17: 14M/3F, 46 ± 6 y, 176 ± 6 cm, "
+      },
+      {
+        "kind": "finding",
+        "text": "Bone mineral density, muscle strength, muscle function, and VO2peak were assessed pre- and postflight. VO2peak (-6.1%) and other measures were decreased in both groups (simple main effects of time, all P<0.05).",
+        "source_excerpt": "80.6 ± 10.5 kg) during long-duration spaceflight. Bone mineral density (dual energy X-ray absorptiometry (DXA)), muscle strength (isokinetic dynamometry), muscle function (cone agility test), and cardiorespiratory fitness (VO 2peak ) were assessed pre- and postflight. Mixed-effects modeling was used to analyze dependent measures with alpha set at  P   2peak  (-6.1%) were decreased in both groups "
+      },
+      {
+        "kind": "finding",
+        "text": "A few group×time interaction effects were detected for which Sprint experienced either attenuated or no loss compared to control.",
+        "source_excerpt": "(simple main effects of time, all  P  < 0.05) with a few group × time interaction effects detected for which Sprint experienced either attenuated or no loss compared to control. Although physiologic outcomes were not appreciably different between the two exercise programs, to conserve time and optimally prepare crewmembers for the performance of physically demanding mission tasks, high "
+      },
+      {
+        "kind": "implication",
+        "text": "High intensity/lower volume training should be an indispensable component of spaceflight exercise countermeasure prescriptions.",
+        "source_excerpt": "intensity/lower volume training should be an indispensable component of spaceflight exercise countermeasure prescriptions."
+      }
+    ]
+  }
+}

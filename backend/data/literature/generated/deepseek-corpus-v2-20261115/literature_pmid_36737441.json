@@ -1,0 +1,43 @@
+{
+  "paper_id": "literature_pmid_36737441",
+  "title": "Effects of exercise countermeasures on multisystem function in long duration spaceflight astronauts.",
+  "abstract": "Exercise training is a key countermeasure used to offset spaceflight-induced multisystem deconditioning. Here, we evaluated the effects of exercise countermeasures on multisystem function in a large cohort (N = 46) of astronauts on long-duration spaceflight missions. We found that during 178 ± 48 d of spaceflight, ~600 min/wk of aerobic and resistance exercise did not fully protect against multisystem deconditioning. However, substantial inter-individual heterogeneity in multisystem response was apparent with changes from pre to postflight ranging from -30% to +5%. We estimated that up to 17% of astronauts would experience performance-limiting deconditioning if current exercise countermeasures were used on future spaceflight missions. These findings support the need for refinement of current countermeasures, adjunct interventions, or enhanced requirements for preflight physiologic and functional capacity for the protection of astronaut health and performance during exploration missions to the moon and beyond.",
+  "input_sha256": "f58a02d887ee873e86c4f14d7b6de5dbd26dcd62fb93721b03563eab0a0a9710",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 696,
+    "completion_tokens": 333,
+    "total_tokens": 1029,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 312
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "In 46 astronauts during ~178 days of spaceflight, ~600 min/wk of combined aerobic and resistance exercise did not fully protect against multisystem deconditioning, though responses varied widely (pre to postflight changes from -30% to +5%). An estimated 17% may experience performance-limiting deconditioning with current countermeasures, supporting refinement of countermeasures, adjunct interventions, or enhanced preflight capacity.",
+    "summary_excerpt": "multisystem deconditioning. However, substantial inter-individual heterogeneity in multisystem response was apparent with changes from pre to postflight ranging from -30% to +5%. We estimated that up to 17% of astronauts would experience performance-limiting deconditioning if current exercise countermeasures were used on future spaceflight missions. These findings support the need for refinement ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "During long-duration spaceflight, ~600 min/wk of aerobic and resistance exercise did not fully protect against multisystem deconditioning.",
+        "source_excerpt": "Exercise training is a key countermeasure used to offset spaceflight-induced multisystem deconditioning. Here, we evaluated the effects of exercise countermeasures on multisystem function in a large cohort (N = 46) of astronauts on long-duration spaceflight missions. We found that during 178 ± 48 d of spaceflight, ~600 min/wk of aerobic and resistance exercise did not fully protect against "
+      },
+      {
+        "kind": "finding",
+        "text": "Substantial inter-individual heterogeneity in multisystem response was apparent, with pre to postflight changes ranging from -30% to +5%.",
+        "source_excerpt": "multisystem deconditioning. However, substantial inter-individual heterogeneity in multisystem response was apparent with changes from pre to postflight ranging from -30% to +5%. We estimated that up to 17% of astronauts would experience performance-limiting deconditioning if current exercise countermeasures were used on future spaceflight missions. These findings support the need for refinement "
+      },
+      {
+        "kind": "finding",
+        "text": "An estimated 17% of astronauts would experience performance-limiting deconditioning if current exercise countermeasures were used on future missions.",
+        "source_excerpt": "multisystem deconditioning. However, substantial inter-individual heterogeneity in multisystem response was apparent with changes from pre to postflight ranging from -30% to +5%. We estimated that up to 17% of astronauts would experience performance-limiting deconditioning if current exercise countermeasures were used on future spaceflight missions. These findings support the need for refinement "
+      },
+      {
+        "kind": "implication",
+        "text": "These findings support the need for refinement of current countermeasures, adjunct interventions, or enhanced requirements for preflight physiologic and functional capacity.",
+        "source_excerpt": "of current countermeasures, adjunct interventions, or enhanced requirements for preflight physiologic and functional capacity for the protection of astronaut health and performance during exploration missions to the moon and beyond."
+      }
+    ]
+  }
+}

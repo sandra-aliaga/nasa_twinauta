@@ -1,0 +1,48 @@
+{
+  "status": "requires_semantic_revision",
+  "review_scope": "Initial technical/editorial inspection, not medical approval",
+  "api_calls_attempted": 4,
+  "accepted_abstract_outputs": 2,
+  "accepted_context_structures": 1,
+  "rejected_context_attempts": 1,
+  "rejection_reason": "Literal quotation did not match the source abstract",
+  "successful_output_tokens": {
+    "prompt": 10073,
+    "completion": 3022,
+    "total": 13095
+  },
+  "failed_attempt_usage": "Not recorded by the initial pilot version; additional billing unknown",
+  "successful_outputs_cost_estimate_usd": {
+    "off_peak": 0.012632,
+    "peak": 0.025263
+  },
+  "pricing_source": "https://api-docs.deepseek.com/quick_start/pricing/",
+  "cost_scope": "Estimate for three successful outputs only, not account balance or full invoice",
+  "findings": [
+    {
+      "section": "alert_assessment",
+      "issue": "Only a baseline is available, but summary describes it as current size. Absence of follow-up cannot establish preserved size.",
+      "resolution": "Do not approve for product display; prompt0.3 explicitly prohibits this wording."
+    },
+    {
+      "section": "inaction_scenario",
+      "issue": "Periodic testing assertion lacks its SPRINT source in this section. Literal excerpt validation does not prove semantic coverage.",
+      "resolution": "Require per-assertion source coverage; prompt0.3 says omit uncited assertions."
+    },
+    {
+      "section": "next_steps",
+      "issue": "Measurement review is described as administrative, which understates its operational/clinical relevance.",
+      "resolution": "Prompt0.3 prohibits this description; retain original pending backend steps."
+    },
+    {
+      "section": "paper_summary_sprint",
+      "issue": "Abstract uses muscle mass terminology; full-text Table1 reports volume.",
+      "resolution": "Review wording against original before publishing quantitative comparisons."
+    }
+  ],
+  "clinical_action_eligible": false,
+  "database_modified": false,
+  "frontend_integrated": false,
+  "next_prompt_version": "context-synthesis-0.3",
+  "next_prompt_executed": false
+}

@@ -1,0 +1,21 @@
+{
+  "status": "failed",
+  "assessment_id": "assessment_demo_001",
+  "paper_ids": [
+    "literature_pmid_33251515",
+    "literature_pmid_38328821"
+  ],
+  "maximum_calls": 3,
+  "calls_attempted": 3,
+  "review_status": "pending",
+  "clinical_action_eligible": false,
+  "corpus_version": "candidate-corpus-2026-11-14",
+  "files": [
+    "literature_pmid_33251515.json",
+    "literature_pmid_38328821.json"
+  ],
+  "started_at": "2026-11-15T03:59:49.961193+00:00",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "failure_reason": "Context contains an unsupported source excerpt.",
+  "finished_at": "2026-11-15T04:00:16.862560+00:00"
+}

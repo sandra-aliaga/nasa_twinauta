@@ -1,0 +1,9 @@
+{
+  "scope": "SQL parameterization",
+  "parameterized_search": true,
+  "parameterized_assessment_lookup": true,
+  "input_absent_from_sql_text": true,
+  "input_present_in_bound_parameters": true,
+  "papers_unchanged": 27,
+  "contexts_unchanged": 1
+}

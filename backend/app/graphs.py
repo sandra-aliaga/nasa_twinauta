@@ -1,8 +1,26 @@
 """Build the three graph views from one assessment snapshot."""
 
-from app.schemas import Assessment, Graph, GraphEdge, GraphNode
+from typing import Literal
 
-GRAPH_VIEWS = ("evidence", "scenario", "actions")
+from app.schemas import Assessment, Graph, GraphEdge, GraphNode, GraphView
+
+GRAPH_VIEWS: tuple[GraphView, ...] = ("evidence", "scenario", "actions")
+type NodeKind = Literal[
+    "finding",
+    "observation",
+    "exercise",
+    "claim",
+    "source",
+    "limitation",
+    "scenario",
+    "model",
+    "parameter",
+    "action",
+    "requirement",
+]
+type EdgeRelation = Literal[
+    "uses", "describes", "supported_by", "limited_by", "computed_with", "requires", "addresses"
+]
 
 
 def build_graphs(assessment: Assessment) -> dict[str, Graph]:
@@ -10,13 +28,13 @@ def build_graphs(assessment: Assessment) -> dict[str, Graph]:
     return {view: build_graph(assessment, view) for view in GRAPH_VIEWS}
 
 
-def build_graph(assessment: Assessment, view: str) -> Graph:
+def build_graph(assessment: Assessment, view: GraphView) -> Graph:
     """Project one view without capturing mutable state from a loop."""
     nodes: dict[str, GraphNode] = {}
     edges: list[GraphEdge] = []
 
     def add_node(
-        entity_id: str, kind: str, label: str, description: str, source_ids: list[str]
+        entity_id: str, kind: NodeKind, label: str, description: str, source_ids: list[str]
     ) -> str:
         node_id = f"{kind}:{entity_id}"
         nodes[node_id] = GraphNode(
@@ -29,7 +47,7 @@ def build_graph(assessment: Assessment, view: str) -> Graph:
         )
         return node_id
 
-    def add_edge(source: str, target: str, relation: str, label: str) -> None:
+    def add_edge(source: str, target: str, relation: EdgeRelation, label: str) -> None:
         edges.append(
             GraphEdge(
                 id=f"edge_{len(edges)}",

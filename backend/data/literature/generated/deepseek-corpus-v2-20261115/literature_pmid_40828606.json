@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_40828606",
+  "title": "Muscle-specific atrophy of the lower limb musculature in response to simulated microgravity exposure in women.",
+  "abstract": "Despite the increased involvement of women in spaceflight missions, the efforts to understand changes in skeletal muscle health in women with microgravity exposure have been limited. The goal of the current investigation was to expand the limited knowledge on skeletal muscle atrophy responses to microgravity in women. Eight women (34 ± 4 yr) underwent 60 days of simulated microgravity (6° head-down tilt bedrest), and changes in MRI-determined skeletal muscle volume of 17 lower limb muscles were determined after 1 and 2 mo. Muscle volume decreased ( P   P   P   P   NEW & NOTEWORTHY  This study expands the limited amount of data on skeletal muscle changes with long-duration microgravity exposure in women. Microgravity-induced skeletal muscle atrophy of the lower limbs occurs in a muscle- and sex-specific fashion. This new information should be considered in exercise countermeasures development for astronauts on long-duration spaceflight missions.",
+  "input_sha256": "801c764f29bb2b1ce675e0499101350e4420ac382843cd6c00372f4cd98fe0db",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 690,
+    "completion_tokens": 464,
+    "total_tokens": 1154,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 306
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "Ocho mujeres (34±4 años) participaron en 60 días de microgravedad simulada mediante reposo en cama con inclinación de cabeza hacia abajo de 6°. Se midieron cambios volumétricos por resonancia magnética en 17 músculos de las extremidades inferiores tras 1 y 2 meses. El volumen muscular disminuyó significativamente, con patrones específicos según el músculo y el sexo. Esta información es nueva y limitada para mujeres en vuelos espaciales de larga duración y debería considerarse en el desarrollo de contramedidas de ejercicio para astronautas.",
+    "summary_excerpt": "head-down tilt bedrest), and changes in MRI-determined skeletal muscle volume of 17 lower limb muscles were determined after 1 and 2 mo. Muscle volume decreased ( P   P   P   P   NEW & NOTEWORTHY  This study expands the limited amount of data on skeletal muscle changes with long-duration microgravity exposure in women. Microgravity-induced skeletal muscle atrophy of the lower limbs occurs in a ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Ocho mujeres (34±4 años) se sometieron a 60 días de microgravedad simulada mediante reposo en cama con inclinación de cabeza hacia abajo de 6°.",
+        "source_excerpt": "Despite the increased involvement of women in spaceflight missions, the efforts to understand changes in skeletal muscle health in women with microgravity exposure have been limited. The goal of the current investigation was to expand the limited knowledge on skeletal muscle atrophy responses to microgravity in women. Eight women (34 ± 4 yr) underwent 60 days of simulated microgravity (6° "
+      },
+      {
+        "kind": "finding",
+        "text": "Se determinaron cambios en el volumen muscular determinado por resonancia magnética de 17 músculos de las extremidades inferiores después de 1 y 2 meses.",
+        "source_excerpt": "head-down tilt bedrest), and changes in MRI-determined skeletal muscle volume of 17 lower limb muscles were determined after 1 and 2 mo. Muscle volume decreased ( P   P   P   P   NEW & NOTEWORTHY  This study expands the limited amount of data on skeletal muscle changes with long-duration microgravity exposure in women. Microgravity-induced skeletal muscle atrophy of the lower limbs occurs in a "
+      },
+      {
+        "kind": "finding",
+        "text": "El volumen muscular disminuyó significativamente.",
+        "source_excerpt": "head-down tilt bedrest), and changes in MRI-determined skeletal muscle volume of 17 lower limb muscles were determined after 1 and 2 mo. Muscle volume decreased ( P   P   P   P   NEW & NOTEWORTHY  This study expands the limited amount of data on skeletal muscle changes with long-duration microgravity exposure in women. Microgravity-induced skeletal muscle atrophy of the lower limbs occurs in a "
+      },
+      {
+        "kind": "finding",
+        "text": "La atrofia del músculo esquelético inducida por microgravedad de las extremidades inferiores ocurre de manera específica según el músculo y el sexo.",
+        "source_excerpt": "muscle- and sex-specific fashion. This new information should be considered in exercise countermeasures development for astronauts on long-duration spaceflight missions."
+      },
+      {
+        "kind": "implication",
+        "text": "Esta nueva información debería considerarse en el desarrollo de contramedidas de ejercicio para astronautas en misiones espaciales de larga duración.",
+        "source_excerpt": "muscle- and sex-specific fashion. This new information should be considered in exercise countermeasures development for astronauts on long-duration spaceflight missions."
+      }
+    ]
+  }
+}

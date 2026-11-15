@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_41719153",
+  "title": "Exercise during 14 days of head down tilt bedrest attenuates motor unit impairments in older humans.",
+  "abstract": "Head-down tilt bedrest (HDBR) models the effects of mechanical unloading on neuromuscular function. The efficacy of exercise in preserving motor unit (MU) function in older adults during HDBR remains unclear. This study investigated the effects of 14-day HDBR on MU properties in older adults and the protective role of exercise. Fifteen participants aged 55-65 years were randomized to Control group (n = 7, passive mobilization only) or Exercise group (n = 8, daily mixed resistance and aerobic training) during 14 days of strict HDBR. Knee extensor strength and leg lean mass were measured, and intramuscular EMG was used to record MU firing rate (MUFR), MU potential (MUP) area and complexity, and neuromuscular junction (NMJ) transmission instability during contractions normalized to 25% of pre-bedrest strength. Plasma C-terminal agrin fragment (CAF) was also measured. Following HDBR, knee extensor strength decreased more in the Control group (-33.4 N m; P < 0.001; ∼18% decrease) than in the Exercise group (-14.5 N m; P = 0.027; ∼8% decrease; interaction P = 0.045). Leg lean mass decreased similarly in both groups (-0.418 kg; P = 0.013). Exercise prevented the decrease in MUP area observed in Controls (-65 mV·ms, P = 0.240 vs. -253 mV·ms, P < 0.001) and led to a reduction in MUFR (-1.05 pulses/s, P < 0.001) not seen in Controls. NMJ transmission stability and CAF levels were unchanged in both groups. HDBR reduced leg lean mass and strength. Exercise attenuated declines in strength and MUP area, likely by preserving muscle fibre size despite reduced MUFR, without evidence of NMJ disruption. Exercise effectively attenuates neuromuscular decrements following HDBR in older adults, with implications for clinical care and spaceflight.",
+  "input_sha256": "b0b9f5849a4bbd502dd80349936a7bb3627d0759759bcac82dd80bbfe57b0e73",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 1037,
+    "completion_tokens": 568,
+    "total_tokens": 1605,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 653
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio investigó los efectos de 14 días de reposo en cama con inclinación de cabeza hacia abajo (HDBR) sobre propiedades de unidades motoras en adultos de 55-65 años y el papel protector del ejercicio. Se encontró que la fuerza disminuyó más en el grupo control que en el grupo de ejercicio. El ejercicio evitó la disminución del área MUP observada en controles y condujo a una reducción de MUFR. La estabilidad de la transmisión NMJ y los niveles de CAF no cambiaron. El ejercicio atenuó las disminuciones, probablemente preservando el tamaño de la fibra muscular.",
+    "summary_excerpt": "evidence of NMJ disruption. Exercise effectively attenuates neuromuscular decrements following HDBR in older adults, with implications for clinical care and spaceflight.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "La fuerza del extensor de rodilla disminuyó más en el grupo control (-33.4 N·m, P < 0.001, ~18% de disminución) que en el grupo de ejercicio (-14.5 N·m, P = 0.027, ~8% de disminución; interacción P = 0.045).",
+        "source_excerpt": "of pre-bedrest strength. Plasma C-terminal agrin fragment (CAF) was also measured. Following HDBR, knee extensor strength decreased more in the Control group (-33.4 N m; P < 0.001; ∼18% decrease) than in the Exercise group (-14.5 N m; P = 0.027; ∼8% decrease; interaction P = 0.045). Leg lean mass decreased similarly in both groups (-0.418 kg; P = 0.013). Exercise prevented the decrease in MUP "
+      },
+      {
+        "kind": "finding",
+        "text": "La masa magra de la pierna disminuyó de manera similar en ambos grupos (-0.418 kg; P = 0.013).",
+        "source_excerpt": "of pre-bedrest strength. Plasma C-terminal agrin fragment (CAF) was also measured. Following HDBR, knee extensor strength decreased more in the Control group (-33.4 N m; P < 0.001; ∼18% decrease) than in the Exercise group (-14.5 N m; P = 0.027; ∼8% decrease; interaction P = 0.045). Leg lean mass decreased similarly in both groups (-0.418 kg; P = 0.013). Exercise prevented the decrease in MUP "
+      },
+      {
+        "kind": "finding",
+        "text": "El ejercicio previno la disminución en el área del MUP observada en los controles (-65 mV·ms, P = 0.240 vs. -253 mV·ms, P < 0.001) y condujo a una reducción en MUFR (-1.05 pulsos/s, P < 0.001) no vista en los controles.",
+        "source_excerpt": "area observed in Controls (-65 mV·ms, P = 0.240 vs. -253 mV·ms, P < 0.001) and led to a reduction in MUFR (-1.05 pulses/s, P < 0.001) not seen in Controls. NMJ transmission stability and CAF levels were unchanged in both groups. HDBR reduced leg lean mass and strength. Exercise attenuated declines in strength and MUP area, likely by preserving muscle fibre size despite reduced MUFR, without "
+      },
+      {
+        "kind": "finding",
+        "text": "La estabilidad de la transmisión en la unión neuromuscular (NMJ) y los niveles de CAF no cambiaron en ambos grupos.",
+        "source_excerpt": "area observed in Controls (-65 mV·ms, P = 0.240 vs. -253 mV·ms, P < 0.001) and led to a reduction in MUFR (-1.05 pulses/s, P < 0.001) not seen in Controls. NMJ transmission stability and CAF levels were unchanged in both groups. HDBR reduced leg lean mass and strength. Exercise attenuated declines in strength and MUP area, likely by preserving muscle fibre size despite reduced MUFR, without "
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Entrenamiento mixto diario de resistencia y aeróbico durante 14 días de HDBR estricto en el grupo de ejercicio, comparado con movilización pasiva sola en el grupo control.",
+        "source_excerpt": "group (n = 7, passive mobilization only) or Exercise group (n = 8, daily mixed resistance and aerobic training) during 14 days of strict HDBR. Knee extensor strength and leg lean mass were measured, and intramuscular EMG was used to record MU firing rate (MUFR), MU potential (MUP) area and complexity, and neuromuscular junction (NMJ) transmission instability during contractions normalized to 25% "
+      }
+    ]
+  }
+}

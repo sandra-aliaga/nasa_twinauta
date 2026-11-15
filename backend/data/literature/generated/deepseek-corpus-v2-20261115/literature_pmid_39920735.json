@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_39920735",
+  "title": "Resistance exercise training improves disuse-induced skeletal muscle atrophy in humans: a meta-analysis of randomized controlled trials.",
+  "abstract": "Background This meta-analysis aimed to determine whether resistance exercise training (RET) can attenuate the loss of muscle volume and function in anti-gravitational muscles, especially quadriceps and calf muscles, during immobilization/disuse conditions. Methods A comprehensive literature search was conducted to identify randomized controlled trials comparing RET vs. no exercise during immobilization/disuse. Searches were conducted in databases including Web of Science, PubMed, EBOSCO, and Cochrane Library, without imposing a time limit until 20 March, 2023. Studies reporting outcomes related to muscle volume, MVC, peak power, concentric peak force, eccentric peak force, isometric MVC torque of knee extension, isometric MVC torque of knee flexion were included. Data were pooled using random-effects models. Results Eleven randomized controlled trials were finally included. RET elicited substantial benefits for preserving quadriceps muscle volume (n = 5, MD = 252.56, 95% CI = 151.92, 353.21, p  Conclusions RET effectively minimized deterioration of muscle volume and muscle function during immobilization/disuse, particularly in anti-gravitational muscles. RET should be recommended to maintain muscle and neuromuscular health for spaceflight, bed rest, immobilization/disuse conditions. Further research is needed to explore the effects of RET in more diverse populations and under various disuse conditions. More high-quality research will be required to demonstrate the aforementioned benefits conclusively.",
+  "input_sha256": "009d5ef03c09beeb5681267f5470996026389b3126f14b94f746392a58c48b2e",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 804,
+    "completion_tokens": 488,
+    "total_tokens": 1292,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 420
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "Esta metanálisis de 11 ensayos controlados aleatorizados evaluó si el entrenamiento de resistencia (RET) reduce la pérdida de volumen y función muscular en músculos antigravitatorios durante inmovilización/desuso. El RET preservó de forma significativa el volumen del cuádriceps (MD 252,56; IC 95%: 151,92–353,21; p<0,05) y mejoró la función muscular. Los hallazgos apoyan recomendar RET para mantener la salud muscular y neuromuscular en vuelos espaciales, reposo en cama e inmovilización, aunque se necesita más investigación en poblaciones diversas.",
+    "summary_excerpt": "using random-effects models. Results Eleven randomized controlled trials were finally included. RET elicited substantial benefits for preserving quadriceps muscle volume (n = 5, MD = 252.56, 95% CI = 151.92, 353.21, p  Conclusions RET effectively minimized deterioration of muscle volume and muscle function during immobilization/disuse, particularly in anti-gravitational muscles. RET should be ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "RET preserve significativamente el volumen del cuádriceps durante el desuso (n=5, MD=252,56, IC 95%=151,92–353,21, p<0,05).",
+        "source_excerpt": "using random-effects models. Results Eleven randomized controlled trials were finally included. RET elicited substantial benefits for preserving quadriceps muscle volume (n = 5, MD = 252.56, 95% CI = 151.92, 353.21, p  Conclusions RET effectively minimized deterioration of muscle volume and muscle function during immobilization/disuse, particularly in anti-gravitational muscles. RET should be "
+      },
+      {
+        "kind": "finding",
+        "text": "RET mejoró la función muscular (pico de potencia, fuerza concéntrica, fuerza excéntrica, torque isométrico) durante inmovilización/desuso.",
+        "source_excerpt": "using random-effects models. Results Eleven randomized controlled trials were finally included. RET elicited substantial benefits for preserving quadriceps muscle volume (n = 5, MD = 252.56, 95% CI = 151.92, 353.21, p  Conclusions RET effectively minimized deterioration of muscle volume and muscle function during immobilization/disuse, particularly in anti-gravitational muscles. RET should be "
+      },
+      {
+        "kind": "implication",
+        "text": "RET debe recomendarse para mantener la salud muscular y neuromuscular en vuelos espaciales, reposo en cama e inmovilización/desuso.",
+        "source_excerpt": "recommended to maintain muscle and neuromuscular health for spaceflight, bed rest, immobilization/disuse conditions. Further research is needed to explore the effects of RET in more diverse populations and under various disuse conditions. More high-quality research will be required to demonstrate the aforementioned benefits conclusively."
+      },
+      {
+        "kind": "implication",
+        "text": "Se necesitan más investigaciones en poblaciones diversas y condiciones de desuso, y más estudios de alta calidad para demostrar estos beneficios de forma concluyente.",
+        "source_excerpt": "recommended to maintain muscle and neuromuscular health for spaceflight, bed rest, immobilization/disuse conditions. Further research is needed to explore the effects of RET in more diverse populations and under various disuse conditions. More high-quality research will be required to demonstrate the aforementioned benefits conclusively."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Entrenamiento de resistencia (RET) comparado con no ejercicio durante inmovilización/desuso.",
+        "source_excerpt": "Background This meta-analysis aimed to determine whether resistance exercise training (RET) can attenuate the loss of muscle volume and function in anti-gravitational muscles, especially quadriceps and calf muscles, during immobilization/disuse conditions. Methods A comprehensive literature search was conducted to identify randomized controlled trials comparing RET vs. no exercise during "
+      }
+    ]
+  }
+}

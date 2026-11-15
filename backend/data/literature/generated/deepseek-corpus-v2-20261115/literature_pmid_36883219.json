@@ -1,0 +1,43 @@
+{
+  "paper_id": "literature_pmid_36883219",
+  "title": "Single-leg disuse decreases skeletal muscle strength, size, and power in uninjured adults: A systematic review and meta-analysis.",
+  "abstract": "We aimed to quantify declines from baseline in lower limb skeletal muscle size and strength of uninjured adults following single-leg disuse. We searched EMBASE, Medline, CINAHL, and CCRCT up to 30 January 2022. Studies were included in the systematic review if they (1) recruited uninjured participants; (2) were an original experimental study; (3) employed a single-leg disuse model; and (4) reported muscle strength, size, or power data following a period of single-leg disuse for at least one group without a countermeasure. Studies were excluded if they (1) did not meet all inclusion criteria; (2) were not in English; (3) reported previously published muscle strength, size, or power data; or (4) could not be sourced from two different libraries, repeated online searches, and the authors. We used the Cochrane Risk of Bias Assessment Tool to assess risk of bias. We then performed random-effects meta-analyses on studies reporting measures of leg extension strength and extensor size. Our search revealed 6548 studies, and 86 were included in our systematic review. Data from 35 and 20 studies were then included in the meta-analyses for measures of leg extensor strength and size, respectively (40 different studies). No meta-analysis for muscle power was performed due to insufficient homogenous data. Effect sizes (Hedges' g av  ) with 95% confidence intervals for leg extensor strength were all durations = -0.80 [-0.92, -0.68] (n = 429 participants; n = 68 aged 40 years or older; n ≥ 78 females); ≤7 days of disuse = -0.57 [-0.75, -0.40] (n = 151); >7 days and ≤14 days = -0.93 [-1.12, -0.74] (n = 206); and >14 days = -0.95 [-1.20, -0.70] (n = 72). Effect sizes for measures of leg extensor size were all durations = -0.41 [-0.51, -0.31] (n = 233; n = 32 aged 40 years or older; n ≥ 42 females); ≤7 days = -0.26 [-0.36, -0.16] (n = 84); >7 days and ≤14 days = -0.49 [-0.67, -0.30] (n = 102); and >14 days = -0.52 [-0.74, -0.30] (n = 47). Decreases in leg extensor strength (cast: -0.94 [-1.30, -0.59] (n = 73); brace: -0.90 [-1.18, -0.63] (n = 106)) and size (cast: -0.61[-0.87, -0.35] (n = 41); brace: (-0.48 [-1.04, 0.07] (n = 41)) following 14 days of disuse did not differ for cast and brace disuse models. Single-leg disuse in adults resulted in a decline in leg extensor strength and size that reached a nadir beyond 14 days. Bracing and casting led to similar declines in leg extensor strength and size following 14 days of disuse. Studies including females and males and adults over 40 years of age are lacking.",
+  "input_sha256": "289ef12044ba4dad2d4171862f0896ae92150449eff2ef59f8a4af2ea55e4d25",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 1494,
+    "completion_tokens": 511,
+    "total_tokens": 2005,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 1110
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio cuantificó la disminución del tamaño y fuerza muscular de la extremidad inferior en adultos no lesionados tras desuso de una sola pierna. Los metanálisis mostraron una disminución de la fuerza extensora de la pierna (g = -0.80) y del tamaño (g = -0.41) que alcanzó su punto más bajo después de 14 días. Los modelos con yeso y con ortesis produjeron disminuciones similares en fuerza y tamaño a los 14 días. Faltan estudios que incluyan a mujeres, hombres y adultos mayores de 40 años.",
+    "summary_excerpt": "extensor strength (cast: -0.94 [-1.30, -0.59] (n = 73); brace: -0.90 [-1.18, -0.63] (n = 106)) and size (cast: -0.61[-0.87, -0.35] (n = 41); brace: (-0.48 [-1.04, 0.07] (n = 41)) following 14 days of disuse did not differ for cast and brace disuse models. Single-leg disuse in adults resulted in a decline in leg extensor strength and size that reached a nadir beyond 14 days. Bracing and casting ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "La fuerza extensora de la pierna disminuyó tras el desuso de una sola pierna; el tamaño del efecto global fue -0.80 (IC 95%: -0.92 a -0.68), con una disminución que alcanzó su nadir después de 14 días.",
+        "source_excerpt": "size, respectively (40 different studies). No meta-analysis for muscle power was performed due to insufficient homogenous data. Effect sizes (Hedges' g av  ) with 95% confidence intervals for leg extensor strength were all durations = -0.80 [-0.92, -0.68] (n = 429 participants; n = 68 aged 40 years or older; n ≥ 78 females); ≤7 days of disuse = -0.57 [-0.75, -0.40] (n = 151); >7 days and "
+      },
+      {
+        "kind": "finding",
+        "text": "El tamaño del extensor de la pierna disminuyó tras el desuso de una sola pierna; el tamaño del efecto global fue -0.41 (IC 95%: -0.51 a -0.31), con una disminución que alcanzó su nadir después de 14 días.",
+        "source_excerpt": "≤14 days = -0.93 [-1.12, -0.74] (n = 206); and >14 days = -0.95 [-1.20, -0.70] (n = 72). Effect sizes for measures of leg extensor size were all durations = -0.41 [-0.51, -0.31] (n = 233; n = 32 aged 40 years or older; n ≥ 42 females); ≤7 days = -0.26 [-0.36, -0.16] (n = 84); >7 days and ≤14 days = -0.49 [-0.67, -0.30] (n = 102); and >14 days = -0.52 [-0.74, -0.30] (n = 47). Decreases in leg "
+      },
+      {
+        "kind": "finding",
+        "text": "Después de 14 días de desuso, los modelos con yeso y con ortesis mostraron disminuciones similares en la fuerza extensora de la pierna (yeso: -0.94; ortesis: -0.90) y en el tamaño (yeso: -0.61; ortesis: -0.48).",
+        "source_excerpt": "extensor strength (cast: -0.94 [-1.30, -0.59] (n = 73); brace: -0.90 [-1.18, -0.63] (n = 106)) and size (cast: -0.61[-0.87, -0.35] (n = 41); brace: (-0.48 [-1.04, 0.07] (n = 41)) following 14 days of disuse did not differ for cast and brace disuse models. Single-leg disuse in adults resulted in a decline in leg extensor strength and size that reached a nadir beyond 14 days. Bracing and casting "
+      },
+      {
+        "kind": "implication",
+        "text": "Faltan estudios que incluyan a mujeres, hombres y adultos mayores de 40 años en la investigación sobre el desuso de una sola pierna.",
+        "source_excerpt": "led to similar declines in leg extensor strength and size following 14 days of disuse. Studies including females and males and adults over 40 years of age are lacking."
+      }
+    ]
+  }
+}

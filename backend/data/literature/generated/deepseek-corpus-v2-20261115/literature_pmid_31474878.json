@@ -1,0 +1,43 @@
+{
+  "paper_id": "literature_pmid_31474878",
+  "title": "Effect of Time on Human Muscle Outcomes During Simulated Microgravity Exposure Without Countermeasures-Systematic Review.",
+  "abstract": "Background:  Space Agencies are planning human missions beyond Low Earth Orbit. Consideration of how physiological system adaptation with microgravity (μG) will be managed during these mission scenarios is required. Exercise countermeasures (CM) could be used more sparingly to decrease limited resource costs, including periods of no exercise. This study provides a complete overview of the current evidence, making recommendations on the length of time humans exposed to simulated μG might safely perform no exercise considering muscles only.  Methods:  Electronic databases were searched for astronaut or space simulation bed rest studies, as the most valid terrestrial simulation, from start of records to July 2017. Studies were assessed with the Quality in Prognostic Studies and bed rest analog studies assessed for transferability to astronauts using the Aerospace Medicine Systematic Review Group Tool for Assessing Bed Rest Methods. Effect sizes, based on no CM groups, were used to assess muscle outcomes over time. Outcomes included were contractile work capacity, muscle cross sectional area, muscle activity, muscle thickness, muscle volume, maximal voluntary contraction force during one repetition maximum, peak power, performance based outcomes, power, and torque/strength.  Results:  Seventy-five bed rest μG simulation studies were included, many with high risk of confounding factors and participation bias. Most muscle outcomes deteriorated over time with no countermeasures. Moderate effects were apparent by 7-15 days and large by 28-56 days. Moderate effects (>0.6) became apparent in the following order, power and MVC during one repetition maximum (7 days), followed by volume, cross sectional area, torques and strengths, contractile work capacity, thickness and endurance (14 days), then muscle activity (15 days). Large effects (>1.2) became apparent in the following order, volume, cross sectional area (28 days) torques and strengths, thickness (35 days) and peak power (56 days).  Conclusions:  Moderate effects on a range of muscle parameters may occur within 7-14 days of unloading, with large effects within 35 days. Combined with muscle performance requirements for mission tasks, these data, may support the design of CM programmes to maximize efficiency without compromising crew safety and mission success when incorporated with data from additional physiological systems that also need consideration.",
+  "input_sha256": "7c002b638483777064feaefe0d7f5dcd2b6c7bf997f8c7db4f5c04b196591c50",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 989,
+    "completion_tokens": 387,
+    "total_tokens": 1376,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 605
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "75 estudios de reposo en cama simularon microgravedad y mostraron deterioro muscular sin contramedidas. Efectos moderados en potencia y fuerza aparecen a los 7 días; efectos grandes en volumen y área transversal a los 28 días y en torque/fuerza a los 35 días. Los resultados pueden apoyar el diseño de contramedidas más eficientes, aunque muchos estudios tuvieron riesgo de sesgo.",
+    "summary_excerpt": "peak power (56 days).  Conclusions:  Moderate effects on a range of muscle parameters may occur within 7-14 days of unloading, with large effects within 35 days. Combined with muscle performance requirements for mission tasks, these data, may support the design of CM programmes to maximize efficiency without compromising crew safety and mission success when incorporated with data from additional ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Most muscle outcomes deteriorated over time with no countermeasures. Moderate effects were apparent by 7-15 days and large by 28-56 days.",
+        "source_excerpt": "during one repetition maximum, peak power, performance based outcomes, power, and torque/strength.  Results:  Seventy-five bed rest μG simulation studies were included, many with high risk of confounding factors and participation bias. Most muscle outcomes deteriorated over time with no countermeasures. Moderate effects were apparent by 7-15 days and large by 28-56 days. Moderate effects (>0.6) "
+      },
+      {
+        "kind": "finding",
+        "text": "Moderate effects (>0.6) became apparent in the following order, power and MVC during one repetition maximum (7 days), followed by volume, cross sectional area, torques and strengths, contractile work capacity, thickness and endurance (14 days), then muscle activity (15 days).",
+        "source_excerpt": "became apparent in the following order, power and MVC during one repetition maximum (7 days), followed by volume, cross sectional area, torques and strengths, contractile work capacity, thickness and endurance (14 days), then muscle activity (15 days). Large effects (>1.2) became apparent in the following order, volume, cross sectional area (28 days) torques and strengths, thickness (35 days) and "
+      },
+      {
+        "kind": "finding",
+        "text": "Large effects (>1.2) became apparent in the following order, volume, cross sectional area (28 days) torques and strengths, thickness (35 days) and peak power (56 days).",
+        "source_excerpt": "became apparent in the following order, power and MVC during one repetition maximum (7 days), followed by volume, cross sectional area, torques and strengths, contractile work capacity, thickness and endurance (14 days), then muscle activity (15 days). Large effects (>1.2) became apparent in the following order, volume, cross sectional area (28 days) torques and strengths, thickness (35 days) and "
+      },
+      {
+        "kind": "implication",
+        "text": "These data, may support the design of CM programmes to maximize efficiency without compromising crew safety and mission success.",
+        "source_excerpt": "peak power (56 days).  Conclusions:  Moderate effects on a range of muscle parameters may occur within 7-14 days of unloading, with large effects within 35 days. Combined with muscle performance requirements for mission tasks, these data, may support the design of CM programmes to maximize efficiency without compromising crew safety and mission success when incorporated with data from additional "
+      }
+    ]
+  }
+}

@@ -4,14 +4,57 @@
  */
 
 export interface paths {
-  "/cases": {
+  "/api/v1/cases/{case_id}/assessments": {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    /** Consultar casos virtuales precargados */
+    /**
+     * List Case Assessments
+     * @description Discover installed assessment snapshots and contextual content availability.
+     */
+    get: operations["list_case_assessments"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/assessments/{assessment_id}/context": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Assessment Context
+     * @description Read the three published narratives and citation graphs without generation.
+     */
+    get: operations["get_assessment_context"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/cases": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List Cases
+     * @description List cases installed by the explicit seed command.
+     */
     get: operations["list_cases"];
     put?: never;
     post?: never;
@@ -21,16 +64,137 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/cases/{case_id}/regions": {
+  "/api/v1/indicators": {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        case_id: string;
-      };
+      path?: never;
       cookie?: never;
     };
-    /** Consultar regiones disponibles */
+    /**
+     * List Indicators
+     * @description Describe the initial indicator catalog.
+     */
+    get: operations["list_indicators"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/health-modules": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List Health Modules
+     * @description Describe module coverage and keep scientific review status explicit.
+     */
+    get: operations["list_health_modules"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/knowledge-base/metadata": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Knowledge Base Metadata
+     * @description Describe the local literature bundle and its review status.
+     */
+    get: operations["get_knowledge_base_metadata"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/papers": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Search Papers
+     * @description Search the local bibliographic candidate corpus.
+     */
+    get: operations["search_papers"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/papers/{paper_id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Paper
+     * @description Return a bibliographic candidate with explicit analysis boundaries.
+     */
+    get: operations["get_paper"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/knowledge-graph": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Knowledge Graph
+     * @description Explore editorial paper-topic relations without scientific inference.
+     */
+    get: operations["get_knowledge_graph"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/cases/{case_id}/regions": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * List Regions
+     * @description Return semantic regions without assuming GLB mesh names.
+     */
     get: operations["list_regions"];
     put?: never;
     post?: never;
@@ -40,7 +204,7 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/assessments": {
+  "/api/v1/assessments": {
     parameters: {
       query?: never;
       header?: never;
@@ -50,8 +214,8 @@ export interface paths {
     get?: never;
     put?: never;
     /**
-     * Crear una instantánea de evaluación y escenario
-     * @description Crea una instantánea independiente para este visitante. Caso o región inexistente: 404; día fuera del caso: 422. Un horizonte fuera del modelo produce scenario.status=out_of_domain, no un error de entrada.
+     * Create Assessment
+     * @description Create a separate illustrative evaluation for this request.
      */
     post: operations["create_assessment"];
     delete?: never;
@@ -60,16 +224,17 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/assessments/{assessment_id}": {
+  "/api/v1/assessments/{assessment_id}": {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        assessment_id: string;
-      };
+      path?: never;
       cookie?: never;
     };
-    /** Recuperar evaluación y seguimiento de acciones */
+    /**
+     * Get Assessment
+     * @description Retrieve the frozen evaluation and current action states.
+     */
     get: operations["get_assessment"];
     put?: never;
     post?: never;
@@ -79,19 +244,36 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/assessments/{assessment_id}/graphs/{view}": {
+  "/api/v1/assessments/{assessment_id}/guidance": {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        assessment_id: string;
-        view: "evidence" | "scenario" | "actions";
-      };
+      path?: never;
       cookie?: never;
     };
     /**
-     * Consultar una de las tres vistas del grafo
-     * @description Solo datos/versiones de esta evaluación. Un grafo vacío válido responde 200. No reconstruir ciencia histórica usando datos o reglas posteriores.
+     * Get Assessment Guidance
+     * @description Return frozen descriptive guidance without generating new conclusions.
+     */
+    get: operations["get_assessment_guidance"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/assessments/{assessment_id}/graphs/{view}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Graph
+     * @description Retrieve one of the three saved graph projections.
      */
     get: operations["get_graph"];
     put?: never;
@@ -102,14 +284,11 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/assessments/{assessment_id}/actions/{action_id}": {
+  "/api/v1/assessments/{assessment_id}/actions/{action_id}": {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        assessment_id: string;
-        action_id: string;
-      };
+      path?: never;
       cookie?: never;
     };
     get?: never;
@@ -119,24 +298,42 @@ export interface paths {
     options?: never;
     head?: never;
     /**
-     * Registrar estado de ejecución sin cambiar fundamento
-     * @description La acción pertenece a esta evaluación. Actualizar solo seguimiento si eligibility=eligible. expected_revision debe coincidir; incrementar revision si cambia el estado. Repetir el mismo estado con revisión vigente no cambia revisión ni fecha. En modo evidence_based se exige review_status=reviewed.
+     * Update Action Status
+     * @description Update tracking with optimistic revision checking and a database row lock.
      */
     patch: operations["update_action_status"];
     trace?: never;
   };
-  "/telemetry/{recording_id}": {
+  "/api/v1/telemetry/{recording_id}/metadata": {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        recording_id: string;
-      };
+      path?: never;
       cookie?: never;
     };
     /**
-     * Consultar ventana de una grabación terrestre independiente
-     * @description Ventana [start_s, end_s), máximo 120 segundos y 2000 puntos. Límites cruzados validados por backend. No se remuestrea silenciosamente.
+     * Get Recording Metadata
+     * @description Describe a registered recording and its independent clock.
+     */
+    get: operations["get_recording_metadata"];
+    put?: never;
+    post?: never;
+    delete?: never;
+    options?: never;
+    head?: never;
+    patch?: never;
+    trace?: never;
+  };
+  "/api/v1/telemetry/{recording_id}": {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    /**
+     * Get Telemetry Window
+     * @description Read a bounded segment without filling missing values.
      */
     get: operations["get_telemetry_window"];
     put?: never;
@@ -147,15 +344,18 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/indicators": {
+  "/health/live": {
     parameters: {
       query?: never;
       header?: never;
       path?: never;
       cookie?: never;
     };
-    /** Consultar nombres, unidades y significado de los indicadores */
-    get: operations["list_indicators"];
+    /**
+     * Liveness
+     * @description Confirm that the HTTP process is responding.
+     */
+    get: operations["liveness_health_live_get"];
     put?: never;
     post?: never;
     delete?: never;
@@ -164,17 +364,18 @@ export interface paths {
     patch?: never;
     trace?: never;
   };
-  "/telemetry/{recording_id}/metadata": {
+  "/health/ready": {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        recording_id: string;
-      };
+      path?: never;
       cookie?: never;
     };
-    /** Descubrir límites y procedencia antes de reproducir la grabación */
-    get: operations["get_recording_metadata"];
+    /**
+     * Readiness
+     * @description Check database connectivity and the presence of migrated, seeded tables.
+     */
+    get: operations["readiness_health_ready_get"];
     put?: never;
     post?: never;
     delete?: never;
@@ -187,186 +388,476 @@ export interface paths {
 export type webhooks = Record<string, never>;
 export interface components {
   schemas: {
-    Error: {
-      code: string;
-      message: string;
-      details: string[];
-    };
-    Case: {
-      id: string;
-      label: string;
-      is_virtual: boolean;
-      /** @description Duración transcurrida del caso; se admiten días desde 0 hasta este límite, incluido. */
-      duration_days: number;
-      telemetry_recording_id: string | null;
-      anatomy_asset: components["schemas"]["AnatomyAsset"];
-    };
-    Region: {
-      id: string;
-      label: string;
-      indicator_ids: string[];
-    };
-    AssessmentRequest: {
-      case_id: string;
-      region_id: string;
-      /** @description Día del caso virtual. Solo se usan observaciones y registros disponibles hasta este día. */
-      mission_day: number;
-      horizon_days: number;
-      /** @description Inicio independiente del protocolo de referencia. El final es inicio más horizonte. */
-      reference_start_day: number;
-    };
-    Source: {
-      id: string;
-      title: string;
-      /** Format: uri */
-      url: string | null;
-      locator: string;
-      /** @enum {string} */
-      review_status: "pending" | "reviewed";
-      version: string | null;
-      license: string | null;
-    };
-    Observation: {
-      id: string;
-      /** @enum {string} */
-      indicator_id: "quadriceps_csa_relative" | "knee_extension_torque";
-      value: number | null;
-      /** @enum {string} */
-      unit: "percent_baseline" | "N.m";
-      mission_day: number;
-      /** @enum {string} */
-      origin: "synthetic" | "human_dataset" | "published_aggregate";
-      /** @enum {string} */
-      derivation: "measured" | "seeded" | "computed";
-      method: string;
-      source_id: string;
-      missing_reason: string | null;
-      /** @enum {string} */
-      quality: "available" | "missing" | "suspect";
-      /** @enum {string} */
-      statistic: "individual_value" | "group_mean" | "normalized_reference";
-      sample_size: number | null;
-      dispersion: components["schemas"]["Dispersion"] | null;
-      baseline_observation_id: string | null;
-    } & (unknown & unknown);
-    ExerciseRecord: {
-      id: string;
-      mission_day: number;
-      modality: string;
-      /** @enum {string} */
-      record_status: "recorded" | "not_recorded";
-      planned_duration_min: number | null;
-      recorded_duration_min: number | null;
-      sets: number | null;
-      repetitions: number | null;
-      resistance_value: number | null;
-      resistance_unit: string | null;
-      equipment_available: boolean | null;
-      /** @enum {string} */
-      origin: "synthetic" | "human_dataset";
-      source_id: string;
-    };
-    Finding: {
-      id: string;
-      title: string;
-      description: string;
-      related_ids: string[];
-      source_ids: string[];
-      /** @enum {string} */
-      attention: "informational" | "review_needed" | "unknown";
-      claim_ids: string[];
-    };
-    EvidenceContext: {
-      data_quality: string[];
-      evidence_applicability: string[];
-      model_limitations: string[];
-    };
-    ScenarioPoint: {
-      /** @description Desplazamiento desde reference_start_day; no es un día de misión. */
-      elapsed_day: number;
-      value: number;
-    };
-    Scenario: {
-      id: string;
-      /** @enum {string} */
-      status: "available" | "insufficient_data" | "out_of_domain";
-      label: string;
-      model_id: string | null;
-      model_version: string | null;
-      horizon_days: number;
-      /** @enum {string} */
-      unit: "percent_baseline";
-      reason: string | null;
-      assumptions: string[];
-      points: components["schemas"]["ScenarioPoint"][];
-      source_ids: string[];
-      summary: string;
-      /** @description Día dentro del protocolo de referencia; no se infiere del día de misión. */
-      reference_start_day: number;
-      parameters: {
-        id: string;
-        value: number;
-        unit: string;
-        source_id: string;
-        locator: string;
-      }[];
-      domain: components["schemas"]["ScenarioDomain"] | null;
-    } & (unknown & unknown);
+    /**
+     * Action
+     * @description Represent the Action contract payload.
+     */
     Action: {
+      /** Id */
       id: string;
+      /** Title */
       title: string;
+      /** Rationale */
       rationale: string;
+      /** Requirements */
       requirements: string[];
+      /** Related Finding Ids */
       related_finding_ids: string[];
+      /** Source Ids */
       source_ids: string[];
-      /** @enum {string} */
+      /**
+       * Review Status
+       * @enum {string}
+       */
       review_status: "pending" | "reviewed";
-      /** @enum {string} */
+      /**
+       * Execution Status
+       * @enum {string}
+       */
       execution_status: "pending" | "completed" | "skipped";
-      /** @enum {string} */
+      /**
+       * Eligibility
+       * @enum {string}
+       */
       eligibility: "eligible" | "ineligible" | "unknown";
+      /** Eligibility Reason */
       eligibility_reason: string;
+      /** Claim Ids */
       claim_ids: string[];
+      /** Revision */
       revision: number;
-      /** Format: date-time */
+      /**
+       * Updated At
+       * Format: date-time
+       */
       updated_at: string;
     };
+    /**
+     * ActionUpdate
+     * @description Represent the ActionUpdate contract payload.
+     */
     ActionUpdate: {
-      /** @enum {string} */
+      /**
+       * Execution Status
+       * @enum {string}
+       */
       execution_status: "pending" | "completed" | "skipped";
+      /** Expected Revision */
       expected_revision: number;
     };
-    Versions: {
-      rules: string;
-      evidence: string;
-      summary_template: string;
+    /**
+     * AnatomyAsset
+     * @description Represent the AnatomyAsset contract payload.
+     */
+    AnatomyAsset: {
+      /** Id */
+      id: string;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "pending" | "available";
+      /** Url */
+      url: string | null;
+      /** License Url */
+      license_url: string | null;
     };
+    /**
+     * Assessment
+     * @description Represent the Assessment contract payload.
+     */
     Assessment: {
+      /** Assessment Id */
       assessment_id: string;
+      /** Case Id */
       case_id: string;
+      /** Region Id */
       region_id: string;
+      /** Mission Day */
       mission_day: number;
-      /** @enum {string} */
+      /**
+       * Content Mode
+       * @enum {string}
+       */
       content_mode: "illustrative" | "evidence_based";
-      /** @enum {string} */
+      /**
+       * Status
+       * @enum {string}
+       */
       status: "complete" | "partial" | "insufficient_data";
+      /** Summary */
       summary: string;
       versions: components["schemas"]["Versions"];
+      /** Observations */
       observations: components["schemas"]["Observation"][];
+      /** Exercise Records */
       exercise_records: components["schemas"]["ExerciseRecord"][];
+      /** Findings */
       findings: components["schemas"]["Finding"][];
       evidence_context: components["schemas"]["EvidenceContext"];
       scenario: components["schemas"]["Scenario"];
+      /** Actions */
       actions: components["schemas"]["Action"][];
+      /** Sources */
       sources: components["schemas"]["Source"][];
+      /** Action Summary */
       action_summary: string;
-      /** Format: date-time */
+      /**
+       * Created At
+       * Format: date-time
+       */
       created_at: string;
+      /** Claims */
       claims: components["schemas"]["EvidenceClaim"][];
     };
-    GraphNode: {
+    /**
+     * AssessmentContext
+     * @description Describe content availability independently of scientific review metadata.
+     */
+    AssessmentContext: {
+      /** Assessment Id */
+      assessment_id: string;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "available" | "unavailable";
+      /** Reason */
+      reason: string | null;
+      sections: components["schemas"]["ContextDraft"] | null;
+      /** Graphs */
+      graphs: {
+        [key: string]: components["schemas"]["GraphPage"];
+      };
+      /** Evidence Snippets */
+      evidence_snippets: {
+        [key: string]: components["schemas"]["EvidenceSnippet"];
+      };
+      guidance: components["schemas"]["Guidance"] | null;
+      provenance: components["schemas"]["ContextProvenance"] | null;
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+      /**
+       * Clinical Action Eligible
+       * @default false
+       * @constant
+       */
+      clinical_action_eligible: false;
+    };
+    /** AssessmentIndex */
+    AssessmentIndex: {
+      /** Assessment Id */
+      assessment_id: string;
+      /** Case Id */
+      case_id: string;
+      /** Region Id */
+      region_id: string;
+      /** Mission Day */
+      mission_day: number;
+      /**
+       * Created At
+       * Format: date-time
+       */
+      created_at: string;
+      /** Has Context */
+      has_context: boolean;
+    };
+    /**
+     * AssessmentRequest
+     * @description Represent the AssessmentRequest contract payload.
+     */
+    AssessmentRequest: {
+      /** Case Id */
+      case_id: string;
+      /** Region Id */
+      region_id: string;
+      /** Mission Day */
+      mission_day: number;
+      /** Horizon Days */
+      horizon_days: number;
+      /** Reference Start Day */
+      reference_start_day: number;
+    };
+    /**
+     * Case
+     * @description Represent the Case contract payload.
+     */
+    Case: {
+      /** Id */
       id: string;
-      /** @enum {string} */
+      /** Label */
+      label: string;
+      /** Is Virtual */
+      is_virtual: boolean;
+      /** Duration Days */
+      duration_days: number;
+      /** Telemetry Recording Id */
+      telemetry_recording_id: string | null;
+      anatomy_asset: components["schemas"]["AnatomyAsset"];
+    };
+    /**
+     * Citation
+     * @description Select a backend-verified fragment instead of rewriting its quotation.
+     */
+    Citation: {
+      /** Paper Id */
+      paper_id: string;
+      /** Snippet Id */
+      snippet_id: string;
+    };
+    /**
+     * ContextDraft
+     * @description Provide the three requested narratives, with review assigned by the backend.
+     */
+    ContextDraft: {
+      alert_assessment: components["schemas"]["NarrativeSection"];
+      inaction_scenario: components["schemas"]["NarrativeSection"];
+      next_steps: components["schemas"]["NarrativeSection"];
+    };
+    /** ContextProvenance */
+    ContextProvenance: {
+      /** Input Sha256 */
+      input_sha256: string;
+      /** Prompt Version */
+      prompt_version: string;
+      /** Model Id */
+      model_id: string;
+      /** Corpus Version */
+      corpus_version: string;
+    };
+    /**
+     * Dispersion
+     * @description Represent the Dispersion contract payload.
+     */
+    Dispersion: {
+      /**
+       * Kind
+       * @enum {string}
+       */
+      kind: "standard_deviation" | "standard_error";
+      /** Value */
+      value: number;
+    };
+    /**
+     * Error
+     * @description Represent the Error contract payload.
+     */
+    Error: {
+      /** Code */
+      code: string;
+      /** Message */
+      message: string;
+      /** Details */
+      details: string[];
+    };
+    /**
+     * EvidenceClaim
+     * @description Represent the EvidenceClaim contract payload.
+     */
+    EvidenceClaim: {
+      /** Id */
+      id: string;
+      /** Statement */
+      statement: string;
+      /**
+       * Kind
+       * @enum {string}
+       */
+      kind:
+        | "observed_result"
+        | "association"
+        | "model_assumption"
+        | "intervention_result"
+        | "operational_rule";
+      /** Source Ids */
+      source_ids: string[];
+      /** Population */
+      population: string;
+      /** Sample Size */
+      sample_size: number | null;
+      /**
+       * Environment
+       * @enum {string}
+       */
+      environment:
+        | "spaceflight"
+        | "bed_rest_analog"
+        | "terrestrial_exercise"
+        | "synthetic";
+      /** Limitations */
+      limitations: string[];
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+    };
+    /**
+     * EvidenceContext
+     * @description Represent the EvidenceContext contract payload.
+     */
+    EvidenceContext: {
+      /** Data Quality */
+      data_quality: string[];
+      /** Evidence Applicability */
+      evidence_applicability: string[];
+      /** Model Limitations */
+      model_limitations: string[];
+    };
+    /** EvidenceSnippet */
+    EvidenceSnippet: {
+      /** Paper Id */
+      paper_id: string;
+      /** Excerpt */
+      excerpt: string;
+      /**
+       * Locator
+       * @constant
+       */
+      locator: "abstract";
+    };
+    /**
+     * ExerciseRecord
+     * @description Represent the ExerciseRecord contract payload.
+     */
+    ExerciseRecord: {
+      /** Id */
+      id: string;
+      /** Mission Day */
+      mission_day: number;
+      /** Modality */
+      modality: string;
+      /**
+       * Record Status
+       * @enum {string}
+       */
+      record_status: "recorded" | "not_recorded";
+      /** Planned Duration Min */
+      planned_duration_min: number | null;
+      /** Recorded Duration Min */
+      recorded_duration_min: number | null;
+      /** Sets */
+      sets: number | null;
+      /** Repetitions */
+      repetitions: number | null;
+      /** Resistance Value */
+      resistance_value: number | null;
+      /** Resistance Unit */
+      resistance_unit: string | null;
+      /** Equipment Available */
+      equipment_available: boolean | null;
+      /**
+       * Origin
+       * @enum {string}
+       */
+      origin: "synthetic" | "human_dataset";
+      /** Source Id */
+      source_id: string;
+    };
+    /**
+     * Finding
+     * @description Represent the Finding contract payload.
+     */
+    Finding: {
+      /** Id */
+      id: string;
+      /** Title */
+      title: string;
+      /** Description */
+      description: string;
+      /** Related Ids */
+      related_ids: string[];
+      /** Source Ids */
+      source_ids: string[];
+      /**
+       * Attention
+       * @enum {string}
+       */
+      attention: "informational" | "review_needed" | "unknown";
+      /** Claim Ids */
+      claim_ids: string[];
+    };
+    /**
+     * Graph
+     * @description Represent the Graph contract payload.
+     */
+    Graph: {
+      /** Assessment Id */
+      assessment_id: string;
+      /**
+       * View
+       * @enum {string}
+       */
+      view: "evidence" | "scenario" | "actions";
+      /** Nodes */
+      nodes: components["schemas"]["GraphNode"][];
+      /** Edges */
+      edges: components["schemas"]["GraphEdge"][];
+      /** Sources */
+      sources: components["schemas"]["Source"][];
+      /**
+       * Content Mode
+       * @enum {string}
+       */
+      content_mode: "illustrative" | "evidence_based";
+      versions: components["schemas"]["Versions"];
+      /** Claims */
+      claims: components["schemas"]["EvidenceClaim"][];
+    };
+    /**
+     * GraphCounts
+     * @description Summarize paper coverage in one graph page.
+     */
+    GraphCounts: {
+      /** Papers Matching */
+      papers_matching: number;
+      /** Papers Returned */
+      papers_returned: number;
+      /** Papers Reviewed Returned */
+      papers_reviewed_returned: number;
+    };
+    /**
+     * GraphEdge
+     * @description Represent the GraphEdge contract payload.
+     */
+    GraphEdge: {
+      /** Id */
+      id: string;
+      /** Source */
+      source: string;
+      /** Target */
+      target: string;
+      /**
+       * Relation
+       * @enum {string}
+       */
+      relation:
+        | "uses"
+        | "describes"
+        | "supported_by"
+        | "limited_by"
+        | "computed_with"
+        | "requires"
+        | "addresses";
+      /** Label */
+      label: string;
+      /** Claim Ids */
+      claim_ids: string[];
+    };
+    /**
+     * GraphNode
+     * @description Represent the GraphNode contract payload.
+     */
+    GraphNode: {
+      /** Id */
+      id: string;
+      /**
+       * Kind
+       * @enum {string}
+       */
       kind:
         | "finding"
         | "observation"
@@ -379,142 +870,920 @@ export interface components {
         | "parameter"
         | "action"
         | "requirement";
+      /** Label */
       label: string;
+      /** Description */
       description: string;
+      /** Source Ids */
       source_ids: string[];
+      /** Entity Id */
       entity_id: string | null;
     };
-    GraphEdge: {
-      id: string;
-      source: string;
-      target: string;
-      /** @enum {string} */
-      relation:
-        | "uses"
-        | "describes"
-        | "supported_by"
-        | "limited_by"
-        | "computed_with"
-        | "requires"
-        | "addresses";
-      label: string;
-      claim_ids: string[];
-    };
-    Graph: {
-      assessment_id: string;
-      /** @enum {string} */
+    /**
+     * GraphPage
+     * @description Represent one paginated discovery graph projection.
+     */
+    GraphPage: {
+      /** Corpus Version */
+      corpus_version: string;
+      /** Assessment Id */
+      assessment_id: string | null;
+      /**
+       * View
+       * @enum {string}
+       */
       view: "evidence" | "scenario" | "actions";
-      nodes: components["schemas"]["GraphNode"][];
-      edges: components["schemas"]["GraphEdge"][];
-      sources: components["schemas"]["Source"][];
-      /** @enum {string} */
-      content_mode: "illustrative" | "evidence_based";
-      versions: components["schemas"]["Versions"];
-      claims: components["schemas"]["EvidenceClaim"][];
+      /** Nodes */
+      nodes: components["schemas"]["KnowledgeNode"][];
+      /** Edges */
+      edges: components["schemas"]["KnowledgeEdge"][];
+      page: components["schemas"]["Page"];
+      /** Scope Description */
+      scope_description: string;
+      counts: components["schemas"]["GraphCounts"];
     };
-    TelemetryPoint: {
-      time_s: number;
-      value: number | null;
-      missing_reason: string | null;
-    } & unknown;
-    TelemetryWindow: {
-      recording_id: string;
-      dataset_id: string;
-      participant_id: string;
-      /** @enum {string} */
-      content_mode: "illustrative" | "evidence_based";
-      /** @enum {string} */
-      origin: "synthetic" | "human_dataset";
-      /** @enum {string} */
-      context: "terrestrial_exercise";
-      /** @enum {string} */
-      indicator_id: "heart_rate";
-      /** @enum {string} */
-      unit: "beats/min";
-      start_s: number;
-      end_s: number;
-      points: components["schemas"]["TelemetryPoint"][];
-      source: components["schemas"]["Source"];
-      recording_end_s: number;
-      next_start_s: number | null;
-    };
-    AnatomyAsset: {
-      id: string;
-      /** @enum {string} */
-      status: "pending" | "available";
-      /** Format: uri */
-      url: string | null;
-      /** Format: uri */
-      license_url: string | null;
-    };
-    IndicatorDefinition: {
-      /** @enum {string} */
-      id: "quadriceps_csa_relative" | "knee_extension_torque" | "heart_rate";
-      label: string;
-      /** @enum {string} */
-      unit: "percent_baseline" | "N.m" | "beats/min";
-      region_id: string | null;
-      description: string;
-      baseline_interpretation: string;
-    };
-    EvidenceClaim: {
-      id: string;
-      statement: string;
-      /** @enum {string} */
-      kind:
-        | "observed_result"
-        | "association"
-        | "model_assumption"
-        | "intervention_result"
-        | "operational_rule";
-      source_ids: string[];
-      population: string;
-      sample_size: number | null;
-      /** @enum {string} */
-      environment:
-        | "spaceflight"
-        | "bed_rest_analog"
-        | "terrestrial_exercise"
-        | "synthetic";
+    /**
+     * Guidance
+     * @description Freeze module coverage, data limitations and proposed operational steps.
+     */
+    Guidance: {
+      /** Assessment Id */
+      assessment_id: string;
+      /** Module Id */
+      module_id: string | null;
+      /** Module Version */
+      module_version: string | null;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status:
+        | "complete"
+        | "partial"
+        | "insufficient_data"
+        | "not_supported"
+        | "review_pending";
+      /**
+       * Attention
+       * @enum {string}
+       */
+      attention: "informational" | "review_needed" | "unknown";
+      /** Summary */
+      summary: string;
+      /** Reason */
+      reason: string | null;
+      /** Observation Ids */
+      observation_ids: string[];
+      /** Paper Ids */
+      paper_ids: string[];
+      /** Applicability */
+      applicability: components["schemas"]["PaperApplicability"][];
+      /** Steps */
+      steps: components["schemas"]["GuidanceStep"][];
+      /** Limitations */
       limitations: string[];
-      /** @enum {string} */
+      /** Corpus Version */
+      corpus_version: string | null;
+      /** Rules Version */
+      rules_version: string | null;
+      /** Created At */
+      created_at: string | null;
+    };
+    /**
+     * GuidanceStep
+     * @description Describe a next step without automatically enabling a clinical action.
+     */
+    GuidanceStep: {
+      /** Id */
+      id: string;
+      /** Title */
+      title: string;
+      /** Description */
+      description: string;
+      /**
+       * Kind
+       * @enum {string}
+       */
+      kind: "operational_review" | "studied_intervention";
+      /**
+       * Eligibility
+       * @enum {string}
+       */
+      eligibility: "eligible" | "ineligible" | "unknown";
+      /** Eligibility Reason */
+      eligibility_reason: string;
+      /** Rule Id */
+      rule_id: string | null;
+      /** Rule Version */
+      rule_version: string | null;
+      /** Paper Ids */
+      paper_ids: string[];
+      /**
+       * Review Status
+       * @enum {string}
+       */
       review_status: "pending" | "reviewed";
     };
-    Dispersion: {
-      /** @enum {string} */
-      kind: "standard_deviation" | "standard_error";
-      value: number;
+    /**
+     * HealthModule
+     * @description Describe the implemented and scientifically reviewed coverage of a module.
+     */
+    HealthModule: {
+      /** Id */
+      id: string;
+      /** Version */
+      version: string;
+      /** Label */
+      label: string;
+      /** Region Ids */
+      region_ids: string[];
+      /** Indicator Ids */
+      indicator_ids: string[];
+      /**
+       * Implementation Status
+       * @enum {string}
+       */
+      implementation_status: "planned" | "prototype" | "available";
+      /**
+       * Interpretation Status
+       * @enum {string}
+       */
+      interpretation_status: "unavailable" | "review_pending" | "reviewed";
+      /** Coverage Description */
+      coverage_description: string;
+      /** Limitations */
+      limitations: string[];
     };
+    /**
+     * IndicatorDefinition
+     * @description Represent the IndicatorDefinition contract payload.
+     */
+    IndicatorDefinition: {
+      /**
+       * Id
+       * @enum {string}
+       */
+      id: "quadriceps_csa_relative" | "knee_extension_torque" | "heart_rate";
+      /** Label */
+      label: string;
+      /**
+       * Unit
+       * @enum {string}
+       */
+      unit: "percent_baseline" | "N.m" | "beats/min";
+      /** Region Id */
+      region_id: string | null;
+      /** Description */
+      description: string;
+      /** Baseline Interpretation */
+      baseline_interpretation: string;
+    };
+    /**
+     * KnowledgeBaseMetadata
+     * @description Describe the installed scientific corpus and its consultation limits.
+     */
+    KnowledgeBaseMetadata: {
+      /** Corpus Version */
+      corpus_version: string;
+      /**
+       * Published At
+       * Format: date-time
+       */
+      published_at: string;
+      /** Last Sync At */
+      last_sync_at: string | null;
+      /**
+       * Runtime Mode
+       * @enum {string}
+       */
+      runtime_mode: "local_bundle" | "hosted_catalog";
+      /** External Services Required For Consultation */
+      external_services_required_for_consultation: boolean;
+      /** Paper Count */
+      paper_count: number;
+      /** Reviewed Paper Count */
+      reviewed_paper_count: number;
+      /**
+       * Analysis Policy
+       * @enum {string}
+       */
+      analysis_policy: "precomputed" | "local_model" | "not_configured";
+      /** Rules Version */
+      rules_version: string | null;
+    };
+    /**
+     * KnowledgeEdge
+     * @description Represent a traceable, non-causal discovery relation.
+     */
+    KnowledgeEdge: {
+      /** Id */
+      id: string;
+      /** Source */
+      source: string;
+      /** Target */
+      target: string;
+      /**
+       * Relation
+       * @enum {string}
+       */
+      relation:
+        | "cites"
+        | "addresses"
+        | "reports"
+        | "supports"
+        | "contradicts"
+        | "qualifies"
+        | "same_cohort"
+        | "possible_cohort_overlap";
+      /**
+       * Basis
+       * @enum {string}
+       */
+      basis:
+        | "provider_metadata"
+        | "editorial_classification"
+        | "reviewed_extraction"
+        | "llm_suggestion";
+      /** Source Paper Ids */
+      source_paper_ids: string[];
+      /** Source Locators */
+      source_locators: string[];
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+    };
+    /**
+     * KnowledgeNode
+     * @description Represent a paper or editorial topic in the discovery graph.
+     */
+    KnowledgeNode: {
+      /** Id */
+      id: string;
+      /**
+       * Kind
+       * @enum {string}
+       */
+      kind:
+        "paper" | "indicator" | "claim" | "action" | "topic" | "intervention";
+      /** Label */
+      label: string;
+      /** Paper Id */
+      paper_id: string | null;
+      /** Entity Id */
+      entity_id: string | null;
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+    };
+    /**
+     * ModuleCatalog
+     * @description Represent the versioned catalog of scientific modules.
+     */
+    ModuleCatalog: {
+      /** Catalog Version */
+      catalog_version: string;
+      /** Modules */
+      modules: components["schemas"]["HealthModule"][];
+    };
+    /**
+     * NarrativeSection
+     * @description Explain a case without assigning probabilities, new rules or prescriptions.
+     */
+    NarrativeSection: {
+      /** Summary */
+      summary: string;
+      /** Uncertainty */
+      uncertainty: string;
+      /** Observation Ids */
+      observation_ids: string[];
+      /** Step Ids */
+      step_ids: string[];
+      /** Citations */
+      citations: components["schemas"]["Citation"][];
+    };
+    /**
+     * Observation
+     * @description Represent the Observation contract payload.
+     */
+    Observation: {
+      /** Id */
+      id: string;
+      /**
+       * Indicator Id
+       * @enum {string}
+       */
+      indicator_id: "quadriceps_csa_relative" | "knee_extension_torque";
+      /** Value */
+      value: number | null;
+      /**
+       * Unit
+       * @enum {string}
+       */
+      unit: "percent_baseline" | "N.m";
+      /** Mission Day */
+      mission_day: number;
+      /**
+       * Origin
+       * @enum {string}
+       */
+      origin: "synthetic" | "human_dataset" | "published_aggregate";
+      /**
+       * Derivation
+       * @enum {string}
+       */
+      derivation: "measured" | "seeded" | "computed";
+      /** Method */
+      method: string;
+      /** Source Id */
+      source_id: string;
+      /** Missing Reason */
+      missing_reason: string | null;
+      /**
+       * Quality
+       * @enum {string}
+       */
+      quality: "available" | "missing" | "suspect";
+      /**
+       * Statistic
+       * @enum {string}
+       */
+      statistic: "individual_value" | "group_mean" | "normalized_reference";
+      /** Sample Size */
+      sample_size: number | null;
+      dispersion: components["schemas"]["Dispersion"] | null;
+      /** Baseline Observation Id */
+      baseline_observation_id: string | null;
+    };
+    /**
+     * Page
+     * @description Represent opaque cursor state for a page of results.
+     */
+    Page: {
+      /** Next Cursor */
+      next_cursor: string | null;
+      /** Has More */
+      has_more: boolean;
+    };
+    /**
+     * PaperAccess
+     * @description Describe remote and local access without implying full-text availability.
+     */
+    PaperAccess: {
+      /** Landing Url */
+      landing_url: string;
+      /** Full Text Url */
+      full_text_url: string | null;
+      /** Pdf Url */
+      pdf_url: string | null;
+      /**
+       * Availability
+       * @enum {string}
+       */
+      availability: "open_access" | "landing_only" | "unknown";
+      /** License */
+      license: string | null;
+      /** Full Text Cached */
+      full_text_cached: boolean;
+      /** Pdf Cached */
+      pdf_cached: boolean;
+      /** Local Document Url */
+      local_document_url: string | null;
+    };
+    /**
+     * PaperAnalysis
+     * @description Describe the state of optional abstract or full-text analysis.
+     */
+    PaperAnalysis: {
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "not_requested" | "queued" | "running" | "ready" | "failed";
+      /**
+       * Input Basis
+       * @enum {string}
+       */
+      input_basis: "abstract" | "full_text" | "not_prepared";
+      /** Input Sha256 */
+      input_sha256: string | null;
+      /** Prompt Version */
+      prompt_version: string | null;
+      /** Model Id */
+      model_id: string | null;
+      /** Generated At */
+      generated_at: string | null;
+      /** Items */
+      items: components["schemas"]["PaperAnalysisItem"][];
+      /** Failure Reason */
+      failure_reason: string | null;
+    };
+    /**
+     * PaperAnalysisItem
+     * @description Represent a traceable analysis item, including pending suggestions.
+     */
+    PaperAnalysisItem: {
+      /** Id */
+      id: string;
+      /**
+       * Kind
+       * @enum {string}
+       */
+      kind: "finding" | "implication" | "studied_intervention";
+      /** Text */
+      text: string;
+      /** Source Locator */
+      source_locator: string;
+      /** Source Excerpt */
+      source_excerpt: string;
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+      /** Limitations */
+      limitations: string[];
+    };
+    /**
+     * PaperApplicability
+     * @description Keep individual applicability separate from bibliographic discovery.
+     */
+    PaperApplicability: {
+      /** Assessment Id */
+      assessment_id: string | null;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status:
+        | "not_evaluated"
+        | "context_match"
+        | "analog_only"
+        | "not_comparable"
+        | "insufficient_data";
+      /** Explanation */
+      explanation: string;
+      /** Considered Observation Ids */
+      considered_observation_ids: string[];
+      /** Checks */
+      checks: components["schemas"]["PaperContextCheck"][];
+      /** Rule Id */
+      rule_id: string | null;
+      /** Rule Version */
+      rule_version: string | null;
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+    };
+    /**
+     * PaperCard
+     * @description Represent a discovery card, not an audited evidence statement.
+     */
+    PaperCard: {
+      /** Id */
+      id: string;
+      /** Title */
+      title: string;
+      /** Authors */
+      authors: string[];
+      /** Year */
+      year: number;
+      identifiers: components["schemas"]["PaperIdentifiers"];
+      /** Sections */
+      sections: ("evidence" | "scenario" | "actions")[];
+      /** Region Ids */
+      region_ids: string[];
+      /** Study Design */
+      study_design: string | null;
+      /**
+       * Environment
+       * @enum {string}
+       */
+      environment:
+        | "spaceflight"
+        | "bed_rest"
+        | "terrestrial_exercise"
+        | "other"
+        | "mixed"
+        | "unknown";
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+      access: components["schemas"]["PaperAccess"];
+      /** Indicator Ids */
+      indicator_ids: string[];
+    };
+    /**
+     * PaperContextCheck
+     * @description Represent one contextual applicability dimension.
+     */
+    PaperContextCheck: {
+      /**
+       * Dimension
+       * @enum {string}
+       */
+      dimension:
+        | "measurement_method"
+        | "population"
+        | "environment"
+        | "exposure_duration"
+        | "measurement_timepoint"
+        | "available_resources";
+      /**
+       * Match
+       * @enum {string}
+       */
+      match: "match" | "mismatch" | "unknown";
+      /** Reason */
+      reason: string;
+      /** Source Locators */
+      source_locators: string[];
+    };
+    /**
+     * PaperDetail
+     * @description Represent a paper detail page without promoting candidate evidence.
+     */
+    PaperDetail: {
+      paper: components["schemas"]["PaperCard"];
+      /** Abstract */
+      abstract: string | null;
+      summary: components["schemas"]["PaperSummary"];
+      /** Population Description */
+      population_description: string | null;
+      /** Cohort Ids */
+      cohort_ids: string[];
+      /**
+       * Cohort Overlap Status
+       * @enum {string}
+       */
+      cohort_overlap_status: "unknown" | "possible_overlap" | "documented";
+      /** Statistics */
+      statistics: components["schemas"]["PaperStatistic"][];
+      /** Limitations */
+      limitations: string[];
+      /** Corpus Version */
+      corpus_version: string;
+      analysis: components["schemas"]["PaperAnalysis"];
+      applicability: components["schemas"]["PaperApplicability"];
+    };
+    /**
+     * PaperIdentifiers
+     * @description Represent stable identifiers available for a literature record.
+     */
+    PaperIdentifiers: {
+      /** Doi */
+      doi: string | null;
+      /** Pmid */
+      pmid: string | null;
+      /** Pmcid */
+      pmcid: string | null;
+    };
+    /**
+     * PaperPage
+     * @description Represent one page of bibliographic discovery results.
+     */
+    PaperPage: {
+      /** Corpus Version */
+      corpus_version: string;
+      /** Items */
+      items: components["schemas"]["PaperCard"][];
+      /** Total Matching */
+      total_matching: number;
+      page: components["schemas"]["Page"];
+    };
+    /**
+     * PaperStatistic
+     * @description Represent a reviewed quantitative extraction when one exists.
+     */
+    PaperStatistic: {
+      /** Id */
+      id: string;
+      /** Outcome */
+      outcome: string;
+      /** Anatomy */
+      anatomy: string;
+      /** Group Label */
+      group_label: string;
+      /** Timepoint Label */
+      timepoint_label: string;
+      /** Sample Size */
+      sample_size: number | null;
+      /** Value */
+      value: number;
+      /** Unit */
+      unit: string;
+      /**
+       * Statistic Type
+       * @enum {string}
+       */
+      statistic_type:
+        "group_mean" | "individual_value" | "change_rate" | "effect_estimate";
+      /** Dispersion */
+      dispersion: {
+        [key: string]: unknown;
+      } | null;
+      /** Interval */
+      interval: {
+        [key: string]: unknown;
+      } | null;
+      /** Source Locator */
+      source_locator: string;
+      /** Source Url */
+      source_url: string;
+      /**
+       * Extraction Review Status
+       * @enum {string}
+       */
+      extraction_review_status: "pending" | "reviewed";
+      /** Limitations */
+      limitations: string[];
+    };
+    /**
+     * PaperSummary
+     * @description Describe whether a reviewed summary is available for a paper.
+     */
+    PaperSummary: {
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "available" | "pending" | "unavailable";
+      /** Text */
+      text: string | null;
+      /**
+       * Basis
+       * @enum {string}
+       */
+      basis: "full_text" | "abstract" | "metadata_only" | "not_prepared";
+      /**
+       * Method
+       * @enum {string}
+       */
+      method: "editorial" | "llm_assisted" | "not_prepared";
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+      /** Source Locators */
+      source_locators: string[];
+      /** Limitations */
+      limitations: string[];
+    };
+    /**
+     * Region
+     * @description Represent the Region contract payload.
+     */
+    Region: {
+      /** Id */
+      id: string;
+      /** Label */
+      label: string;
+      /** Indicator Ids */
+      indicator_ids: string[];
+    };
+    /**
+     * Scenario
+     * @description Represent the Scenario contract payload.
+     */
+    Scenario: {
+      /** Id */
+      id: string;
+      /**
+       * Status
+       * @enum {string}
+       */
+      status: "available" | "insufficient_data" | "out_of_domain";
+      /** Label */
+      label: string;
+      /** Model Id */
+      model_id: string | null;
+      /** Model Version */
+      model_version: string | null;
+      /** Horizon Days */
+      horizon_days: number;
+      /**
+       * Unit
+       * @constant
+       */
+      unit: "percent_baseline";
+      /** Reason */
+      reason: string | null;
+      /** Assumptions */
+      assumptions: string[];
+      /** Points */
+      points: components["schemas"]["ScenarioPoint"][];
+      /** Source Ids */
+      source_ids: string[];
+      /** Summary */
+      summary: string;
+      /** Reference Start Day */
+      reference_start_day: number;
+      /** Parameters */
+      parameters: components["schemas"]["ScenarioParameter"][];
+      domain: components["schemas"]["ScenarioDomain"] | null;
+    };
+    /**
+     * ScenarioDomain
+     * @description Represent the ScenarioDomain contract payload.
+     */
     ScenarioDomain: {
-      /** @enum {string} */
+      /**
+       * Environment
+       * @enum {string}
+       */
       environment: "bed_rest_analog" | "spaceflight" | "synthetic";
+      /** Min Reference Day */
       min_reference_day: number;
+      /** Max Reference Day */
       max_reference_day: number;
+      /** Baseline Definition */
       baseline_definition: string;
-      /** @constant */
+      /**
+       * Individual Prediction
+       * @constant
+       */
       individual_prediction: false;
     };
+    /**
+     * ScenarioParameter
+     * @description Represent the ScenarioParameter contract payload.
+     */
+    ScenarioParameter: {
+      /** Id */
+      id: string;
+      /** Value */
+      value: number;
+      /** Unit */
+      unit: string;
+      /** Source Id */
+      source_id: string;
+      /** Locator */
+      locator: string;
+    };
+    /**
+     * ScenarioPoint
+     * @description Represent the ScenarioPoint contract payload.
+     */
+    ScenarioPoint: {
+      /** Elapsed Day */
+      elapsed_day: number;
+      /** Value */
+      value: number;
+    };
+    /**
+     * Source
+     * @description Represent the Source contract payload.
+     */
+    Source: {
+      /** Id */
+      id: string;
+      /** Title */
+      title: string;
+      /** Url */
+      url: string | null;
+      /** Locator */
+      locator: string;
+      /**
+       * Review Status
+       * @enum {string}
+       */
+      review_status: "pending" | "reviewed";
+      /** Version */
+      version: string | null;
+      /** License */
+      license: string | null;
+    };
+    /**
+     * TelemetryPoint
+     * @description Represent the TelemetryPoint contract payload.
+     */
+    TelemetryPoint: {
+      /** Time S */
+      time_s: number;
+      /** Value */
+      value: number | null;
+      /** Missing Reason */
+      missing_reason: string | null;
+    };
+    /**
+     * TelemetryRecording
+     * @description Represent the TelemetryRecording contract payload.
+     */
     TelemetryRecording: {
+      /** Recording Id */
       recording_id: string;
+      /** Dataset Id */
       dataset_id: string;
+      /** Participant Id */
       participant_id: string;
-      /** @enum {string} */
+      /**
+       * Content Mode
+       * @enum {string}
+       */
       content_mode: "illustrative" | "evidence_based";
-      /** @enum {string} */
+      /**
+       * Origin
+       * @enum {string}
+       */
       origin: "synthetic" | "human_dataset";
-      /** @enum {string} */
+      /**
+       * Context
+       * @constant
+       */
       context: "terrestrial_exercise";
-      /** @enum {string} */
+      /**
+       * Indicator Id
+       * @constant
+       */
       indicator_id: "heart_rate";
-      /** @enum {string} */
+      /**
+       * Unit
+       * @constant
+       */
       unit: "beats/min";
+      /** Start S */
       start_s: number;
+      /** End S */
       end_s: number;
-      /** @constant */
+      /**
+       * Max Window Seconds
+       * @constant
+       */
       max_window_seconds: 120;
-      /** @constant */
+      /**
+       * Max Points
+       * @constant
+       */
       max_points: 2000;
       source: components["schemas"]["Source"];
+    };
+    /**
+     * TelemetryWindow
+     * @description Represent the TelemetryWindow contract payload.
+     */
+    TelemetryWindow: {
+      /** Recording Id */
+      recording_id: string;
+      /** Dataset Id */
+      dataset_id: string;
+      /** Participant Id */
+      participant_id: string;
+      /**
+       * Content Mode
+       * @enum {string}
+       */
+      content_mode: "illustrative" | "evidence_based";
+      /**
+       * Origin
+       * @enum {string}
+       */
+      origin: "synthetic" | "human_dataset";
+      /**
+       * Context
+       * @constant
+       */
+      context: "terrestrial_exercise";
+      /**
+       * Indicator Id
+       * @constant
+       */
+      indicator_id: "heart_rate";
+      /**
+       * Unit
+       * @constant
+       */
+      unit: "beats/min";
+      /** Start S */
+      start_s: number;
+      /** End S */
+      end_s: number;
+      /** Points */
+      points: components["schemas"]["TelemetryPoint"][];
+      source: components["schemas"]["Source"];
+      /** Recording End S */
+      recording_end_s: number;
+      /** Next Start S */
+      next_start_s: number | null;
+    };
+    /**
+     * Versions
+     * @description Represent the Versions contract payload.
+     */
+    Versions: {
+      /** Rules */
+      rules: string;
+      /** Evidence */
+      evidence: string;
+      /** Summary Template */
+      summary_template: string;
     };
   };
   responses: never;
@@ -525,6 +1794,122 @@ export interface components {
 }
 export type $defs = Record<string, never>;
 export interface operations {
+  list_case_assessments: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        case_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AssessmentIndex"][];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_assessment_context: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assessment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["AssessmentContext"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
   list_cases: {
     parameters: {
       query?: never;
@@ -534,7 +1919,7 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Casos disponibles. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
@@ -543,7 +1928,398 @@ export interface operations {
           "application/json": components["schemas"]["Case"][];
         };
       };
-      /** @description Fallo interno. */
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  list_indicators: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["IndicatorDefinition"][];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  list_health_modules: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["ModuleCatalog"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_knowledge_base_metadata: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["KnowledgeBaseMetadata"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  search_papers: {
+    parameters: {
+      query?: {
+        q?: string | null;
+        region_id?: string | null;
+        view?: ("evidence" | "scenario" | "actions") | null;
+        review_status?: ("pending" | "reviewed") | null;
+        year_from?: number | null;
+        year_to?: number | null;
+        cursor?: string | null;
+        limit?: number;
+        indicator_id?: string | null;
+        module_id?: string | null;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PaperPage"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_paper: {
+    parameters: {
+      query?: {
+        assessment_id?: string | null;
+      };
+      header?: never;
+      path: {
+        paper_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["PaperDetail"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_knowledge_graph: {
+    parameters: {
+      query: {
+        view: "evidence" | "scenario" | "actions";
+        q?: string | null;
+        region_id?: string | null;
+        review_status?: ("pending" | "reviewed") | null;
+        year_from?: number | null;
+        year_to?: number | null;
+        paper_id?: string | null;
+        assessment_id?: string | null;
+        cursor?: string | null;
+        limit?: number;
+        indicator_id?: string | null;
+        module_id?: string | null;
+      };
+      header?: never;
+      path?: never;
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["GraphPage"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
       500: {
         headers: {
           [name: string]: unknown;
@@ -565,7 +2341,7 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Regiones y mapeo anatómico pendiente. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
@@ -574,7 +2350,7 @@ export interface operations {
           "application/json": components["schemas"]["Region"][];
         };
       };
-      /** @description Entidad inexistente. */
+      /** @description Not Found */
       404: {
         headers: {
           [name: string]: unknown;
@@ -583,7 +2359,16 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Entrada inválida. */
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
@@ -592,7 +2377,7 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Fallo interno. */
+      /** @description Internal Server Error */
       500: {
         headers: {
           [name: string]: unknown;
@@ -616,7 +2401,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Respuesta documentada; servicio pendiente de implementación. */
+      /** @description Successful Response */
       201: {
         headers: {
           [name: string]: unknown;
@@ -625,7 +2410,7 @@ export interface operations {
           "application/json": components["schemas"]["Assessment"];
         };
       };
-      /** @description Entidad inexistente. */
+      /** @description Not Found */
       404: {
         headers: {
           [name: string]: unknown;
@@ -634,7 +2419,16 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Entrada inválida. */
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
@@ -643,7 +2437,7 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Fallo interno. */
+      /** @description Internal Server Error */
       500: {
         headers: {
           [name: string]: unknown;
@@ -665,7 +2459,7 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Respuesta documentada; servicio pendiente de implementación. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
@@ -674,7 +2468,7 @@ export interface operations {
           "application/json": components["schemas"]["Assessment"];
         };
       };
-      /** @description Entidad inexistente. */
+      /** @description Not Found */
       404: {
         headers: {
           [name: string]: unknown;
@@ -683,7 +2477,16 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Entrada inválida. */
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
@@ -692,7 +2495,65 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Fallo interno. */
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_assessment_guidance: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        assessment_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Guidance"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
       500: {
         headers: {
           [name: string]: unknown;
@@ -715,7 +2576,7 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Respuesta documentada; servicio pendiente de implementación. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
@@ -724,7 +2585,7 @@ export interface operations {
           "application/json": components["schemas"]["Graph"];
         };
       };
-      /** @description Entidad inexistente. */
+      /** @description Not Found */
       404: {
         headers: {
           [name: string]: unknown;
@@ -733,7 +2594,16 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Entrada inválida. */
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
@@ -742,7 +2612,7 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Fallo interno. */
+      /** @description Internal Server Error */
       500: {
         headers: {
           [name: string]: unknown;
@@ -769,7 +2639,7 @@ export interface operations {
       };
     };
     responses: {
-      /** @description Respuesta documentada; servicio pendiente de implementación. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
@@ -778,7 +2648,7 @@ export interface operations {
           "application/json": components["schemas"]["Action"];
         };
       };
-      /** @description Entidad inexistente. */
+      /** @description Not Found */
       404: {
         headers: {
           [name: string]: unknown;
@@ -787,7 +2657,7 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Conflicto de revisión o acción no habilitada. */
+      /** @description Conflict */
       409: {
         headers: {
           [name: string]: unknown;
@@ -796,7 +2666,7 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Entrada inválida. */
+      /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
@@ -805,7 +2675,65 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Fallo interno. */
+      /** @description Internal Server Error */
+      500: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+    };
+  };
+  get_recording_metadata: {
+    parameters: {
+      query?: never;
+      header?: never;
+      path: {
+        recording_id: string;
+      };
+      cookie?: never;
+    };
+    requestBody?: never;
+    responses: {
+      /** @description Successful Response */
+      200: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["TelemetryRecording"];
+        };
+      };
+      /** @description Not Found */
+      404: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
+      422: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Internal Server Error */
       500: {
         headers: {
           [name: string]: unknown;
@@ -830,7 +2758,7 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Respuesta documentada; servicio pendiente de implementación. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
@@ -839,7 +2767,7 @@ export interface operations {
           "application/json": components["schemas"]["TelemetryWindow"];
         };
       };
-      /** @description Entidad inexistente. */
+      /** @description Not Found */
       404: {
         headers: {
           [name: string]: unknown;
@@ -848,7 +2776,16 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Entrada inválida. */
+      /** @description Conflict */
+      409: {
+        headers: {
+          [name: string]: unknown;
+        };
+        content: {
+          "application/json": components["schemas"]["Error"];
+        };
+      };
+      /** @description Unprocessable Entity */
       422: {
         headers: {
           [name: string]: unknown;
@@ -857,7 +2794,7 @@ export interface operations {
           "application/json": components["schemas"]["Error"];
         };
       };
-      /** @description Fallo interno. */
+      /** @description Internal Server Error */
       500: {
         headers: {
           [name: string]: unknown;
@@ -868,7 +2805,7 @@ export interface operations {
       };
     };
   };
-  list_indicators: {
+  liveness_health_live_get: {
     parameters: {
       query?: never;
       header?: never;
@@ -877,71 +2814,35 @@ export interface operations {
     };
     requestBody?: never;
     responses: {
-      /** @description Catálogo compartido de indicadores. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          "application/json": components["schemas"]["IndicatorDefinition"][];
-        };
-      };
-      /** @description Fallo interno. */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["Error"];
+          "application/json": {
+            [key: string]: string;
+          };
         };
       };
     };
   };
-  get_recording_metadata: {
+  readiness_health_ready_get: {
     parameters: {
       query?: never;
       header?: never;
-      path: {
-        recording_id: string;
-      };
+      path?: never;
       cookie?: never;
     };
     requestBody?: never;
     responses: {
-      /** @description Metadatos de la grabación. */
+      /** @description Successful Response */
       200: {
         headers: {
           [name: string]: unknown;
         };
         content: {
-          "application/json": components["schemas"]["TelemetryRecording"];
-        };
-      };
-      /** @description Grabación inexistente. */
-      404: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["Error"];
-        };
-      };
-      /** @description Entrada inválida. */
-      422: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["Error"];
-        };
-      };
-      /** @description Fallo interno. */
-      500: {
-        headers: {
-          [name: string]: unknown;
-        };
-        content: {
-          "application/json": components["schemas"]["Error"];
+          "application/json": unknown;
         };
       };
     };

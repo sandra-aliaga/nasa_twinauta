@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_39792484",
+  "title": "Previous short-term disuse dictates muscle gene expression and physiological adaptations to subsequent resistance exercise.",
+  "abstract": "Short-term unloading experienced following injury or hospitalisation induces muscle atrophy and weakness. The effects of exercise following unloading have been scarcely investigated. We investigated the functional and molecular adaptations to a resistance training (RT) programme following short-term unloading. Eleven males (22.09 ± 2.91 years) underwent 10 days of unilateral lower limb suspension (ULLS) followed by 21 days of knee extensor RT (three times/week). Data collection occurred at Baseline (LS0), after ULLS (LS10) and at active recovery (AR21). Knee extensor maximum voluntary contraction (MVC) was evaluated. Quadriceps volume was estimated by ultrasonography. Muscle fibre cross-sectional area, fibre type distribution, glycogen content and succinate dehydrogenase (SDH) activity were measured from vastus lateralis biopsies. Mitochondrial-related proteins were quantified by western blot and transcriptional responses were assessed by RNA sequencing. Following ULLS, quadriceps volume and MVC decreased significantly (3.7%, P < 0.05; 29.3%, P < 0.001). At AR21 (vs. LS10), MVC was fully restored (42%) and quadriceps volume increased markedly (18.6%, P < 0.001). Glycogen content and whole-body water increased at AR21 (14%, P < 0.001; 3.1%, P < 0.05). We observed a marked increase in fibre type I at AR21 (38%, P < 0.05). SDH immunoreactivity increased significantly after exercise (20%, P < 0.001). Mitochondrial fusion (MFN1, MFN2 and OPA1) and fission (DRP1) proteins were markedly increased by RT, and the most differentially expressed genes belonged to oxidative phosphorylation pathways. In contrast with what is usually observed after RT, oxidative metabolism, slow fibre type and mitochondrial dynamics were enhanced beyond expected. We propose that prior exposure to short-term muscle unloading may drive the nature of molecular adaptations to subsequent RT. KEY POINTS: Short-term unloading is often experienced during recovery from injuries and hospitalisation, leading to loss of muscle mass and strength. Although exercise can be beneficial in mitigating/reversing such alterations during disuse, only a few studies have focused on the effects of exercise following muscle unloading. With an integrative physiological approach, we aimed to elucidate the basic mechanisms of muscle function recovery in response to 21 days of resistance exercise that followed 10 days of unilateral lower limb suspension (ULLS), assessing whether the mechanisms underlying recovery are defined by a specific reversal of those that occurred during disuse. Resistance training was successful in recovering functional and structural muscle properties after 10 days of ULLS, but in contrast with what is usually observed in response to this training modality, oxidative metabolism and slow fibre type were mostly enhanced. We propose that prior exposure to short-term muscle unloading may drive the adaptations to subsequent exercise.",
+  "input_sha256": "f5dd207460c8e2c45cfb76d58351d75c5e45eff43ca52d71ffe266cfd74058c1",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 1206,
+    "completion_tokens": 466,
+    "total_tokens": 1672,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 822
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "In 11 young males, 10 days of unilateral lower limb suspension reduced quadriceps volume and knee extensor MVC. After 21 days of resistance training, MVC recovered and quadriceps volume increased markedly. Glycogen content and whole-body water increased. Fibre type I percentage and SDH activity increased, along with mitochondrial fusion and fission proteins. Differentially expressed genes were enriched in oxidative phosphorylation pathways. The authors propose that prior short-term unloading may drive the oxidative and slow-fibre adaptations to subsequent resistance training.",
+    "summary_excerpt": "phosphorylation pathways. In contrast with what is usually observed after RT, oxidative metabolism, slow fibre type and mitochondrial dynamics were enhanced beyond expected. We propose that prior exposure to short-term muscle unloading may drive the nature of molecular adaptations to subsequent RT. KEY POINTS: Short-term unloading is often experienced during recovery from injuries and ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Following ULLS, quadriceps volume and MVC decreased significantly (3.7%, P < 0.05; 29.3%, P < 0.001).",
+        "source_excerpt": "were measured from vastus lateralis biopsies. Mitochondrial-related proteins were quantified by western blot and transcriptional responses were assessed by RNA sequencing. Following ULLS, quadriceps volume and MVC decreased significantly (3.7%, P < 0.05; 29.3%, P < 0.001). At AR21 (vs. LS10), MVC was fully restored (42%) and quadriceps volume increased markedly (18.6%, P < 0.001). Glycogen "
+      },
+      {
+        "kind": "finding",
+        "text": "At AR21 (vs. LS10), MVC was fully restored (42%) and quadriceps volume increased markedly (18.6%, P < 0.001).",
+        "source_excerpt": "were measured from vastus lateralis biopsies. Mitochondrial-related proteins were quantified by western blot and transcriptional responses were assessed by RNA sequencing. Following ULLS, quadriceps volume and MVC decreased significantly (3.7%, P < 0.05; 29.3%, P < 0.001). At AR21 (vs. LS10), MVC was fully restored (42%) and quadriceps volume increased markedly (18.6%, P < 0.001). Glycogen "
+      },
+      {
+        "kind": "finding",
+        "text": "Glycogen content and whole-body water increased at AR21 (14%, P < 0.001; 3.1%, P < 0.05).",
+        "source_excerpt": "content and whole-body water increased at AR21 (14%, P < 0.001; 3.1%, P < 0.05). We observed a marked increase in fibre type I at AR21 (38%, P < 0.05). SDH immunoreactivity increased significantly after exercise (20%, P < 0.001). Mitochondrial fusion (MFN1, MFN2 and OPA1) and fission (DRP1) proteins were markedly increased by RT, and the most differentially expressed genes belonged to oxidative "
+      },
+      {
+        "kind": "finding",
+        "text": "We observed a marked increase in fibre type I at AR21 (38%, P < 0.05). SDH immunoreactivity increased significantly after exercise (20%, P < 0.001).",
+        "source_excerpt": "content and whole-body water increased at AR21 (14%, P < 0.001; 3.1%, P < 0.05). We observed a marked increase in fibre type I at AR21 (38%, P < 0.05). SDH immunoreactivity increased significantly after exercise (20%, P < 0.001). Mitochondrial fusion (MFN1, MFN2 and OPA1) and fission (DRP1) proteins were markedly increased by RT, and the most differentially expressed genes belonged to oxidative "
+      },
+      {
+        "kind": "finding",
+        "text": "Mitochondrial fusion (MFN1, MFN2 and OPA1) and fission (DRP1) proteins were markedly increased by RT, and the most differentially expressed genes belonged to oxidative phosphorylation pathways.",
+        "source_excerpt": "content and whole-body water increased at AR21 (14%, P < 0.001; 3.1%, P < 0.05). We observed a marked increase in fibre type I at AR21 (38%, P < 0.05). SDH immunoreactivity increased significantly after exercise (20%, P < 0.001). Mitochondrial fusion (MFN1, MFN2 and OPA1) and fission (DRP1) proteins were markedly increased by RT, and the most differentially expressed genes belonged to oxidative "
+      }
+    ]
+  }
+}

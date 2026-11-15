@@ -40,7 +40,7 @@ def create_app(settings: Settings | None = None) -> FastAPI:
 
     application = FastAPI(
         title="TwinNauta API",
-        version="0.2.0",
+        version="0.3.0",
         description="Backend inicial con contenido ilustrativo; sin modelo clínico habilitado.",
         lifespan=lifespan,
     )
@@ -99,6 +99,9 @@ def create_app(settings: Settings | None = None) -> FastAPI:
                 connection.execute(text("SELECT id FROM demo_cases LIMIT 1"))
                 connection.execute(text("SELECT id FROM assessments LIMIT 1"))
                 connection.execute(text("SELECT action_id FROM action_states LIMIT 1"))
+                connection.execute(text("SELECT id FROM literature_papers LIMIT 1"))
+                connection.execute(text("SELECT summary FROM literature_analyses LIMIT 1"))
+                connection.execute(text("SELECT id FROM prepared_contexts LIMIT 1"))
         except SQLAlchemyError as error:
             logger.error("Readiness check failed: %s", type(error).__name__)
             return error_response(
