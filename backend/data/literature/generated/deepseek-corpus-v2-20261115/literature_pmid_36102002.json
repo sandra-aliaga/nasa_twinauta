@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_36102002",
+  "title": "Capillary rarefaction during bed rest is proportionally less than fibre atrophy and loss of oxidative capacity.",
+  "abstract": "Background Muscle disuse from bed rest or spaceflight results in losses in muscle mass, strength and oxidative capacity. Capillary rarefaction may contribute to muscle atrophy and the reduction in oxidative capacity during bed rest. Artificial gravity may attenuate the negative effects of long-term space missions or bed rest. The aim of the present study was to assess (1) the effects of bed rest on muscle fibre size, fibre type composition, capillarization and oxidative capacity in the vastus lateralis and soleus muscles after 6 and 55 days of bed rest and (2) the effectiveness of artificial gravity in mitigating bed-rest-induced detriments to these parameters. Methods Nineteen participants were assigned to a control group (control, n = 6) or an intervention group undergoing 30 min of centrifugation (n = 13). All underwent 55 days of head-down tilt bed rest. Vastus lateralis and soleus biopsies were taken at baseline and after 6 and 55 days of bed rest. Fibre type composition, fibre cross-sectional area, capillarization indices and oxidative capacity were determined. Results After just 6 days of bed rest, fibre atrophy (-23.2 ± 12.4%, P  R  SD) was increased after 55 days by 12.7% (P = 0.004), tissue oxygenation at maximal oxygen consumption of the fibres was improved after 55 days bed rest. Daily centrifugation failed to blunt the bed-rest-induced reductions in fibre size and oxidative capacity and capillary rarefaction. Conclusions The relationship between fibre size and oxidative capacity with the capillary supply of a fibre is uncoupled during prolonged bed rest as reflected by a rapid loss of muscle mass and capillaries, followed at later stages by a more than proportional loss of mitochondria without further capillary loss. The resulting excessive capillary supply of the muscle after prolonged bed rest is advantageous for the delivery of substrates needed for subsequent muscle recovery.",
+  "input_sha256": "4b326cf78b796d34d04c8ba43332dd219de1520db170e64a37b3f9e3634013dd",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 955,
+    "completion_tokens": 608,
+    "total_tokens": 1563,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 571
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "En un reposo en cama con inclinación cefálica de 55 días, el vasto lateral y el sóleo desarrollan atrofia temprana de fibras, pérdida de capilares y alteraciones en el tamaño de las fibras y la composición del tipo de fibras; la centrifugación diaria no evitó estas reducciones ni la rarefacción capilar. Con la duración prolongada del reposo, la relación entre tamaño de fibras, capacidad oxidativa y suministro capilar se desacopla, con pérdida desproporcionada de mitocondrias tras la pérdida capilar, lo que deja un suministro capilar excesivo que podría favorecer la recuperación muscular posterior.",
+    "summary_excerpt": "12.7% (P = 0.004), tissue oxygenation at maximal oxygen consumption of the fibres was improved after 55 days bed rest. Daily centrifugation failed to blunt the bed-rest-induced reductions in fibre size and oxidative capacity and capillary rarefaction. Conclusions The relationship between fibre size and oxidative capacity with the capillary supply of a fibre is uncoupled during prolonged bed rest ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Tras 6 días de reposo en cama se observó atrofia de fibras (-23,2 ± 12,4%, P < ...) en los músculos estudiados.",
+        "source_excerpt": "centrifugation (n = 13). All underwent 55 days of head-down tilt bed rest. Vastus lateralis and soleus biopsies were taken at baseline and after 6 and 55 days of bed rest. Fibre type composition, fibre cross-sectional area, capillarization indices and oxidative capacity were determined. Results After just 6 days of bed rest, fibre atrophy (-23.2 ± 12.4%, P  R  SD) was increased after 55 days by "
+      },
+      {
+        "kind": "finding",
+        "text": "La centrifugación diaria no atenuó las reducciones inducidas por el reposo en el tamaño de las fibras ni la capacidad oxidativa, ni la rarefacción capilar.",
+        "source_excerpt": "12.7% (P = 0.004), tissue oxygenation at maximal oxygen consumption of the fibres was improved after 55 days bed rest. Daily centrifugation failed to blunt the bed-rest-induced reductions in fibre size and oxidative capacity and capillary rarefaction. Conclusions The relationship between fibre size and oxidative capacity with the capillary supply of a fibre is uncoupled during prolonged bed rest "
+      },
+      {
+        "kind": "finding",
+        "text": "La relación entre el tamaño de las fibras y la capacidad oxidativa con el suministro capilar de una fibra se desacopla durante el reposo prolongado en cama, con una rápida pérdida de masa muscular y capilares, seguida en etapas posteriores por una pérdida más que proporcional de mitocondrias sin mayor pérdida capilar.",
+        "source_excerpt": "as reflected by a rapid loss of muscle mass and capillaries, followed at later stages by a more than proportional loss of mitochondria without further capillary loss. The resulting excessive capillary supply of the muscle after prolonged bed rest is advantageous for the delivery of substrates needed for subsequent muscle recovery."
+      },
+      {
+        "kind": "implication",
+        "text": "El excesivo suministro capilar resultante en el músculo tras el reposo prolongado en cama es ventajoso para la entrega de sustratos necesarios para la recuperación muscular posterior.",
+        "source_excerpt": "as reflected by a rapid loss of muscle mass and capillaries, followed at later stages by a more than proportional loss of mitochondria without further capillary loss. The resulting excessive capillary supply of the muscle after prolonged bed rest is advantageous for the delivery of substrates needed for subsequent muscle recovery."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Se evaluó la efectividad de la gravedad artificial (mediante centrifugación diaria de 30 min) para mitigar los detrimentos inducidos por el reposo en cama en el tamaño de las fibras, la composición del tipo de fibras, la capilarización y la capacidad oxidativa.",
+        "source_excerpt": "on muscle fibre size, fibre type composition, capillarization and oxidative capacity in the vastus lateralis and soleus muscles after 6 and 55 days of bed rest and (2) the effectiveness of artificial gravity in mitigating bed-rest-induced detriments to these parameters. Methods Nineteen participants were assigned to a control group (control, n = 6) or an intervention group undergoing 30 min of "
+      }
+    ]
+  }
+}

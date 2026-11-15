@@ -1,8 +1,10 @@
-# Contrato compartido 0.2
+# Contrato compartido 0.3.0
 
-Acuerdo inicial para desarrollar en paralelo. [openapi.yaml](openapi.yaml) describe la API del backend inicial para contenido ilustrativo. La integración científica sigue pendiente. Los ejemplos en [examples/](examples/) son documentación sintética, no evidencia ni pruebas automatizadas.
+[openapi.yaml](openapi.yaml) es el contrato vigente, generado de la API implementada. Incluye evaluaciones, telemetría, biblioteca científica, orientación y síntesis contextual. La versión 0.2 original se conserva en [archive/openapi-0.2.yaml](archive/openapi-0.2.yaml). La [propuesta histórica 0.3](drafts/scientific-explorer-0.3/README.md) conserva decisiones y ejemplos de diseño; ante diferencias, prevalecen el contrato vigente y la [entrega frontend](../docs/ENTREGA_FRONTEND.md).
 
-La aclaración de producto incorpora un explorador de múltiples papers, resúmenes de IA trazables, estadísticas y aplicabilidad contextual. Está definido por separado en la [propuesta 0.3](drafts/scientific-explorer-0.3/README.md), con OpenAPI, esquemas y ejemplos para frontend. **Es una propuesta aún no implementada; no sustituye este contrato 0.2.** Los grafos iniciales de una evaluación no cubren por sí solos esa biblioteca.
+Las rutas nuevas son `GET /api/v1/cases/{case_id}/assessments` y `GET /api/v1/assessments/{assessment_id}/context`. Los [ejemplos contextuales](examples/context.json) contienen la respuesta disponible real de la demostración y un ejemplo de ausencia. Las consultas no generan IA ni consumen créditos.
+
+`context.status` indica disponibilidad de contenido, separado de `review_status`. Una evaluación nueva sin síntesis preparada devuelve 200 con `status: unavailable`, motivo y campos vacíos; un ID inexistente devuelve 404. La evaluación instalada `assessment_demo_001` tiene tres secciones y tres vistas de citas. Sus grafos son `GraphPage`, distintos del `Graph` anterior de `/assessments/{id}/graphs/{view}`.
 
 ## Convenciones
 

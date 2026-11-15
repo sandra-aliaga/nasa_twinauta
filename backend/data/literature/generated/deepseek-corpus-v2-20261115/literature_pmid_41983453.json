@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_41983453",
+  "title": "Disuse-Induced Muscle Atrophy and Muscle Weakness From Hospitalization to Spaceflight: Exercise Succeeds in Prevention and Treatment-A Meta-Analysis.",
+  "abstract": "Background Exercise has been proposed as both a preventive and therapeutic countermeasure; however, its effectiveness across different disuse conditions and timings of implementation remains uncertain. Methods This systematic review and meta-analysis (PROSPERO: CRD42021256599) searched ClinicalTrials.gov, Cochrane Central, PubMed, SPORTDiscus, Web of Science, Scopus, CINAHL and SciELO from inception to May 2021, with an update in March 2025. Randomized and nonrandomized controlled trials examining exercise interventions during or after muscle disuse were included according to the PICOS framework. Random-effects meta-analysis evaluated effects on muscle strength, power and mass across hospitalization, bed rest and spaceflight conditions. Effect sizes (ES) are reported as standardized mean differences with 95% confidence intervals (CI). Results A total of 1754 participants (66% male, 34% female; mean age 49 ± 22 years) were included. Preventive exercise interventions significantly improved muscle strength and power across disuse models. During hospitalization, exercise significantly increased muscle strength (ES = 0.60, 95% CI [0.42, 0.78]; p  2  = 76%). This effect remained significant in multilevel analyses accounting for within-study dependence (ES = 0.58, 95% CI [0.19, 0.96]; p = 0.003). During bed rest, conventional random-effects analyses indicated large effects (ES = 1.16, 95% CI [0.60, 1.71]; p  2  = 55%); however, multilevel models incorporating correlated lower limb strength and power outcomes showed no significant pooled effect (ES = 0.06, 95% CI [-1.31, 1.43]; p = 0.93). In contrast, spaceflight studies demonstrated small, nonsignificant effects on muscle strength and power (ES = 0.10, 95% CI [-0.32, 0.51]; p = 0.65), and pooled standardized mean change analyses indicated no significant overall change in muscle mass (ES = 0.002, 95% CI [-0.077, 0.080]; p = 0.966). When exercise was applied therapeutically after disuse, a trend toward improved muscle strength and power was observed (ES = 0.23, 95% CI [-0.01, 0.47]; p = 0.06; I 2  = 12%), although multilevel models showed no significant effects (ES = 0.30, 95% CI [-0.34, 0.95]; p = 0.361). Exercise significantly preserved or increased muscle mass during bed rest (ES = 0.47, 95% CI [0.19, 0.74]; p = 0.0009) and spaceflight (ES = 0.27, 95% CI [0.05, 0.48]; p = 0.02). Conclusion Exercise, particularly resistance training, attenuates muscle strength loss and preserves muscle mass during hospitalization and bed rest, whereas no consistent benefits are observed during spaceflight. Exercise initiated after disuse shows modest potential for restoring muscle function. Current evidence is insufficient to determine whether preventive or therapeutic initiation provides superior outcomes. Further high-quality randomized controlled trials are required to define the optimal timing, modality and dose of exercise for clinical rehabilitation and aerospace applications.",
+  "input_sha256": "ec9caae162c2a058a48c22c32db6751f9a894a7c24313adb26036315e8fbc552",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 1354,
+    "completion_tokens": 392,
+    "total_tokens": 1746,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 970
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "This systematic review and meta-analysis evaluated exercise interventions during or after muscle disuse across hospitalization, bed rest, and spaceflight. Preventive exercise improved muscle strength during hospitalization, but bed rest benefits disappeared in multilevel models; spaceflight showed no strength benefit, though muscle mass was preserved. Therapeutic exercise after disuse showed a trend toward improved function but no significant effect in multilevel analysis. Resistance training attenuates strength loss in hospitalization and bed rest, but no consistent benefits in spaceflight. Evidence is insufficient for timing superiority, and better trials are needed.",
+    "summary_excerpt": "Conclusion Exercise, particularly resistance training, attenuates muscle strength loss and preserves muscle mass during hospitalization and bed rest, whereas no consistent benefits are observed during spaceflight. Exercise initiated after disuse shows modest potential for restoring muscle function. Current evidence is insufficient to determine whether preventive or therapeutic initiation provides ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "During hospitalization, preventive exercise significantly increased muscle strength (ES=0.60, 95% CI [0.42, 0.78]).",
+        "source_excerpt": "standardized mean differences with 95% confidence intervals (CI). Results A total of 1754 participants (66% male, 34% female; mean age 49 ± 22 years) were included. Preventive exercise interventions significantly improved muscle strength and power across disuse models. During hospitalization, exercise significantly increased muscle strength (ES = 0.60, 95% CI [0.42, 0.78]; p  2  = 76%). This "
+      },
+      {
+        "kind": "finding",
+        "text": "Multilevel analyses for bed rest showed no significant pooled effect for lower limb strength and power (ES=0.06, 95% CI [-1.31, 1.43]).",
+        "source_excerpt": "effect remained significant in multilevel analyses accounting for within-study dependence (ES = 0.58, 95% CI [0.19, 0.96]; p = 0.003). During bed rest, conventional random-effects analyses indicated large effects (ES = 1.16, 95% CI [0.60, 1.71]; p  2  = 55%); however, multilevel models incorporating correlated lower limb strength and power outcomes showed no significant pooled effect (ES = 0.06, "
+      },
+      {
+        "kind": "finding",
+        "text": "Spaceflight studies demonstrated small, nonsignificant effects on muscle strength and power.",
+        "source_excerpt": "95% CI [-1.31, 1.43]; p = 0.93). In contrast, spaceflight studies demonstrated small, nonsignificant effects on muscle strength and power (ES = 0.10, 95% CI [-0.32, 0.51]; p = 0.65), and pooled standardized mean change analyses indicated no significant overall change in muscle mass (ES = 0.002, 95% CI [-0.077, 0.080]; p = 0.966). When exercise was applied therapeutically after disuse, a trend "
+      },
+      {
+        "kind": "finding",
+        "text": "Exercise significantly preserved or increased muscle mass during bed rest and spaceflight.",
+        "source_excerpt": "toward improved muscle strength and power was observed (ES = 0.23, 95% CI [-0.01, 0.47]; p = 0.06; I 2  = 12%), although multilevel models showed no significant effects (ES = 0.30, 95% CI [-0.34, 0.95]; p = 0.361). Exercise significantly preserved or increased muscle mass during bed rest (ES = 0.47, 95% CI [0.19, 0.74]; p = 0.0009) and spaceflight (ES = 0.27, 95% CI [0.05, 0.48]; p = 0.02). "
+      },
+      {
+        "kind": "implication",
+        "text": "Current evidence is insufficient to determine whether preventive or therapeutic initiation provides superior outcomes.",
+        "source_excerpt": "Conclusion Exercise, particularly resistance training, attenuates muscle strength loss and preserves muscle mass during hospitalization and bed rest, whereas no consistent benefits are observed during spaceflight. Exercise initiated after disuse shows modest potential for restoring muscle function. Current evidence is insufficient to determine whether preventive or therapeutic initiation provides "
+      }
+    ]
+  }
+}

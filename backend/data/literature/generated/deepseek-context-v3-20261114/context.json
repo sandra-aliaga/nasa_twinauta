@@ -1,0 +1,307 @@
+{
+  "assessment_id": "assessment_demo_001",
+  "status": "draft",
+  "review_status": "pending",
+  "clinical_action_eligible": false,
+  "authoritative_guidance": {
+    "assessment_id": "assessment_demo_001",
+    "module_id": "quadriceps_health",
+    "module_version": "0.1-draft",
+    "status": "insufficient_data",
+    "attention": "review_needed",
+    "summary": "Faltan valores disponibles para: Torque de extensión de rodilla. Hay sesiones sin confirmar; esto no demuestra que no se realizaron. La interpretación fisiológica y las acciones siguen pendientes de reglas revisadas.",
+    "reason": "Faltan valores disponibles para: Torque de extensión de rodilla. Hay sesiones sin confirmar; esto no demuestra que no se realizaron. La interpretación fisiológica y las acciones siguen pendientes de reglas revisadas.",
+    "observation_ids": [
+      "obs_baseline",
+      "obs_torque"
+    ],
+    "paper_ids": [],
+    "applicability": [],
+    "steps": [
+      {
+        "id": "confirm_measurements",
+        "title": "Revisar las evaluaciones disponibles",
+        "description": "Confirmar qué valores faltan y conservar método, unidad y basal al registrarlos.",
+        "kind": "operational_review",
+        "eligibility": "unknown",
+        "eligibility_reason": "Propuesta operativa pendiente de revisión; no prescribe ejercicio.",
+        "rule_id": "confirm_measurements",
+        "rule_version": "operational-0.1",
+        "paper_ids": [],
+        "review_status": "pending"
+      },
+      {
+        "id": "confirm_exercise",
+        "title": "Confirmar el registro",
+        "description": "Revisar las sesiones sin registro.",
+        "kind": "operational_review",
+        "eligibility": "unknown",
+        "eligibility_reason": "Propuesta operativa pendiente de revisión; no prescribe ejercicio.",
+        "rule_id": "confirm_exercise",
+        "rule_version": "operational-0.1",
+        "paper_ids": [],
+        "review_status": "pending"
+      }
+    ],
+    "limitations": [
+      "No cubre otras regiones.",
+      "Los parámetros y reglas científicas requieren revisión.",
+      "La presencia del módulo no implica una interpretación clínica individual.",
+      "Comprobaciones operativas, sin umbrales ni clasificación clínica.",
+      "Los registros sintéticos no representan mediciones de astronautas reales.",
+      "Un cambio numérico o día de misión no demuestra equivalencia con reposo en cama.",
+      "La comparación longitudinal y la aplicabilidad de papers requieren reglas revisadas."
+    ],
+    "corpus_version": "candidate-corpus-2026-11-14",
+    "rules_version": "operational-0.1",
+    "created_at": "2026-11-14T16:00:00Z"
+  },
+  "input_sha256": "b8f591f5891f8644544be4a8adf76bcd75c528c7a566939262390ce1dcd8e1c1",
+  "prompt_version": "context-synthesis-0.3",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "usage": {
+    "prompt_tokens": 8251,
+    "completion_tokens": 454,
+    "total_tokens": 8705,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 8251
+  },
+  "sections": {
+    "alert_assessment": {
+      "summary": "Solo hay un valor basal de área de sección transversal (CSA) del cuádriceps y falta la evaluación de torque en el día 10. No es posible evaluar cambios ni concluir pérdida muscular. La ausencia del registro de una sesión no demuestra que no se realizara.",
+      "uncertainty": "Datos insuficientes para evaluaciones longitudinales; el torque ausente impide comparación y la falta de registro es ambigua. El caso es sintético; no se infiere estado de salud actual.",
+      "observation_ids": [
+        "obs_baseline",
+        "obs_torque"
+      ],
+      "step_ids": [],
+      "citations": []
+    },
+    "inaction_scenario": {
+      "summary": "No hay un pronóstico individual sin seguimiento. La literatura sobre reposo en cama no es aplicable directamente a este caso ni establece una trayectoria predecible para el astronauta.",
+      "uncertainty": "La aplicabilidad del estudio de reposo en cama a astronautas no está establecida en este contexto; además, los datos actuales no permiten extrapolaciones.",
+      "observation_ids": [
+        "obs_baseline",
+        "obs_torque"
+      ],
+      "step_ids": [],
+      "citations": [
+        {
+          "paper_id": "literature_pmid_33251515",
+          "snippet_id": "literature_pmid_33251515:abstract:0"
+        }
+      ]
+    },
+    "next_steps": {
+      "summary": "Pasos operativos del backend: revisar evaluaciones disponibles y confirmar registros de ejercicio. No hay prescripción clínica adicional.",
+      "uncertainty": "Las acciones son verificaciones de datos, no terapéuticas; su elegibilidad está pendiente de revisión.",
+      "observation_ids": [
+        "obs_torque"
+      ],
+      "step_ids": [
+        "confirm_measurements",
+        "confirm_exercise"
+      ],
+      "citations": []
+    }
+  },
+  "evidence_snippets": {
+    "literature_pmid_33251515:abstract:0": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "Bed rest results in upper and lower leg muscle atrophy in a linear pattern, and an 11-day rehabilitation program was safe and effective in initiating a rapid trajectory of muscle recovery.",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:1": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "Across all muscles except the rectus femoris (no change), there was a linear decline during bed rest",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:2": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "with the highest atrophic rate occurring in the soleus (-0.33%/d)",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:3": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "the quadriceps (-3.74 cm 2 ; 95% CI, -7.36 to -0.12; p = 0.04)",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:4": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "hamstrings (-2.30 cm 2 ; 95% CI, -4.07 to -0.54; p = 0.01)",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:5": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "medial gastrocnemius (-0.62 cm 2 ; 95% CI, -1.10 to -0.14; p = 0.01)",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:6": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "soleus (-1.85 cm 2 ; 95% CI, -2.90 to -0.81; p",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:7": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "an 11-day rehabilitation program was safe and effective in initiating a rapid trajectory of muscle recovery",
+      "locator": "abstract"
+    },
+    "literature_pmid_33251515:abstract:8": {
+      "paper_id": "literature_pmid_33251515",
+      "excerpt": "The 11-day post-bed rest rehabilitation program consisted of low intensity exercise and progressed to increased aerobic exercise duration, plyometric exercises, and higher intensity resistance exercise.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:0": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "In summary, the periodic testing likely provided a partial exercise countermeasure for the quadriceps in the bedrest group, which is a novel finding given the extremely low exercise dose. The SPRINT exercise program appears to be viable for the quadriceps; however, refinement is needed to completely protect triceps surae myocellular and whole muscle health for astronauts on long-duration spaceflights.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:1": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "In BRE, MHC I (vastus lateralis and soleus) and IIa (vastus lateralis) contractile performance was maintained ( P  > 0.05) or increased",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:2": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "Exercise offsets 100% of quadriceps and approximately two-thirds of soleus whole muscle mass loss.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:3": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "Testosterone (BRE + T) did not provide any benefit over exercise alone for either muscle and for some myocellular parameters appeared detrimental.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:4": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "In BR, surprisingly, the typical bedrest-induced decrements in vastus lateralis myofiber size and power were either blunted (myosin heavy chain, MHC I) or eliminated (MHC IIa), along with no change ( P  > 0.05) in %MHC distribution and blunted quadriceps atrophy.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:5": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "the periodic testing likely provided a partial exercise countermeasure for the quadriceps in the bedrest group, which is a novel finding given the extremely low exercise dose.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:6": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "refinement is needed to completely protect triceps surae myocellular and whole muscle health for astronauts on long-duration spaceflights.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:7": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "The efficacy of the NASA SPRINT exercise countermeasures program for quadriceps (vastus lateralis) and triceps surae (soleus) skeletal muscle health was investigated during 70 days of simulated microgravity.",
+      "locator": "abstract"
+    },
+    "literature_pmid_38328821:abstract:8": {
+      "paper_id": "literature_pmid_38328821",
+      "excerpt": "bedrest with resistance and aerobic exercise and low-dose testosterone (BRE + T,  n  = 8)",
+      "locator": "abstract"
+    }
+  },
+  "graphs": {
+    "evidence": {
+      "corpus_version": "candidate-corpus-2026-11-14",
+      "assessment_id": "assessment_demo_001",
+      "view": "evidence",
+      "nodes": [
+        {
+          "id": "narrative:assessment_demo_001:alert_assessment",
+          "kind": "claim",
+          "label": "Solo hay un valor basal de área de sección transversal (CSA) del cuádriceps y falta la evaluación de torque en el día 10. No es posible evaluar cambios ni concluir pérdida muscular. La ausencia del registro de una sesión no demuestra que no se realizara.",
+          "paper_id": null,
+          "entity_id": null,
+          "review_status": "pending"
+        }
+      ],
+      "edges": [],
+      "page": {
+        "next_cursor": null,
+        "has_more": false
+      },
+      "scope_description": "Citas propuestas por IA; revisión pendiente, sin respaldo clínico aprobado.",
+      "counts": {
+        "papers_matching": 0,
+        "papers_returned": 0,
+        "papers_reviewed_returned": 0
+      }
+    },
+    "scenario": {
+      "corpus_version": "candidate-corpus-2026-11-14",
+      "assessment_id": "assessment_demo_001",
+      "view": "scenario",
+      "nodes": [
+        {
+          "id": "narrative:assessment_demo_001:inaction_scenario",
+          "kind": "claim",
+          "label": "No hay un pronóstico individual sin seguimiento. La literatura sobre reposo en cama no es aplicable directamente a este caso ni establece una trayectoria predecible para el astronauta.",
+          "paper_id": null,
+          "entity_id": null,
+          "review_status": "pending"
+        },
+        {
+          "id": "literature_pmid_33251515",
+          "kind": "paper",
+          "label": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study.",
+          "paper_id": "literature_pmid_33251515",
+          "entity_id": null,
+          "review_status": "pending"
+        }
+      ],
+      "edges": [
+        {
+          "id": "narrative:assessment_demo_001:inaction_scenario:literature_pmid_33251515",
+          "source": "narrative:assessment_demo_001:inaction_scenario",
+          "target": "literature_pmid_33251515",
+          "relation": "cites",
+          "basis": "llm_suggestion",
+          "source_paper_ids": [
+            "literature_pmid_33251515"
+          ],
+          "source_locators": [
+            "abstract: Bed rest results in upper and lower leg muscle atrophy in a linear pattern, and an 11-day rehabilitation program was safe and effective in initiating a rapid trajectory of muscle recovery."
+          ],
+          "review_status": "pending"
+        }
+      ],
+      "page": {
+        "next_cursor": null,
+        "has_more": false
+      },
+      "scope_description": "Citas propuestas por IA; revisión pendiente, sin respaldo clínico aprobado.",
+      "counts": {
+        "papers_matching": 1,
+        "papers_returned": 1,
+        "papers_reviewed_returned": 0
+      }
+    },
+    "actions": {
+      "corpus_version": "candidate-corpus-2026-11-14",
+      "assessment_id": "assessment_demo_001",
+      "view": "actions",
+      "nodes": [
+        {
+          "id": "narrative:assessment_demo_001:next_steps",
+          "kind": "claim",
+          "label": "Pasos operativos del backend: revisar evaluaciones disponibles y confirmar registros de ejercicio. No hay prescripción clínica adicional.",
+          "paper_id": null,
+          "entity_id": null,
+          "review_status": "pending"
+        }
+      ],
+      "edges": [],
+      "page": {
+        "next_cursor": null,
+        "has_more": false
+      },
+      "scope_description": "Citas propuestas por IA; revisión pendiente, sin respaldo clínico aprobado.",
+      "counts": {
+        "papers_matching": 0,
+        "papers_returned": 0,
+        "papers_reviewed_returned": 0
+      }
+    }
+  },
+  "limitations": [
+    "La validación de citas no verifica corrección semántica o clínica.",
+    "Bibliografía candidata y caso sintético; no se habilitan acciones."
+  ]
+}

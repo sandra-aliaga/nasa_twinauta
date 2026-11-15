@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_31098391",
+  "title": "A comparison of exercise interventions from bed rest studies for the prevention of musculoskeletal loss.",
+  "abstract": "Musculoskeletal loss in actual or simulated microgravity occurs at a high rate. Bed rest studies are a reliable ground-based spaceflight analogue that allow for direct comparison of intervention and control participants. The aim of this review was to investigate the impact of exercise compared to no intervention on bone mineral density (BMD) and muscle cross-sectional area (muscle CSA) in bed rest studies relative to other terrestrial models. Eligible bed rest studies with healthy participants had an intervention arm with an exercise countermeasure and a control arm. A search strategy was implemented for MEDLINE. After screening, eight studies were identified for inclusion. Interventions included resistive exercise (RE), resistive vibration exercise (RVE), flywheel resistive exercise, treadmill exercise with lower body negative pressure (LBNP) and a zero-gravity locomotion simulator (ZLS). Lower limb skeletal sites had the most significant BMD losses, particularly at the hip which reduced in density by 4.59% ( p   p   p  < 0.05). Muscle CSA changes indicated that the calf and quadriceps were most affected by bed rest. Exercise interventions significantly attenuated loss of muscle mass. ZLS, LBNP treadmill and RE significantly attenuated bone and muscle loss at the hip compared to baseline and controls. Despite exercise intervention, high rates of bone loss were still observed. Future studies should consider adding bisphosphonates and pharmacological/nutrition-based interventions for consideration of longer-duration missions. These findings correlate to terrestrial bed rest settings, for example, stroke or spinal-injury patients.",
+  "input_sha256": "0a217afcade3f2abb3140de0f9e9f03d5be9b5f0ea1233ec35d58a2daba3325c",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 829,
+    "completion_tokens": 483,
+    "total_tokens": 1312,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 445
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "Esta revisión comparó el ejercicio con la ausencia de intervención sobre la densidad mineral ósea y el área transversal muscular en estudios de reposo en cama. La pérdida ósea más significativa ocurrió en la cadera (4,59%), y el área muscular se redujo principalmente en pantorrilla y cuádriceps. Las intervenciones con ejercicio atenuaron significativamente la pérdida de masa muscular, y ZLS, cinta con LBNP y ejercicio resistivo atenuaron la pérdida ósea y muscular en la cadera. Aun con ejercicio, se observaron altas tasas de pérdida ósea, por lo que se sugiere considerar bisfosfonatos e intervenciones farmacológicas/nutricionales para misiones más largas.",
+    "summary_excerpt": "muscle mass. ZLS, LBNP treadmill and RE significantly attenuated bone and muscle loss at the hip compared to baseline and controls. Despite exercise intervention, high rates of bone loss were still observed. Future studies should consider adding bisphosphonates and pharmacological/nutrition-based interventions for consideration of longer-duration missions. These findings correlate to terrestrial ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "La pérdida de densidad mineral ósea fue más significativa en la cadera, con una reducción del 4,59% (p < 0,05).",
+        "source_excerpt": "treadmill exercise with lower body negative pressure (LBNP) and a zero-gravity locomotion simulator (ZLS). Lower limb skeletal sites had the most significant BMD losses, particularly at the hip which reduced in density by 4.59% ( p   p   p  < 0.05). Muscle CSA changes indicated that the calf and quadriceps were most affected by bed rest. Exercise interventions significantly attenuated loss of "
+      },
+      {
+        "kind": "finding",
+        "text": "Los cambios en el área transversal muscular indicaron que la pantorrilla y el cuádriceps fueron los más afectados por el reposo en cama.",
+        "source_excerpt": "treadmill exercise with lower body negative pressure (LBNP) and a zero-gravity locomotion simulator (ZLS). Lower limb skeletal sites had the most significant BMD losses, particularly at the hip which reduced in density by 4.59% ( p   p   p  < 0.05). Muscle CSA changes indicated that the calf and quadriceps were most affected by bed rest. Exercise interventions significantly attenuated loss of "
+      },
+      {
+        "kind": "finding",
+        "text": "Las intervenciones con ejercicio atenuaron significativamente la pérdida de masa muscular.",
+        "source_excerpt": "treadmill exercise with lower body negative pressure (LBNP) and a zero-gravity locomotion simulator (ZLS). Lower limb skeletal sites had the most significant BMD losses, particularly at the hip which reduced in density by 4.59% ( p   p   p  < 0.05). Muscle CSA changes indicated that the calf and quadriceps were most affected by bed rest. Exercise interventions significantly attenuated loss of "
+      },
+      {
+        "kind": "finding",
+        "text": "ZLS, cinta con LBNP y ejercicio resistivo atenuaron significativamente la pérdida ósea y muscular en la cadera en comparación con el valor basal y los controles.",
+        "source_excerpt": "muscle mass. ZLS, LBNP treadmill and RE significantly attenuated bone and muscle loss at the hip compared to baseline and controls. Despite exercise intervention, high rates of bone loss were still observed. Future studies should consider adding bisphosphonates and pharmacological/nutrition-based interventions for consideration of longer-duration missions. These findings correlate to terrestrial "
+      },
+      {
+        "kind": "finding",
+        "text": "A pesar de la intervención con ejercicio, todavía se observaron altas tasas de pérdida ósea.",
+        "source_excerpt": "muscle mass. ZLS, LBNP treadmill and RE significantly attenuated bone and muscle loss at the hip compared to baseline and controls. Despite exercise intervention, high rates of bone loss were still observed. Future studies should consider adding bisphosphonates and pharmacological/nutrition-based interventions for consideration of longer-duration missions. These findings correlate to terrestrial "
+      }
+    ]
+  }
+}

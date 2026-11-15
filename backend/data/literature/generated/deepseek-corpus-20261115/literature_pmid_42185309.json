@@ -1,0 +1,53 @@
+{
+  "paper_id": "literature_pmid_42185309",
+  "title": "Comparison of musculoskeletal responses and its variability after long-term spaceflight and prolonged bed rest conditions.",
+  "abstract": "Despite near-daily exercise, musculoskeletal deterioration occurs following spaceflight, with considerable individual variability. This study quantifies the extent, variability, and recovery of musculoskeletal deterioration after 6-month spaceflight (n = 13; all male; age: 34-56 years) and compares these findings to those observed during 2-month bed rest without any countermeasure (n = 11; all male; age: 22-39 years). Peripheral quantitative computed tomography (pQCT) scans at 4%, 38%, 66%, and 98% of the relative length of the tibia bone from distal to proximal assessed volumetric bone mineral content (vBMC; all measurement sites) and muscle cross-sectional area (Ar.M; 38% and 66%). After spaceflight, Ar.M decreased by 13.3% (SD 5.0%) at the 38% tibial site and by 12.5% (SD 4.9%) at the 66% tibial site, but fully recovered after three months. Bone loss was observed at all measurement sites (p < 0.05) and persisted through 3 months (p ≤ 0.02). The muscle loss observed post-flight was approximately doubled compared to that was observed 2 months of bed rest, while bone loss was comparable. In conclusion, most comparisons showed no inhomogeneity in variance, indicating that the variability in musculoskeletal outcomes after spaceflight is well represented by bed rest. In summary, bed rest serves as a valuable analog for understanding the mechanisms promoting muscle and bone deterioration during spaceflight.",
+  "input_sha256": "8a9db5ec606665d4167584aa29366fb04000815f798dc585b2e34c4b37032f83",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 789,
+    "completion_tokens": 951,
+    "total_tokens": 1740,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 405
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio cuantificó el deterioro musculoesquelético tras 6 meses de vuelo espacial (n=13, hombres, 34-56 años) y lo comparó con 2 meses de reposo en cama sin contramedidas (n=11, hombres, 22-39 años). Tras el vuelo, el área transversal muscular disminuyó ~13% en dos sitios de la tibia y se recuperó completamente a los 3 meses; la pérdida ósea ocurrió en todos los sitios y persistió a los 3 meses. La pérdida muscular post-vuelo fue aproximadamente el doble que tras el reposo en cama, mientras que la pérdida ósea fue comparable. La mayoría de las comparaciones no mostraron inhomogeneidad de varianza, indicando que la variabilidad en los resultados tras el vuelo está bien representada por el reposo en cama, lo que lo posiciona como un análogo valioso.",
+    "summary_excerpt": "In conclusion, most comparisons showed no inhomogeneity in variance, indicating that the variability in musculoskeletal outcomes after spaceflight is well represented by bed rest. In summary, bed rest serves as a valuable analog for understanding the mechanisms promoting muscle and bone deterioration during spaceflight.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "La pérdida de masa muscular en la tibia tras 6 meses de vuelo espacial se recuperó completamente a los tres meses.",
+        "source_excerpt": "After spaceflight, Ar.M decreased by 13.3% (SD 5.0%) at the 38% tibial site and by 12.5% (SD 4.9%) at the 66% tibial site, but fully recovered after three months."
+      },
+      {
+        "kind": "finding",
+        "text": "En los 13 astronautas varones (34-56 años) estudiados tras 6 meses de vuelo, el área transversal muscular (Ar.M) disminuyó en los sitios tibiales del 38% y 66% con porcentajes de 13.3% (DE 5.0%) y 12.5% (DE 4.9%), respectivamente.",
+        "source_excerpt": "After spaceflight, Ar.M decreased by 13.3% (SD 5.0%) at the 38% tibial site and by 12.5% (SD 4.9%) at the 66% tibial site"
+      },
+      {
+        "kind": "finding",
+        "text": "La pérdida ósea tras 6 meses de vuelo espacial se observó en todos los sitios de medición (p<0.05) y persistió durante al menos 3 meses (p≤0.02).",
+        "source_excerpt": "Bone loss was observed at all measurement sites (p < 0.05) and persisted through 3 months (p ≤ 0.02)."
+      },
+      {
+        "kind": "finding",
+        "text": "La pérdida muscular observada tras 6 meses de vuelo espacial fue aproximadamente el doble que la observada tras 2 meses de reposo en cama sin contramedidas, mientras que la pérdida ósea fue comparable.",
+        "source_excerpt": "The muscle loss observed post-flight was approximately doubled compared to that was observed 2 months of bed rest, while bone loss was comparable."
+      },
+      {
+        "kind": "implication",
+        "text": "El reposo en cama sirve como un análogo valioso para entender los mecanismos que promueven el deterioro muscular y óseo durante el vuelo espacial.",
+        "source_excerpt": "In summary, bed rest serves as a valuable analog for understanding the mechanisms promoting muscle and bone deterioration during spaceflight."
+      },
+      {
+        "kind": "implication",
+        "text": "La variabilidad en los resultados musculoesqueléticos tras el vuelo espacial está bien representada por el reposo en cama, ya que la mayoría de las comparaciones no mostraron inhomogeneidad de varianza.",
+        "source_excerpt": "In conclusion, most comparisons showed no inhomogeneity in variance, indicating that the variability in musculoskeletal outcomes after spaceflight is well represented by bed rest."
+      }
+    ]
+  }
+}

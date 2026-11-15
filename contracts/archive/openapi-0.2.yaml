@@ -1,0 +1,1467 @@
+openapi: 3.1.2
+info:
+  title: TwinNauta API
+  version: 0.2.0
+  description: Contrato 0.2 del backend inicial con contenido ilustrativo. El modelo científico sigue
+    pendiente; no representa evaluación clínica validada.
+servers:
+- url: http://localhost:8000/api/v1
+  description: Dirección propuesta para desarrollo; no implica servicio disponible.
+paths:
+  /cases:
+    get:
+      operationId: list_cases
+      summary: Consultar casos virtuales precargados
+      responses:
+        '200':
+          description: Casos disponibles.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Case'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /cases/{case_id}/regions:
+    parameters:
+    - name: case_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: list_regions
+      summary: Consultar regiones disponibles
+      responses:
+        '200':
+          description: Regiones y mapeo anatómico pendiente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Region'
+        '404':
+          description: Entidad inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Entrada inválida.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /assessments:
+    post:
+      operationId: create_assessment
+      summary: Crear una instantánea de evaluación y escenario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AssessmentRequest'
+      responses:
+        '201':
+          description: Respuesta documentada; servicio pendiente de implementación.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assessment'
+        '404':
+          description: Entidad inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Entrada inválida.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: 'Crea una instantánea independiente para este visitante. Caso o región inexistente:
+        404; día fuera del caso: 422. Un horizonte fuera del modelo produce scenario.status=out_of_domain,
+        no un error de entrada.'
+  /assessments/{assessment_id}:
+    parameters:
+    - name: assessment_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: get_assessment
+      summary: Recuperar evaluación y seguimiento de acciones
+      responses:
+        '200':
+          description: Respuesta documentada; servicio pendiente de implementación.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Assessment'
+        '404':
+          description: Entidad inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Entrada inválida.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /assessments/{assessment_id}/graphs/{view}:
+    parameters:
+    - name: assessment_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: view
+      in: path
+      required: true
+      schema:
+        type: string
+        enum:
+        - evidence
+        - scenario
+        - actions
+    get:
+      operationId: get_graph
+      summary: Consultar una de las tres vistas del grafo
+      responses:
+        '200':
+          description: Respuesta documentada; servicio pendiente de implementación.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Graph'
+        '404':
+          description: Entidad inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Entrada inválida.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: Solo datos/versiones de esta evaluación. Un grafo vacío válido responde 200. No reconstruir
+        ciencia histórica usando datos o reglas posteriores.
+  /assessments/{assessment_id}/actions/{action_id}:
+    parameters:
+    - name: assessment_id
+      in: path
+      required: true
+      schema:
+        type: string
+    - name: action_id
+      in: path
+      required: true
+      schema:
+        type: string
+    patch:
+      operationId: update_action_status
+      summary: Registrar estado de ejecución sin cambiar fundamento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionUpdate'
+      responses:
+        '200':
+          description: Respuesta documentada; servicio pendiente de implementación.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Action'
+        '404':
+          description: Entidad inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Entrada inválida.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: Conflicto de revisión o acción no habilitada.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+      description: La acción pertenece a esta evaluación. Actualizar solo seguimiento si eligibility=eligible.
+        expected_revision debe coincidir; incrementar revision si cambia el estado. Repetir el mismo estado
+        con revisión vigente no cambia revisión ni fecha. En modo evidence_based se exige review_status=reviewed.
+  /telemetry/{recording_id}:
+    parameters:
+    - name: recording_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: get_telemetry_window
+      summary: Consultar ventana de una grabación terrestre independiente
+      description: Ventana [start_s, end_s), máximo 120 segundos y 2000 puntos. Límites cruzados validados
+        por backend. No se remuestrea silenciosamente.
+      parameters:
+      - name: start_s
+        in: query
+        required: true
+        schema:
+          type: number
+          minimum: 0
+      - name: end_s
+        in: query
+        required: true
+        schema:
+          type: number
+          exclusiveMinimum: 0
+      responses:
+        '200':
+          description: Respuesta documentada; servicio pendiente de implementación.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryWindow'
+        '404':
+          description: Entidad inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Entrada inválida.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /indicators:
+    get:
+      operationId: list_indicators
+      summary: Consultar nombres, unidades y significado de los indicadores
+      responses:
+        '200':
+          description: Catálogo compartido de indicadores.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/IndicatorDefinition'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /telemetry/{recording_id}/metadata:
+    parameters:
+    - name: recording_id
+      in: path
+      required: true
+      schema:
+        type: string
+    get:
+      operationId: get_recording_metadata
+      summary: Descubrir límites y procedencia antes de reproducir la grabación
+      responses:
+        '200':
+          description: Metadatos de la grabación.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TelemetryRecording'
+        '404':
+          description: Grabación inexistente.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '422':
+          description: Entrada inválida.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Fallo interno.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Error:
+      type: object
+      additionalProperties: false
+      required:
+      - code
+      - message
+      - details
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: array
+          items:
+            type: string
+    Case:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - label
+      - is_virtual
+      - duration_days
+      - telemetry_recording_id
+      - anatomy_asset
+      properties:
+        id:
+          type: string
+          minLength: 1
+        label:
+          type: string
+        is_virtual:
+          type: boolean
+        duration_days:
+          type: integer
+          minimum: 0
+          description: Duración transcurrida del caso; se admiten días desde 0 hasta este límite, incluido.
+        telemetry_recording_id:
+          type:
+          - string
+          - 'null'
+        anatomy_asset:
+          $ref: '#/components/schemas/AnatomyAsset'
+    Region:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - label
+      - indicator_ids
+      properties:
+        id:
+          type: string
+          minLength: 1
+        label:
+          type: string
+        indicator_ids:
+          type: array
+          items:
+            type: string
+    AssessmentRequest:
+      type: object
+      additionalProperties: false
+      required:
+      - case_id
+      - region_id
+      - mission_day
+      - horizon_days
+      - reference_start_day
+      properties:
+        case_id:
+          type: string
+          minLength: 1
+        region_id:
+          type: string
+          minLength: 1
+        mission_day:
+          type: integer
+          minimum: 0
+          description: Día del caso virtual. Solo se usan observaciones y registros disponibles hasta
+            este día.
+        horizon_days:
+          type: integer
+          minimum: 0
+        reference_start_day:
+          type: integer
+          minimum: 0
+          description: Inicio independiente del protocolo de referencia. El final es inicio más horizonte.
+    Source:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - title
+      - url
+      - locator
+      - review_status
+      - version
+      - license
+      properties:
+        id:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        locator:
+          type: string
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+        version:
+          type:
+          - string
+          - 'null'
+        license:
+          type:
+          - string
+          - 'null'
+    Observation:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - indicator_id
+      - value
+      - unit
+      - mission_day
+      - origin
+      - derivation
+      - method
+      - source_id
+      - missing_reason
+      - quality
+      - statistic
+      - sample_size
+      - dispersion
+      - baseline_observation_id
+      properties:
+        id:
+          type: string
+          minLength: 1
+        indicator_id:
+          type: string
+          enum:
+          - quadriceps_csa_relative
+          - knee_extension_torque
+          minLength: 1
+        value:
+          type:
+          - number
+          - 'null'
+        unit:
+          type: string
+          enum:
+          - percent_baseline
+          - N.m
+        mission_day:
+          type: integer
+          minimum: 0
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+          - published_aggregate
+        derivation:
+          type: string
+          enum:
+          - measured
+          - seeded
+          - computed
+        method:
+          type: string
+        source_id:
+          type: string
+          minLength: 1
+        missing_reason:
+          type:
+          - string
+          - 'null'
+        quality:
+          type: string
+          enum:
+          - available
+          - missing
+          - suspect
+        statistic:
+          type: string
+          enum:
+          - individual_value
+          - group_mean
+          - normalized_reference
+        sample_size:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+        dispersion:
+          anyOf:
+          - $ref: '#/components/schemas/Dispersion'
+          - type: 'null'
+        baseline_observation_id:
+          type:
+          - string
+          - 'null'
+      allOf:
+      - if:
+          properties:
+            quality:
+              const: missing
+        then:
+          properties:
+            value:
+              type: 'null'
+            missing_reason:
+              type: string
+              minLength: 1
+        else:
+          properties:
+            value:
+              type: number
+      - if:
+          properties:
+            statistic:
+              const: group_mean
+        then:
+          properties:
+            sample_size:
+              type: integer
+              minimum: 1
+    ExerciseRecord:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - mission_day
+      - modality
+      - record_status
+      - planned_duration_min
+      - recorded_duration_min
+      - sets
+      - repetitions
+      - resistance_value
+      - resistance_unit
+      - equipment_available
+      - origin
+      - source_id
+      properties:
+        id:
+          type: string
+        mission_day:
+          type: integer
+          minimum: 0
+        modality:
+          type: string
+        record_status:
+          type: string
+          enum:
+          - recorded
+          - not_recorded
+        planned_duration_min:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+        recorded_duration_min:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+        sets:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+        repetitions:
+          type:
+          - integer
+          - 'null'
+          minimum: 0
+        resistance_value:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+        resistance_unit:
+          type:
+          - string
+          - 'null'
+        equipment_available:
+          type:
+          - boolean
+          - 'null'
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+        source_id:
+          type: string
+    Finding:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - title
+      - description
+      - related_ids
+      - source_ids
+      - attention
+      - claim_ids
+      properties:
+        id:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        description:
+          type: string
+        related_ids:
+          type: array
+          items:
+            type: string
+        source_ids:
+          type: array
+          items:
+            type: string
+        attention:
+          type: string
+          enum:
+          - informational
+          - review_needed
+          - unknown
+        claim_ids:
+          type: array
+          items:
+            type: string
+    EvidenceContext:
+      type: object
+      additionalProperties: false
+      required:
+      - data_quality
+      - evidence_applicability
+      - model_limitations
+      properties:
+        data_quality:
+          type: array
+          items:
+            type: string
+        evidence_applicability:
+          type: array
+          items:
+            type: string
+        model_limitations:
+          type: array
+          items:
+            type: string
+    ScenarioPoint:
+      type: object
+      additionalProperties: false
+      required:
+      - elapsed_day
+      - value
+      properties:
+        elapsed_day:
+          type: integer
+          minimum: 0
+          description: Desplazamiento desde reference_start_day; no es un día de misión.
+        value:
+          type: number
+    Scenario:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - status
+      - label
+      - model_id
+      - model_version
+      - horizon_days
+      - unit
+      - reason
+      - assumptions
+      - points
+      - source_ids
+      - summary
+      - reference_start_day
+      - parameters
+      - domain
+      properties:
+        id:
+          type: string
+          minLength: 1
+        status:
+          type: string
+          enum:
+          - available
+          - insufficient_data
+          - out_of_domain
+        label:
+          type: string
+        model_id:
+          type:
+          - string
+          - 'null'
+        model_version:
+          type:
+          - string
+          - 'null'
+        horizon_days:
+          type: integer
+          minimum: 0
+        unit:
+          type: string
+          enum:
+          - percent_baseline
+        reason:
+          type:
+          - string
+          - 'null'
+        assumptions:
+          type: array
+          items:
+            type: string
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/ScenarioPoint'
+        source_ids:
+          type: array
+          items:
+            type: string
+        summary:
+          type: string
+        reference_start_day:
+          type: integer
+          minimum: 0
+          description: Día dentro del protocolo de referencia; no se infiere del día de misión.
+        parameters:
+          type: array
+          items:
+            type: object
+            additionalProperties: false
+            required:
+            - id
+            - value
+            - unit
+            - source_id
+            - locator
+            properties:
+              id:
+                type: string
+              value:
+                type: number
+              unit:
+                type: string
+              source_id:
+                type: string
+              locator:
+                type: string
+        domain:
+          anyOf:
+          - $ref: '#/components/schemas/ScenarioDomain'
+          - type: 'null'
+      allOf:
+      - if:
+          properties:
+            status:
+              const: available
+        then:
+          properties:
+            model_id:
+              type: string
+              minLength: 1
+            model_version:
+              type: string
+              minLength: 1
+            domain:
+              $ref: '#/components/schemas/ScenarioDomain'
+            reason:
+              type: 'null'
+            parameters:
+              minItems: 1
+            points:
+              minItems: 1
+      - if:
+          properties:
+            status:
+              enum:
+              - insufficient_data
+              - out_of_domain
+        then:
+          properties:
+            points:
+              maxItems: 0
+            reason:
+              type: string
+              minLength: 1
+    Action:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - title
+      - rationale
+      - requirements
+      - related_finding_ids
+      - source_ids
+      - review_status
+      - execution_status
+      - eligibility
+      - eligibility_reason
+      - claim_ids
+      - revision
+      - updated_at
+      properties:
+        id:
+          type: string
+          minLength: 1
+        title:
+          type: string
+        rationale:
+          type: string
+        requirements:
+          type: array
+          items:
+            type: string
+        related_finding_ids:
+          type: array
+          items:
+            type: string
+        source_ids:
+          type: array
+          items:
+            type: string
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+        execution_status:
+          type: string
+          enum:
+          - pending
+          - completed
+          - skipped
+        eligibility:
+          type: string
+          enum:
+          - eligible
+          - ineligible
+          - unknown
+        eligibility_reason:
+          type: string
+        claim_ids:
+          type: array
+          items:
+            type: string
+        revision:
+          type: integer
+          minimum: 0
+        updated_at:
+          type: string
+          format: date-time
+    ActionUpdate:
+      type: object
+      additionalProperties: false
+      required:
+      - execution_status
+      - expected_revision
+      properties:
+        execution_status:
+          type: string
+          enum:
+          - pending
+          - completed
+          - skipped
+        expected_revision:
+          type: integer
+          minimum: 0
+    Versions:
+      type: object
+      additionalProperties: false
+      required:
+      - rules
+      - evidence
+      - summary_template
+      properties:
+        rules:
+          type: string
+        evidence:
+          type: string
+        summary_template:
+          type: string
+    Assessment:
+      type: object
+      additionalProperties: false
+      required:
+      - assessment_id
+      - case_id
+      - region_id
+      - mission_day
+      - content_mode
+      - status
+      - summary
+      - versions
+      - observations
+      - exercise_records
+      - findings
+      - evidence_context
+      - scenario
+      - actions
+      - sources
+      - action_summary
+      - created_at
+      - claims
+      properties:
+        assessment_id:
+          type: string
+          minLength: 1
+        case_id:
+          type: string
+          minLength: 1
+        region_id:
+          type: string
+          minLength: 1
+        mission_day:
+          type: integer
+          minimum: 0
+        content_mode:
+          type: string
+          enum:
+          - illustrative
+          - evidence_based
+        status:
+          type: string
+          enum:
+          - complete
+          - partial
+          - insufficient_data
+        summary:
+          type: string
+        versions:
+          $ref: '#/components/schemas/Versions'
+        observations:
+          type: array
+          items:
+            $ref: '#/components/schemas/Observation'
+        exercise_records:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExerciseRecord'
+        findings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Finding'
+        evidence_context:
+          $ref: '#/components/schemas/EvidenceContext'
+        scenario:
+          $ref: '#/components/schemas/Scenario'
+        actions:
+          type: array
+          items:
+            $ref: '#/components/schemas/Action'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+        action_summary:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+        claims:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceClaim'
+    GraphNode:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - kind
+      - label
+      - description
+      - source_ids
+      - entity_id
+      properties:
+        id:
+          type: string
+          minLength: 1
+        kind:
+          type: string
+          enum:
+          - finding
+          - observation
+          - exercise
+          - claim
+          - source
+          - limitation
+          - scenario
+          - model
+          - parameter
+          - action
+          - requirement
+        label:
+          type: string
+        description:
+          type: string
+        source_ids:
+          type: array
+          items:
+            type: string
+        entity_id:
+          type:
+          - string
+          - 'null'
+    GraphEdge:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - source
+      - target
+      - relation
+      - label
+      - claim_ids
+      properties:
+        id:
+          type: string
+          minLength: 1
+        source:
+          type: string
+        target:
+          type: string
+        relation:
+          type: string
+          enum:
+          - uses
+          - describes
+          - supported_by
+          - limited_by
+          - computed_with
+          - requires
+          - addresses
+        label:
+          type: string
+        claim_ids:
+          type: array
+          items:
+            type: string
+    Graph:
+      type: object
+      additionalProperties: false
+      required:
+      - assessment_id
+      - view
+      - nodes
+      - edges
+      - sources
+      - content_mode
+      - versions
+      - claims
+      properties:
+        assessment_id:
+          type: string
+          minLength: 1
+        view:
+          type: string
+          enum:
+          - evidence
+          - scenario
+          - actions
+        nodes:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphNode'
+        edges:
+          type: array
+          items:
+            $ref: '#/components/schemas/GraphEdge'
+        sources:
+          type: array
+          items:
+            $ref: '#/components/schemas/Source'
+        content_mode:
+          type: string
+          enum:
+          - illustrative
+          - evidence_based
+        versions:
+          $ref: '#/components/schemas/Versions'
+        claims:
+          type: array
+          items:
+            $ref: '#/components/schemas/EvidenceClaim'
+    TelemetryPoint:
+      type: object
+      additionalProperties: false
+      required:
+      - time_s
+      - value
+      - missing_reason
+      properties:
+        time_s:
+          type: number
+          minimum: 0
+        value:
+          type:
+          - number
+          - 'null'
+        missing_reason:
+          type:
+          - string
+          - 'null'
+      allOf:
+      - if:
+          properties:
+            value:
+              type: 'null'
+        then:
+          properties:
+            missing_reason:
+              type: string
+              minLength: 1
+    TelemetryWindow:
+      type: object
+      additionalProperties: false
+      required:
+      - recording_id
+      - dataset_id
+      - participant_id
+      - content_mode
+      - origin
+      - context
+      - indicator_id
+      - unit
+      - start_s
+      - end_s
+      - points
+      - source
+      - recording_end_s
+      - next_start_s
+      properties:
+        recording_id:
+          type: string
+        dataset_id:
+          type: string
+        participant_id:
+          type: string
+        content_mode:
+          type: string
+          enum:
+          - illustrative
+          - evidence_based
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+        context:
+          type: string
+          enum:
+          - terrestrial_exercise
+        indicator_id:
+          type: string
+          enum:
+          - heart_rate
+        unit:
+          type: string
+          enum:
+          - beats/min
+        start_s:
+          type: number
+          minimum: 0
+        end_s:
+          type: number
+          exclusiveMinimum: 0
+        points:
+          type: array
+          items:
+            $ref: '#/components/schemas/TelemetryPoint'
+          maxItems: 2000
+        source:
+          $ref: '#/components/schemas/Source'
+        recording_end_s:
+          type: number
+          minimum: 0
+        next_start_s:
+          type:
+          - number
+          - 'null'
+          minimum: 0
+    AnatomyAsset:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - status
+      - url
+      - license_url
+      properties:
+        id:
+          type: string
+        status:
+          type: string
+          enum:
+          - pending
+          - available
+        url:
+          type:
+          - string
+          - 'null'
+          format: uri
+        license_url:
+          type:
+          - string
+          - 'null'
+          format: uri
+    IndicatorDefinition:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - label
+      - unit
+      - region_id
+      - description
+      - baseline_interpretation
+      properties:
+        id:
+          type: string
+          enum:
+          - quadriceps_csa_relative
+          - knee_extension_torque
+          - heart_rate
+          minLength: 1
+        label:
+          type: string
+        unit:
+          type: string
+          enum:
+          - percent_baseline
+          - N.m
+          - beats/min
+        region_id:
+          type:
+          - string
+          - 'null'
+        description:
+          type: string
+        baseline_interpretation:
+          type: string
+    EvidenceClaim:
+      type: object
+      additionalProperties: false
+      required:
+      - id
+      - statement
+      - kind
+      - source_ids
+      - population
+      - sample_size
+      - environment
+      - limitations
+      - review_status
+      properties:
+        id:
+          type: string
+          minLength: 1
+        statement:
+          type: string
+        kind:
+          type: string
+          enum:
+          - observed_result
+          - association
+          - model_assumption
+          - intervention_result
+          - operational_rule
+        source_ids:
+          type: array
+          items:
+            type: string
+        population:
+          type: string
+        sample_size:
+          type:
+          - integer
+          - 'null'
+          minimum: 1
+        environment:
+          type: string
+          enum:
+          - spaceflight
+          - bed_rest_analog
+          - terrestrial_exercise
+          - synthetic
+        limitations:
+          type: array
+          items:
+            type: string
+        review_status:
+          type: string
+          enum:
+          - pending
+          - reviewed
+    Dispersion:
+      type: object
+      additionalProperties: false
+      required:
+      - kind
+      - value
+      properties:
+        kind:
+          type: string
+          enum:
+          - standard_deviation
+          - standard_error
+        value:
+          type: number
+          minimum: 0
+    ScenarioDomain:
+      type: object
+      additionalProperties: false
+      required:
+      - environment
+      - min_reference_day
+      - max_reference_day
+      - baseline_definition
+      - individual_prediction
+      properties:
+        environment:
+          type: string
+          enum:
+          - bed_rest_analog
+          - spaceflight
+          - synthetic
+        min_reference_day:
+          type: integer
+          minimum: 0
+        max_reference_day:
+          type: integer
+          minimum: 0
+        baseline_definition:
+          type: string
+        individual_prediction:
+          type: boolean
+          const: false
+    TelemetryRecording:
+      type: object
+      additionalProperties: false
+      required:
+      - recording_id
+      - dataset_id
+      - participant_id
+      - content_mode
+      - origin
+      - context
+      - indicator_id
+      - unit
+      - start_s
+      - end_s
+      - max_window_seconds
+      - max_points
+      - source
+      properties:
+        recording_id:
+          type: string
+          minLength: 1
+        dataset_id:
+          type: string
+          minLength: 1
+        participant_id:
+          type: string
+          minLength: 1
+        content_mode:
+          type: string
+          enum:
+          - illustrative
+          - evidence_based
+        origin:
+          type: string
+          enum:
+          - synthetic
+          - human_dataset
+        context:
+          type: string
+          enum:
+          - terrestrial_exercise
+        indicator_id:
+          type: string
+          enum:
+          - heart_rate
+          minLength: 1
+        unit:
+          type: string
+          enum:
+          - beats/min
+        start_s:
+          type: number
+          minimum: 0
+        end_s:
+          type: number
+          exclusiveMinimum: 0
+        max_window_seconds:
+          type: number
+          const: 120
+        max_points:
+          type: integer
+          const: 2000
+        source:
+          $ref: '#/components/schemas/Source'

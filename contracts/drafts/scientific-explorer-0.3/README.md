@@ -1,6 +1,10 @@
+> Documento histórico de diseño. El contrato vigente está en [contracts/openapi.yaml](../../openapi.yaml); consultar la [entrega frontend](../../../docs/ENTREGA_FRONTEND.md) para las rutas implementadas y el respaldo.
+
 # Explorador científico — propuesta de contrato 0.3
 
-Estado: **propuesta documentada, no implementada**. El backend actual sigue el contrato 0.2. Esta ampliación es aditiva: no sustituye los endpoints ni las instantáneas existentes. Frontend puede trabajar con los ejemplos locales mediante un adaptador separado y una etiqueta de demostración.
+Estado: **propuesta con implementación técnica, pendiente de consolidación**. El acuerdo vigente 0.2 se conserva. Esta ampliación es aditiva: no sustituye endpoints ni instantáneas existentes. Frontend puede utilizar el servicio y los ejemplos locales, identificando siempre cuándo trabaja con fixtures.
+
+Existen servicios para las seis rutas, incluida orientación operativa congelada. El análisis con modelo real y las reglas científicas no están habilitados por disponer de esas rutas. Consultar `/docs` y `backend/README.md` para el estado ejecutable y revisar la propuesta con frontend/Medicina antes de promoverla a acuerdo vigente.
 
 ## Archivos
 
@@ -79,11 +83,11 @@ El paquete expone modo local o alojado y si requiere servicios externos para con
 
 `landing_url` siempre permite abrir la fuente. `full_text_url` y `pdf_url` pueden ser nulos: no construir rutas de PDF ni prometer que se puede incrustar cualquier editorial. Ofrecer abrir el original y, cuando exista una URL compatible, vista previa. Mostrar disponibilidad y licencia cuando se conocen; ausencia de PDF no equivale a paper inexistente.
 
-Frontend debe contemplar: lista cargando/vacía/error, ficha disponible sin abstract o PDF, resumen pendiente, análisis en cola/procesando/fallido, extracción sin revisar, grafo sin relaciones, expansión paginada, cursor obsoleto y orientación sin módulo. Los ejemplos son para un adaptador mock, no para fingir que las seis rutas ya existen.
+Frontend debe contemplar: lista cargando/vacía/error, ficha disponible sin abstract o PDF, resumen pendiente, análisis en cola/procesando/fallido, extracción sin revisar, grafo sin relaciones, expansión paginada, cursor obsoleto y orientación sin módulo. Los ejemplos sirven para maquetar; distinguirlos de las respuestas del servicio real.
 
 ## Pendientes para promover la propuesta
 
 1. Acordar esta forma con frontend y Medicina.
 2. Consolidar IDs y versión del primer corpus real; la fixture de dos papers no representa su tamaño final.
 3. Resolver el proveedor de IA y su política de generación/caché.
-4. Implementar y verificar las nuevas rutas; entonces actualizar la versión vigente y ejemplos de integración.
+4. Consolidar los comportamientos ya implementados con frontend, resolver diferencias del borrador y actualizar la versión vigente y ejemplos de integración.

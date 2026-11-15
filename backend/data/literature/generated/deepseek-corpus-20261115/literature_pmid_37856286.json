@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_37856286",
+  "title": "A single bout of prior resistance exercise attenuates muscle atrophy and declines in myofibrillar protein synthesis during bed-rest in older men.",
+  "abstract": "Impairments in myofibrillar protein synthesis (MyoPS) during bed rest accelerate skeletal muscle loss in older adults, increasing the risk of adverse secondary health outcomes. We investigated the effect of prior resistance exercise (RE) on MyoPS and muscle morphology during a disuse event in 10 healthy older men (65-80 years). Participants completed a single bout of unilateral leg RE the evening prior to 5 days of in-patient bed-rest. Quadriceps cross-sectional area (CSA) was determined prior to and following bed-rest. Serial muscle biopsies and dual stable isotope tracers were used to determine rates of integrated MyoPS (iMyoPS) over a 7 day habitual 'free-living' phase and the bed-rest phase, and rates of acute postabsorptive and postprandial MyoPS (aMyoPS) at the end of bed rest. Quadriceps CSA at 40%, 60% and 80% of muscle length significantly decreased in exercised (EX) and non-exercised control (CTL) legs with bed-rest. The decline in quadriceps CSA at 40% and 60% of muscle length was attenuated in EX compared with CTL. During bed-rest, iMyoPS rates decreased from habitual values in CTL, but not EX, and were significantly different between legs. Postprandial aMyoPS rates increased above postabsorptive values in EX only. The change in iMyoPS over bed-rest correlated with the change in quadriceps CSA in CTL, but not EX. A single bout of RE attenuated the decline in iMyoPS rates and quadriceps atrophy with 5 days of bed-rest in older men. Further work is required to understand the functional and clinical implications of prior RE in older patient populations. KEY POINTS: Age-related skeletal muscle deterioration, linked to numerous adverse health outcomes, is driven by impairments in muscle protein synthesis that are accelerated during periods of disuse. Resistance exercise can stimulate muscle protein synthesis over several days of recovery and therefore could counteract impairments in this process that occur in the early phase of disuse. In the present study, we demonstrate that the decline in myofibrillar protein synthesis and muscle atrophy over 5 days of bed-rest in older men was attenuated by a single bout of unilateral resistance exercise performed the evening prior to bed-rest. These findings suggest that concise resistance exercise intervention holds the potential to support muscle mass retention in older individuals during short-term disuse, with implications for delaying sarcopenia progression in ageing populations.",
+  "input_sha256": "8e3433783287422385c1eacdc4eea3ef77c4c170c128590df6dee1d3a4f1af30",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 988,
+    "completion_tokens": 645,
+    "total_tokens": 1633,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 604
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "En 10 hombres mayores sanos de 65 a 80 años, una sola sesión de ejercicio de resistencia unilateral realizada la tarde anterior a 5 días de reposo en cama atenuó la disminución de la síntesis de proteínas miofibrilares integrada y la atrofia del cuádriceps en comparación con la pierna control no ejercitada. Además, solo en la pierna ejercitada aumentó la síntesis de proteínas miofibrilares postprandial aguda por encima de los valores postabsortivos.",
+    "summary_excerpt": "A single bout of RE attenuated the decline in iMyoPS rates and quadriceps atrophy with 5 days of bed-rest in older men.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "La tasa de síntesis de proteínas miofibrilares integrada disminuyó durante el reposo en cama en la pierna control no ejercitada, pero no en la pierna ejercitada, y fue significativamente diferente entre piernas.",
+        "source_excerpt": "During bed-rest, iMyoPS rates decreased from habitual values in CTL, but not EX, and were significantly different between legs."
+      },
+      {
+        "kind": "finding",
+        "text": "La síntesis de proteínas miofibrilares postprandial aguda aumentó por encima de los valores postabsortivos únicamente en la pierna ejercitada.",
+        "source_excerpt": "Postprandial aMyoPS rates increased above postabsorptive values in EX only."
+      },
+      {
+        "kind": "finding",
+        "text": "El área de sección transversal del cuádriceps al 40% y 60% de la longitud muscular disminuyó menos en la pierna ejercitada que en la control durante el reposo en cama.",
+        "source_excerpt": "The decline in quadriceps CSA at 40% and 60% of muscle length was attenuated in EX compared with CTL."
+      },
+      {
+        "kind": "finding",
+        "text": "El cambio en la síntesis de proteínas miofibrilares integrada durante el reposo en cama se correlacionó con el cambio en el área de sección transversal del cuádriceps en la pierna control, pero no en la ejercitada.",
+        "source_excerpt": "The change in iMyoPS over bed-rest correlated with the change in quadriceps CSA in CTL, but not EX."
+      },
+      {
+        "kind": "implication",
+        "text": "Una sola sesión de ejercicio de resistencia realizada la tarde anterior podría atenuar la pérdida de masa muscular durante un período corto de desuso en hombres mayores.",
+        "source_excerpt": "These findings suggest that concise resistance exercise intervention holds the potential to support muscle mass retention in older individuals during short-term disuse"
+      }
+    ]
+  }
+}

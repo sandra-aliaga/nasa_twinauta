@@ -27,7 +27,7 @@ Hay configuración local de Prettier y una pantalla inicial mínima. Los apartad
 
 **Entrega prioritaria y autocontenida:** [docs/ENTREGA_FRONTEND.md](../docs/ENTREGA_FRONTEND.md). Distingue las rutas actuales de las propuestas, enumera los archivos a compartir y da el orden de implementación de interfaz.
 
-**Ampliación de producto:** la biblioteca científica es parte central de la experiencia. Leer la [propuesta del explorador 0.3](../contracts/drafts/scientific-explorer-0.3/README.md) y el [flujo contextual y sin conexión](../docs/explorador-cientifico.md). Incluye estructuras y ejemplos para buscar papers, ampliar grafos, abrir resumen/original, mostrar estadísticas y estados de análisis de IA. Esos endpoints todavía no existen: trabajar mediante un adaptador mock separado del cliente 0.2, con estado de demostración visible. No añadir llamadas directas del navegador a proveedores de IA.
+**Ampliación de producto:** la biblioteca científica es parte central de la experiencia. Leer la [propuesta del explorador 0.3](../contracts/drafts/scientific-explorer-0.3/README.md) y el [flujo contextual y sin conexión](../docs/explorador-cientifico.md). Incluye estructuras y ejemplos para buscar papers, ampliar grafos, abrir resumen/original, mostrar estadísticas y estados de análisis de IA. Las rutas de biblioteca y síntesis están implementadas en el contrato vigente 0.3.0. Consultar la entrega frontend y restaurar el respaldo compartido para trabajar con los mismos datos. No añadir llamadas directas del navegador a proveedores de IA.
 
 1. [Plan y recorrido](../docs/plan-mvp.md).
 2. [Contrato compartido](../contracts/README.md).

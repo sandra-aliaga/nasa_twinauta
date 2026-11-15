@@ -1,83 +1,58 @@
-# Entrega prioritaria para frontend
+# Entrega frontend — API 0.3.0
 
-Este es el punto de entrada para continuar la interfaz de TwinNauta. Fecha: 14 de noviembre de 2026. La responsable de frontend conserva todas las decisiones de diseño e implementación de la interfaz.
+Contrato vigente: [OpenAPI](../contracts/openapi.yaml). [Ejemplos de contexto](../contracts/examples/context.json). La [guía anterior](archive/ENTREGA_FRONTEND-20261114.md) y las propuestas históricas conservan el diseño previo; ante diferencias usar el contrato vigente. La compañera conserva todas las decisiones de interfaz y anatomía.
 
-## Qué debe construir la experiencia
+## Misma base y configuración
 
-Seleccionar una región del cuerpo y un indicador, comprender su estado disponible y explorar estudios pertinentes a su interpretación, posibles implicaciones y contramedidas. El núcleo visible incluye un grafo de múltiples papers, ficha con resumen, métodos/resultados y acceso al original. Las tres vistas son filtros de una biblioteca común: `evidence`, `scenario`, `actions`.
+Restaurar [el respaldo](../backups/twinauta-20261115.dump) siguiendo [estas instrucciones](../backups/README.md), junto con el código actualizado. Incluye 27 papers, 26 resúmenes, evaluación demo y síntesis de tres secciones/grafos. Se comprobó restauración y HTTP en otra base. Para consultar contenido no necesita clave DeepSeek.
 
-El motor debe admitir módulos científicos para distintas regiones. El MVP implementa solo cuádriceps, área transversal relativa y torque; el registro de ejercicio aporta contexto y la frecuencia cardíaca es una reproducción didáctica terrestre. Una región sin módulo no se presenta como sana ni recibe reglas del cuádriceps.
+En frontend/.env:
 
-## Archivos para compartir
-
-Enviar o subir juntos los siguientes archivos, conservando sus rutas para que funcionen las referencias:
-
-1. Esta guía.
-2. [`contracts/drafts/scientific-explorer-0.3/README.md`](../contracts/drafts/scientific-explorer-0.3/README.md).
-3. [`openapi.yaml` de la propuesta 0.3](../contracts/drafts/scientific-explorer-0.3/openapi.yaml), [`schemas.json`](../contracts/drafts/scientific-explorer-0.3/schemas.json) y [`examples.json`](../contracts/drafts/scientific-explorer-0.3/examples.json).
-4. [`contracts/README.md`](../contracts/README.md), [`contracts/openapi.yaml`](../contracts/openapi.yaml) y los ejemplos actuales de `contracts/examples/`: API 0.2 implementada.
-5. [`frontend/README.md`](../frontend/README.md) y [`docs/explorador-cientifico.md`](explorador-cientifico.md).
-
-Para comprender el corpus real, compartir además la [bibliografía de 27 candidatos](../backend/data/literature/candidates/bibliography.md). No es necesario entregar a frontend el CSV de 23 MB ni los PDF completos para comenzar a maquetar. Las dos referencias de la fixture no representan el tamaño final de la biblioteca.
-
-## Qué funciona y qué sigue propuesto
-
-| Disponible en backend actual, contrato 0.2 | Propuesto en 0.3, todavía sin endpoints |
-| --- | --- |
-| Casos, regiones, indicadores, evaluación sintética y seguimiento de acciones. | Catálogo de cobertura de módulos y orientación contextual por estado. |
-| Tres grafos iniciales de la evaluación; no biblioteca masiva. | Búsqueda de papers, ficha, resultados y expansión de grafo. |
-| Grabación real PhysioNet independiente y señal sintética. | Análisis de abstracts con IA, aplicabilidad y metadatos del paquete local. |
-
-No generar un único cliente que suponga implementada toda la propuesta. Mantener adaptadores separados para la API actual y el explorador mock; el modo mock debe ser visible. No se cambió `contracts/openapi.yaml` 0.2.
-
-## Operaciones propuestas y mocks
-
-| Ruta propuesta | Clave del archivo `examples.json` | Uso |
-| --- | --- | --- |
-| `GET /health-modules` | `modules` | Saber qué regiones/indicadores tienen módulo y qué interpretación está habilitada. |
-| `GET /papers` | `papers` | Buscar por palabras clave, región, indicador, módulo, vista, años y revisión. |
-| `GET /papers/{paper_id}` | `paper_detail` | Abrir resumen, abstract disponible, métodos, resultados, análisis y acceso. |
-| `GET /knowledge-graph` | `graph` | Ampliar vecinos y alternar vistas; fusionar páginas por IDs. |
-| `GET /knowledge-base/metadata` | `knowledge_base` | Mostrar versión y disponibilidad local del conocimiento. |
-| `GET /assessments/{assessment_id}/guidance` | `guidance` y variantes `guidance_states` | Interpretación explicada, límites y pasos según el estado disponible. |
-
-`guidance_states` incluye falta de datos, métodos incompatibles, equipo no disponible y región sin módulo. Son fixtures explícitamente ilustrativas; no prueban reglas clínicas. Las observaciones de fixture citadas son identificadores documentales, no filas existentes en la base.
-
-## Comportamientos que no deben inferirse en frontend
-
-- El tiempo de misión, la duración de exposición del estudio y los segundos de telemetría son relojes distintos.
-- La IA puede resumir un abstract y proponer relaciones o intervenciones estudiadas. `ready` significa procesamiento terminado; `reviewed` es otra condición. No convertir una sugerencia en una acción habilitada.
-- Atención informativa y aplicabilidad no son severidad clínica ni porcentajes de riesgo. Backend devuelve explicación y motivos; frontend no inventa umbrales o confianza.
-- No promediar estadísticos entre papers ni convertir volumen, área y torque entre sí. Mostrar grupo, momento, n, unidad, DE/EE/intervalo y localizador cuando estén disponibles.
-- Una relación de cita o similitud temática no significa apoyo científico. Las sugerencias de IA deben distinguirse visualmente de relaciones revisadas.
-- Las URLs de texto/PDF pueden ser nulas. Permitir abrir la página original y mostrar si el documento está instalado o requiere conexión. No prometer un visor embebido para cualquier editorial.
-- Un grafo extenso se explora por filtros y expansiones; no hace falta renderizar todo el corpus en una respuesta. Respetar versión y cursor.
-- La interpretación contextual de una evaluación debe quedar congelada. Consultar la biblioteca actual no modifica el fundamento de una evaluación anterior.
-
-## Frecuencia cardíaca ya integrada
-
-ID real: `physionet_treadmill_1_0_1_2_1`. No está asociado al historial muscular del caso virtual. La señal sintética sigue disponible como `recording_illustrative_001`.
-
-```text
-GET /api/v1/telemetry/physionet_treadmill_1_0_1_2_1/metadata
-GET /api/v1/telemetry/physionet_treadmill_1_0_1_2_1?start_s=0&end_s=120
+```dotenv
+VITE_API_BASE_URL=http://localhost:8000/api/v1
 ```
 
-Seguir `next_start_s` hasta nulo; conservar las 602 muestras y dos faltantes. No unir gráficamente los faltantes como si existiera medición continua. La última muestra está en 1046 s; el extremo exclusivo publicado permite incluirla. La API y PostgreSQL se verificaron localmente y se detuvieron al terminar: no existe una URL pública desplegada.
+En backend/.env configurar únicamente credenciales de su propia base. Swagger está en `/docs`. CORS permite localhost:5173 y 127.0.0.1:5173.
 
-## Sin conexión y proveedor de IA
+## Flujo de llamadas
 
-La propuesta prepara el conocimiento con conexión y permite consultarlo mediante un paquete local versionado. No requiere una API de IA por cada clic. Un modelo local es opcional futuro. El soporte offline de aplicación, recursos 3D y documentos debe implementarse y comprobarse; todavía no está terminado.
+1. `GET /cases` y `GET /cases/{case_id}/regions`: seleccionar caso y región semántica. El activo GLB sigue pendiente; sus mallas/puntos pertenecen al frontend.
+2. `GET /cases/{case_id}/assessments`: descubrir evaluaciones por región/día y `has_context`. El respaldo incluye `assessment_demo_001`, cuádriceps, día 10. No hace falta fijar ese ID en el código.
+3. `GET /assessments/{id}`: indicadores, ejercicio, procedencia y datos de esa instantánea.
+4. `GET /assessments/{id}/context`: obtener los tres resúmenes, sus grafos, fragmentos y orientación operativa. No genera IA ni consume créditos.
+5. `GET /papers/{paper_id}?assessment_id={id}`: abrir abstract, resumen, análisis y original.
+6. `GET /knowledge-graph?view=evidence&paper_id={paper_id}&assessment_id={id}`: ampliar vecinos de un paper. Cambiar vista a scenario/actions. Sin paper_id explora el conjunto filtrado.
 
-Sandra decidió mantener el proveedor configurable. Posibles créditos Google sin confirmar; no fijar Gemini/OpenAI/otro proveedor en tipos o pantallas. Las claves pertenecen al backend.
+| Panel | Resumen | Grafo |
+| --- | --- | --- |
+| Fundamento de la alerta | sections.alert_assessment | graphs.evidence |
+| Posibles consecuencias | sections.inaction_scenario | graphs.scenario |
+| Siguientes pasos | sections.next_steps | graphs.actions |
 
-## Orden sugerido de trabajo de interfaz
+Cada sección incluye `summary`, `uncertainty`, `observation_ids`, `step_ids` y `citations`. Una cita aporta paper_id/snippet_id: resolver el texto en `evidence_snippets[snippet_id]`, con su localizador. Resolver los pasos en `guidance.steps`, que conserva descripción, elegibilidad y regla. Provenance/versiones y review_status son metadatos del backend; frontend no calcula confianza numérica.
 
-1. Leer la propuesta 0.3 y revisar con backend dudas sobre los campos antes de generar tipos definitivos.
-2. Adaptador mock y selección por catálogo de módulos; cobertura no disponible explícita.
-3. Búsqueda y ficha del paper, estados de resumen/análisis, estadísticas y enlaces.
-4. Grafo compartido con tres vistas, filtros y expansión por IDs.
-5. Resumen contextual y variantes de `guidance_states`; estados vacíos, pendientes y fallos.
-6. Integrar primero las rutas reales 0.2; sustituir mocks del explorador solo cuando backend implemente y verifique 0.3.
+## Estados y errores
 
-No hay cambios de interfaz implementados en esta entrega. Los documentos y fixtures habilitan el trabajo de la responsable de frontend.
+- `status: available`: mostrar contenido. Un grafo puede tener solo el resumen y cero papers si se fundamenta en datos del caso; no completar conexiones arbitrariamente.
+- `status: unavailable`: HTTP 200, reason, sections nulo, graphs/evidence_snippets vacíos. Mostrar la evaluación y consultar `/assessments/{id}/guidance` como alternativa operativa. Nunca iniciar generación desde el navegador.
+- `POST /assessments` crea otra instantánea y no hereda la síntesis demo. Hasta preparar contenido para el nuevo ID, su contexto estará no disponible. Cambiar día/datos no reutiliza una conclusión antigua.
+- Recurso inexistente: 404; filtros inválidos: 422; cursor de otros filtros/versión: 409. Error común: code/message/details.
+- Hay 27 papers y 26 resúmenes; el candidato sin abstract conserva resumen no disponible. No es un fallo del frontend.
+
+## Grafos y expansión
+
+Los grafos de `/context` y `/knowledge-graph` son **GraphPage**, con nodes/edges/page/counts/scope_description/corpus_version. Los primeros son citas congeladas de la síntesis; el explorador es un vecindario temático del corpus actual. Conservar basis, fuentes y revisión: cercanía, cantidad o una arista cites no prueban eficacia.
+
+Al paginar, conservar assessment_id, view y filtros, cargar next_cursor y fusionar por node.id/edge.id hasta has_more false. No mezclar corpus_version diferentes. Limit cuenta papers; los temas pueden repetirse entre páginas. El vecindario no representa toda la literatura existente.
+
+Las rutas anteriores `/assessments/{id}/graphs/{view}` conservan el formato **Graph**, diferente de GraphPage. Para los tres paneles nuevos usar los grafos de `/context`.
+
+## Fronteras
+
+Backend entrega contenido, condiciones, cálculos, unidades, estados y procedencia. Frontend presenta anatomía, incertidumbre, detalles, grafos, selección, carga, vacíos y errores. No incluir claves ni llamar a DeepSeek desde el navegador.
+
+El caso es sintético; el módulo actual es cuádriceps. Torque ausente no es cero y un basal único no demuestra tamaño actual conservado. Los pasos actuales son comprobaciones de datos, sin pronóstico individual ni prescripción de carga.
+
+La frecuencia cardíaca es independiente: grabación `physionet_treadmill_1_0_1_2_1`, tiempo en segundos y procedencia terrestre. No atribuirla al astronauta virtual.
+
+Esta entrega deja API y datos listos. La implementación y comprobación visual del recorrido con la interfaz es el siguiente paso conjunto.

@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_33703945",
+  "title": "Nonuniform loss of muscle strength and atrophy during bed rest: a systematic review.",
+  "abstract": "Muscle atrophy and decline in muscle strength appear very rapidly with prolonged disuse or mechanical unloading after acute hospitalization or experimental bed rest. The current study analyzed data from short-, medium-, and long-term bed rest (5-120 days) in a pooled sample of 318 healthy adults and modeled the mathematical relationship between muscle strength decline and atrophy. The results show a logarithmic disuse-induced loss of strength and muscle atrophy of the weight-bearing knee extensor muscles. The greatest rate of muscle strength decline and atrophy occurred in the earliest stages of bed rest, plateauing later, and likely contributed to the rapid neuromuscular loss of function in the early period. In addition, during the first 2 wk of bed rest, muscle strength decline is much faster than muscle atrophy: on  day 5 , the ratio of muscle atrophy to strength decline as a function of bed rest duration is 4.2, falls to 2.4 on  day 14 , and stabilizes to a value of 1.9 after ∼35 days of bed rest. Positive regression revealed that ∼79% of the muscle strength loss may be explained by muscle atrophy, while the remaining is most likely due to alterations in single fiber mechanical properties, excitation-contraction coupling, fiber architecture, tendon stiffness, muscle denervation, neuromuscular junction damage, and supraspinal changes. Future studies should focus on neural factors as well as muscular factors independent of atrophy (single fiber excitability and mechanical properties, architectural factors) and on the role of extracellular matrix changes. Bed rest results in nonuniform loss of isometric muscle strength and atrophy over time, where the magnitude of change was greater for muscle strength than for atrophy. Future research should focus on the loss of muscle function and the underlying mechanisms, which will aid in the development of countermeasures to mitigate or prevent the decline in neuromuscular efficiency. NEW & NOTEWORTHY  Our study contributes to the characterization of muscle loss and weakness processes reflected by a logarithmic decline in muscle strength induced by chronic bed rest. Acute short-term hospitalization (≤5 days) associated with periods of disuse/immobilization/prolonged time in the supine position in the hospital bed is sufficient to significantly decrease muscle mass and size and induce functional changes related to weakness in maximal muscle strength. By bringing together integrated evaluation of muscle structure and function, this work identifies that 79% of the loss in muscle strength can be explained by muscle atrophy, leaving 21% of the functional loss unexplained. The outcomes of this study should be considered in the development of daily countermeasures for preserving neuromuscular integrity as well as preconditioning interventions to be implemented before clinical bed rest or chronic gravitational unloading (e.g., spaceflights).",
+  "input_sha256": "f02a76794b9e522534719bc08cbed73a979d1c68ea0a9cb111716c5780cfd099",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 1084,
+    "completion_tokens": 625,
+    "total_tokens": 1709,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 700
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio analizó datos combinados de 318 adultos sanos en reposo en cama de 5 a 120 días, modelando la relación entre la pérdida de fuerza muscular y la atrofia de los extensores de rodilla. Se encontró una disminución logarítmica de la fuerza y atrofia, con la mayor tasa en las primeras etapas y meseta posterior. La fuerza disminuyó más rápido que la atrofia: la relación atrofia/fuerza fue 4.2 el día 5, 2.4 el día 14 y se estabilizó en 1.9 después de ~35 días. El 79% de la pérdida de fuerza se explica por atrofia, dejando 21% sin explicar, posiblemente por factores neurales y musculares independientes de la atrofia.",
+    "summary_excerpt": "show a logarithmic disuse-induced loss of strength and muscle atrophy of the weight-bearing knee extensor muscles. The greatest rate of muscle strength decline and atrophy occurred in the earliest stages of bed rest, plateauing later, and likely contributed to the rapid neuromuscular loss of function in the early period. In addition, during the first 2 wk of bed rest, muscle strength decline is ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "La mayor tasa de disminución de fuerza muscular y atrofia ocurrió en las etapas más tempranas del reposo en cama, estabilizándose después.",
+        "source_excerpt": "show a logarithmic disuse-induced loss of strength and muscle atrophy of the weight-bearing knee extensor muscles. The greatest rate of muscle strength decline and atrophy occurred in the earliest stages of bed rest, plateauing later, and likely contributed to the rapid neuromuscular loss of function in the early period. In addition, during the first 2 wk of bed rest, muscle strength decline is "
+      },
+      {
+        "kind": "finding",
+        "text": "La fuerza muscular disminuyó más rápido que la atrofia; la relación atrofia/fuerza fue 4.2 el día 5, 2.4 el día 14 y se estabilizó en 1.9 después de ~35 días.",
+        "source_excerpt": "much faster than muscle atrophy: on  day 5 , the ratio of muscle atrophy to strength decline as a function of bed rest duration is 4.2, falls to 2.4 on  day 14 , and stabilizes to a value of 1.9 after ∼35 days of bed rest. Positive regression revealed that ∼79% of the muscle strength loss may be explained by muscle atrophy, while the remaining is most likely due to alterations in single fiber "
+      },
+      {
+        "kind": "finding",
+        "text": "El 79% de la pérdida de fuerza muscular se explica por atrofia; el 21% restante probablemente se debe a alteraciones en propiedades mecánicas de fibras, acoplamiento excitación-contracción, arquitectura de fibras, rigidez tendinosa, denervación, daño de la unión neuromuscular y cambios supraespinales.",
+        "source_excerpt": "Muscle atrophy and decline in muscle strength appear very rapidly with prolonged disuse or mechanical unloading after acute hospitalization or experimental bed rest. The current study analyzed data from short-, medium-, and long-term bed rest (5-120 days) in a pooled sample of 318 healthy adults and modeled the mathematical relationship between muscle strength decline and atrophy. The results "
+      },
+      {
+        "kind": "finding",
+        "text": "El reposo en cama resulta en una pérdida no uniforme de fuerza isométrica y atrofia a lo largo del tiempo, con mayor magnitud de cambio en la fuerza que en la atrofia.",
+        "source_excerpt": "rest results in nonuniform loss of isometric muscle strength and atrophy over time, where the magnitude of change was greater for muscle strength than for atrophy. Future research should focus on the loss of muscle function and the underlying mechanisms, which will aid in the development of countermeasures to mitigate or prevent the decline in neuromuscular efficiency. NEW & NOTEWORTHY  Our study "
+      },
+      {
+        "kind": "implication",
+        "text": "Los resultados deberían considerarse en el desarrollo de contramedidas diarias para preservar la integridad neuromuscular e intervenciones de preacondicionamiento antes del reposo clínico en cama o descarga gravitacional crónica.",
+        "source_excerpt": "integrity as well as preconditioning interventions to be implemented before clinical bed rest or chronic gravitational unloading (e.g., spaceflights)."
+      }
+    ]
+  }
+}

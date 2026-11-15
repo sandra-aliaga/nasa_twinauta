@@ -1,0 +1,62 @@
+{
+  "paper_id": "literature_pmid_38328821",
+  "title": "NASA SPRINT exercise program efficacy for vastus lateralis and soleus skeletal muscle health during 70 days of simulated microgravity.",
+  "abstract": "The efficacy of the NASA SPRINT exercise countermeasures program for quadriceps (vastus lateralis) and triceps surae (soleus) skeletal muscle health was investigated during 70 days of simulated microgravity. Individuals completed 6° head-down-tilt bedrest (BR,  n  = 9), bedrest with resistance and aerobic exercise (BRE,  n  = 9), or bedrest with resistance and aerobic exercise and low-dose testosterone (BRE + T,  n  = 8). All groups were periodically tested for muscle ( n  = 9 times) and aerobic ( n  = 4 times) power during bedrest. In BR, surprisingly, the typical bedrest-induced decrements in vastus lateralis myofiber size and power were either blunted (myosin heavy chain, MHC I) or eliminated (MHC IIa), along with no change ( P  > 0.05) in %MHC distribution and blunted quadriceps atrophy. In BRE, MHC I (vastus lateralis and soleus) and IIa (vastus lateralis) contractile performance was maintained ( P  > 0.05) or increased ( P   P   P  > 0.05), while not all of these positive responses were observed in the soleus. Exercise offsets 100% of quadriceps and approximately two-thirds of soleus whole muscle mass loss. Testosterone (BRE + T) did not provide any benefit over exercise alone for either muscle and for some myocellular parameters appeared detrimental. In summary, the periodic testing likely provided a partial exercise countermeasure for the quadriceps in the bedrest group, which is a novel finding given the extremely low exercise dose. The SPRINT exercise program appears to be viable for the quadriceps; however, refinement is needed to completely protect triceps surae myocellular and whole muscle health for astronauts on long-duration spaceflights. NEW & NOTEWORTHY  This study provides unique exercise countermeasures development information for astronauts on long-duration spaceflights. The NASA SPRINT program was protective for quadriceps myocellular and whole muscle health, whereas the triceps surae (soleus) was only partially protected as has been shown with other programs. The bedrest control group data may provide beneficial information for overall exercise dose and targeting fast-twitch muscle fibers. Other unique approaches for the triceps surae are needed to supplement existing exercise programs.",
+  "input_sha256": "955dd6342889db2d85acbb66eed9eaa3e116402245aaac2e5944dc0880fd984d",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "usage": {
+    "prompt_tokens": 956,
+    "completion_tokens": 1137,
+    "total_tokens": 2093,
+    "prompt_cache_hit_tokens": 0,
+    "prompt_cache_miss_tokens": 956
+  },
+  "analysis": {
+    "summary": "Durante 70 días de reposo en cama con inclinación de 6° cabeza abajo (simulando microgravedad), el programa de ejercicios SPRINT de la NASA mantuvo o mejoró el rendimiento contráctil del vasto lateral (MHC I y IIa) y previno completamente la pérdida de masa muscular del cuádriceps, mientras que protegió solo parcialmente el sóleo (aproximadamente dos tercios de la pérdida de masa). La adición de testosterona en dosis bajas no aportó beneficios adicionales y pareció perjudicial para algunos parámetros miocelulares. Sorprendentemente, el grupo de reposo en cama sin ejercicio mostró atenuación o eliminación de las disminuciones típicas en tamaño de fibras y potencia del vasto lateral, lo que sugiere que las pruebas periódicas pudieron actuar como un contraejercicio parcial de dosis extremadamente baja.",
+    "summary_excerpt": "In summary, the periodic testing likely provided a partial exercise countermeasure for the quadriceps in the bedrest group, which is a novel finding given the extremely low exercise dose. The SPRINT exercise program appears to be viable for the quadriceps; however, refinement is needed to completely protect triceps surae myocellular and whole muscle health for astronauts on long-duration spaceflights.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "El ejercicio SPRINT mantuvo (P > 0.05) o aumentó el rendimiento contráctil de MHC I y IIa del vasto lateral.",
+        "source_excerpt": "In BRE, MHC I (vastus lateralis and soleus) and IIa (vastus lateralis) contractile performance was maintained ( P  > 0.05) or increased"
+      },
+      {
+        "kind": "finding",
+        "text": "El ejercicio contrarrestó el 100% de la pérdida de masa del cuádriceps y aproximadamente dos tercios de la pérdida de masa del sóleo.",
+        "source_excerpt": "Exercise offsets 100% of quadriceps and approximately two-thirds of soleus whole muscle mass loss."
+      },
+      {
+        "kind": "finding",
+        "text": "La testosterona (BRE + T) no proporcionó ningún beneficio sobre el ejercicio solo para ninguno de los dos músculos y pareció perjudicial para algunos parámetros miocelulares.",
+        "source_excerpt": "Testosterone (BRE + T) did not provide any benefit over exercise alone for either muscle and for some myocellular parameters appeared detrimental."
+      },
+      {
+        "kind": "finding",
+        "text": "En el grupo de reposo en cama (BR), las disminuciones típicas inducidas por el reposo en el tamaño de las miofibras y la potencia del vasto lateral fueron atenuadas (MHC I) o eliminadas (MHC IIa), sin cambios en la distribución porcentual de MHC y con atrofia atenuada del cuádriceps.",
+        "source_excerpt": "In BR, surprisingly, the typical bedrest-induced decrements in vastus lateralis myofiber size and power were either blunted (myosin heavy chain, MHC I) or eliminated (MHC IIa), along with no change ( P  > 0.05) in %MHC distribution and blunted quadriceps atrophy."
+      },
+      {
+        "kind": "implication",
+        "text": "Las pruebas periódicas probablemente proporcionaron un contraejercicio parcial para el cuádriceps en el grupo de reposo en cama, un hallazgo novedoso dada la dosis de ejercicio extremadamente baja.",
+        "source_excerpt": "the periodic testing likely provided a partial exercise countermeasure for the quadriceps in the bedrest group, which is a novel finding given the extremely low exercise dose."
+      },
+      {
+        "kind": "implication",
+        "text": "Se necesita refinar el programa SPRINT para proteger completamente la salud miocelular y muscular total del tríceps sural en astronautas en vuelos espaciales de larga duración.",
+        "source_excerpt": "refinement is needed to completely protect triceps surae myocellular and whole muscle health for astronauts on long-duration spaceflights."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Programa de ejercicios SPRINT de la NASA (resistencia y ejercicio aeróbico) durante 70 días de reposo en cama con inclinación de 6° cabeza abajo.",
+        "source_excerpt": "The efficacy of the NASA SPRINT exercise countermeasures program for quadriceps (vastus lateralis) and triceps surae (soleus) skeletal muscle health was investigated during 70 days of simulated microgravity."
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "Testosterona en dosis bajas combinada con el programa de ejercicios SPRINT durante el reposo en cama.",
+        "source_excerpt": "bedrest with resistance and aerobic exercise and low-dose testosterone (BRE + T,  n  = 8)"
+      }
+    ]
+  }
+}

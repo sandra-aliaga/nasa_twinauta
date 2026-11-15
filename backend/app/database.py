@@ -52,6 +52,21 @@ class ActionState(Base):
     updated_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), nullable=False)
 
 
+class PreparedContextRecord(Base):
+    """Keep published context versions separate from assessment and action state."""
+
+    __tablename__ = "prepared_contexts"
+
+    id: Mapped[str] = mapped_column(String(36), primary_key=True)
+    assessment_id: Mapped[str] = mapped_column(
+        ForeignKey("assessments.id", ondelete="CASCADE"), index=True
+    )
+    payload: Mapped[dict[str, Any]] = mapped_column(JSONB, nullable=False)
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime(timezone=True), nullable=False, server_default=text("CURRENT_TIMESTAMP")
+    )
+
+
 class LiteraturePaperRecord(Base):
     """Store one bibliographic candidate independently from scientific assessments."""
 
@@ -90,6 +105,7 @@ class LiteratureAnalysisRecord(Base):
     status: Mapped[str] = mapped_column(String(20), nullable=False)
     generated_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True))
     items: Mapped[list[dict[str, Any]]] = mapped_column(JSONB, nullable=False)
+    summary: Mapped[dict[str, Any] | None] = mapped_column(JSONB, nullable=True)
     failure_reason: Mapped[str | None] = mapped_column(String(2000), nullable=True)
     created_at: Mapped[datetime] = mapped_column(
         DateTime(timezone=True), nullable=False, server_default=text("CURRENT_TIMESTAMP")

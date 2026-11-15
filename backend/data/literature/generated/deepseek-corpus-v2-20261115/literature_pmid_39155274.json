@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_39155274",
+  "title": "Five days of bed rest in young and old adults: Retainment of skeletal muscle mass with neuromuscular electrical stimulation.",
+  "abstract": "The consequences of short-term disuse are well known, but effective countermeasures remain elusive. This study investigated the effects of neuromuscular electrical stimulation (NMES) during 5 days of bed rest on retaining lower limb muscle mass and muscle function in healthy young and old participants. One leg received NMES of the quadriceps muscle (3 × 30min/day) (NMES), and the other served as a control (CON). Isometric quadriceps strength (MVC), rate of force development (RFD), lower limb lean mass, and muscle thickness were assessed pre-and post-intervention. Muscle thickness remained unaltered with NMES in young and increased in old following bed rest, while it decreased in CON legs. In old participants, mid-thigh lean mass (MTLM) was preserved with NMES while decreased in CON legs. In the young, only a tendency to change with bed rest was detected for MTLM. MVC and early-phase RFD decreased in young and old, irrespective of NMES. In contrast, late-phase RFD was retained in young participants with NMES, while it decreased in young CON legs, and in the old, irrespective of NMES. NMES during short-term bed rest preserved muscle thickness but not maximal muscle strength. While young and old adults demonstrated similar adaptive responses in preventing the loss of skeletal muscle thickness, RFD was retained in the young only.",
+  "input_sha256": "b9b7f51c41851fefaaa63d63629255997026d180e289bdf6a7985fc6c35f3bd3",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 794,
+    "completion_tokens": 535,
+    "total_tokens": 1329,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 410
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio investigó la estimulación eléctrica neuromuscular (NMES) durante 5 días de reposo en cama en participantes jóvenes y mayores. NMES preservó el grosor muscular en jóvenes y lo aumentó en mayores, mientras que el grosor disminuyó en las piernas de control. En mayores, la masa magra del muslo medio se preservó con NMES, pero no en el control; en jóvenes solo hubo una tendencia. La fuerza máxima y la fase temprana de la tasa de desarrollo de fuerza disminuyeron en ambos grupos independientemente de NMES. La fase tardía de la tasa de desarrollo de fuerza se retuvo solo en jóvenes con NMES. NMES previno la pérdida de grosor muscular pero no la fuerza máxima, con respuestas adaptativas similares entre edades para el grosor.",
+    "summary_excerpt": "In the young, only a tendency to change with bed rest was detected for MTLM. MVC and early-phase RFD decreased in young and old, irrespective of NMES. In contrast, late-phase RFD was retained in young participants with NMES, while it decreased in young CON legs, and in the old, irrespective of NMES. NMES during short-term bed rest preserved muscle thickness but not maximal muscle strength. While ",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "El grosor muscular se mantuvo sin cambios con NMES en jóvenes y aumentó en mayores después del reposo en cama, mientras que disminuyó en las piernas de control.",
+        "source_excerpt": "a control (CON). Isometric quadriceps strength (MVC), rate of force development (RFD), lower limb lean mass, and muscle thickness were assessed pre-and post-intervention. Muscle thickness remained unaltered with NMES in young and increased in old following bed rest, while it decreased in CON legs. In old participants, mid-thigh lean mass (MTLM) was preserved with NMES while decreased in CON legs. "
+      },
+      {
+        "kind": "finding",
+        "text": "En los participantes mayores, la masa magra del muslo medio (MTLM) se preservó con NMES mientras que disminuyó en las piernas de control.",
+        "source_excerpt": "a control (CON). Isometric quadriceps strength (MVC), rate of force development (RFD), lower limb lean mass, and muscle thickness were assessed pre-and post-intervention. Muscle thickness remained unaltered with NMES in young and increased in old following bed rest, while it decreased in CON legs. In old participants, mid-thigh lean mass (MTLM) was preserved with NMES while decreased in CON legs. "
+      },
+      {
+        "kind": "finding",
+        "text": "La fuerza isométrica máxima (MVC) y la tasa de desarrollo de fuerza en fase temprana (RFD) disminuyeron en jóvenes y mayores, independientemente de la NMES.",
+        "source_excerpt": "In the young, only a tendency to change with bed rest was detected for MTLM. MVC and early-phase RFD decreased in young and old, irrespective of NMES. In contrast, late-phase RFD was retained in young participants with NMES, while it decreased in young CON legs, and in the old, irrespective of NMES. NMES during short-term bed rest preserved muscle thickness but not maximal muscle strength. While "
+      },
+      {
+        "kind": "finding",
+        "text": "La tasa de desarrollo de fuerza en fase tardía se retuvo en participantes jóvenes con NMES, mientras que disminuyó en las piernas de control jóvenes y en los mayores independientemente de la NMES.",
+        "source_excerpt": "In the young, only a tendency to change with bed rest was detected for MTLM. MVC and early-phase RFD decreased in young and old, irrespective of NMES. In contrast, late-phase RFD was retained in young participants with NMES, while it decreased in young CON legs, and in the old, irrespective of NMES. NMES during short-term bed rest preserved muscle thickness but not maximal muscle strength. While "
+      },
+      {
+        "kind": "implication",
+        "text": "La NMES durante el reposo en cama a corto plazo preservó el grosor muscular pero no la fuerza muscular máxima.",
+        "source_excerpt": "In the young, only a tendency to change with bed rest was detected for MTLM. MVC and early-phase RFD decreased in young and old, irrespective of NMES. In contrast, late-phase RFD was retained in young participants with NMES, while it decreased in young CON legs, and in the old, irrespective of NMES. NMES during short-term bed rest preserved muscle thickness but not maximal muscle strength. While "
+      }
+    ]
+  }
+}

@@ -679,6 +679,64 @@ class PaperApplicability(ContractModel):
     review_status: Literal["pending", "reviewed"]
 
 
+class GuidanceStep(ContractModel):
+    """Describe a next step without automatically enabling a clinical action."""
+
+    id: str
+    title: str
+    description: str
+    kind: Literal["operational_review", "studied_intervention"]
+    eligibility: Literal["eligible", "ineligible", "unknown"]
+    eligibility_reason: str
+    rule_id: str | None
+    rule_version: str | None
+    paper_ids: list[str]
+    review_status: Literal["pending", "reviewed"]
+
+    @model_validator(mode="after")
+    def validate_eligibility(self) -> Self:
+        """Require reviewed rules before exposing an eligible step."""
+        if self.eligibility == "eligible" and (
+            self.review_status != "reviewed" or not self.rule_id or not self.rule_version
+        ):
+            raise ValueError("Eligible guidance requires a reviewed, versioned rule.")
+        return self
+
+
+class Guidance(ContractModel):
+    """Freeze module coverage, data limitations and proposed operational steps."""
+
+    assessment_id: str
+    module_id: str | None
+    module_version: str | None
+    status: Literal["complete", "partial", "insufficient_data", "not_supported", "review_pending"]
+    attention: Literal["informational", "review_needed", "unknown"]
+    summary: str
+    reason: str | None
+    observation_ids: list[str]
+    paper_ids: list[str]
+    applicability: list[PaperApplicability]
+    steps: list[GuidanceStep]
+    limitations: list[str]
+    corpus_version: str | None
+    rules_version: str | None
+    created_at: datetime | None
+
+    @model_validator(mode="after")
+    def validate_references(self) -> Self:
+        """Keep one snapshot context and resolve paper references."""
+        unique_ids(self.observation_ids, "Guidance observation")
+        papers = unique_ids(self.paper_ids, "Guidance paper")
+        unique_ids([step.id for step in self.steps], "Guidance step")
+        if any(not set(step.paper_ids).issubset(papers) for step in self.steps):
+            raise ValueError("A guidance step references a missing paper.")
+        if any(item.assessment_id != self.assessment_id for item in self.applicability):
+            raise ValueError("Applicability must belong to the same assessment.")
+        if self.status != "complete" and not self.reason:
+            raise ValueError("Incomplete guidance must explain its limitations.")
+        return self
+
+
 class PaperDetail(ContractModel):
     """Represent a paper detail page without promoting candidate evidence."""
 

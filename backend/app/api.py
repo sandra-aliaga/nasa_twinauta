@@ -1,4 +1,4 @@
-"""HTTP adapters for the shared version 0.2 contract."""
+"""HTTP adapters for the shared version 0.3 contract."""
 
 from collections.abc import Iterator
 from typing import Annotated, Literal
@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 from app import assessments, catalog, knowledge_graph, papers, telemetry
 from app.database import CaseRecord
 from app.errors import not_found
+from app.prepared_contexts import AssessmentContext, AssessmentIndex, get_context, list_assessments
 from app.schemas import (
     Action,
     ActionUpdate,
@@ -19,6 +20,7 @@ from app.schemas import (
     Error,
     Graph,
     GraphPage,
+    Guidance,
     IndicatorDefinition,
     KnowledgeBaseMetadata,
     ModuleCatalog,
@@ -42,6 +44,26 @@ def get_session(request: Request) -> Iterator[Session]:
 
 
 DatabaseSession = Annotated[Session, Depends(get_session)]
+
+
+@router.get(
+    "/cases/{case_id}/assessments",
+    response_model=list[AssessmentIndex],
+    operation_id="list_case_assessments",
+)
+def list_case_assessments(case_id: str, session: DatabaseSession) -> list[AssessmentIndex]:
+    """Discover installed assessment snapshots and contextual content availability."""
+    return list_assessments(session, case_id)
+
+
+@router.get(
+    "/assessments/{assessment_id}/context",
+    response_model=AssessmentContext,
+    operation_id="get_assessment_context",
+)
+def get_assessment_context(assessment_id: str, session: DatabaseSession) -> AssessmentContext:
+    """Read the three published narratives and citation graphs without generation."""
+    return get_context(session, assessment_id)
 
 
 @router.get("/cases", response_model=list[Case], operation_id="list_cases")
@@ -180,6 +202,16 @@ def create_assessment(request: AssessmentRequest, session: DatabaseSession) -> A
 def get_assessment(assessment_id: str, session: DatabaseSession) -> Assessment:
     """Retrieve the frozen evaluation and current action states."""
     return assessments.get_assessment(session, assessment_id)
+
+
+@router.get(
+    "/assessments/{assessment_id}/guidance",
+    response_model=Guidance,
+    operation_id="get_assessment_guidance",
+)
+def get_assessment_guidance(assessment_id: str, session: DatabaseSession) -> Guidance:
+    """Return frozen descriptive guidance without generating new conclusions."""
+    return assessments.get_guidance(session, assessment_id)
 
 
 @router.get(

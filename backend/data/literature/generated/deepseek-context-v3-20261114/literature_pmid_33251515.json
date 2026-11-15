@@ -1,0 +1,57 @@
+{
+  "paper_id": "literature_pmid_33251515",
+  "title": "Disuse-Induced Muscle Loss and Rehabilitation: The National Aeronautics and Space Administration Bed Rest Study.",
+  "abstract": "Objectives The time course and magnitude of atrophic remodeling and the effects of an acute rehabilitation program on muscle atrophy are unclear. We sought to characterize bed rest-induced leg muscle atrophy and evaluate the safety and efficacy of an acute rehabilitation program. Design Prespecified analysis of a randomized controlled trial. Setting Single-center urban hospital. Patients Adults (24-55 yr) randomized to 70 days of sedentary bed rest. Interventions The 11-day post-bed rest rehabilitation program consisted of low intensity exercise and progressed to increased aerobic exercise duration, plyometric exercises, and higher intensity resistance exercise. Measurements and main results Upper (rectus femoris, vastus lateralis, quadriceps, hamstrings, adductors) and lower leg (medial gastrocnemius, lateral gastrocnemius, and soleus) MRI scans were obtained once before, nine times during, and three times after bed rest to assess muscle cross-sectional area. The magnitude and rate of muscle atrophy and recovery were determined for each muscle. Nine participants completed 70 days of sedentary bed rest and an 11-day rehabilitation program. A total of 11,588 muscle cross-sectional area images were quantified. Across all muscles except the rectus femoris (no change), there was a linear decline during bed rest, with the highest atrophic rate occurring in the soleus (-0.33%/d). Following rehabilitation, there was rapid recovery in all muscles; however, the quadriceps (-3.74 cm 2 ; 95% CI, -7.36 to -0.12;  p  = 0.04), hamstrings (-2.30 cm 2 ; 95% CI, -4.07 to -0.54;  p  = 0.01), medial gastrocnemius (-0.62 cm 2 ; 95% CI, -1.10 to -0.14;  p  = 0.01), and soleus (-1.85 cm 2 ; 95% CI, -2.90 to -0.81;  p   Conclusions Bed rest results in upper and lower leg muscle atrophy in a linear pattern, and an 11-day rehabilitation program was safe and effective in initiating a rapid trajectory of muscle recovery. These findings provide important information regarding the design and refinement of rehabilitation programs following bed rest.",
+  "input_sha256": "2b4ea67a0128a54038ab0fb62dd625cc42cd1c9e8eb67457303dbe090b9c3b2c",
+  "prompt_version": "abstract-analysis-0.1",
+  "review_status": "pending",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "usage": {},
+  "reused_from": "data/literature/generated/deepseek-pilot-20261114",
+  "analysis": {
+    "summary": "El estudio evaluó la atrofia muscular de las piernas durante 70 días de reposo en cama sedentario y los efectos de un programa de rehabilitación aguda de 11 días en adultos de 24 a 55 años. Se cuantificaron imágenes de resonancia magnética del área de sección transversal muscular en músculos superiores e inferiores de la pierna. Se observó una disminución lineal durante el reposo en cama en la mayoría de los músculos, con la mayor tasa de atrofia en el sóleo (-0,33%/d). Tras la rehabilitación, hubo una recuperación rápida en todos los músculos, pero el cuádriceps, los isquiotibiales, el gastrocnemio medial y el sóleo permanecieron significativamente reducidos en comparación con los valores previos al reposo en cama, aunque el programa fue seguro y efectivo para iniciar una trayectoria rápida de recuperación.",
+    "summary_excerpt": "Bed rest results in upper and lower leg muscle atrophy in a linear pattern, and an 11-day rehabilitation program was safe and effective in initiating a rapid trajectory of muscle recovery.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "Durante 70 días de reposo en cama sedentario, hubo una disminución lineal del área de sección transversal muscular en todos los músculos de la pierna excepto el recto femoral, que no cambió.",
+        "source_excerpt": "Across all muscles except the rectus femoris (no change), there was a linear decline during bed rest"
+      },
+      {
+        "kind": "finding",
+        "text": "La tasa de atrofia más alta durante el reposo en cama ocurrió en el sóleo (-0,33%/d).",
+        "source_excerpt": "with the highest atrophic rate occurring in the soleus (-0.33%/d)"
+      },
+      {
+        "kind": "finding",
+        "text": "Tras 11 días de rehabilitación, el cuádriceps permaneció significativamente reducido en comparación con los valores previos al reposo (-3,74 cm²; IC 95%, -7,36 a -0,12; p = 0,04).",
+        "source_excerpt": "the quadriceps (-3.74 cm 2 ; 95% CI, -7.36 to -0.12; p = 0.04)"
+      },
+      {
+        "kind": "finding",
+        "text": "Tras 11 días de rehabilitación, los isquiotibiales permanecieron significativamente reducidos en comparación con los valores previos al reposo (-2,30 cm²; IC 95%, -4,07 a -0,54; p = 0,01).",
+        "source_excerpt": "hamstrings (-2.30 cm 2 ; 95% CI, -4.07 to -0.54; p = 0.01)"
+      },
+      {
+        "kind": "finding",
+        "text": "Tras 11 días de rehabilitación, el gastrocnemio medial permaneció significativamente reducido en comparación con los valores previos al reposo (-0,62 cm²; IC 95%, -1,10 a -0,14; p = 0,01).",
+        "source_excerpt": "medial gastrocnemius (-0.62 cm 2 ; 95% CI, -1.10 to -0.14; p = 0.01)"
+      },
+      {
+        "kind": "finding",
+        "text": "Tras 11 días de rehabilitación, el sóleo permaneció significativamente reducido en comparación con los valores previos al reposo (-1,85 cm²; IC 95%, -2,90 a -0,81; p).",
+        "source_excerpt": "soleus (-1.85 cm 2 ; 95% CI, -2.90 to -0.81; p"
+      },
+      {
+        "kind": "finding",
+        "text": "El programa de rehabilitación de 11 días fue seguro y efectivo para iniciar una trayectoria rápida de recuperación muscular.",
+        "source_excerpt": "an 11-day rehabilitation program was safe and effective in initiating a rapid trajectory of muscle recovery"
+      },
+      {
+        "kind": "studied_intervention",
+        "text": "El programa de rehabilitación de 11 días consistió en ejercicio de baja intensidad y progresó a mayor duración de ejercicio aeróbico, ejercicios pliométricos y ejercicio de resistencia de mayor intensidad.",
+        "source_excerpt": "The 11-day post-bed rest rehabilitation program consisted of low intensity exercise and progressed to increased aerobic exercise duration, plyometric exercises, and higher intensity resistance exercise."
+      }
+    ]
+  }
+}

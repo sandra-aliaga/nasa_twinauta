@@ -1,0 +1,48 @@
+{
+  "paper_id": "literature_pmid_40163643",
+  "title": "Effects of neuromuscular electrical stimulation on voluntary muscle activation and peripheral muscle contractility following short-term bed rest.",
+  "abstract": "Disuse induces a disproportionate loss of muscle force compared with muscle mass, with unclear effects on voluntary muscle activation (VA) and peripheral contractility. Furthermore, the effect of neuromuscular electrical stimulation (NMES) as a disuse countermeasure remains uncertain. We investigated the effects of NMES during bed rest on neuromechanical function to improve our understanding of the mechanisms underlying disuse-induced reductions in muscular force. Young (n = 16, 25 years old) and old (n = 16, 71 years old) adults underwent 5 days of bed rest. One leg received NMES (3 × 30 min/day), while the other served as the control (CON). Maximal isometric knee-extensor strength (MVIC), VA and peripheral muscle contractility were assessed before and after bed rest using the interpolated twitch technique, along with biomarkers of neuromuscular junction instability (C-terminal agrin fragment (CAF)) and muscle damage (creatine kinase (CK)). MVIC decreased in both age groups, regardless of NMES (young: CON, -21.7 Nm and NMES, -23.8 Nm; old: CON, -18.5 Nm and NMES, -16.4 Nm). VA was preserved with NMES, while decreasing in CON legs (young, -8.1%; old, -5.6%) following bed rest. Peripheral contractility (resting doublet twitch force) was reduced in CON and NMES legs in both age groups (young: CON, -4.0 Nm and NMES, -11.5 Nm; old: CON, -5.9 Nm and NMES, -10.8 Nm), with a greater decrease in NMES legs. CAF remained unchanged, whereas CK levels increased in young participants, albeit remaining within the normal range. In conclusion, a decline in neuromechanical function was observed after 5 days of bed rest in young and old adults. Although NMES appeared to preserve VA, peripheral muscle contractility was altered, resulting in reduced MVIC.",
+  "input_sha256": "7ad17c934b8038de8462071e855094d95cd89335d4840888573005f238f5eee8",
+  "model_id": "openai_compatible:18ca5273336d/deepseek-v4-pro",
+  "prompt_version": "abstract-analysis-0.2",
+  "review_status": "pending",
+  "usage": {
+    "prompt_tokens": 960,
+    "completion_tokens": 517,
+    "total_tokens": 1477,
+    "prompt_cache_hit_tokens": 384,
+    "prompt_cache_miss_tokens": 576
+  },
+  "charged_in_this_run": true,
+  "analysis": {
+    "summary": "El estudio investigó los efectos de la estimulación eléctrica neuromuscular (NMES) durante 5 días de reposo en cama sobre la función neuromuscular en 16 adultos jóvenes y 16 mayores. La fuerza isométrica máxima (MVIC) disminuyó en ambos grupos independientemente de la NMES. La activación voluntaria (VA) se preservó con NMES, pero disminuyó en las piernas de control. La contractilidad periférica se redujo, con mayor disminución en las piernas NMES. Los marcadores de inestabilidad de la unión neuromuscular y daño muscular mostraron cambios limitados o dentro de rangos normales. Aunque la NMES pareció preservar la VA, la contractilidad periférica alterada resultó en MVIC reducida.",
+    "summary_excerpt": "function was observed after 5 days of bed rest in young and old adults. Although NMES appeared to preserve VA, peripheral muscle contractility was altered, resulting in reduced MVIC.",
+    "items": [
+      {
+        "kind": "finding",
+        "text": "La fuerza isométrica máxima (MVIC) disminuyó en ambos grupos de edad, independientemente de la NMES.",
+        "source_excerpt": "interpolated twitch technique, along with biomarkers of neuromuscular junction instability (C-terminal agrin fragment (CAF)) and muscle damage (creatine kinase (CK)). MVIC decreased in both age groups, regardless of NMES (young: CON, -21.7 Nm and NMES, -23.8 Nm; old: CON, -18.5 Nm and NMES, -16.4 Nm). VA was preserved with NMES, while decreasing in CON legs (young, -8.1%; old, -5.6%) following "
+      },
+      {
+        "kind": "finding",
+        "text": "La activación voluntaria (VA) se preservó con NMES, pero disminuyó en las piernas de control tras el reposo en cama.",
+        "source_excerpt": "interpolated twitch technique, along with biomarkers of neuromuscular junction instability (C-terminal agrin fragment (CAF)) and muscle damage (creatine kinase (CK)). MVIC decreased in both age groups, regardless of NMES (young: CON, -21.7 Nm and NMES, -23.8 Nm; old: CON, -18.5 Nm and NMES, -16.4 Nm). VA was preserved with NMES, while decreasing in CON legs (young, -8.1%; old, -5.6%) following "
+      },
+      {
+        "kind": "finding",
+        "text": "La contractilidad periférica (fuerza de contracción doble en reposo) se redujo en ambas piernas en ambos grupos de edad, con una mayor disminución en las piernas NMES.",
+        "source_excerpt": "bed rest. Peripheral contractility (resting doublet twitch force) was reduced in CON and NMES legs in both age groups (young: CON, -4.0 Nm and NMES, -11.5 Nm; old: CON, -5.9 Nm and NMES, -10.8 Nm), with a greater decrease in NMES legs. CAF remained unchanged, whereas CK levels increased in young participants, albeit remaining within the normal range. In conclusion, a decline in neuromechanical "
+      },
+      {
+        "kind": "finding",
+        "text": "El fragmento de agrina C-terminal (CAF) permaneció sin cambios, mientras que los niveles de creatina quinasa (CK) aumentaron en los participantes jóvenes, pero dentro del rango normal.",
+        "source_excerpt": "bed rest. Peripheral contractility (resting doublet twitch force) was reduced in CON and NMES legs in both age groups (young: CON, -4.0 Nm and NMES, -11.5 Nm; old: CON, -5.9 Nm and NMES, -10.8 Nm), with a greater decrease in NMES legs. CAF remained unchanged, whereas CK levels increased in young participants, albeit remaining within the normal range. In conclusion, a decline in neuromechanical "
+      },
+      {
+        "kind": "implication",
+        "text": "Aunque la NMES pareció preservar la VA, la contractilidad muscular periférica se alteró, resultando en una MVIC reducida.",
+        "source_excerpt": "function was observed after 5 days of bed rest in young and old adults. Although NMES appeared to preserve VA, peripheral muscle contractility was altered, resulting in reduced MVIC."
+      }
+    ]
+  }
+}
