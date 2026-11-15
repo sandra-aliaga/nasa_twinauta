@@ -17,9 +17,32 @@ export type AssessmentState =
   | { status: "ready"; request: AssessmentRequest; assessment: Assessment };
 
 /**
- * Create assessments on demand. A new request aborts the previous one, so a
- * late response for an older day or region never replaces the current one.
+ * Open the stored snapshot for the requested region and day, or create one.
+ * Reusing a stored snapshot keeps its prepared synthesis (a new snapshot has
+ * none) and avoids piling up copies; a snapshot with prepared context wins,
+ * then the most recent. A new request aborts the previous one, so a late
+ * response for an older day or region never replaces the current one.
  */
+async function openOrCreate(
+  request: AssessmentRequest,
+  signal: AbortSignal,
+): Promise<Assessment> {
+  const index = await dataSource.listCaseAssessments(request.case_id, signal);
+  const existing = index
+    .filter(
+      (item) =>
+        item.region_id === request.region_id &&
+        item.mission_day === request.mission_day,
+    )
+    .sort(
+      (a, b) =>
+        Number(b.has_context) - Number(a.has_context) ||
+        b.created_at.localeCompare(a.created_at),
+    )[0];
+  return existing
+    ? dataSource.getAssessment(existing.assessment_id, signal)
+    : dataSource.createAssessment(request, signal);
+}
 export function useAssessment() {
   const [state, setState] = useState<AssessmentState>({ status: "idle" });
   const controllerRef = useRef<AbortController | null>(null);
@@ -34,8 +57,7 @@ export function useAssessment() {
     controllerRef.current = controller;
     setState({ status: "loading", request });
 
-    dataSource
-      .createAssessment(request, controller.signal)
+    openOrCreate(request, controller.signal)
       .then((assessment) => {
         if (controller.signal.aborted) return;
         setState({ status: "ready", request, assessment });

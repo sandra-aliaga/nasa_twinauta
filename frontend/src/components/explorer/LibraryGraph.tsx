@@ -16,7 +16,7 @@ import {
 import { useEffect, useMemo, useState } from "react";
 
 import { toApiError, type ApiError } from "../../api";
-import { explorerSource } from "../../api/explorer/mockSource";
+import { explorerSource } from "../../api/explorer";
 import type {
   GraphPage,
   GraphQuery,

@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-import { explorerSource } from "../../api/explorer/mockSource";
+import { explorerSource } from "../../api/explorer";
 import type { LibraryView, PaperQuery } from "../../api/explorer/types";
 import { useLoad } from "../../hooks/useLoad";
 import {
@@ -43,6 +43,10 @@ function toQuery(filters: Filters, regionId: string | null): PaperQuery {
 type ExplorerViewProps = {
   /** Region selected on the body, used as an optional filter. */
   regionId: string | null;
+  /** Open assessment: adds context applicability to paper records. */
+  assessmentId?: string | null;
+  /** Paper to open first, e.g. from a citation of the contextual synthesis. */
+  initialPaperId?: string | null;
   onBack: () => void;
 };
 
@@ -51,12 +55,20 @@ type ExplorerViewProps = {
  * adapter. It explores the current corpus; it never replaces the frozen
  * graph of an assessment.
  */
-export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
+export function ExplorerView({
+  regionId,
+  assessmentId = null,
+  initialPaperId = null,
+  onBack,
+}: ExplorerViewProps) {
   const [draft, setDraft] = useState<Filters>(EMPTY);
   const [filters, setFilters] = useState<Filters>(EMPTY);
   const [useRegion, setUseRegion] = useState(regionId !== null);
   const [mode, setMode] = useState<"list" | "graph">("list");
-  const [paperId, setPaperId] = useState<string | null>(null);
+  const [paperId, setPaperId] = useState<string | null>(initialPaperId);
+  useEffect(() => {
+    if (initialPaperId) setPaperId(initialPaperId);
+  }, [initialPaperId]);
   const asideRef = useRef<HTMLElement>(null);
 
   // On narrow screens the record opens below the list: bring it into view.
@@ -71,8 +83,10 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
   const papers = useLoad(queryKey, (signal) =>
     explorerSource.searchPapers(query, signal),
   );
-  const detail = useLoad(paperId, (signal) =>
-    explorerSource.getPaper(paperId as string, signal),
+  const detail = useLoad(
+    paperId && `${paperId}|${assessmentId ?? ""}`,
+    (signal) =>
+      explorerSource.getPaper(paperId as string, assessmentId ?? null, signal),
   );
   const base = useLoad("kb", (signal) =>
     explorerSource.getKnowledgeBase(signal),
@@ -95,9 +109,13 @@ export function ExplorerView({ regionId, onBack }: ExplorerViewProps) {
           <h2 className="text-sm font-semibold text-slate-100">
             Biblioteca científica
           </h2>
-          <Tag tone="amber">
-            Demostración · contrato 0.3 propuesto, sin backend
-          </Tag>
+          {explorerSource.kind === "mock" ? (
+            <Tag tone="amber">
+              Demostración · ejemplos del contrato, sin backend
+            </Tag>
+          ) : (
+            <Tag>Datos del backend</Tag>
+          )}
           {base?.status === "ready" ? (
             <span className="text-xs text-slate-400">
               Corpus {base.data.corpus_version} · {base.data.paper_count}{" "}

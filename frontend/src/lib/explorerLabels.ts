@@ -83,12 +83,13 @@ export const STATISTIC_TYPE_LABELS: Record<
   effect_estimate: "Estimación de efecto",
 };
 
-export const DISPERSION_LABELS = { sd: "DE", se: "EE" } as const;
+export const DISPERSION_LABELS = {
+  standard_deviation: "DE",
+  standard_error: "EE",
+} as const;
 
-export const INTERVAL_LABELS: Record<
-  NonNullable<Statistic["interval"]>["kind"],
-  string
-> = {
+/** Known interval kinds; an unknown kind is shown as "Intervalo". */
+export const INTERVAL_LABELS: Record<string, string> = {
   confidence_interval: "IC",
   credible_interval: "Intervalo creíble",
   reported_range: "Rango informado",

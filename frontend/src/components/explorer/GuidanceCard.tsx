@@ -1,8 +1,8 @@
 import { useState } from "react";
 
-import type { Action, Assessment } from "../../api";
-import { explorerSource } from "../../api/explorer/mockSource";
-import type { GuidanceStep } from "../../api/explorer/types";
+import { dataSource, type Action, type Assessment } from "../../api";
+import { explorerSource } from "../../api/explorer";
+import type { Guidance, GuidanceStep } from "../../api/explorer/types";
 import { useLoad } from "../../hooks/useLoad";
 import {
   APPLICABILITY_LABELS,
@@ -17,15 +17,26 @@ import {
 } from "../../lib/labels";
 import { ErrorNotice, Notice, Tag } from "../common";
 
+/** Proposed link to a 0.2 action; absent in the implemented contract. */
+type StepWithLink = GuidanceStep & { action_id?: string | null };
+
 /**
- * Contextual guidance (contract draft 0.3), shown with the documented
- * fixture variants. The fixture does not belong to the current assessment,
- * and statuses describe coverage, never clinical severity. A step linked to
- * a 0.2 action shows that action's live state; execution is never copied.
+ * Frozen operational guidance of an assessment. With the backend it shows the
+ * open assessment's guidance; in examples mode it shows the documented
+ * variants, which do not belong to the open assessment. Statuses describe
+ * coverage, never clinical severity.
  */
 export function GuidanceCard({ assessment }: { assessment: Assessment }) {
-  const examples = useLoad("guidance", (signal) =>
-    explorerSource.listGuidanceExamples(signal),
+  const listExamples = explorerSource.listGuidanceExamples;
+  const isDemo = listExamples !== undefined;
+  const examples = useLoad(
+    isDemo ? "guidance-examples" : `guidance|${assessment.assessment_id}`,
+    (signal): Promise<Guidance[]> =>
+      listExamples
+        ? listExamples(signal)
+        : dataSource
+            .getGuidance(assessment.assessment_id, signal)
+            .then((item) => [item]),
   );
   const modules = useLoad("modules", (signal) =>
     explorerSource.listModules(signal),
@@ -47,28 +58,37 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
         <h4 className="text-sm font-medium text-slate-100">
           Orientación contextual
         </h4>
-        <Tag tone="amber">Demostración 0.3 · ejemplo del contrato</Tag>
+        {isDemo ? (
+          <Tag tone="amber">Demostración · ejemplo del contrato</Tag>
+        ) : (
+          <Tag>Orientación congelada de esta evaluación</Tag>
+        )}
       </div>
-      <label className="flex flex-col gap-1 text-xs text-slate-400">
-        Variante documentada
-        <select
-          value={index}
-          onChange={(event) => setIndex(Number(event.target.value))}
-          className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
-        >
-          {examples.data.map((item, i) => (
-            <option key={`${item.status}-${i}`} value={i}>
-              {GUIDANCE_STATUS_LABELS[item.status]}:{" "}
-              {item.reason ?? item.summary}
-            </option>
-          ))}
-        </select>
-      </label>
-      <p className="text-xs text-slate-400">
-        Este ejemplo no corresponde a la evaluación abierta; sirve para ver cómo
-        se presentará cada estado. Los enlaces a acciones se resuelven por
-        identificador contra la evaluación abierta solo para la demostración.
-      </p>
+      {isDemo ? (
+        <>
+          <label className="flex flex-col gap-1 text-xs text-slate-400">
+            Variante documentada
+            <select
+              value={index}
+              onChange={(event) => setIndex(Number(event.target.value))}
+              className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
+            >
+              {examples.data.map((item, i) => (
+                <option key={`${item.status}-${i}`} value={i}>
+                  {GUIDANCE_STATUS_LABELS[item.status]}:{" "}
+                  {item.reason ?? item.summary}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p className="text-xs text-slate-400">
+            Este ejemplo no corresponde a la evaluación abierta; sirve para ver
+            cómo se presentará cada estado. Los enlaces a acciones se resuelven
+            por identificador contra la evaluación abierta solo para la
+            demostración.
+          </p>
+        </>
+      ) : null}
 
       <div className="flex flex-wrap gap-1">
         <Tag tone={guidance.status === "complete" ? "sky" : "slate"}>
@@ -136,11 +156,13 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
               </div>
               <p className="mt-1 text-slate-300">{step.description}</p>
               <p className="mt-0.5 text-slate-400">{step.eligibility_reason}</p>
-              <LinkedAction
-                step={step}
-                guidanceAssessmentId={guidance.assessment_id}
-                assessment={assessment}
-              />
+              {(step as StepWithLink).action_id !== undefined ? (
+                <LinkedAction
+                  step={step as StepWithLink}
+                  guidanceAssessmentId={guidance.assessment_id}
+                  assessment={assessment}
+                />
+              ) : null}
             </li>
           ))}
         </ul>
@@ -175,11 +197,11 @@ function LinkedAction({
   guidanceAssessmentId,
   assessment,
 }: {
-  step: GuidanceStep;
+  step: StepWithLink;
   guidanceAssessmentId: string;
   assessment: Assessment;
 }) {
-  if (step.action_id === null) {
+  if (!step.action_id) {
     return (
       <p className="mt-1 text-slate-400">
         {step.kind === "studied_intervention"
@@ -223,7 +245,7 @@ function LinkedAction({
   );
 }
 
-function mismatchedFields(step: GuidanceStep, action: Action): string[] {
+function mismatchedFields(step: StepWithLink, action: Action): string[] {
   const fields: string[] = [];
   if (step.eligibility !== action.eligibility) fields.push("elegibilidad");
   if (step.review_status !== action.review_status) fields.push("revisión");
