@@ -20,6 +20,7 @@ from app.schemas import (
     PaperDetail,
     PaperIdentifiers,
     PaperPage,
+    PaperStatistic,
 )
 
 CORPUS_VERSION = "candidate-corpus-2026-11-14"
@@ -120,7 +121,7 @@ def _paper_card(record: LiteraturePaperRecord) -> PaperCard:
         identifiers=PaperIdentifiers.model_validate(record.identifiers),
         sections=_sections(classification.get("topics", [])),
         region_ids=region_ids,
-        study_design=None,
+        study_design=payload.get("documentary_review", {}).get("study_design"),
         environment=_environment(classification.get("environment", "")),
         review_status="reviewed" if record.review_status == "reviewed" else "pending",
         access=PaperAccess(
@@ -142,7 +143,7 @@ def _paper_card(record: LiteraturePaperRecord) -> PaperCard:
 def get_paper_detail(
     session: Session, paper_id: str, assessment_id: str | None = None
 ) -> PaperDetail:
-    """Return one candidate with explicit non-audited and non-evaluated states."""
+    """Expose documentary extracts separately from individual applicability."""
     record = session.get(LiteraturePaperRecord, paper_id)
     if record is None:
         raise not_found("el paper")
@@ -150,15 +151,18 @@ def get_paper_detail(
     paper = _paper_card(record)
     abstract = record.abstract_text or None
     analysis, summary = analysis_documents(session, record)
+    review = record.payload.get("documentary_review", {})
     return PaperDetail(
         paper=paper,
         abstract=abstract,
         summary=summary,
-        population_description=None,
+        population_description=review.get("population_description"),
         cohort_ids=[],
         cohort_overlap_status="unknown",
-        statistics=[],
-        limitations=[
+        statistics=[PaperStatistic.model_validate(item) for item in review.get("statistics", [])],
+        limitations=[review["scope"], *review["limitations"]]
+        if review
+        else [
             "Registro bibliográfico candidato; no se auditó el texto completo.",
             "No contiene estadísticas extraídas ni una acción habilitada.",
         ],

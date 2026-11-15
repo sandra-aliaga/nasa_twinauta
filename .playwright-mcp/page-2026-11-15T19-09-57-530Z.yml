@@ -1,0 +1,80 @@
+- generic [ref=f8e3]:
+  - banner [ref=f8e10]:
+    - generic [ref=f8e11]:
+      - heading "TwinNauta" [level=1] [ref=f8e12]
+      - generic [ref=f8e18]:
+        - text: Caso
+        - combobox "Caso" [ref=f8e19]:
+          - option "Caso virtual de maquetación (virtual)" [selected]
+      - generic [ref=f8e20]:
+        - generic [ref=f8e21]: Día de misión
+        - slider "Día de misión" [ref=f8e22]: "10"
+        - generic [ref=f8e23]: 10 / 70
+        - button "Evaluar día 10" [ref=f8e24]
+      - button "Biblioteca científica" [ref=f8e25]
+      - button "Cómo leer esta demo" [ref=f8e26]: Guía
+  - generic [ref=f8e27]:
+    - main [ref=f8e28]:
+      - generic [ref=f8e30]:
+        - generic [ref=f8e31]:
+          - generic "Modelo anatómico 3D" [ref=f8e33]
+          - generic [ref=f8e36]:
+            - region "Estado general" [ref=f8e38]:
+              - generic [ref=f8e39]:
+                - generic [ref=f8e40]:
+                  - heading "Estado general" [level=2] [ref=f8e41]
+                  - paragraph [ref=f8e42]: Astronauta virtual
+                - paragraph [ref=f8e44]:
+                  - generic [ref=f8e45]: Día 10
+                  - text: de 70
+              - generic [ref=f8e49]:
+                - 'button "Pulso de ejemplo en Tierra: 95 latidos por minuto. Abrir la zona del corazón." [ref=f8e101]':
+                  - generic [ref=f8e51]:
+                    - generic [ref=f8e52]: Pulso
+                    - generic [ref=f8e55]: Ejemplo en Tierra
+                  - generic [ref=f8e56]: 95lpm
+                  - generic [ref=f8e61]: De otra persona en cinta, no del astronauta.
+                - generic [ref=f8e102]:
+                  - heading "Área transversal relativa del cuádriceps" [level=3] [ref=f8e103]
+                  - paragraph [ref=f8e104]: 100% del basal
+                - generic [ref=f8e105]:
+                  - heading "Torque de extensión de rodilla" [level=3] [ref=f8e106]
+                  - paragraph [ref=f8e107]: Sin dato
+              - generic [ref=f8e62]:
+                - heading "Ejercicio con registro" [level=3] [ref=f8e63]
+                - generic [ref=f8e108]:
+                  - paragraph [ref=f8e109]: 1/2
+                  - img "1 de 2 sesiones con registro" [ref=f8e110]
+              - 'button "Cuádriceps: algo por revisar Registro por revisar" [ref=f8e113]':
+                - generic [ref=f8e117]:
+                  - generic [ref=f8e118]: "Cuádriceps: algo por revisar"
+                  - generic [ref=f8e119]: Registro por revisar
+            - button "‹ Ocultar estado general" [ref=f8e66]
+        - generic [ref=f8e67]:
+          - generic [ref=f8e68]:
+            - generic [ref=f8e69]: "Regiones:"
+            - button "Cuádriceps" [ref=f8e70]
+          - list "Leyenda del modelo" [ref=f8e71]:
+            - listitem [ref=f8e72]: "Baliza: zona con algo por revisar"
+            - listitem [ref=f8e74]: Zona con seguimiento
+            - listitem [ref=f8e76]: "Corazón: pulso de ejemplo"
+            - listitem [ref=f8e78]: Resto del cuerpo, sin evaluar
+            - listitem [ref=f8e80]: Los colores no indican estado de salud.
+          - paragraph [ref=f8e81]: "Arrastra para girar y usa la rueda para acercar. Los dos lados forman una sola zona. Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0)."
+    - complementary [ref=f8e82]:
+      - generic [ref=f8e85]:
+        - heading "Toca una zona del cuerpo para ver qué pasa ahí" [level=2] [ref=f8e86]
+        - paragraph [ref=f8e87]: "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer."
+        - list [ref=f8e88]:
+          - listitem [ref=f8e89]:
+            - button "Cuádriceps Registro por revisar Ver zona" [ref=f8e120]:
+              - generic [ref=f8e91]:
+                - generic [ref=f8e92]: Cuádriceps
+                - generic [ref=f8e93]: Registro por revisar
+              - generic [ref=f8e94]: Ver zona
+          - listitem [ref=f8e95]:
+            - button "Corazón Pulso de ejemplo y estudios Ver zona" [ref=f8e96]:
+              - generic [ref=f8e97]:
+                - generic [ref=f8e98]: Corazón
+                - generic [ref=f8e99]: Pulso de ejemplo y estudios
+              - generic [ref=f8e100]: Ver zona

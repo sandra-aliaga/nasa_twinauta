@@ -1,5 +1,7 @@
 # Backend inicial
 
+Entrega documental actual: [alcance, fuentes y reproducción](../docs/evidencia/revision-documental-2026-11-15.md). Se publicaron 26 resúmenes revisados documentalmente contra abstracts oficiales y seis cifras agregadas de tablas originales; un registro carece de abstract. Para instalar esta publicación en una base con seed, ejecutar `python -m app.publish_documentary_review --apply` desde `backend/`. La revisión clínica, las reglas de acciones y los parámetros de simulación conservan sus estados separados; las secciones históricas siguientes documentan las etapas previas.
+
 Responsable: Sandra. FastAPI, Pydantic, SQLAlchemy, psycopg y PostgreSQL. Implementa el [contrato 0.3.0](../contracts/README.md), con biblioteca, síntesis contextual y contenido de demostración.
 
 ## Alcance

@@ -8,6 +8,8 @@ type MiniGraphProps = {
   view: GraphView;
   onExpand: () => void;
   labels?: Record<string, string>;
+  /** Render inside a card instead of floating over the body. */
+  inline?: boolean;
 };
 
 /** Small read-only preview over the body; the full view opens on demand. */
@@ -16,8 +18,34 @@ export function MiniGraph({
   view,
   onExpand,
   labels,
+  inline = false,
 }: MiniGraphProps) {
   const state = useGraph(assessmentId, view, labels);
+
+  if (inline) {
+    return (
+      <button
+        type="button"
+        onClick={onExpand}
+        aria-label={`Ampliar el mapa de ${VIEW_LABELS[view]}`}
+        className="block h-40 w-full cursor-zoom-in"
+      >
+        {state?.status === "ready" && state.data.nodes.length > 0 ? (
+          <div className="pointer-events-none h-full w-full">
+            <GraphCanvas graph={state.data} compact />
+          </div>
+        ) : (
+          <span className="text-xs text-slate-400">
+            {state?.status === "error"
+              ? "No se pudo cargar el mapa"
+              : state?.status === "ready"
+                ? "Sin relaciones"
+                : "Cargando…"}
+          </span>
+        )}
+      </button>
+    );
+  }
 
   return (
     <div className="absolute right-4 top-4 z-10 hidden w-72 overflow-hidden rounded-lg border border-slate-700 bg-slate-950/85 shadow-xl backdrop-blur xl:block">

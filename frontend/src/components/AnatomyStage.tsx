@@ -8,6 +8,7 @@ import {
 } from "react";
 
 import type { Region } from "../api";
+import type { MapData } from "../lib/graph";
 import {
   ANATOMY_COLORS,
   hasWebGL,
@@ -50,6 +51,14 @@ type AnatomyStageProps = {
   onSelect: (regionId: string) => void;
   /** Floating card over the empty left side of the 3D view (wide screens). */
   sidePanel?: ReactNode;
+  /** Regions whose open assessment has something to review. */
+  flaggedRegionIds?: string[];
+  /** Map to draw around the body (3D map mode). */
+  graph?: MapData | null;
+  /** Offer the heart zone (heart-rate example). */
+  heartEnabled?: boolean;
+  selectedNodeId?: string | null;
+  onSelectNode?: (nodeId: string | null) => void;
 };
 
 /** Body view: 3D model when possible, 2D placeholder otherwise. */
@@ -58,6 +67,11 @@ export function AnatomyStage({
   selectedRegionId,
   onSelect,
   sidePanel,
+  flaggedRegionIds = [],
+  graph = null,
+  heartEnabled = false,
+  selectedNodeId = null,
+  onSelectNode,
 }: AnatomyStageProps) {
   const [webgl] = useState(hasWebGL);
   const [sideOpen, setSideOpen] = useState(true);
@@ -92,7 +106,7 @@ export function AnatomyStage({
 
   return (
     <div className="flex h-full min-h-[420px] flex-col">
-      <div className="relative min-h-0 flex-1">
+      <div className="orbital-stage visor relative min-h-0 flex-1">
         <FallbackBoundary fallback={fallback}>
           <Suspense
             fallback={
@@ -106,12 +120,17 @@ export function AnatomyStage({
               selectedRegionId={selectedRegionId}
               onSelect={onSelect}
               focus={focus}
+              flaggedRegionIds={flaggedRegionIds}
+              graph={graph}
+              heartEnabled={heartEnabled}
+              selectedNodeId={selectedNodeId}
+              onSelectNode={onSelectNode ?? (() => {})}
             />
           </Suspense>
         </FallbackBoundary>
-        {sidePanel ? (
+        {sidePanel && !graph ? (
           sideOpen ? (
-            <div className="absolute bottom-4 left-4 top-4 z-10 hidden w-72 animate-slide-in-right flex-col overflow-hidden rounded-xl border border-slate-800 bg-slate-950/75 shadow-xl shadow-black/40 backdrop-blur lg:flex">
+            <div className="absolute bottom-4 left-4 top-4 z-10 hidden w-72 animate-slide-in-right flex-col overflow-hidden rounded-xl border border-slate-700/60 bg-slate-950/60 shadow-xl shadow-black/40 backdrop-blur-md lg:flex">
               <div className="min-h-0 flex-1 overflow-y-auto p-4">
                 {sidePanel}
               </div>
@@ -120,7 +139,7 @@ export function AnatomyStage({
                 onClick={() => setSideOpen(false)}
                 className="border-t border-slate-800 px-4 py-2 text-left text-xs text-slate-400 hover:text-slate-200"
               >
-                ‹ Ocultar ficha
+                ‹ Ocultar estado general
               </button>
             </div>
           ) : (
@@ -129,11 +148,11 @@ export function AnatomyStage({
               onClick={() => setSideOpen(true)}
               className="absolute left-4 top-4 z-10 hidden rounded-md border border-slate-700 bg-slate-950/80 px-3 py-1 text-xs text-slate-200 hover:border-sky-400 lg:block"
             >
-              Ficha del caso ›
+              Estado general ›
             </button>
           )
         ) : null}
-        {selectedRegionId && REGION_MESHES[selectedRegionId] ? (
+        {!graph && selectedRegionId && REGION_MESHES[selectedRegionId] ? (
           <button
             type="button"
             onClick={() => setFocus(focus === "region" ? "body" : "region")}
@@ -170,21 +189,24 @@ export function AnatomyStage({
           aria-label="Leyenda del modelo"
           className="flex flex-wrap gap-x-4 gap-y-1 text-xs text-slate-400"
         >
-          <LegendItem color={ANATOMY_COLORS.selectable}>
-            Región con módulo (se puede seleccionar)
+          <LegendItem color="#ffb454">
+            Baliza: zona con algo por revisar
           </LegendItem>
           <LegendItem color={ANATOMY_COLORS.selected}>
-            Región seleccionada
+            Zona con seguimiento
           </LegendItem>
+          {heartEnabled ? (
+            <LegendItem color="#b69cff">Corazón: pulso de ejemplo</LegendItem>
+          ) : null}
           <LegendItem color={ANATOMY_COLORS.context}>
-            Resto del cuerpo: contexto, no evaluado
+            Resto del cuerpo, sin evaluar
           </LegendItem>
           <li>Los colores no indican estado de salud.</li>
         </ul>
         {note ? <p className="text-xs text-amber-200/90">{note}</p> : null}
         <p className="text-xs text-slate-400">
-          Arrastre para girar y use la rueda para acercar. Lateralidad no
-          individualizada: ambos lados forman una región. {MODEL_CREDIT}
+          Arrastra para girar y usa la rueda para acercar. Los dos lados forman
+          una sola zona. {MODEL_CREDIT}
         </p>
       </div>
     </div>

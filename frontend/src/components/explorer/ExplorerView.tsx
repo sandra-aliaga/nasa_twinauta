@@ -108,133 +108,157 @@ export function ExplorerView({
           >
             ← Volver al cuerpo
           </button>
-          <h2 className="text-sm font-semibold text-slate-100">
-            Biblioteca científica
-          </h2>
-          {explorerSource.kind === "mock" ? (
-            <Tag tone="amber">
-              Demostración · ejemplos del contrato, sin backend
-            </Tag>
-          ) : (
-            <Tag>Datos del backend</Tag>
-          )}
+          <h2 className="font-display text-base text-slate-50">Biblioteca</h2>
           {base?.status === "ready" ? (
             <span className="text-xs text-slate-400">
-              Corpus {base.data.corpus_version} · {base.data.paper_count}{" "}
-              publicaciones · {base.data.reviewed_paper_count} revisadas
+              {base.data.paper_count} estudios,{" "}
+              {base.data.reviewed_paper_count === 0
+                ? "ninguno con revisión documental todavía"
+                : `${base.data.reviewed_paper_count} con revisión documental`}
             </span>
+          ) : null}
+          {explorerSource.kind === "mock" ? (
+            <Tag tone="amber">Demo: ejemplos, sin backend</Tag>
           ) : null}
         </div>
 
         <form
-          className="flex flex-wrap items-end gap-2 text-xs text-slate-400"
+          className="space-y-2 text-xs text-slate-400"
           onSubmit={(event) => {
             event.preventDefault();
             setFilters(draft);
           }}
         >
-          <label className="flex min-w-48 flex-1 flex-col gap-1">
-            Buscar en el corpus incorporado
-            <input
-              type="search"
-              value={draft.q}
-              onChange={(event) =>
-                setDraft({ ...draft, q: event.target.value })
-              }
-              placeholder="Título, autor o DOI"
-              className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-sm text-slate-100"
-            />
-          </label>
-          <label className="flex flex-col gap-1">
-            Sección
-            <select
-              value={draft.view}
-              onChange={(event) =>
-                setDraft({
-                  ...draft,
-                  view: event.target.value as Filters["view"],
-                })
-              }
-              className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
-            >
-              <option value="">Todas</option>
-              {(Object.keys(LIBRARY_VIEW_LABELS) as LibraryView[]).map(
-                (view) => (
-                  <option key={view} value={view}>
-                    {LIBRARY_VIEW_LABELS[view]}
-                  </option>
-                ),
-              )}
-            </select>
-          </label>
-          <label className="flex flex-col gap-1">
-            Revisión
-            <select
-              value={draft.review}
-              onChange={(event) =>
-                setDraft({
-                  ...draft,
-                  review: event.target.value as Filters["review"],
-                })
-              }
-              className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
-            >
-              <option value="">Pendientes y revisadas</option>
-              <option value="pending">{REVIEW_LABELS.pending}</option>
-              <option value="reviewed">{REVIEW_LABELS.reviewed}</option>
-            </select>
-          </label>
-          <label className="flex w-20 flex-col gap-1">
-            Desde
-            <input
-              type="number"
-              inputMode="numeric"
-              value={draft.yearFrom}
-              onChange={(event) =>
-                setDraft({ ...draft, yearFrom: event.target.value })
-              }
-              className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
-            />
-          </label>
-          <label className="flex w-20 flex-col gap-1">
-            Hasta
-            <input
-              type="number"
-              inputMode="numeric"
-              value={draft.yearTo}
-              onChange={(event) =>
-                setDraft({ ...draft, yearTo: event.target.value })
-              }
-              className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
-            />
-          </label>
-          {regionId ? (
-            <label className="flex items-center gap-1.5 pb-1">
+          <div className="flex gap-2">
+            <label className="flex-1">
+              <span className="sr-only">Buscar estudios</span>
               <input
-                type="checkbox"
-                checked={useRegion}
-                onChange={(event) => setUseRegion(event.target.checked)}
-                className="accent-sky-400"
+                type="search"
+                value={draft.q}
+                onChange={(event) =>
+                  setDraft({ ...draft, q: event.target.value })
+                }
+                placeholder="Busca por tema, título o autor"
+                className="w-full rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 placeholder:text-slate-500"
               />
-              Solo la región seleccionada
             </label>
-          ) : null}
-          <button
-            type="submit"
-            className="rounded-md bg-sky-500 px-3 py-1 text-sm font-medium text-slate-950 hover:bg-sky-400"
+            <button
+              type="submit"
+              className="rounded-full bg-sky-500 px-5 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-400"
+            >
+              Buscar
+            </button>
+          </div>
+
+          {/* Sections as one-tap chips: they apply at once. */}
+          <div
+            role="group"
+            aria-label="Qué quieres saber"
+            className="flex flex-wrap gap-1.5"
           >
-            Buscar
-          </button>
-          <button
-            type="button"
-            onClick={() => {
-              setDraft(EMPTY);
-              setFilters(EMPTY);
-            }}
-            className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
-          >
-            Limpiar
-          </button>
+            {(
+              [
+                ["", "Todo"],
+                ...(Object.keys(LIBRARY_VIEW_LABELS) as LibraryView[]).map(
+                  (view) => [view, LIBRARY_VIEW_LABELS[view]] as const,
+                ),
+              ] as const
+            ).map(([value, label]) => (
+              <button
+                key={value || "all"}
+                type="button"
+                aria-pressed={filters.view === value}
+                onClick={() => {
+                  const next = { ...draft, view: value as Filters["view"] };
+                  setDraft(next);
+                  setFilters(next);
+                }}
+                className={`rounded-full px-3 py-1 text-xs font-medium ${
+                  filters.view === value
+                    ? "bg-sky-500 text-slate-950"
+                    : "bg-slate-800 text-slate-300 hover:text-slate-50"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
+          </div>
+
+          <details>
+            <summary className="cursor-pointer text-slate-300">
+              Más filtros
+            </summary>
+            <div className="mt-2 flex flex-wrap items-end gap-2">
+              <label className="flex flex-col gap-1">
+                Revisión
+                <select
+                  value={draft.review}
+                  onChange={(event) =>
+                    setDraft({
+                      ...draft,
+                      review: event.target.value as Filters["review"],
+                    })
+                  }
+                  className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
+                >
+                  <option value="">Pendientes y revisadas</option>
+                  <option value="pending">{REVIEW_LABELS.pending}</option>
+                  <option value="reviewed">{REVIEW_LABELS.reviewed}</option>
+                </select>
+              </label>
+              <label className="flex w-20 flex-col gap-1">
+                Desde
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  value={draft.yearFrom}
+                  onChange={(event) =>
+                    setDraft({ ...draft, yearFrom: event.target.value })
+                  }
+                  className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
+                />
+              </label>
+              <label className="flex w-20 flex-col gap-1">
+                Hasta
+                <input
+                  type="number"
+                  inputMode="numeric"
+                  value={draft.yearTo}
+                  onChange={(event) =>
+                    setDraft({ ...draft, yearTo: event.target.value })
+                  }
+                  className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
+                />
+              </label>
+              {regionId ? (
+                <label className="flex items-center gap-1.5 pb-1">
+                  <input
+                    type="checkbox"
+                    checked={useRegion}
+                    onChange={(event) => setUseRegion(event.target.checked)}
+                    className="accent-sky-400"
+                  />
+                  Solo la zona seleccionada
+                </label>
+              ) : null}
+              <button
+                type="submit"
+                className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
+              >
+                Aplicar
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setDraft(EMPTY);
+                  setFilters(EMPTY);
+                }}
+                className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
+              >
+                Limpiar
+              </button>
+            </div>
+          </details>
         </form>
 
         <div
@@ -244,8 +268,8 @@ export function ExplorerView({
         >
           {(
             [
-              ["list", "Publicaciones"],
-              ["graph", "Grafo de la biblioteca"],
+              ["list", "Lista"],
+              ["graph", "Mapa de estudios"],
             ] as const
           ).map(([value, label]) => (
             <button
@@ -288,7 +312,7 @@ export function ExplorerView({
                     {papers.data.total_matching === 1
                       ? "1 publicación del corpus coincide"
                       : `${papers.data.total_matching} publicaciones del corpus coinciden`}{" "}
-                    · orden: año descendente, sin puntuación de relevancia
+                    · los más recientes primero
                   </p>
                   <ul className="space-y-2">
                     {papers.data.items.map((paper) => (
@@ -297,45 +321,46 @@ export function ExplorerView({
                           type="button"
                           onClick={() => setPaperId(paper.id)}
                           aria-current={paper.id === paperId}
-                          className={`w-full rounded-lg border p-3 text-left hover:border-slate-500 ${
-                            paper.id === paperId
-                              ? "border-sky-400/70 bg-slate-900"
-                              : "border-slate-800 bg-slate-900/40"
-                          }`}
+                          className="hud-panel w-full px-4 py-3 text-left"
+                          style={
+                            {
+                              "--rail":
+                                paper.id === paperId
+                                  ? "var(--color-sky-400)"
+                                  : "var(--color-slate-600)",
+                            } as React.CSSProperties
+                          }
                         >
-                          <p className="text-sm font-medium text-slate-100">
+                          <p className="text-xs text-slate-400">
+                            {paper.year} ·{" "}
+                            {ENVIRONMENT_LABELS[paper.environment]}
+                            {paper.review_status === "reviewed"
+                              ? " · revisado"
+                              : ""}
+                          </p>
+                          <p
+                            className={`mt-0.5 text-sm font-medium ${
+                              paper.id === paperId
+                                ? "text-sky-200"
+                                : "text-slate-100"
+                            }`}
+                          >
                             {paper.title}
                           </p>
                           <p className="mt-0.5 text-xs text-slate-400">
                             {paper.authors.slice(0, 3).join(", ")}
-                            {paper.authors.length > 3 ? " y otros" : ""} ·{" "}
-                            {paper.year}
+                            {paper.authors.length > 3 ? " y otros" : ""}
                           </p>
-                          <div className="mt-2 flex flex-wrap gap-1">
-                            <Tag
-                              tone={
-                                paper.environment === "spaceflight"
-                                  ? "sky"
-                                  : "amber"
-                              }
-                            >
-                              {ENVIRONMENT_LABELS[paper.environment]}
-                            </Tag>
-                            <Tag
-                              tone={
-                                paper.review_status === "reviewed"
-                                  ? "emerald"
-                                  : "slate"
-                              }
-                            >
-                              {REVIEW_LABELS[paper.review_status]}
-                            </Tag>
-                            {paper.sections.map((section) => (
-                              <Tag key={section} tone="subtle">
-                                {LIBRARY_VIEW_LABELS[section]}
-                              </Tag>
-                            ))}
-                          </div>
+                          {paper.sections.length > 0 ? (
+                            <p className="mt-1.5 text-xs text-slate-300">
+                              Trata:{" "}
+                              {paper.sections
+                                .map((section) =>
+                                  LIBRARY_VIEW_LABELS[section].toLowerCase(),
+                                )
+                                .join(", ")}
+                            </p>
+                          ) : null}
                         </button>
                       </li>
                     ))}

@@ -4,7 +4,7 @@ Contrato vigente: [OpenAPI](../contracts/openapi.yaml). [Ejemplos de contexto](.
 
 ## Misma base y configuración
 
-Restaurar [el respaldo](../backups/twinauta-20261115.dump) siguiendo [estas instrucciones](../backups/README.md), junto con el código actualizado. Incluye 27 papers, 26 resúmenes, evaluación demo y síntesis de tres secciones/grafos. Se comprobó restauración y HTTP en otra base. Para consultar contenido no necesita clave DeepSeek.
+Restaurar [el respaldo](../backups/twinauta-documentary-reviewed-20261115.dump) siguiendo [estas instrucciones](../backups/README.md), junto con el código actualizado. Incluye 27 papers, 26 resúmenes documentales revisados, seis estadísticas publicadas, evaluación demo y síntesis de tres secciones/grafos. La restauración independiente se comprobó para el respaldo anterior; la publicación actual se comprobó en PostgreSQL y HTTP, y su dump con `pg_restore --list`. Para consultar contenido no necesita clave DeepSeek.
 
 En frontend/.env:
 

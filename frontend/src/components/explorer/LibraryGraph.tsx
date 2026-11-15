@@ -64,13 +64,9 @@ function LibraryNodeView({ data, selected }: NodeProps<Node<LibraryNodeData>>) {
       />
       <div className="flex justify-between gap-2 text-[10px] uppercase tracking-wide text-slate-400">
         <span>{NODE_KIND_LABELS[node.kind]}</span>
-        <span
-          className={
-            node.review_status === "reviewed" ? "text-emerald-300" : ""
-          }
-        >
-          {REVIEW_LABELS[node.review_status]}
-        </span>
+        {node.review_status === "reviewed" ? (
+          <span className="text-emerald-300">Revisado</span>
+        ) : null}
       </div>
       <p className="mt-0.5 line-clamp-2 text-xs font-medium leading-snug text-slate-100">
         {node.label}
@@ -362,8 +358,7 @@ function Legend() {
         )}
       </ul>
       <p className="mt-2 text-[10px] leading-snug text-slate-400">
-        Citar o tratar un tema no es respaldo científico. Una sugerencia de IA
-        queda pendiente hasta su revisión.
+        Citar o tratar un tema no es respaldo científico.
       </p>
     </div>
   );
@@ -392,7 +387,8 @@ function NodeCard({
       <div className="flex items-start justify-between gap-2">
         <div>
           <p className="text-[10px] uppercase tracking-wide text-slate-400">
-            {NODE_KIND_LABELS[node.kind]} · {REVIEW_LABELS[node.review_status]}
+            {NODE_KIND_LABELS[node.kind]}
+            {node.review_status === "reviewed" ? " · revisado" : ""}
           </p>
           <h3 className="mt-1 font-semibold text-slate-100">{node.label}</h3>
         </div>
@@ -435,10 +431,8 @@ function NodeCard({
                 {RELATION_LABELS[edge.relation]} · {BASIS_LABELS[edge.basis]}
               </p>
               <p className="text-slate-400">
-                {REVIEW_LABELS[edge.review_status]}
-                {edge.source_locators.length > 0
-                  ? ` · ${edge.source_locators.join("; ")}`
-                  : ""}
+                {edge.review_status === "reviewed" ? "Revisado · " : ""}
+                {edge.source_locators.join("; ")}
               </p>
             </li>
           ))}

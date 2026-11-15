@@ -1,5 +1,7 @@
 # Contrato compartido 0.3.0
 
+La [publicación documental de noviembre 15](../docs/evidencia/revision-documental-2026-11-15.md) usa los campos existentes: en fichas y resúmenes, `review_status: reviewed` significa revisión documental con alcance explícito, no revisión médica. Las cifras agregadas se entregan en `PaperDetail.statistics` con su fuente y `extraction_review_status`. El contador `reviewed_paper_count` refleja la base activa, separado del paquete estático de candidatos. No se promueven reglas, modelos ni recomendaciones clínicas mediante esta publicación.
+
 [openapi.yaml](openapi.yaml) es el contrato vigente, generado de la API implementada. Incluye evaluaciones, telemetría, biblioteca científica, orientación y síntesis contextual. La versión 0.2 original se conserva en [archive/openapi-0.2.yaml](archive/openapi-0.2.yaml). La [propuesta histórica 0.3](drafts/scientific-explorer-0.3/README.md) conserva decisiones y ejemplos de diseño; ante diferencias, prevalecen el contrato vigente y la [entrega frontend](../docs/ENTREGA_FRONTEND.md).
 
 Las rutas nuevas son `GET /api/v1/cases/{case_id}/assessments` y `GET /api/v1/assessments/{assessment_id}/context`. Los [ejemplos contextuales](examples/context.json) contienen la respuesta disponible real de la demostración y un ejemplo de ausencia. Las consultas no generan IA ni consumen créditos.

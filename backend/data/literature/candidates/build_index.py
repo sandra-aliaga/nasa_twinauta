@@ -1,9 +1,8 @@
 """Build a bibliographic candidate index without claiming full-text review."""
 
 import hashlib
-import html
 import json
-import re
+from html.parser import HTMLParser
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
@@ -11,7 +10,27 @@ ROOT = Path(__file__).resolve().parent
 
 def plain_text(value: str) -> str:
     """Remove indexed markup and then decode entities, preserving comparisons."""
-    return html.unescape(re.sub(r"<[^>]+>", " ", value)).strip()
+
+    class TextParser(HTMLParser):
+        def __init__(self) -> None:
+            super().__init__(convert_charrefs=True)
+            self.parts: list[str] = []
+
+        def handle_data(self, data: str) -> None:
+            self.parts.append(data)
+
+        def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+            if tag in {"p", "br", "div"}:
+                self.parts.append(" ")
+
+        def handle_endtag(self, tag: str) -> None:
+            if tag in {"p", "div"}:
+                self.parts.append(" ")
+
+    parser = TextParser()
+    parser.feed(value)
+    parser.close()
+    return " ".join("".join(parser.parts).split())
 
 
 def main() -> None:

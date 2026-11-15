@@ -4,11 +4,11 @@ from collections.abc import Iterator
 from typing import Annotated, Literal
 
 from fastapi import APIRouter, Depends, Query, Request
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.orm import Session
 
 from app import assessments, catalog, knowledge_graph, papers, telemetry
-from app.database import CaseRecord
+from app.database import CaseRecord, LiteraturePaperRecord
 from app.errors import not_found
 from app.prepared_contexts import AssessmentContext, AssessmentIndex, get_context, list_assessments
 from app.schemas import (
@@ -92,9 +92,22 @@ def list_health_modules() -> ModuleCatalog:
     response_model=KnowledgeBaseMetadata,
     operation_id="get_knowledge_base_metadata",
 )
-def get_knowledge_base_metadata() -> KnowledgeBaseMetadata:
+def get_knowledge_base_metadata(session: DatabaseSession) -> KnowledgeBaseMetadata:
     """Describe the local literature bundle and its review status."""
-    return catalog.knowledge_base_metadata()
+    metadata = catalog.knowledge_base_metadata()
+    total, reviewed = session.execute(
+        select(
+            func.count(),
+            func.count().filter(LiteraturePaperRecord.review_status == "reviewed"),
+        ).where(LiteraturePaperRecord.corpus_version == metadata.corpus_version)
+    ).one()
+    return metadata.model_copy(
+        update={
+            "paper_count": total,
+            "reviewed_paper_count": reviewed,
+            "analysis_policy": "precomputed" if reviewed else metadata.analysis_policy,
+        }
+    )
 
 
 @router.get("/papers", response_model=PaperPage, operation_id="search_papers")

@@ -1,15 +1,14 @@
 import { createExplorerHttp } from "./httpSource";
+import { apiBaseUrl, dataMode } from "../config";
 import { createExplorerMock } from "./mockSource";
 import type { ExplorerSource } from "./source";
 
 export type { ExplorerSource } from "./source";
 
-/** Same mode as the main data source: the backend in "api", the fixture otherwise. */
+/** Use the same explicit mode as the main data source. */
 function selectExplorerSource(): ExplorerSource {
-  const mode = import.meta.env.VITE_DATA_SOURCE ?? "examples";
-  const baseUrl = import.meta.env.VITE_API_BASE_URL;
-  return mode === "api" && baseUrl
-    ? createExplorerHttp(baseUrl)
+  return dataMode === "api"
+    ? createExplorerHttp(apiBaseUrl)
     : createExplorerMock();
 }
 

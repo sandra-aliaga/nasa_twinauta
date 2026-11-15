@@ -1,0 +1,10 @@
+{
+  "papers": 27,
+  "documentary_summaries": 26,
+  "unavailable_no_abstract": 1,
+  "published_statistics": 6,
+  "analysis_rows": 52,
+  "idempotence": "passed",
+  "clinical_and_model_eligibility": false,
+  "http": "passed"
+}

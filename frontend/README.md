@@ -14,7 +14,11 @@ make frontend-run
 
 Usar Node 22.12 o posterior compatible con Vite 8. La página de desarrollo usa `http://localhost:5173`.
 
-`VITE_DATA_SOURCE` elige la fuente de datos: `examples` (por defecto) lee `contracts/examples/` y muestra la etiqueta «MODO DEMOSTRACIÓN»; `api` llama al backend en `VITE_API_BASE_URL`. Ambas implementan la misma interfaz (`src/api/dataSource.ts`).
+`VITE_DATA_SOURCE` elige la fuente de datos: `api` (por defecto) llama al backend; `examples` requiere selección explícita, lee `contracts/examples/` y muestra «MODO DEMOSTRACIÓN». Un error de API no activa ejemplos. Ambas implementan la misma interfaz (`src/api/dataSource.ts`).
+
+`VITE_API_BASE_URL` usa `/api/v1` por defecto. En desarrollo Vite dirige `/api` al backend en `127.0.0.1:8000`. En producción, el servidor debe dirigir esa ruta a FastAPI; si se despliegan en dominios distintos, configurar la URL HTTPS pública del backend al compilar y permitir el origen del frontend en `CORS_ORIGINS`. El proxy de Vite no forma parte del build publicado. Si ya existe un `.env` local con `VITE_DATA_SOURCE=examples`, cambiarlo a `api` y reiniciar Vite.
+
+La biblioteca puede mostrar revisión documental completada de abstracts y cifras publicadas. Esto no convierte el caso virtual en datos individuales reales ni implica aprobación clínica. Véase [alcance de la publicación documental](../docs/evidencia/revision-documental-2026-11-15.md).
 
 `VITE_ENABLE_HEART_RATE=true` muestra el panel de frecuencia cardíaca. Está desactivado por defecto porque la licencia de redistribución de la grabación de PhysioNet no está aclarada (la página del dataset y el `LICENSE.txt` del paquete indican licencias distintas). Activarlo solo en demostraciones locales hasta tener respuesta.
 
@@ -38,13 +42,13 @@ make frontend-check
 | Parte | Estado |
 | --- | --- |
 | Capa de datos | Adaptador de ejemplos y adaptador HTTP para las rutas del contrato 0.3.0 (casos, evaluaciones e índice, contexto, orientación, biblioteca, grafos, telemetría); errores normalizados al objeto del contrato. Antes de crear una evaluación se reutiliza la guardada para la misma región y día, prefiriendo la que tiene síntesis. |
-| Cabecera | Selector de caso, día de misión con botón «Evaluar» y etiqueta de demostración. |
-| Cuerpo | Visor 3D (`AnatomyViewer.tsx`, carga diferida) con el GLB de `public/models/` (Innerscene, CC0 según sus metadatos). `src/lib/anatomy.ts` mapea `quadriceps` a recto femoral, vasto lateral y vasto medial de ambos lados; el vasto intermedio no está en la capa superficial. Si no hay WebGL o falla la carga, vuelve a la silueta 2D. |
-| Evaluación de la zona | Resumen, hallazgos, indicadores con procedencia y ausencias, ejercicio, límites y fuentes. |
-| Evolución del escenario | Estado, motivo y supuestos. Con puntos: gráfica de la trayectoria de referencia (días del protocolo, basal al 100 %) y tabla. Sin puntos: marco vacío con el motivo del backend; no se inventa una curva. |
-| Siguientes pasos | Acciones, elegibilidad, revisión y seguimiento con `expected_revision` y recarga ante 409. |
+| Cabecera | Marca, selector de caso, día de misión con botón «Evaluar», biblioteca, guía de 3 pantallas y etiqueta «Demo» en modo ejemplos. |
+| Cuerpo | Visor 3D (`AnatomyViewer.tsx`, carga diferida) con el GLB comprimido de `public/models/` (original en `models-source/`). `src/lib/anatomy.ts` mapea `quadriceps` a recto femoral, vasto lateral y vasto medial de ambos lados; el vasto intermedio no está en la capa superficial. Una baliza marca cada zona con seguimiento (ámbar si su evaluación tiene algo por revisar). A la izquierda, «Estado general» (`StatusHud.tsx`) muestra día de misión, zonas por revisar, sesiones registradas y mediciones con dato; pulso y temperatura aparecen como «sin sensor» porque el backend no los entrega para el caso. Sin WebGL vuelve a la silueta 2D. |
+| Paso 1, «Qué pasa» | Resumen, hallazgos y fichas con el último valor de cada indicador (un dato ausente se muestra como «Sin dato», nunca como cero) y sesiones registradas. Método, procedencia, límites, fuentes y orientación quedan en desplegables. La evaluación de la primera zona se abre sola al entrar. |
+| Paso 2, «Qué puede pasar» | Estado, motivo y supuestos. Con puntos: gráfica de la trayectoria de referencia (días del protocolo, basal al 100 %) y tabla. Sin puntos: marco vacío con el motivo del backend; no se inventa una curva. |
+| Paso 3, «Qué hacer» | Acciones con su motivo, condiciones plegadas y seguimiento con `expected_revision` y recarga ante 409. Cada paso termina con la vista previa de su grafo («De dónde sale esto») y la síntesis en «Explicación ampliada». |
 | Síntesis contextual | `ContextSection.tsx` muestra en cada pestaña la sección de `/assessments/{id}/context` (resumen, incertidumbre, mediciones, pasos, citas con su localizador, relaciones y procedencia), marcada como generada por modelo y pendiente de revisión. Sin síntesis muestra el motivo. |
-| Grafos | Grafo de la evaluación (Graph, `/graphs/{view}`) con React Flow; grafo de la biblioteca (GraphPage, `/knowledge-graph`) con paginación y expansión de vecinos. |
+| Grafos | Mapa de la evaluación (Graph, `/graphs/{view}`): por defecto en 3D alrededor del cuerpo (`GraphConstellation.tsx`, tarjetas en la misma escena, misma disposición por columnas que el mapa plano; la profundidad no tiene significado) con alternativa plana y accesible por teclado en React Flow. Grafo de la biblioteca (GraphPage, `/knowledge-graph`) con paginación y expansión de vecinos. |
 | Frecuencia cardíaca | Panel con metadatos, procedencia y reproducción por ventanas de la grabación terrestre. Licencia de redistribución pendiente de aclarar. |
 
 En modo `examples` el contrato solo contiene una evaluación fija del día 10; la interfaz avisa cuando el día pedido no coincide. Los apartados siguientes describen el producto completo, no funcionalidades terminadas.

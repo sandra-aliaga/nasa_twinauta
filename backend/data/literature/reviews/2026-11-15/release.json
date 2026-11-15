@@ -1,0 +1,295 @@
+{
+  "version": "documentary-release-2026-11-15-v1",
+  "reviewed_at": "2026-11-15T19:54:56.723637+00:00",
+  "reviewer": "Codex; revision documental asistida por IA, sin aprobacion medica",
+  "scope": "Abstracts originales de PubMed; tablas originales solo para las seis estadisticas del nucleo. No es revision sistematica ni validacion clinica.",
+  "pubmed_sha256": "82a0f535de7235ab2d784c735a2cb3d3af8f3a22e651cfedbb43d6b4414cd36c",
+  "entries": [
+    {
+      "paper_id": "literature_pmid_33251515",
+      "abstract_sha256": "89ceaa18b4b1b7d48eca4db0388469bedbccb321d893b374a600f7f5cf8f041e",
+      "study_design": "Estudio longitudinal de reposo en cama",
+      "population_description": "9 adultos; 70 días de reposo a 6° y 11 días de rehabilitación terrestre. MRI de área transversal muscular.",
+      "summary": "El tamaño muscular disminuyó de forma diferente según la región. El sóleo fue particularmente vulnerable; el recto femoral no mostró el mismo patrón. Tras la rehabilitación, varias regiones seguían por debajo del basal. Las tasas del suplemento describen cambio relativo al basal, sin capitalización diaria.",
+      "limitations": [
+        "La rehabilitación ocurrió en Tierra. Área transversal no equivale a volumen ni torque; una tendencia grupal no predice a un astronauta."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/33251515/"
+    },
+    {
+      "paper_id": "literature_pmid_38328821",
+      "abstract_sha256": "bfc195133239a14689c17ab626ed90b879fa36c7f940cc8d4f6c65cd9f278166",
+      "study_design": "Ensayo de contramedidas en reposo en cama",
+      "population_description": "26 participantes: BR 9, ejercicio BRE 9 y ejercicio con testosterona 8; 70 días a 6°.",
+      "summary": "SPRINT evaluó tamaño y función muscular durante reposo en cama. La protección difirió entre cuádriceps y sóleo y entre variables celulares y funcionales. El artículo no encontró beneficios musculares adicionales consistentes de añadir testosterona. La tabla 1 permite comparar torque antes y después por grupo.",
+      "limitations": [
+        "Los ensayos funcionales repetidos pudieron actuar como contramedida. No se prescribe testosterona ni se reconstruye torque diario a partir de dos mediciones."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/38328821/"
+    },
+    {
+      "paper_id": "literature_pmid_29570535",
+      "abstract_sha256": "c150a4a403b3aefa1d8cc485b61e4636fe0635606d551eb2ab71822f209ee6c6",
+      "study_design": "Descripción metodológica de campaña NASA",
+      "population_description": "Campaña integrada de 70 días de reposo a 6° con ocho estudios coordinados.",
+      "summary": "Describe la organización, las condiciones y los protocolos de una campaña NASA que integró múltiples estudios de descondicionamiento y contramedidas. Es una fuente metodológica para interpretar publicaciones del mismo programa; el abstract no aporta resultados de eficacia.",
+      "limitations": [
+        "Publicaciones de una misma campaña no constituyen automáticamente replicaciones independientes."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/29570535/"
+    },
+    {
+      "paper_id": "literature_pmid_29924746",
+      "abstract_sha256": "4e412338f307f3ce36dc74139283dfb3ede95ac4d8611bd49b60a23d9ec28b6f",
+      "study_design": "Estudio de contramedidas multisistema",
+      "population_description": "34 participantes; control 9, ejercicio 9, ejercicio con testosterona 8 y volante de inercia 8; 70 días de reposo.",
+      "summary": "El entrenamiento combinado atenuó el descondicionamiento muscular y cardiovascular. Los grupos con ejercicio mantuvieron la capacidad aeróbica, mientras el control registró una caída aproximada del 10%. Se evaluaron distintas modalidades de resistencia, con resultados que deben interpretarse por variable.",
+      "limitations": [
+        "Comparte programa experimental NASA con otras fichas. No sumar sus participantes como una cohorte independiente sin comprobar solapamiento."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/29924746/"
+    },
+    {
+      "paper_id": "literature_pmid_32864428",
+      "abstract_sha256": "1f994866949c540e7e6b317053b9e22fd2000fbde1e0228c6f6baa1b679fb487",
+      "study_design": "Comparación de programas de ejercicio en vuelo",
+      "population_description": "Astronautas ISS: Sprint 9 y ejercicio estándar 17; evaluaciones previas y posteriores al vuelo.",
+      "summary": "Comparó un programa de mayor intensidad y menor frecuencia con el entrenamiento estándar. En el conjunto de ambos grupos se observaron pérdidas de densidad del cuello femoral, torque de rodilla y capacidad aeróbica, junto con mayor tiempo en la prueba de agilidad. El ejercicio no evitó todos los cambios.",
+      "limitations": [
+        "Los cambios conjuntos no son diferencias causadas por Sprint. Un mayor tiempo de agilidad expresa peor desempeño, no una mejora."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/32864428/"
+    },
+    {
+      "paper_id": "literature_pmid_36737441",
+      "abstract_sha256": "f58a02d887ee873e86c4f14d7b6de5dbd26dcd62fb93721b03563eab0a0a9710",
+      "study_design": "Evaluación longitudinal de astronautas",
+      "population_description": "46 astronautas; misiones de 178 ± 48 días y unos 600 minutos semanales de ejercicio.",
+      "summary": "Las contramedidas actuales ofrecen protección parcial y las respuestas individuales son heterogéneas. El estudio documenta cambios de desempeño a pesar de una carga considerable de ejercicio y explora su relevancia para futuras misiones.",
+      "limitations": [
+        "La estimación de hasta un 17% de limitación futura no es una tasa observada de eventos ni la probabilidad de riesgo del usuario."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/36737441/"
+    },
+    {
+      "paper_id": "literature_pmid_33811556",
+      "abstract_sha256": "cb13b2a8ee3f06ba64a3d9fc52929ed34c3b672dfe3d67cafd531fe2609fdcdd",
+      "study_design": "Ensayo AGBRESA de gravedad artificial",
+      "population_description": "24 participantes, incluidas 8 mujeres; 60 días a 6°, centrifugación continua o intermitente frente a control.",
+      "summary": "La gravedad artificial durante 30 minutos diarios atenuó pérdidas de salto y algunas variables de flexión plantar, pero no preservó la capacidad aeróbica ni todas las medidas de fuerza. La respuesta dependió del resultado evaluado.",
+      "limitations": [
+        "No se demostró protección completa. Un protocolo de centrifugación experimental no es una recomendación individual de ejercicio."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/33811556/"
+    },
+    {
+      "paper_id": "literature_pmid_41316901",
+      "abstract_sha256": "13ac46076500ca9dfee7529c5fd867a52002d65751420d037e1cb0cee7d6068b",
+      "study_design": "Ensayo BRACE de ciclismo y gravedad artificial",
+      "population_description": "24 varones sanos; 60 días de reposo, control, ciclismo y ciclismo con gravedad artificial.",
+      "summary": "El volumen muscular del muslo disminuyó en los tres grupos; las medias de cambio fueron −10,5%, −6,9% y −4,3%. El torque también cayó sin diferencias claras entre grupos. La combinación no demostró superioridad global frente al ejercicio solo.",
+      "limitations": [
+        "Volumen libre de grasa no equivale a área transversal. Una diferencia frente al control no demuestra superioridad frente a otra intervención."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/41316901/"
+    },
+    {
+      "paper_id": "literature_pmid_42185309",
+      "abstract_sha256": "8a9db5ec606665d4167584aa29366fb04000815f798dc585b2e34c4b37032f83",
+      "study_design": "Comparación de vuelo espacial y reposo en cama",
+      "population_description": "13 astronautas varones con misiones de seis meses frente a 11 varones con dos meses de reposo sin contramedidas.",
+      "summary": "La pQCT en dos niveles tibiales registró pérdidas de área muscular tras el vuelo, con recuperación muscular a los tres meses y déficits óseos persistentes. Las condiciones de vuelo y reposo produjeron patrones distintos.",
+      "limitations": [
+        "Las edades, duración y contramedidas difieren entre grupos. Estas regiones tibiales no validan coeficientes de MRI del cuádriceps."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/42185309/"
+    },
+    {
+      "paper_id": "literature_pmid_40828606",
+      "abstract_sha256": "227fd525a9ac375d629d35688d4ff40894f7480107e57da6a76a0ffb358c2a34",
+      "study_design": "Estudio de atrofia regional en mujeres",
+      "population_description": "8 mujeres, 34 ± 4 años; MRI de 17 músculos durante 60 días de reposo.",
+      "summary": "Todos los músculos estudiados perdieron volumen, con diferencias grandes entre regiones. El recto femoral perdió aproximadamente 10%, frente a 27–29% en sóleo y gastrocnemios. La comparación con datos masculinos previos sugiere diferencias que requieren más estudio.",
+      "limitations": [
+        "Comparación histórica, muestra pequeña y volumen muscular. No convertirla en una regla universal por sexo ni en tasas de área transversal."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/40828606/"
+    },
+    {
+      "paper_id": "literature_pmid_40353798",
+      "abstract_sha256": "db032a6f443aa25716ed357fd65fc134f076433b45999b50b54f859d915effde",
+      "study_design": "Estudio neuromuscular de reposo en cama",
+      "population_description": "9 varones sanos de 18–29 años; 21 días de reposo horizontal, EMG y biopsias del vasto lateral.",
+      "summary": "Disminuyeron tamaño y contracción máxima del cuádriceps. Se observaron cambios de unidades motoras, menor transmisión neuromuscular en una intensidad de contracción y señales iniciales de remodelado o denervación.",
+      "limitations": [
+        "Hallazgos de un protocolo de 21 días, con mediciones especializadas. No permiten diagnosticar lesión neuromuscular con frecuencia cardíaca o registros de ejercicio."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/40353798/"
+    },
+    {
+      "paper_id": "literature_pmid_39792484",
+      "abstract_sha256": "f5dd207460c8e2c45cfb76d58351d75c5e45eff43ca52d71ffe266cfd74058c1",
+      "study_design": "Estudio de recuperación tras descarga unilateral",
+      "population_description": "11 varones jóvenes; 10 días de suspensión unilateral y 21 días posteriores de entrenamiento de extensores de rodilla.",
+      "summary": "La descarga redujo volumen del cuádriceps y fuerza en distinta proporción. El entrenamiento posterior recuperó la función y produjo adaptaciones metabólicas y moleculares específicas del desuso previo.",
+      "limitations": [
+        "Recuperación terrestre después de descarga unilateral; no demuestra recuperación en vuelo. Los porcentajes de recuperación usan un punto de referencia distinto del basal inicial."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/39792484/"
+    },
+    {
+      "paper_id": "literature_pmid_37856286",
+      "abstract_sha256": "8e3433783287422385c1eacdc4eea3ef77c4c170c128590df6dee1d3a4f1af30",
+      "study_design": "Estudio de ejercicio previo en adultos mayores",
+      "population_description": "10 varones de 65–80 años; una sesión unilateral de resistencia antes de cinco días de reposo.",
+      "summary": "Una sesión previa atenuó la reducción de síntesis proteica miofibrilar y parte de la pérdida regional de área del cuádriceps. Ambas piernas perdieron área; las consecuencias funcionales y clínicas requieren investigación adicional.",
+      "limitations": [
+        "Comparación entre piernas y regiones, población mayor sana y periodo corto. No prueba prevención completa ni una pauta transferible a astronautas."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/37856286/"
+    },
+    {
+      "paper_id": "literature_pmid_33347733",
+      "abstract_sha256": "55f8c875fa4f4bf1808b1f5e80f75ec62f556700f9d0aedce5c5fcc938c3b22f",
+      "study_design": "Estudio de prehabilitación en adultos mayores",
+      "population_description": "10 varones de 65–80 años; cuatro sesiones unilaterales durante siete días antes de cinco días de reposo.",
+      "summary": "La prehabilitación aumentó la síntesis proteica antes del reposo, pero no evitó su descenso posterior ni la pérdida relativa de área muscular. No se encontraron diferencias entre piernas en la reducción de área del cuádriceps.",
+      "limitations": [
+        "Contrasta con el protocolo de una sola sesión de otra ficha: no son intervenciones equivalentes. No generalizar una eficacia universal de la prehabilitación."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/33347733/"
+    },
+    {
+      "paper_id": "literature_pmid_41894197",
+      "abstract_sha256": "a258fd2b32e9d47dd97e467b4ece60f43d17775bb5992637f85280f77fef25b8",
+      "study_design": "Ensayo de ejercicio durante reposo en adultos mayores",
+      "population_description": "22 participantes de 55–65 años, 11 mujeres y 11 varones; ejercicio 11 y movilización pasiva 11; 14 días.",
+      "summary": "El ejercicio mixto mitigó la pérdida de volumen del muslo, pero no evitó las reducciones de masa magra, fuerza y calidad muscular. El estudio informó recuperación tras cuatro semanas en las variables evaluadas.",
+      "limitations": [
+        "La recuperación ocurrió en un contexto terrestre con seguimiento. Preservación de volumen no equivale a preservación de fuerza o recuperación de todos los mecanismos biológicos."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/41894197/"
+    },
+    {
+      "paper_id": "literature_pmid_41719153",
+      "abstract_sha256": "b0b9f5849a4bbd502dd80349936a7bb3627d0759759bcac82dd80bbfe57b0e73",
+      "study_design": "Ensayo neuromuscular en adultos mayores",
+      "population_description": "15 participantes de 55–65 años; control 7 y ejercicio 8, 14 días de reposo a 6°.",
+      "summary": "El ejercicio atenuó la caída de fuerza de rodilla y del área del potencial de unidad motora, mientras la masa magra disminuyó de forma similar. No se encontraron señales de inestabilidad de la unión neuromuscular en las medidas utilizadas.",
+      "limitations": [
+        "Posible solapamiento con otras publicaciones del programa de mayores pendiente de mapear. No comparar sus resultados como replicaciones independientes ni como variables idénticas."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/41719153/"
+    },
+    {
+      "paper_id": "literature_pmid_39155274",
+      "abstract_sha256": "b9b7f51c41851fefaaa63d63629255997026d180e289bdf6a7985fc6c35f3bd3",
+      "study_design": "Estudio de electroestimulación durante reposo",
+      "population_description": "Adultos jóvenes y mayores; cinco días de reposo y estimulación unilateral del cuádriceps frente a pierna control.",
+      "summary": "La electroestimulación preservó el espesor muscular, pero no la fuerza máxima. La conservación de la fase tardía del desarrollo de fuerza se observó en jóvenes y no se generalizó a los mayores.",
+      "limitations": [
+        "Espesor, masa magra y función son resultados distintos. La cantidad de participantes no se especifica en este abstract; no se infiere de otra publicación."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/39155274/"
+    },
+    {
+      "paper_id": "literature_pmid_40163643",
+      "abstract_sha256": "7ad17c934b8038de8462071e855094d95cd89335d4840888573005f238f5eee8",
+      "study_design": "Estudio neuromecánico de electroestimulación",
+      "population_description": "16 adultos jóvenes y 16 mayores; cinco días de reposo, con estimulación de una pierna y control contralateral.",
+      "summary": "La electroestimulación preservó la activación voluntaria, pero la contractilidad periférica y la fuerza máxima disminuyeron. El resultado muestra que mejorar un componente neuromuscular no garantiza conservar el desempeño global.",
+      "limitations": [
+        "Posible cohorte compartida con el estudio de espesor muscular pendiente de comprobar. No asumir eficacia funcional por preservar activación."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/40163643/"
+    },
+    {
+      "paper_id": "literature_pmid_36102002",
+      "abstract_sha256": "130f80dfd0433133543428cbfce3bf424c6fbe486aaeffb48a40f89e2870698c",
+      "study_design": "Estudio de biopsias y gravedad artificial",
+      "population_description": "19 participantes; control 6 y centrifugación 13, durante 55 días de reposo; biopsias a los días 6 y 55.",
+      "summary": "La atrofia de fibras y la rarefacción capilar fueron rápidas al inicio; después continuó la pérdida de capacidad oxidativa sin una reducción proporcional adicional de capilares. La centrifugación no evitó estos cambios.",
+      "limitations": [
+        "Área de fibras en biopsia no equivale al área del músculo completo en MRI. No extrapolar la pérdida inicial de fibras a una curva diaria de cuádriceps."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/36102002/"
+    },
+    {
+      "paper_id": "literature_pmid_33703945",
+      "abstract_sha256": "7095381fb809086160b7fe6ccc643248f31f6a4e5e1d95060e271aecc7a737a5",
+      "study_design": "Revisión sistemática temporal del desuso",
+      "population_description": "318 adultos sanos en estudios de 5–120 días de reposo.",
+      "summary": "La revisión describe pérdidas no uniformes de fuerza y tamaño muscular. La fuerza puede caer antes y más que el tamaño; las relaciones temporales resumidas no permiten convertir una medición de área en torque individual.",
+      "limitations": [
+        "Modelos ajustados a estudios heterogéneos; asociación entre resultados no demuestra causalidad ni una fórmula individual validada."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/33703945/"
+    },
+    {
+      "paper_id": "literature_pmid_38874988",
+      "abstract_sha256": "26e0afffeab0f09c91ed4e67fd6dee7caaf272641583a86f8c8aa77eef646dc2",
+      "study_design": "Metaanálisis de capacidad aeróbica, fuerza y masa",
+      "population_description": "51 estudios; subconjuntos distintos para capacidad aeróbica y fuerza durante desuso.",
+      "summary": "La capacidad aeróbica y la fuerza mostraron reducciones estandarizadas mayores que la masa muscular. El patrón varió según región y características basales, reforzando la necesidad de evaluar función además de tamaño.",
+      "limitations": [
+        "Los tamaños de efecto estandarizados no son porcentajes. No sumar subconjuntos como si fueran participantes o estudios independientes."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/38874988/"
+    },
+    {
+      "paper_id": "literature_pmid_31474878",
+      "abstract_sha256": "dd2aab339e363797505f9c7d15ea83caea69f1630108c155d1ac3ce86ab83844",
+      "study_design": "Revisión temporal de reposo sin contramedidas",
+      "population_description": "75 estudios humanos de reposo en cama sin contramedidas.",
+      "summary": "La revisión documenta pérdidas de potencia, fuerza y tamaño con patrones dependientes de la duración y la medida. Identifica sesgos y factores de confusión que limitan una trayectoria universal de descondicionamiento.",
+      "limitations": [
+        "Sus categorías temporales no son umbrales clínicos ni días seguros sin ejercicio. No predice el curso individual de un astronauta."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/31474878/"
+    },
+    {
+      "paper_id": "literature_pmid_31098391",
+      "abstract_sha256": "242f3a714fc06572257622e58f4e1122ae5b8fb54bd278f8b942a7a8902e371c",
+      "study_design": "Revisión sistemática de ejercicio durante reposo",
+      "population_description": "8 estudios de reposo prolongado, con protocolos, regiones y métodos heterogéneos.",
+      "summary": "El ejercicio atenuó distintas pérdidas musculares, sin eliminarlas de forma uniforme. La cifra de 4,59% de pérdida ósea de cadera corresponde a un resultado de un estudio control, no a un efecto combinado ni a pérdida muscular de cadera.",
+      "limitations": [
+        "No mezclar área por pQCT con volumen por MRI. La revisión no habilita fármacos ni un régimen personalizado y no aporta una media agrupada del 4,59%."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/31098391/"
+    },
+    {
+      "paper_id": "literature_pmid_39920735",
+      "abstract_sha256": "3dc3186ff1c6a79aeebcb5a7b544ad6f7d3275319de0198a4a0da2f6c3d3e2a3",
+      "study_design": "Metaanálisis de entrenamiento de resistencia durante desuso",
+      "population_description": "11 ensayos aleatorizados, con diferentes modelos de desuso y medidas funcionales o de tamaño.",
+      "summary": "El entrenamiento de resistencia mostró efectos favorables en varios resultados, con heterogeneidad entre estudios y necesidad de más ensayos de calidad. Sus diferencias medias deben conservar las unidades y la definición de cada variable.",
+      "limitations": [
+        "Los valores n de algunos resultados del abstract cuentan estudios, no participantes. No convertir diferencias medias sin unidad explícita en porcentajes, dosis o umbrales clínicos."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/39920735/"
+    },
+    {
+      "paper_id": "literature_pmid_41983453",
+      "abstract_sha256": "d6b6ef6d86c3d0746661adacec2420ac443779cc5d5545b4d7ce9cdb3e85f908",
+      "study_design": "Metaanálisis de ejercicio desde hospitalización hasta vuelo",
+      "population_description": "1754 participantes; 66% varones; escenarios hospitalarios, reposo en cama y vuelo espacial.",
+      "summary": "Los efectos difieren según contexto y método estadístico. En hospitalización, el beneficio de fuerza persistió al considerar dependencia entre resultados. En reposo, el efecto dejó de ser significativo en el análisis multinivel; en vuelo, el efecto combinado de fuerza y potencia fue pequeño y no significativo.",
+      "limitations": [
+        "No afirmar beneficio universal por el título. Tamaño de efecto no es porcentaje; prevención y rehabilitación, así como distintos análisis de masa, no son comparaciones equivalentes."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/41983453/"
+    },
+    {
+      "paper_id": "literature_pmid_36883219",
+      "abstract_sha256": "8e279000a3ea7fc86b95cc2d9cced65017b4d756b4070dd39f2d6dea7efae8de",
+      "study_design": "Revisión y metaanálisis de desuso unilateral",
+      "population_description": "86 estudios en revisión y 40 estudios únicos en metaanálisis; predominio de adultos jóvenes y baja representación de mujeres y mayores.",
+      "summary": "La inmovilización unilateral redujo fuerza más que tamaño muscular en los análisis combinados. Los resultados dependen de duración y método; el metaanálisis no cuantificó potencia por falta de homogeneidad suficiente.",
+      "limitations": [
+        "Hedges g no equivale a porcentaje. Inmovilización con yeso u ortesis no es vuelo espacial ni pérdida demostrada por una sesión omitida."
+      ],
+      "source_url": "https://pubmed.ncbi.nlm.nih.gov/36883219/"
+    }
+  ]
+}

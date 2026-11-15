@@ -1,4 +1,5 @@
 import {
+  Billboard,
   Bounds,
   Float,
   OrbitControls,
@@ -6,27 +7,33 @@ import {
   useGLTF,
   useProgress,
 } from "@react-three/drei";
-import { Canvas, type ThreeEvent } from "@react-three/fiber";
+import { Canvas, useFrame, type ThreeEvent } from "@react-three/fiber";
+
+import { GraphConstellation } from "./GraphConstellation";
 import { Suspense, useEffect, useMemo, useRef, useState } from "react";
 import {
   Box3,
   Color,
   Mesh,
+  type MeshBasicMaterial,
   MeshStandardMaterial,
   Vector3,
   type Material,
   type Object3D,
 } from "three";
 
+import type { MapData } from "../lib/graph";
 import {
   ANATOMY_COLORS,
+  HEART_ANCHOR_MESHES,
+  HEART_ZONE_ID,
   MODEL_URL,
   REGION_MESHES,
   type CameraFocus,
 } from "../lib/anatomy";
 
 const SELECTED_COLOR = new Color(ANATOMY_COLORS.selected);
-const HOVER_COLOR = new Color("#7dd3fc");
+const HOVER_COLOR = new Color("#b8d6ff");
 const NO_EMISSION = new Color("#000000");
 
 // Camera moves between body and region; disabled for reduced motion.
@@ -85,9 +92,84 @@ type ModelProps = {
   selectedRegionId: string | null;
   onSelect: (regionId: string) => void;
   focus: CameraFocus;
+  /** Regions whose open assessment has something to review. */
+  flaggedRegionIds: string[];
+  /** When set, this map is drawn around the body. */
+  graph: MapData | null;
+  /** Show the beacon of the heart-rate example on the chest. */
+  heartEnabled: boolean;
+  selectedNodeId: string | null;
+  onSelectNode: (nodeId: string | null) => void;
 };
 
-function Model({ regionIds, selectedRegionId, onSelect, focus }: ModelProps) {
+type BodyProps = Omit<
+  ModelProps,
+  "graph" | "selectedNodeId" | "onSelectNode"
+> & {
+  graphActive: boolean;
+};
+
+const BEACON_COLORS = {
+  flagged: "#ffb454",
+  tracked: "#5aa0ff",
+  heart: "#b69cff",
+} as const;
+
+/**
+ * Pulsing marker in front of a region. It says "there is something to look
+ * at here" (a finding to review, or simply a tracked zone); it is not a
+ * severity signal.
+ */
+function Beacon({
+  position,
+  radius,
+  tone,
+  onSelect,
+}: {
+  position: [number, number, number];
+  radius: number;
+  tone: keyof typeof BEACON_COLORS;
+  onSelect: () => void;
+}) {
+  const ring = useRef<Mesh>(null);
+  useFrame(({ clock }) => {
+    if (!ring.current || REDUCED_MOTION) return;
+    const t = (clock.elapsedTime % 2.2) / 2.2;
+    ring.current.scale.setScalar(0.7 + 1.5 * t);
+    (ring.current.material as MeshBasicMaterial).opacity = 0.85 * (1 - t);
+  });
+  const color = BEACON_COLORS[tone];
+  return (
+    <Billboard position={position}>
+      <mesh ref={ring} renderOrder={10}>
+        <ringGeometry args={[radius * 0.8, radius, 48]} />
+        <meshBasicMaterial color={color} transparent depthTest={false} />
+      </mesh>
+      <mesh
+        renderOrder={11}
+        onClick={(event) => {
+          event.stopPropagation();
+          onSelect();
+        }}
+        onPointerOver={() => (document.body.style.cursor = "pointer")}
+        onPointerOut={() => (document.body.style.cursor = "")}
+      >
+        <circleGeometry args={[radius * 0.5, 32]} />
+        <meshBasicMaterial color={color} depthTest={false} />
+      </mesh>
+    </Billboard>
+  );
+}
+
+function Model({
+  regionIds,
+  selectedRegionId,
+  onSelect,
+  focus,
+  flaggedRegionIds,
+  graphActive,
+  heartEnabled,
+}: BodyProps) {
   const { scene } = useGLTF(MODEL_URL);
   const [hovered, setHovered] = useState<string | null>(null);
 
@@ -136,13 +218,16 @@ function Model({ regionIds, selectedRegionId, onSelect, focus }: ModelProps) {
   // the only colored part; without one the anatomical texture is kept.
   useEffect(() => {
     for (const { mesh, original } of contextMeshes) {
-      mesh.material = selectedRegionId ? CONTEXT_MATERIAL : original;
+      mesh.material =
+        selectedRegionId || graphActive ? CONTEXT_MATERIAL : original;
     }
-  }, [contextMeshes, selectedRegionId]);
+  }, [contextMeshes, selectedRegionId, graphActive]);
 
   // Frame the selected region or the whole body.
   const bounds = useBounds();
   useEffect(() => {
+    // The map frames the scene itself while it is open.
+    if (graphActive) return;
     const targets = regionMeshes.filter(
       (item) => item.regionId === selectedRegionId,
     );
@@ -157,7 +242,7 @@ function Model({ regionIds, selectedRegionId, onSelect, focus }: ModelProps) {
       bounds.refresh(scene).clip().fit();
     }
     // bounds is recreated by drei on each render; the inputs drive the fit.
-  }, [focus, selectedRegionId, regionMeshes, scene]);
+  }, [focus, selectedRegionId, regionMeshes, scene, graphActive]);
 
   useEffect(() => {
     for (const { mesh, regionId } of regionMeshes) {
@@ -200,13 +285,98 @@ function Model({ regionIds, selectedRegionId, onSelect, focus }: ModelProps) {
     if (regionId) onSelect(regionId);
   }
 
+  // One beacon per body side of each unselected region (the mesh names
+  // start with "Left"/"Right"), placed just in front of the muscles.
+  const beacons = useMemo(() => {
+    scene.updateWorldMatrix(true, true);
+    const boxes = new Map<string, { regionId: string; box: Box3 }>();
+    for (const { mesh, regionId } of regionMeshes) {
+      let name = "";
+      for (let o: Object3D | null = mesh; o && !name; o = o.parent) {
+        if (meshToRegion.has(sourceName(o))) name = sourceName(o);
+      }
+      const side = name.startsWith("Left")
+        ? "L"
+        : name.startsWith("Right")
+          ? "R"
+          : "C";
+      const key = `${regionId}:${side}`;
+      const entry = boxes.get(key) ?? { regionId, box: new Box3() };
+      entry.box.expandByObject(mesh);
+      boxes.set(key, entry);
+    }
+    return [...boxes.entries()].map(([key, { regionId, box }]) => {
+      const center = box.getCenter(new Vector3());
+      const size = box.getSize(new Vector3());
+      return {
+        key,
+        regionId,
+        position: [center.x, center.y, box.max.z + size.z * 0.2] as [
+          number,
+          number,
+          number,
+        ],
+        radius: Math.max(size.x, size.z) * 0.4,
+      };
+    });
+  }, [scene, regionMeshes, meshToRegion]);
+
+  // The heart beacon sits on the left chest, pulled toward the midline.
+  const heartBeacon = useMemo(() => {
+    if (!heartEnabled) return null;
+    scene.updateWorldMatrix(true, true);
+    const box = new Box3();
+    scene.traverse((object) => {
+      if (HEART_ANCHOR_MESHES.includes(sourceName(object))) {
+        box.expandByObject(object);
+      }
+    });
+    if (box.isEmpty()) return null;
+    const center = box.getCenter(new Vector3());
+    const size = box.getSize(new Vector3());
+    const midline = new Box3().setFromObject(scene).getCenter(new Vector3()).x;
+    return {
+      position: [
+        center.x + (midline - center.x) * 0.55,
+        center.y,
+        box.max.z + size.z * 0.15,
+      ] as [number, number, number],
+      radius: size.x * 0.28,
+    };
+  }, [scene, heartEnabled]);
+
   return (
-    <primitive
-      object={scene}
-      onPointerMove={handleMove}
-      onPointerOut={() => setHovered(null)}
-      onClick={handleClick}
-    />
+    <>
+      <primitive
+        object={scene}
+        onPointerMove={handleMove}
+        onPointerOut={() => setHovered(null)}
+        onClick={handleClick}
+      />
+      {beacons
+        .filter(
+          (beacon) => !graphActive && beacon.regionId !== selectedRegionId,
+        )
+        .map((beacon) => (
+          <Beacon
+            key={beacon.key}
+            position={beacon.position}
+            radius={beacon.radius}
+            tone={
+              flaggedRegionIds.includes(beacon.regionId) ? "flagged" : "tracked"
+            }
+            onSelect={() => onSelect(beacon.regionId)}
+          />
+        ))}
+      {heartBeacon && !graphActive && selectedRegionId !== HEART_ZONE_ID ? (
+        <Beacon
+          position={heartBeacon.position}
+          radius={heartBeacon.radius}
+          tone="heart"
+          onSelect={() => onSelect(HEART_ZONE_ID)}
+        />
+      ) : null}
+    </>
   );
 }
 
@@ -233,25 +403,14 @@ export default function AnatomyViewer({
   selectedRegionId,
   onSelect,
   focus,
+  flaggedRegionIds,
+  graph,
+  heartEnabled,
+  selectedNodeId,
+  onSelectNode,
 }: ModelProps) {
-  // Idle motion: the body turns slowly until someone interacts, then waits
-  // a few seconds before resuming. Off for reduced motion or a selection.
-  const [idle, setIdle] = useState(true);
-  const resumeRef = useRef<number | null>(null);
-  useEffect(
-    () => () => {
-      if (resumeRef.current !== null) window.clearTimeout(resumeRef.current);
-    },
-    [],
-  );
-  function pauseIdle() {
-    if (resumeRef.current !== null) window.clearTimeout(resumeRef.current);
-    setIdle(false);
-  }
-  function scheduleIdle() {
-    if (resumeRef.current !== null) window.clearTimeout(resumeRef.current);
-    resumeRef.current = window.setTimeout(() => setIdle(true), 8000);
-  }
+  // A gentle drift only; the body keeps facing the viewer so beacons
+  // stay visible.
   const animate = !REDUCED_MOTION;
 
   return (
@@ -261,8 +420,10 @@ export default function AnatomyViewer({
         dpr={[1, 2]}
         className="h-full w-full"
         aria-label="Modelo anatómico 3D"
+        onPointerMissed={() => {
+          if (graph) onSelectNode(null);
+        }}
       >
-        <color attach="background" args={["#020617"]} />
         <hemisphereLight args={["#e2e8f0", "#1e293b", 1.1]} />
         <directionalLight position={[3, 5, 4]} intensity={1.6} />
         <directionalLight position={[-4, 2, -3]} intensity={0.6} />
@@ -280,26 +441,28 @@ export default function AnatomyViewer({
               enabled={animate}
               speed={1.2}
               floatIntensity={0.3}
-              rotationIntensity={0.1}
+              rotationIntensity={0.25}
             >
               <Model
                 regionIds={regionIds}
                 selectedRegionId={selectedRegionId}
                 onSelect={onSelect}
                 focus={focus}
+                flaggedRegionIds={flaggedRegionIds}
+                graphActive={graph !== null}
+                heartEnabled={heartEnabled}
               />
             </Float>
+            {graph ? (
+              <GraphConstellation
+                map={graph}
+                selectedNodeId={selectedNodeId}
+                onSelectNode={onSelectNode}
+              />
+            ) : null}
           </Bounds>
         </Suspense>
-        <OrbitControls
-          makeDefault
-          enablePan={false}
-          enableDamping
-          autoRotate={animate && idle && selectedRegionId === null}
-          autoRotateSpeed={0.6}
-          onStart={pauseIdle}
-          onEnd={scheduleIdle}
-        />
+        <OrbitControls makeDefault enablePan={false} enableDamping />
       </Canvas>
       <LoadingOverlay />
     </div>

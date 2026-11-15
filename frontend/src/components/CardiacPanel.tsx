@@ -26,13 +26,19 @@ type CardiacPanelProps = {
   /** Recording linked to the case; it may be absent. */
   caseRecordingId: string | null;
   onClose: () => void;
+  /** Inside the heart zone panel instead of the bottom drawer. */
+  embedded?: boolean;
 };
 
 /**
  * Didactic heart-rate player. Recordings come from terrestrial exercise, so
  * their clock (seconds since the test start) never mixes with mission days.
  */
-export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
+export function CardiacPanel({
+  caseRecordingId,
+  onClose,
+  embedded = false,
+}: CardiacPanelProps) {
   const options = useMemo(() => {
     const list: { id: string; label: string }[] = [];
     // The reference recording only exists in the real API. It goes first:
@@ -61,10 +67,18 @@ export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
     <section
       aria-label="Frecuencia cardíaca didáctica"
       ref={sectionRef}
-      className="shrink-0 border-t lg:max-h-[40vh] lg:overflow-y-auto border-slate-800 bg-slate-900/70 px-4 py-3"
+      className={
+        embedded
+          ? ""
+          : "shrink-0 border-t border-slate-800 bg-slate-900/70 px-4 py-3 lg:max-h-[40vh] lg:overflow-y-auto"
+      }
     >
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <h2 className="text-sm font-semibold text-slate-100">
+        <h2
+          className={
+            embedded ? "sr-only" : "text-sm font-semibold text-slate-100"
+          }
+        >
           Frecuencia cardíaca (didáctica)
         </h2>
         <div className="flex min-w-0 flex-wrap items-center gap-2">
@@ -84,19 +98,25 @@ export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
               </select>
             </label>
           ) : null}
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-md px-3 py-1.5 text-sm text-slate-400 hover:bg-slate-800 hover:text-slate-100"
-          >
-            Cerrar
-          </button>
+          {embedded ? null : (
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-md px-3 py-1.5 text-sm text-slate-400 hover:bg-slate-800 hover:text-slate-100"
+            >
+              Cerrar
+            </button>
+          )}
         </div>
       </div>
 
       {recordingId ? (
         // Keyed so that switching recordings resets playback state.
-        <RecordingPlayer key={recordingId} recordingId={recordingId} />
+        <RecordingPlayer
+          key={recordingId}
+          recordingId={recordingId}
+          embedded={embedded}
+        />
       ) : (
         <p className="mt-2 text-xs text-slate-400">
           No hay grabaciones disponibles para este caso.
@@ -106,7 +126,13 @@ export function CardiacPanel({ caseRecordingId, onClose }: CardiacPanelProps) {
   );
 }
 
-function RecordingPlayer({ recordingId }: { recordingId: string }) {
+function RecordingPlayer({
+  recordingId,
+  embedded,
+}: {
+  recordingId: string;
+  embedded: boolean;
+}) {
   const state = useTelemetry(recordingId);
   const [time, setTime] = useState<number | null>(null);
   const [playing, setPlaying] = useState(false);
@@ -201,7 +227,9 @@ function RecordingPlayer({ recordingId }: { recordingId: string }) {
         </Tag>
       </div>
 
-      <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_200px]">
+      <div
+        className={`grid gap-3 ${embedded ? "" : "lg:grid-cols-[minmax(0,1fr)_200px]"}`}
+      >
         <div
           className="h-44"
           role="img"

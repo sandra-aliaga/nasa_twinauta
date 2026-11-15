@@ -139,3 +139,11 @@ export function Skeleton({
     </div>
   );
 }
+
+/**
+ * Review is shown only when it happened. Pending is the default state of the
+ * prototype and is stated once at product level, not on every element.
+ */
+export function ReviewedTag({ status }: { status: "pending" | "reviewed" }) {
+  return status === "reviewed" ? <Tag tone="emerald">Revisado</Tag> : null;
+}
