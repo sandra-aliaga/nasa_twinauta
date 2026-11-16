@@ -8,14 +8,15 @@ import type { LoadState } from "../hooks/useCatalog";
 import { BASIS_LABELS, RELATION_LABELS } from "../lib/explorerLabels";
 import { REVIEW_LABELS, UNIT_LABELS } from "../lib/labels";
 import { ErrorNotice, ReviewedTag, Skeleton, Tag } from "./common";
+import { tr, translated, formatNumber } from "../i18n";
 
 export type ContextSectionKey = keyof ContextDraft;
 
-const SECTION_TITLES: Record<ContextSectionKey, string> = {
+const SECTION_TITLES: Record<ContextSectionKey, string> = translated({
   alert_assessment: "Fundamento de la alerta",
   inaction_scenario: "Posibles consecuencias sin seguimiento",
   next_steps: "Por qué estos pasos",
-};
+});
 
 // Each narrative section has its own graph in the context payload.
 const SECTION_GRAPHS: Record<ContextSectionKey, GraphPage["view"]> = {
@@ -25,11 +26,9 @@ const SECTION_GRAPHS: Record<ContextSectionKey, GraphPage["view"]> = {
 };
 
 // Where the excerpt was taken from; the contract only allows the abstract.
-const LOCATOR_LABELS: Record<string, string> = {
+const LOCATOR_LABELS: Record<string, string> = translated({
   abstract: "Resumen del artículo",
-};
-
-const numberFormat = new Intl.NumberFormat("es", { maximumFractionDigits: 2 });
+});
 
 /**
  * One section of the prepared synthesis of an assessment. The text was
@@ -53,7 +52,7 @@ export function ContextSection({
   if (context === null || context.status === "loading") {
     return (
       <div className="rounded-lg border border-slate-800 p-3">
-        <Skeleton lines={4} label="Cargando síntesis" />
+        <Skeleton lines={4} label={tr("Cargando síntesis")} />
       </div>
     );
   }
@@ -65,8 +64,9 @@ export function ContextSection({
       <section className="rounded-lg border border-slate-800 p-3 text-xs text-slate-400">
         <p className="font-medium text-slate-300">{title}</p>
         <p className="mt-1">
-          {data.reason ?? "No hay una síntesis preparada para esta evaluación."}{" "}
-          Se muestran solo los datos y reglas del backend.
+          {data.reason ??
+            tr("No hay una síntesis preparada para esta evaluación.")}{" "}
+          {tr("Se muestran solo los datos y reglas del backend.")}
         </p>
       </section>
     );
@@ -90,37 +90,41 @@ export function ContextSection({
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h4 className="text-sm font-medium text-slate-100">{title}</h4>
         <div className="flex flex-wrap gap-1">
-          <Tag tone="violet">Síntesis generada por modelo</Tag>
+          <Tag tone="violet">{tr("Síntesis generada por modelo")}</Tag>
           <ReviewedTag status={data.review_status} />
         </div>
       </div>
-      <p className="text-slate-200">{narrative.summary}</p>
+      <p className="text-slate-200">{tr(narrative.summary)}</p>
       <p className="text-xs text-slate-400">
-        <span className="text-slate-300">Incertidumbre: </span>
-        {narrative.uncertainty}
+        <span className="text-slate-300">{tr("Incertidumbre:")} </span>
+        {tr(narrative.uncertainty)}
       </p>
 
       {observations.length > 0 ? (
         <div className="text-xs">
-          <p className="text-slate-400">Mediciones en las que se apoya</p>
+          <p className="text-slate-400">
+            {tr("Mediciones en las que se apoya")}
+          </p>
           <ul className="mt-1 space-y-0.5">
             {observations.map(({ id, observation }) => (
               <li key={id} className="text-slate-300">
                 {observation ? (
                   <>
-                    {indicators.find(
-                      (item) => item.id === observation.indicator_id,
-                    )?.label ?? observation.indicator_id}
-                    {" · día "}
+                    {tr(
+                      indicators.find(
+                        (item) => item.id === observation.indicator_id,
+                      )?.label ?? observation.indicator_id,
+                    )}
+                    {tr(" · día ")}
                     {observation.mission_day}
                     {" · "}
                     {observation.value === null
-                      ? "sin valor"
-                      : `${numberFormat.format(observation.value)} ${UNIT_LABELS[observation.unit]}`}
+                      ? tr("sin valor")
+                      : `${formatNumber(observation.value)} ${UNIT_LABELS[observation.unit]}`}
                   </>
                 ) : (
                   <span className="text-amber-200">
-                    La medición citada no está en esta evaluación.
+                    {tr("La medición citada no está en esta evaluación.")}
                   </span>
                 )}
               </li>
@@ -132,16 +136,16 @@ export function ContextSection({
       {steps.length > 0 ? (
         <div className="text-xs">
           <p className="text-slate-400">
-            Pasos de la orientación a los que se refiere
+            {tr("Pasos de la orientación a los que se refiere")}
           </p>
           <ul className="mt-1 list-disc space-y-0.5 pl-4 text-slate-300">
             {steps.map(({ id, step }) => (
               <li key={id}>
                 {step ? (
-                  step.title
+                  tr(step.title)
                 ) : (
                   <span className="text-amber-200">
-                    Paso no encontrado en la orientación.
+                    {tr("Paso no encontrado en la orientación.")}
                   </span>
                 )}
               </li>
@@ -152,7 +156,7 @@ export function ContextSection({
 
       {narrative.citations.length > 0 ? (
         <div className="space-y-2 text-xs">
-          <p className="text-slate-400">Fragmentos citados</p>
+          <p className="text-slate-400">{tr("Fragmentos citados")}</p>
           {narrative.citations.map((citation) => {
             const snippet = data.evidence_snippets[citation.snippet_id];
             return (
@@ -165,7 +169,7 @@ export function ContextSection({
                     `«${snippet.excerpt}»`
                   ) : (
                     <span className="text-amber-200">
-                      El fragmento citado no está disponible.
+                      {tr("El fragmento citado no está disponible.")}
                     </span>
                   )}
                 </blockquote>
@@ -180,7 +184,7 @@ export function ContextSection({
                     onClick={() => onOpenPaper(citation.paper_id)}
                     className="text-sky-300 underline-offset-2 hover:underline"
                   >
-                    Abrir el artículo en la biblioteca
+                    {tr("Abrir el artículo en la biblioteca")}
                   </button>
                 </figcaption>
               </figure>
@@ -189,22 +193,23 @@ export function ContextSection({
         </div>
       ) : (
         <p className="text-xs text-slate-400">
-          Esta sección no cita literatura; se apoya en los datos y reglas del
-          backend.
+          {tr(
+            "Esta sección no cita literatura; se apoya en los datos y reglas del backend.",
+          )}
         </p>
       )}
 
       {graph && graph.edges.length > 0 ? (
         <div className="text-xs">
-          <p className="text-slate-400">Relaciones registradas</p>
+          <p className="text-slate-400">{tr("Relaciones registradas")}</p>
           <ul className="mt-1 space-y-1">
             {graph.edges.map((edge) => (
               <li key={edge.id} className="text-slate-300">
-                «{truncate(labelOf(edge.source))}»{" "}
+                «{truncate(tr(labelOf(edge.source)))}»{" "}
                 <span className="text-slate-400">
                   {RELATION_LABELS[edge.relation]}
                 </span>{" "}
-                «{truncate(labelOf(edge.target))}»{" "}
+                «{truncate(tr(labelOf(edge.target)))}»{" "}
                 <Tag
                   tone={edge.basis === "llm_suggestion" ? "amber" : "subtle"}
                 >
@@ -217,9 +222,16 @@ export function ContextSection({
       ) : null}
 
       <p className="text-[11px] text-slate-400">
-        No habilita acciones clínicas.
+        {tr("No habilita acciones clínicas.")}
         {data.provenance
-          ? ` Modelo ${data.provenance.model_id} · instrucciones ${data.provenance.prompt_version} · corpus ${data.provenance.corpus_version}.`
+          ? tr(
+              " Modelo {{value0}} · instrucciones {{value1}} · corpus {{value2}}.",
+              {
+                value0: String(data.provenance.model_id),
+                value1: String(data.provenance.prompt_version),
+                value2: String(data.provenance.corpus_version),
+              },
+            )
           : ""}
       </p>
     </section>

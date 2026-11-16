@@ -2,6 +2,7 @@ import type { GraphView } from "../../api";
 import { useGraph } from "../../hooks/useGraph";
 import { VIEW_LABELS } from "../../lib/graph";
 import { GraphCanvas } from "./GraphCanvas";
+import { tr } from "../../i18n";
 
 type MiniGraphProps = {
   assessmentId: string;
@@ -37,10 +38,10 @@ export function MiniGraph({
         ) : (
           <span className="text-xs text-slate-400">
             {state?.status === "error"
-              ? "No se pudo cargar el mapa"
+              ? tr("No se pudo cargar el mapa")
               : state?.status === "ready"
-                ? "Sin relaciones"
-                : "Cargando…"}
+                ? tr("Sin relaciones")
+                : tr("Cargando…")}
           </span>
         )}
       </button>
@@ -51,14 +52,14 @@ export function MiniGraph({
     <div className="absolute right-4 top-4 z-10 hidden w-72 overflow-hidden rounded-lg border border-slate-700 bg-slate-950/85 shadow-xl backdrop-blur xl:block">
       <div className="flex items-center justify-between border-b border-slate-800 px-3 py-1.5">
         <span className="text-xs text-slate-300">
-          Relaciones · {VIEW_LABELS[view]}
+          {tr("Relaciones ·")} {VIEW_LABELS[view]}
         </span>
         <button
           type="button"
           onClick={onExpand}
           className="rounded px-2 py-0.5 text-xs text-sky-300 hover:bg-sky-500/10"
         >
-          Ampliar
+          {tr("Ampliar")}
         </button>
       </div>
       <button
@@ -74,10 +75,10 @@ export function MiniGraph({
         ) : (
           <span className="text-xs text-slate-400">
             {state?.status === "error"
-              ? "No se pudo cargar el grafo"
+              ? tr("No se pudo cargar el grafo")
               : state?.status === "ready"
-                ? "Sin relaciones"
-                : "Cargando…"}
+                ? tr("Sin relaciones")
+                : tr("Cargando…")}
           </span>
         )}
       </button>

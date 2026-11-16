@@ -12,6 +12,7 @@ import { ENVIRONMENT_LABELS, REVIEW_LABELS } from "../../lib/labels";
 import { ErrorNotice, Notice, Skeleton, Tag } from "../common";
 import { LibraryGraph } from "./LibraryGraph";
 import { PaperDetailView } from "./PaperDetailView";
+import { tr } from "../../i18n";
 
 type Filters = {
   q: string;
@@ -106,19 +107,23 @@ export function ExplorerView({
             onClick={onBack}
             className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
           >
-            ← Volver al cuerpo
+            {tr("← Volver al cuerpo")}
           </button>
-          <h2 className="font-display text-base text-slate-50">Biblioteca</h2>
+          <h2 className="font-display text-base text-slate-50">
+            {tr("Biblioteca")}
+          </h2>
           {base?.status === "ready" ? (
             <span className="text-xs text-slate-400">
-              {base.data.paper_count} estudios,{" "}
+              {base.data.paper_count} {tr("estudios,")}{" "}
               {base.data.reviewed_paper_count === 0
-                ? "ninguno con revisión documental todavía"
-                : `${base.data.reviewed_paper_count} con revisión documental`}
+                ? tr("ninguno con revisión documental todavía")
+                : tr("{{value0}} con revisión documental", {
+                    value0: String(base.data.reviewed_paper_count),
+                  })}
             </span>
           ) : null}
           {explorerSource.kind === "mock" ? (
-            <Tag tone="amber">Demo: ejemplos, sin backend</Tag>
+            <Tag tone="amber">{tr("Demo: ejemplos, sin backend")}</Tag>
           ) : null}
         </div>
 
@@ -131,14 +136,14 @@ export function ExplorerView({
         >
           <div className="flex gap-2">
             <label className="flex-1">
-              <span className="sr-only">Buscar estudios</span>
+              <span className="sr-only">{tr("Buscar estudios")}</span>
               <input
                 type="search"
                 value={draft.q}
                 onChange={(event) =>
                   setDraft({ ...draft, q: event.target.value })
                 }
-                placeholder="Busca por tema, título o autor"
+                placeholder={tr("Busca por tema, título o autor")}
                 className="w-full rounded-full border border-slate-700 bg-slate-900 px-4 py-2 text-sm text-slate-100 placeholder:text-slate-500"
               />
             </label>
@@ -146,19 +151,19 @@ export function ExplorerView({
               type="submit"
               className="rounded-full bg-sky-500 px-5 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-400"
             >
-              Buscar
+              {tr("Buscar")}
             </button>
           </div>
 
           {/* Sections as one-tap chips: they apply at once. */}
           <div
             role="group"
-            aria-label="Qué quieres saber"
+            aria-label={tr("Qué quieres saber")}
             className="flex flex-wrap gap-1.5"
           >
             {(
               [
-                ["", "Todo"],
+                ["", tr("Todo")],
                 ...(Object.keys(LIBRARY_VIEW_LABELS) as LibraryView[]).map(
                   (view) => [view, LIBRARY_VIEW_LABELS[view]] as const,
                 ),
@@ -186,11 +191,11 @@ export function ExplorerView({
 
           <details>
             <summary className="cursor-pointer text-slate-300">
-              Más filtros
+              {tr("Más filtros")}
             </summary>
             <div className="mt-2 flex flex-wrap items-end gap-2">
               <label className="flex flex-col gap-1">
-                Revisión
+                {tr("Revisión")}
                 <select
                   value={draft.review}
                   onChange={(event) =>
@@ -201,13 +206,13 @@ export function ExplorerView({
                   }
                   className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
                 >
-                  <option value="">Pendientes y revisadas</option>
+                  <option value="">{tr("Pendientes y revisadas")}</option>
                   <option value="pending">{REVIEW_LABELS.pending}</option>
                   <option value="reviewed">{REVIEW_LABELS.reviewed}</option>
                 </select>
               </label>
               <label className="flex w-20 flex-col gap-1">
-                Desde
+                {tr("Desde")}
                 <input
                   type="number"
                   inputMode="numeric"
@@ -219,7 +224,7 @@ export function ExplorerView({
                 />
               </label>
               <label className="flex w-20 flex-col gap-1">
-                Hasta
+                {tr("Hasta")}
                 <input
                   type="number"
                   inputMode="numeric"
@@ -238,14 +243,14 @@ export function ExplorerView({
                     onChange={(event) => setUseRegion(event.target.checked)}
                     className="accent-sky-400"
                   />
-                  Solo la zona seleccionada
+                  {tr("Solo la zona seleccionada")}
                 </label>
               ) : null}
               <button
                 type="submit"
                 className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
               >
-                Aplicar
+                {tr("Aplicar")}
               </button>
               <button
                 type="button"
@@ -255,7 +260,7 @@ export function ExplorerView({
                 }}
                 className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
               >
-                Limpiar
+                {tr("Limpiar")}
               </button>
             </div>
           </details>
@@ -263,13 +268,13 @@ export function ExplorerView({
 
         <div
           role="group"
-          aria-label="Modo de exploración"
+          aria-label={tr("Modo de exploración")}
           className="flex gap-1"
         >
           {(
             [
-              ["list", "Lista"],
-              ["graph", "Mapa de estudios"],
+              ["list", tr("Lista")],
+              ["graph", tr("Mapa de estudios")],
             ] as const
           ).map(([value, label]) => (
             <button
@@ -296,23 +301,26 @@ export function ExplorerView({
       >
         <div className="min-h-0 space-y-4">
           {mode === "list" ? (
-            <section aria-label="Resultados">
+            <section aria-label={tr("Resultados")}>
               {papers === null || papers.status === "loading" ? (
-                <Notice title="Buscando en el corpus…" />
+                <Notice title={tr("Buscando en el corpus…")} />
               ) : papers.status === "error" ? (
                 <ErrorNotice error={papers.error} />
               ) : papers.data.items.length === 0 ? (
-                <Notice title="Sin resultados">
-                  No hay publicaciones del corpus para estos filtros. Esto no
-                  significa que no existan estudios sobre el tema.
+                <Notice title={tr("Sin resultados")}>
+                  {tr(
+                    "No hay publicaciones del corpus para estos filtros. Esto no significa que no existan estudios sobre el tema.",
+                  )}
                 </Notice>
               ) : (
                 <>
                   <p className="mb-2 text-xs text-slate-400">
                     {papers.data.total_matching === 1
-                      ? "1 publicación del corpus coincide"
-                      : `${papers.data.total_matching} publicaciones del corpus coinciden`}{" "}
-                    · los más recientes primero
+                      ? tr("1 publicación del corpus coincide")
+                      : tr("{{value0}} publicaciones del corpus coinciden", {
+                          value0: String(papers.data.total_matching),
+                        })}{" "}
+                    {tr("· los más recientes primero")}
                   </p>
                   <ul className="space-y-2">
                     {papers.data.items.map((paper) => (
@@ -335,7 +343,7 @@ export function ExplorerView({
                             {paper.year} ·{" "}
                             {ENVIRONMENT_LABELS[paper.environment]}
                             {paper.review_status === "reviewed"
-                              ? " · revisado"
+                              ? tr(" · revisado")
                               : ""}
                           </p>
                           <p
@@ -349,11 +357,11 @@ export function ExplorerView({
                           </p>
                           <p className="mt-0.5 text-xs text-slate-400">
                             {paper.authors.slice(0, 3).join(", ")}
-                            {paper.authors.length > 3 ? " y otros" : ""}
+                            {paper.authors.length > 3 ? tr(" y otros") : ""}
                           </p>
                           {paper.sections.length > 0 ? (
                             <p className="mt-1.5 text-xs text-slate-300">
-                              Trata:{" "}
+                              {tr("Trata:")}{" "}
                               {paper.sections
                                 .map((section) =>
                                   LIBRARY_VIEW_LABELS[section].toLowerCase(),
@@ -372,9 +380,11 @@ export function ExplorerView({
             <>
               {query.view ? null : (
                 <p className="text-xs text-slate-400">
-                  El grafo se consulta por sección. Sin sección elegida se
-                  muestra «{LIBRARY_VIEW_LABELS[DEFAULT_GRAPH_VIEW]}»; cambie la
-                  sección en los filtros para ver otra.
+                  {tr(
+                    "El grafo se consulta por sección. Sin sección elegida se muestra «",
+                  )}
+                  {LIBRARY_VIEW_LABELS[DEFAULT_GRAPH_VIEW]}
+                  {tr("»; cambie la sección en los filtros para ver otra.")}
                 </p>
               )}
               <LibraryGraph
@@ -389,18 +399,18 @@ export function ExplorerView({
           )}
 
           <section
-            aria-label="Cobertura de módulos"
+            aria-label={tr("Cobertura de módulos")}
             className="rounded-lg border border-slate-800 p-3"
           >
             <h3 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-              Cobertura de módulos
+              {tr("Cobertura de módulos")}
             </h3>
             {modules?.status === "ready" ? (
               <ul className="mt-2 space-y-2 text-xs">
                 {modules.data.modules.map((module) => (
                   <li key={module.id}>
                     <p className="text-slate-200">
-                      {module.label} · v{module.version}
+                      {tr(module.label)} · v{module.version}
                     </p>
                     <div className="mt-1 flex flex-wrap gap-1">
                       <Tag>
@@ -417,36 +427,42 @@ export function ExplorerView({
                       </Tag>
                     </div>
                     <p className="mt-1 text-slate-400">
-                      {module.coverage_description}
+                      {tr(module.coverage_description)}
                     </p>
                   </li>
                 ))}
                 <li className="text-slate-400">
-                  Las regiones sin módulo no se interpretan; no significa que
-                  estén sanas.
+                  {tr(
+                    "Las regiones sin módulo no se interpretan; no significa que estén sanas.",
+                  )}
                 </li>
               </ul>
             ) : modules?.status === "error" ? (
               <ErrorNotice error={modules.error} />
             ) : (
-              <Skeleton lines={2} label="Cargando catálogo" className="mt-2" />
+              <Skeleton
+                lines={2}
+                label={tr("Cargando catálogo")}
+                className="mt-2"
+              />
             )}
           </section>
         </div>
 
         <aside
           ref={asideRef}
-          aria-label="Ficha de la publicación"
+          aria-label={tr("Ficha de la publicación")}
           className="min-h-0 scroll-mt-4"
         >
           <div key={paperId ?? "none"} className="animate-slide-in-right">
             {paperId === null ? (
-              <Notice title="Ninguna publicación seleccionada">
-                Elige una publicación de la lista o un nodo del grafo para abrir
-                su ficha.
+              <Notice title={tr("Ninguna publicación seleccionada")}>
+                {tr(
+                  "Elige una publicación de la lista o un nodo del grafo para abrir su ficha.",
+                )}
               </Notice>
             ) : detail === null || detail.status === "loading" ? (
-              <Skeleton lines={8} label="Cargando ficha" />
+              <Skeleton lines={8} label={tr("Cargando ficha")} />
             ) : detail.status === "error" ? (
               <ErrorNotice error={detail.error} />
             ) : (

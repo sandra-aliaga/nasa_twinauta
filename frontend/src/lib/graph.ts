@@ -8,17 +8,18 @@ import { MarkerType, type Edge, type Node } from "@xyflow/react";
 import type { Graph, GraphView } from "../api";
 import type { GraphPage, KnowledgeNode } from "../api/explorer/types";
 import { NODE_KIND_LABELS } from "./explorerLabels";
+import { tr, translated } from "../i18n";
 
 type NodeKind = Graph["nodes"][number]["kind"];
 type Relation = Graph["edges"][number]["relation"];
 
-export const VIEW_LABELS: Record<GraphView, string> = {
+export const VIEW_LABELS: Record<GraphView, string> = translated({
   evidence: "Fundamento",
   scenario: "Escenario",
   actions: "Acciones",
-};
+});
 
-export const KIND_LABELS: Record<NodeKind, string> = {
+export const KIND_LABELS: Record<NodeKind, string> = translated({
   finding: "Hallazgo",
   observation: "Observación",
   exercise: "Ejercicio",
@@ -30,7 +31,7 @@ export const KIND_LABELS: Record<NodeKind, string> = {
   parameter: "Parámetro",
   action: "Acción",
   requirement: "Requisito",
-};
+});
 
 /** Tailwind classes per kind. Colors group roles, they do not mean risk. */
 export const KIND_STYLES: Record<NodeKind, { border: string; dot: string }> = {
@@ -114,9 +115,16 @@ export function toFlow(
         x: position.x - NODE_WIDTH / 2,
         y: position.y - NODE_HEIGHT / 2,
       },
-      data: { kind: node.kind, label: node.label, compact: options.compact },
+      data: {
+        kind: node.kind,
+        label: tr(node.label),
+        compact: options.compact,
+      },
       ariaRole: "button",
-      ariaLabel: `${KIND_LABELS[node.kind]}: ${node.label}. Intro para ver el detalle.`,
+      ariaLabel: tr("{{value0}}: {{value1}}. Intro para ver el detalle.", {
+        value0: String(KIND_LABELS[node.kind]),
+        value1: tr(node.label),
+      }),
     };
   });
 
@@ -172,7 +180,7 @@ export function caseMap(graph: Graph): MapData {
     layout: "columns",
     nodes: graph.nodes.map((node) => ({
       id: node.id,
-      label: node.label,
+      label: tr(node.label),
       kindLabel: KIND_LABELS[node.kind],
       color: KIND_HEX[node.kind],
     })),
@@ -186,13 +194,13 @@ export function caseMap(graph: Graph): MapData {
 }
 
 /** Display names for the corpus topic ids; unknown ids are shown as sent. */
-const TOPIC_LABELS: Record<string, string> = {
+const TOPIC_LABELS: Record<string, string> = translated({
   status: "Estado actual",
   mechanisms: "Mecanismos",
   evolution: "Evolución",
   recovery: "Recuperación",
   countermeasures: "Contramedidas",
-};
+});
 
 const STUDY_HEX: Record<KnowledgeNode["kind"], string> = {
   paper: "#8cbcff",

@@ -19,6 +19,7 @@ import {
 } from "../../lib/explorerLabels";
 import { ENVIRONMENT_LABELS, REVIEW_LABELS } from "../../lib/labels";
 import { Collapsible, Notice, Tag } from "../common";
+import { tr, msg, formatNumber } from "../../i18n";
 
 /**
  * Paper record. The provider abstract, the prepared summary and the AI
@@ -30,14 +31,14 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
 
   const authors =
     paper.authors.slice(0, 4).join(", ") +
-    (paper.authors.length > 4 ? " y otros" : "");
+    (paper.authors.length > 4 ? tr(" y otros") : "");
 
   return (
     <article className="space-y-5 text-sm">
       <header className="space-y-2">
         <p className="text-xs text-slate-400">
           {paper.year} · {ENVIRONMENT_LABELS[paper.environment]}
-          {paper.study_design ? ` · ${paper.study_design}` : ""}
+          {paper.study_design ? ` · ${tr(paper.study_design)}` : ""}
         </p>
         <h3 className="font-display text-lg leading-snug text-slate-50">
           {paper.title}
@@ -50,12 +51,12 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
             rel="noreferrer noopener"
             className="rounded-full bg-sky-500 px-4 py-1.5 text-sm font-semibold text-slate-950 hover:bg-sky-400"
           >
-            Leer el estudio original
+            {tr("Leer el estudio original")}
           </a>
           <Tag tone={paper.review_status === "reviewed" ? "emerald" : "subtle"}>
-            Ficha:{" "}
+            {tr("Ficha:")}{" "}
             {paper.review_status === "reviewed"
-              ? "revisión documental"
+              ? tr("revisión documental")
               : REVIEW_LABELS[paper.review_status]}
           </Tag>
           <Tag tone="subtle">
@@ -70,30 +71,31 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
           title={COHORT_OVERLAP_LABELS[detail.cohort_overlap_status]}
           tone="warning"
         >
-          Resultados de estudios que comparten participantes no cuentan como
-          confirmación independiente.
+          {tr(
+            "Resultados de estudios que comparten participantes no cuentan como confirmación independiente.",
+          )}
         </Notice>
       ) : null}
 
       <section className="hud-panel p-4 pl-5">
         <h4 className="font-display text-sm text-slate-50">
-          En pocas palabras
+          {tr("En pocas palabras")}
         </h4>
         {summary.text ? (
           <p className="mt-2 text-[15px] leading-relaxed text-slate-100">
-            {summary.text}
+            {tr(summary.text)}
           </p>
         ) : (
           <p className="mt-2 text-slate-400">
-            {SUMMARY_STATUS_LABELS[summary.status]}: todavía no hay un resumen
-            preparado para este estudio.
+            {SUMMARY_STATUS_LABELS[summary.status]}
+            {tr(": todavía no hay un resumen preparado para este estudio.")}
           </p>
         )}
         <p className="mt-2 text-[11px] text-slate-400">
-          {SUMMARY_METHOD_LABELS[summary.method]}, a partir de{" "}
-          {SUMMARY_BASIS_LABELS[summary.basis]}.{" "}
+          {SUMMARY_METHOD_LABELS[summary.method]}
+          {tr(", a partir de")} {SUMMARY_BASIS_LABELS[summary.basis]}.{" "}
           {summary.review_status === "reviewed"
-            ? "Revisión documental completada"
+            ? tr("Revisión documental completada")
             : REVIEW_LABELS[summary.review_status]}
           .
         </p>
@@ -103,34 +105,37 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
       {detail.population_description ? (
         <section>
           <h4 className="text-sm font-medium text-slate-100">
-            Quiénes participaron
+            {tr("Quiénes participaron")}
           </h4>
-          <p className="mt-1 text-slate-300">{detail.population_description}</p>
+          <p className="mt-1 text-slate-300">
+            {tr(detail.population_description)}
+          </p>
         </section>
       ) : null}
 
       <section>
         <h4 className="text-sm font-medium text-slate-100">
-          Lo que aporta este estudio
+          {tr("Lo que aporta este estudio")}
         </h4>
         {analysis.status === "failed" ? (
           <p className="mt-1 text-xs text-amber-200">
-            {analysis.failure_reason ?? "El backend no indicó el motivo."} No se
-            muestra contenido de sustitución.
+            {analysis.failure_reason ?? tr("El backend no indicó el motivo.")}{" "}
+            {tr("No se muestra contenido de sustitución.")}
           </p>
         ) : null}
         {analysis.status === "not_requested" ||
         analysis.status === "queued" ||
         analysis.status === "running" ? (
           <p className="mt-1 text-xs text-slate-400">
-            Todavía no hay puntos extraídos para este estudio.
+            {tr("Todavía no hay puntos extraídos para este estudio.")}
           </p>
         ) : null}
         {analysis.items.length > 0 ? (
           <>
             <p className="mt-1 text-xs text-slate-400">
-              Síntesis documental asistida por IA. Consulte el abstract completo
-              y sus límites para interpretar cada resultado.
+              {tr(
+                "Síntesis documental asistida por IA. Consulte el abstract completo y sus límites para interpretar cada resultado.",
+              )}
             </p>
             <ul className="mt-2 space-y-2">
               {analysis.items.map((item) => (
@@ -145,12 +150,12 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
                 >
                   <p className="text-xs text-step-next">
                     {ANALYSIS_KIND_LABELS[item.kind]}
-                    {item.review_status === "reviewed" ? " · revisado" : ""}
+                    {item.review_status === "reviewed" ? tr(" · revisado") : ""}
                   </p>
-                  <p className="mt-1 text-slate-100">{item.text}</p>
+                  <p className="mt-1 text-slate-100">{tr(item.text)}</p>
                   <details className="mt-1 text-xs text-slate-400">
                     <summary className="cursor-pointer text-slate-300">
-                      Ver fragmento y localizador del estudio
+                      {tr("Ver fragmento y localizador del estudio")}
                     </summary>
                     <blockquote className="mt-1 border-l-2 border-slate-700 pl-2 italic">
                       «{item.source_excerpt}» ({item.source_locator})
@@ -164,14 +169,16 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
         ) : null}
         {analysis.items.some((item) => item.kind === "studied_intervention") ? (
           <p className="mt-2 text-xs text-slate-400">
-            Una intervención estudiada describe lo que investigó el estudio; no
-            es una acción habilitada para el astronauta.
+            {tr(
+              "Una intervención estudiada describe lo que investigó el estudio; no es una acción habilitada para el astronauta.",
+            )}
           </p>
         ) : null}
         {analysis.model_id ? (
           <p className="mt-1 text-[11px] text-slate-500">
-            Modelo {analysis.model_id}, prompt {analysis.prompt_version ?? "?"},{" "}
-            {analysis.generated_at ?? "fecha desconocida"}
+            {tr("Modelo")} {analysis.model_id}
+            {tr(", prompt")} {analysis.prompt_version ?? "?"},{" "}
+            {analysis.generated_at ?? tr("fecha desconocida")}
           </p>
         ) : null}
       </section>
@@ -179,11 +186,12 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
       {detail.statistics.length > 0 ? (
         <section>
           <h4 className="text-sm font-medium text-slate-100">
-            Cifras publicadas
+            {tr("Cifras publicadas")}
           </h4>
           <p className="mt-1 text-xs text-slate-400">
-            Resultados agregados del estudio; no son mediciones del astronauta
-            virtual.
+            {tr(
+              "Resultados agregados del estudio; no son mediciones del astronauta virtual.",
+            )}
           </p>
           <ul className="mt-2 space-y-2">
             {detail.statistics.map((statistic) => (
@@ -198,27 +206,30 @@ export function PaperDetailView({ detail }: { detail: PaperDetail }) {
         style={{ "--rail": "var(--color-step-do)" } as React.CSSProperties}
       >
         <h4 className="font-display text-sm text-slate-50">
-          ¿Aplica a este caso?
+          {tr("¿Aplica a este caso?")}
         </h4>
         <p className="mt-1 text-xs text-step-do">
           {APPLICABILITY_LABELS[applicability.status]}
         </p>
-        <p className="mt-1 text-slate-200">{applicability.explanation}</p>
+        <p className="mt-1 text-slate-200">{tr(applicability.explanation)}</p>
       </section>
 
-      <Collapsible title="Abstract original del estudio (en inglés)">
+      <Collapsible title={tr("Abstract original del estudio (en inglés)")}>
         <p className="pt-1 leading-relaxed text-slate-300">
           {detail.abstract ?? (
             <span className="italic text-slate-400">
-              No se dispone del abstract en esta ficha.
+              {tr("No se dispone del abstract en esta ficha.")}
             </span>
           )}
         </p>
       </Collapsible>
 
-      <LimitList items={detail.limitations} title="Limitaciones de la ficha" />
+      <LimitList
+        items={detail.limitations}
+        title={tr("Limitaciones de la ficha")}
+      />
       <p className="text-[11px] text-slate-500">
-        Corpus {detail.corpus_version}
+        {tr("Corpus")} {detail.corpus_version}
       </p>
     </article>
   );
@@ -242,7 +253,7 @@ function AccessLinks({
           rel="noreferrer noopener"
           className={link}
         >
-          Texto completo
+          {tr("Texto completo")}
         </a>
       ) : null}
       {access.pdf_url ? (
@@ -252,19 +263,25 @@ function AccessLinks({
           rel="noreferrer noopener"
           className={link}
         >
-          PDF
+          {tr("PDF")}
         </a>
       ) : (
-        <span className="text-slate-400">Sin PDF enlazado</span>
+        <span className="text-slate-400">{tr("Sin PDF enlazado")}</span>
       )}
-      {doi ? <span className="text-slate-400">DOI {doi}</span> : null}
+      {doi ? (
+        <span className="text-slate-400">
+          {tr("DOI")} {doi}
+        </span>
+      ) : null}
       <span className="text-slate-400">
         {access.full_text_cached || access.pdf_cached
-          ? "Documento instalado localmente"
-          : "Requiere conexión para abrir el documento"}
+          ? tr("Documento instalado localmente")
+          : tr("Requiere conexión para abrir el documento")}
       </span>
       {access.license ? (
-        <span className="text-slate-400">Licencia {access.license}</span>
+        <span className="text-slate-400">
+          {tr("Licencia")} {access.license}
+        </span>
       ) : null}
     </div>
   );
@@ -289,11 +306,11 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
       </div>
       {interval ? (
         <p className="mt-0.5 tabular-nums text-slate-400">
-          {(interval.kind && INTERVAL_LABELS[interval.kind]) ?? "Intervalo"}
+          {(interval.kind && INTERVAL_LABELS[interval.kind]) ?? tr("Intervalo")}
           {interval.level != null
             ? ` ${Math.round(interval.level * 100)} %`
             : ""}
-          : {num(interval.lower)} a {num(interval.upper)}{" "}
+          : {num(interval.lower)} {tr("a")} {num(interval.upper)}{" "}
           {interval.unit ? unit(interval.unit) : ""}
         </p>
       ) : null}
@@ -301,13 +318,15 @@ function StatisticRow({ statistic }: { statistic: Statistic }) {
         {STATISTIC_TYPE_LABELS[statistic.statistic_type]}
         {statistic.sample_size !== null
           ? ` · n = ${statistic.sample_size}`
-          : " · n desconocido"}{" "}
+          : tr(" · n desconocido")}{" "}
         {statistic.extraction_review_status === "reviewed"
-          ? "· extracción revisada"
+          ? tr("· extracción revisada")
           : ""}
       </p>
       <p className="mt-0.5 text-slate-400">
-        Variable y grupo tal como los publica la fuente (en inglés). Ubicación:{" "}
+        {tr(
+          "Variable y grupo tal como los publica la fuente (en inglés). Ubicación:",
+        )}{" "}
         {statistic.source_locator}
       </p>
       <LimitList items={statistic.limitations} />
@@ -320,7 +339,7 @@ function LimitList({ items, title }: { items: string[]; title?: string }) {
   const list = (
     <ul className="mt-1 list-disc space-y-0.5 pl-4 text-xs text-orange-200/80">
       {items.map((item) => (
-        <li key={item}>{item}</li>
+        <li key={item}>{tr(item)}</li>
       ))}
     </ul>
   );
@@ -334,16 +353,16 @@ function LimitList({ items, title }: { items: string[]; title?: string }) {
 const UNIT_DISPLAY: Record<string, string> = {
   "N.m": "N·m",
   cm2: "cm²",
-  percent_baseline_per_day: "% del basal por día",
-  percent_of_BR_minus_6_baseline_per_day: "% del basal BR−6 por día",
+  percent_baseline_per_day: msg("% del basal por día"),
+  percent_of_BR_minus_6_baseline_per_day: msg("% del basal BR−6 por día"),
 };
 
 /** Display form of contract unit ids (the id itself stays unchanged). */
 function unit(id: string): string {
-  return UNIT_DISPLAY[id] ?? id;
+  return tr(UNIT_DISPLAY[id] ?? id);
 }
 
 /** Published values keep their precision; only the decimal mark changes. */
 function num(value: number): string {
-  return value.toLocaleString("es", { maximumFractionDigits: 6 });
+  return formatNumber(value, 6);
 }

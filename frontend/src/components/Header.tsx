@@ -1,4 +1,5 @@
 import type { Case } from "../api";
+import { tr, useLanguage, setLanguage, type Language } from "../i18n";
 
 type HeaderProps = {
   cases: Case[];
@@ -38,6 +39,7 @@ export function Header({
   onToggleLibrary,
   onOpenGuide,
 }: HeaderProps) {
+  const language = useLanguage();
   const selectedCase = cases.find((item) => item.id === caseId) ?? null;
   const maxDay = selectedCase?.duration_days ?? 0;
   const dayChanged = evaluatedDay !== null && evaluatedDay !== day;
@@ -61,18 +63,19 @@ export function Header({
             <circle cx="16" cy="16" r="4.2" fill="#e2e8f0" />
             <circle cx="26" cy="10.6" r="2" fill="#5aa0ff" />
           </svg>
-          TwinNauta
+          {tr("TwinNauta")}
         </h1>
 
         {referenceMode ? (
           <p className="flex-1 text-xs text-slate-300">
-            NASA · estudios musculares · muestras de vuelo · pruebas de
-            ejercicio
+            {tr(
+              "NASA · estudios musculares · muestras de vuelo · pruebas de ejercicio",
+            )}
           </p>
         ) : (
           <>
             <label className="flex items-center gap-2 text-sm text-slate-300">
-              Caso
+              {tr("Caso")}
               <select
                 value={caseId ?? ""}
                 onChange={(event) => onCaseChange(event.target.value)}
@@ -80,7 +83,7 @@ export function Header({
               >
                 {cases.map((item) => (
                   <option key={item.id} value={item.id}>
-                    {item.label}
+                    {tr(item.label)}
                     {item.is_virtual ? " (virtual)" : ""}
                   </option>
                 ))}
@@ -89,7 +92,7 @@ export function Header({
 
             <div className="flex flex-1 flex-wrap items-center gap-3 text-sm text-slate-300">
               <label htmlFor="mission-day" className="whitespace-nowrap">
-                Día de misión
+                {tr("Día de misión")}
               </label>
               <input
                 id="mission-day"
@@ -110,16 +113,16 @@ export function Header({
                 disabled={!canEvaluate}
                 title={
                   canEvaluate
-                    ? "Crear una evaluación para este día"
-                    : "Seleccione una región del cuerpo"
+                    ? tr("Crear una evaluación para este día")
+                    : tr("Seleccione una región del cuerpo")
                 }
                 className="rounded-full bg-sky-500 px-4 py-1 font-semibold text-slate-950 hover:bg-sky-400 disabled:cursor-not-allowed disabled:bg-slate-700 disabled:text-slate-400"
               >
-                Evaluar día {day}
+                {tr("Evaluar día")} {day}
               </button>
               {dayChanged ? (
                 <span className="text-xs text-amber-300">
-                  La evaluación mostrada es del día {evaluatedDay}.
+                  {tr("La evaluación mostrada es del día")} {evaluatedDay}.
                 </span>
               ) : null}
             </div>
@@ -136,7 +139,7 @@ export function Header({
                 : "border-slate-700 text-slate-200 hover:border-slate-500"
             }`}
           >
-            Pulso de ejemplo
+            {tr("Pulso de ejemplo")}
           </button>
         ) : null}
 
@@ -150,25 +153,43 @@ export function Header({
               : "border-slate-700 text-slate-200 hover:border-slate-500"
           }`}
         >
-          Biblioteca científica
+          {tr("Biblioteca científica")}
         </button>
 
         <button
           type="button"
           onClick={onOpenGuide}
-          aria-label="Cómo leer esta demo"
-          title="Cómo leer esta demo"
+          aria-label={tr("Cómo leer esta demo")}
+          title={tr("Cómo leer esta demo")}
           className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
         >
-          Guía
+          {tr("Guía")}
         </button>
 
+        <label className="flex items-center gap-2 text-sm text-slate-300">
+          <span className="sr-only">{tr("Idioma")}</span>
+          <select
+            aria-label={tr("Idioma")}
+            value={language}
+            onChange={(event) => setLanguage(event.target.value as Language)}
+            className="rounded-md border border-slate-700 bg-slate-900 px-2 py-1 text-slate-100"
+          >
+            <option value="es" lang="es">
+              Español
+            </option>
+            <option value="en" lang="en">
+              English
+            </option>
+          </select>
+        </label>
         {isDemo ? (
           <span
             className="rounded-md border border-amber-400/60 bg-amber-400/10 px-2 py-1 text-xs font-medium text-amber-200"
-            title="Los datos provienen de contracts/examples: son sintéticos y no son resultados del backend."
+            title={tr(
+              "Los datos provienen de contracts/examples: son sintéticos y no son resultados del backend.",
+            )}
           >
-            Demo
+            {tr("Demo")}
           </span>
         ) : null}
       </div>

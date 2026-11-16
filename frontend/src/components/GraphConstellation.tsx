@@ -1,3 +1,4 @@
+import { tr, useLanguage } from "../i18n";
 import { graphlib, layout as dagreLayout } from "@dagrejs/dagre";
 import { Line, useBounds, useGLTF } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
@@ -164,15 +165,16 @@ export function GraphConstellation({
     return { positions, cardWidth, box, center };
   }, [scene, map]);
 
+  const language = useLanguage();
   const textures = useMemo(
     () =>
       new Map(
         map.nodes.map((node) => [
           node.id,
-          cardTexture(node.kindLabel, node.label, node.color),
+          cardTexture(tr(node.kindLabel), tr(node.label), node.color),
         ]),
       ),
-    [map],
+    [map, language],
   );
   useEffect(
     () => () => {

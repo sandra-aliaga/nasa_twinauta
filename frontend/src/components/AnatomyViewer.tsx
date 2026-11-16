@@ -31,6 +31,7 @@ import {
   REGION_MESHES,
   type CameraFocus,
 } from "../lib/anatomy";
+import { tr } from "../i18n";
 
 const SELECTED_COLOR = new Color(ANATOMY_COLORS.selected);
 const HOVER_COLOR = new Color("#b8d6ff");
@@ -391,7 +392,7 @@ function LoadingOverlay() {
   return (
     <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
       <p className="rounded-md bg-slate-900/80 px-3 py-1 text-sm text-slate-200">
-        Cargando modelo 3D (2,6 MB)…
+        {tr("Cargando modelo 3D (2,6 MB)…")}
       </p>
     </div>
   );
@@ -419,7 +420,7 @@ export default function AnatomyViewer({
         camera={{ position: [0, 1, 4], fov: 35 }}
         dpr={[1, 2]}
         className="h-full w-full"
-        aria-label="Modelo anatómico 3D"
+        aria-label={tr("Modelo anatómico 3D")}
         onPointerMissed={() => {
           if (graph) onSelectNode(null);
         }}

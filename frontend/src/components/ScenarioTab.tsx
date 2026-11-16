@@ -16,6 +16,7 @@ import {
   UNIT_LABELS,
 } from "../lib/labels";
 import { Collapsible, Notice, Tag } from "./common";
+import { tr, translated } from "../i18n";
 
 type Scenario = Assessment["scenario"];
 
@@ -35,18 +36,22 @@ export function ScenarioTab({ assessment }: ScenarioTabProps) {
   return (
     <div className="space-y-5">
       <div className="flex flex-wrap items-center gap-2">
-        <h3 className="text-sm font-medium text-slate-100">{scenario.label}</h3>
+        <h3 className="text-sm font-medium text-slate-100">
+          {tr(scenario.label)}
+        </h3>
         <Tag tone={available ? "sky" : "amber"}>
           {SCENARIO_STATUS_LABELS[scenario.status]}
         </Tag>
       </div>
 
       <p className="text-[15px] leading-relaxed text-slate-100">
-        {scenario.summary}
+        {tr(scenario.summary)}
       </p>
 
       <p className="text-xs text-slate-400">
-        Es una referencia de estudios, no un pronóstico de este astronauta.
+        {tr(
+          "Es una referencia de estudios, no un pronóstico de este astronauta.",
+        )}
       </p>
 
       {!available ? (
@@ -54,40 +59,47 @@ export function ScenarioTab({ assessment }: ScenarioTabProps) {
       ) : (
         <section className="space-y-3">
           <dl className="grid grid-cols-2 gap-2 text-xs text-slate-300">
-            <dt className="text-slate-400">Modelo</dt>
+            <dt className="text-slate-400">{tr("Modelo")}</dt>
             <dd>
               {scenario.model_id} · v{scenario.model_version}
             </dd>
-            <dt className="text-slate-400">Inicio de referencia</dt>
-            <dd>Día {scenario.reference_start_day} del protocolo</dd>
-            <dt className="text-slate-400">Horizonte</dt>
-            <dd>{scenario.horizon_days} días</dd>
+            <dt className="text-slate-400">{tr("Inicio de referencia")}</dt>
+            <dd>
+              {tr("Día")} {scenario.reference_start_day} {tr("del protocolo")}
+            </dd>
+            <dt className="text-slate-400">{tr("Horizonte")}</dt>
+            <dd>
+              {scenario.horizon_days} {tr("días")}
+            </dd>
             {scenario.domain ? (
               <>
-                <dt className="text-slate-400">Dominio</dt>
+                <dt className="text-slate-400">{tr("Dominio")}</dt>
                 <dd>
-                  {ENVIRONMENT_LABELS[scenario.domain.environment]}, días{" "}
-                  {scenario.domain.min_reference_day} a{" "}
+                  {ENVIRONMENT_LABELS[scenario.domain.environment]}
+                  {tr(", días")} {scenario.domain.min_reference_day} {tr("a")}{" "}
                   {scenario.domain.max_reference_day}
                 </dd>
-                <dt className="text-slate-400">Basal</dt>
-                <dd>{scenario.domain.baseline_definition}</dd>
+                <dt className="text-slate-400">{tr("Basal")}</dt>
+                <dd>{tr(scenario.domain.baseline_definition)}</dd>
               </>
             ) : null}
           </dl>
 
           {scenario.domain?.environment === "bed_rest_analog" ? (
-            <Tag tone="amber">Análogo terrestre (reposo en cama)</Tag>
+            <Tag tone="amber">{tr("Análogo terrestre (reposo en cama)")}</Tag>
           ) : null}
           <ScenarioChart scenario={scenario} />
 
-          <Collapsible title="Ver datos de la trayectoria">
+          <Collapsible title={tr("Ver datos de la trayectoria")}>
             <table className="w-full text-left text-xs text-slate-300">
               <thead className="text-slate-400">
                 <tr>
-                  <th className="py-1 font-medium">Día del protocolo</th>
                   <th className="py-1 font-medium">
-                    Valor ({UNIT_LABELS[scenario.unit]})
+                    {tr("Día del protocolo")}
+                  </th>
+                  <th className="py-1 font-medium">
+                    {tr("Valor (")}
+                    {UNIT_LABELS[scenario.unit]})
                   </th>
                 </tr>
               </thead>
@@ -108,13 +120,17 @@ export function ScenarioTab({ assessment }: ScenarioTabProps) {
           </Collapsible>
 
           {scenario.parameters.length > 0 ? (
-            <Collapsible title={`Parámetros (${scenario.parameters.length})`}>
+            <Collapsible
+              title={tr("Parámetros ({{value0}})", {
+                value0: String(scenario.parameters.length),
+              })}
+            >
               <ul className="space-y-1">
                 {scenario.parameters.map((parameter) => (
                   <li key={parameter.id}>
                     {parameter.id}: {parameter.value} {parameter.unit}
                     <span className="block text-slate-400">
-                      Fuente {parameter.source_id} · {parameter.locator}
+                      {tr("Fuente")} {parameter.source_id} · {parameter.locator}
                     </span>
                   </li>
                 ))}
@@ -125,10 +141,14 @@ export function ScenarioTab({ assessment }: ScenarioTabProps) {
       )}
 
       {scenario.assumptions.length > 0 ? (
-        <Collapsible title={`Supuestos (${scenario.assumptions.length})`}>
+        <Collapsible
+          title={tr("Supuestos ({{count}})", {
+            count: scenario.assumptions.length,
+          })}
+        >
           <ul className="space-y-1">
             {scenario.assumptions.map((assumption) => (
-              <li key={assumption}>• {assumption}</li>
+              <li key={assumption}>• {tr(assumption)}</li>
             ))}
           </ul>
         </Collapsible>
@@ -164,7 +184,15 @@ function ScenarioChart({ scenario }: { scenario: Scenario }) {
       <div
         className="h-48"
         role="img"
-        aria-label={`Trayectoria de referencia del día ${first.day} al ${last.day} del protocolo: de ${first.value} a ${last.value} % del basal del protocolo.`}
+        aria-label={tr(
+          "Trayectoria de referencia del día {{value0}} al {{value1}} del protocolo: de {{value2}} a {{value3}} % del basal del protocolo.",
+          {
+            value0: String(first.day),
+            value1: String(last.day),
+            value2: String(first.value),
+            value3: String(last.value),
+          },
+        )}
       >
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
@@ -180,7 +208,7 @@ function ScenarioChart({ scenario }: { scenario: Scenario }) {
               stroke="#64748b"
               fontSize={11}
               label={{
-                value: "Día del protocolo de referencia",
+                value: tr("Día del protocolo de referencia"),
                 position: "insideBottom",
                 offset: -10,
                 fill: "#94a3b8",
@@ -207,10 +235,14 @@ function ScenarioChart({ scenario }: { scenario: Scenario }) {
                 fontSize: 12,
               }}
               labelStyle={{ color: "#cbd5e1" }}
-              labelFormatter={(label) => `Día ${String(label)} del protocolo`}
+              labelFormatter={(label) =>
+                tr("Día {{value0}} del protocolo", {
+                  value0: String(String(label)),
+                })
+              }
               formatter={(value) => [
-                `${String(value)} % del basal`,
-                "Referencia",
+                tr("{{value0}} % del basal", { value0: String(String(value)) }),
+                tr("Referencia"),
               ]}
             />
             <Line
@@ -225,21 +257,21 @@ function ScenarioChart({ scenario }: { scenario: Scenario }) {
         </ResponsiveContainer>
       </div>
       <figcaption className="text-[11px] text-slate-400">
-        Línea discontinua: basal del protocolo (100 %). Eje horizontal: días del
-        protocolo, no días de misión. Los puntos son salidas del modelo, no
-        mediciones; la línea solo los une y no se extiende fuera de su dominio.
+        {tr(
+          "Línea discontinua: basal del protocolo (100 %). Eje horizontal: días del protocolo, no días de misión. Los puntos son salidas del modelo, no mediciones; la línea solo los une y no se extiende fuera de su dominio.",
+        )}
       </figcaption>
     </figure>
   );
 }
 
-const EMPTY_HINTS: Record<Scenario["status"], string> = {
+const EMPTY_HINTS: Record<Scenario["status"], string> = translated({
   available: "",
   insufficient_data:
     "Para dibujarla hace falta un modelo habilitado con parámetros revisados y datos suficientes del caso.",
   out_of_domain:
     "La solicitud queda fuera del dominio del modelo; extrapolar daría una curva sin respaldo.",
-};
+});
 
 /**
  * Placeholder with the chart's footprint, so the layout does not jump and the
@@ -249,7 +281,7 @@ function EmptyChart({ scenario }: { scenario: Scenario }) {
   return (
     <figure
       role="img"
-      aria-label="Sin trayectoria de referencia"
+      aria-label={tr("Sin trayectoria de referencia")}
       className="flex h-48 flex-col items-center justify-center gap-2 rounded-lg border border-dashed border-slate-700 px-6 text-center"
     >
       <svg
@@ -272,10 +304,10 @@ function EmptyChart({ scenario }: { scenario: Scenario }) {
         />
       </svg>
       <p className="text-sm font-medium text-slate-300">
-        No se dibuja una trayectoria
+        {tr("No se dibuja una trayectoria")}
       </p>
       <p className="text-xs text-slate-400">
-        {scenario.reason ?? "El backend no indicó el motivo."}
+        {scenario.reason ?? tr("El backend no indicó el motivo.")}
       </p>
       <p className="text-[11px] text-slate-500">
         {EMPTY_HINTS[scenario.status]}

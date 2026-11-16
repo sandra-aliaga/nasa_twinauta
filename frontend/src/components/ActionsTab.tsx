@@ -13,6 +13,7 @@ import {
   REVIEW_LABELS,
 } from "../lib/labels";
 import { ErrorNotice, ReviewedTag, Tag } from "./common";
+import { tr } from "../i18n";
 
 const EXECUTION_OPTIONS: Action["execution_status"][] = [
   "pending",
@@ -78,7 +79,7 @@ function ActionCard({
     >
       <div className="flex flex-wrap items-center justify-between gap-2">
         <span className="text-sm font-medium text-slate-100">
-          {action.title}
+          {tr(action.title)}
         </span>
         <div className="flex flex-wrap gap-1">
           <ReviewedTag status={action.review_status} />
@@ -88,15 +89,17 @@ function ActionCard({
         </div>
       </div>
 
-      <p className="text-sm text-slate-300">{action.rationale}</p>
+      <p className="text-sm text-slate-300">{tr(action.rationale)}</p>
 
       <details className="text-xs text-slate-400">
-        <summary className="cursor-pointer text-slate-300">Condiciones</summary>
-        <p className="mt-1">{action.eligibility_reason}</p>
+        <summary className="cursor-pointer text-slate-300">
+          {tr("Condiciones")}
+        </summary>
+        <p className="mt-1">{tr(action.eligibility_reason)}</p>
         {action.requirements.length > 0 ? (
           <ul className="mt-1 list-disc pl-4">
             {action.requirements.map((requirement) => (
-              <li key={requirement}>{requirement}</li>
+              <li key={requirement}>{tr(requirement)}</li>
             ))}
           </ul>
         ) : null}
@@ -104,7 +107,7 @@ function ActionCard({
 
       <fieldset disabled={!trackingAllowed || saving} className="pt-1">
         <legend className="mb-1 text-xs text-slate-400">
-          Marca cómo va (solo es un registro)
+          {tr("Marca cómo va (solo es un registro)")}
         </legend>
         <div className="flex gap-1">
           {EXECUTION_OPTIONS.map((status) => {
@@ -142,20 +145,20 @@ export function ActionsTab({
   return (
     <div className="space-y-5">
       <p className="text-[15px] leading-relaxed text-slate-100">
-        {assessment.action_summary}
+        {tr(assessment.action_summary)}
       </p>
 
       {assessment.actions.some(
         (action) => action.review_status === "pending",
       ) ? (
         <p className="text-xs text-slate-400">
-          Son comprobaciones de datos, no indicaciones médicas.
+          {tr("Son comprobaciones de datos, no indicaciones médicas.")}
         </p>
       ) : null}
 
       {assessment.actions.length === 0 ? (
         <p className="text-sm italic text-slate-400">
-          No hay acciones para esta evaluación.
+          {tr("No hay acciones para esta evaluación.")}
         </p>
       ) : (
         <ul className="space-y-3">

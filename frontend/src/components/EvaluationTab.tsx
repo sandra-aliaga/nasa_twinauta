@@ -16,6 +16,7 @@ import {
 } from "../lib/labels";
 import { Collapsible, Tag } from "./common";
 import { GuidanceCard } from "./explorer/GuidanceCard";
+import { tr, translated } from "../i18n";
 
 // Presentation only: attention is not clinical severity.
 const ATTENTION_TONES = {
@@ -25,7 +26,7 @@ const ATTENTION_TONES = {
 } as const;
 
 function formatValue(observation: Observation): string {
-  if (observation.value === null) return "Dato ausente";
+  if (observation.value === null) return tr("Dato ausente");
   return `${observation.value} ${UNIT_LABELS[observation.unit]}`;
 }
 
@@ -40,12 +41,12 @@ function ObservationRow({ observation }: { observation: Observation }) {
           {formatValue(observation)}
         </span>
         <span className="text-xs text-slate-400">
-          día {observation.mission_day}
+          {tr("día")} {observation.mission_day}
         </span>
       </div>
       {missing && observation.missing_reason ? (
         <p className="mt-1 text-xs text-slate-400">
-          Motivo: {observation.missing_reason}
+          {tr("Motivo:")} {tr(observation.missing_reason)}
         </p>
       ) : null}
       <div className="mt-2 flex flex-wrap gap-1">
@@ -61,7 +62,7 @@ function ObservationRow({ observation }: { observation: Observation }) {
         ) : null}
       </div>
       <p className="mt-1 text-xs text-slate-400">
-        Método: {observation.method}
+        {tr("Método:")} {tr(observation.method)}
       </p>
     </li>
   );
@@ -76,13 +77,15 @@ function IndicatorBlock({
 }) {
   return (
     <div>
-      <h4 className="text-sm font-medium text-slate-200">{indicator.label}</h4>
+      <h4 className="text-sm font-medium text-slate-200">
+        {tr(indicator.label)}
+      </h4>
       <p className="text-xs text-slate-400">
-        {indicator.baseline_interpretation}
+        {tr(indicator.baseline_interpretation)}
       </p>
       {observations.length === 0 ? (
         <p className="mt-2 text-xs italic text-slate-400">
-          Sin observaciones disponibles hasta este día.
+          {tr("Sin observaciones disponibles hasta este día.")}
         </p>
       ) : (
         <ul className="mt-2 space-y-2">
@@ -102,32 +105,33 @@ function ExerciseBlock({ records }: { records: ExerciseRecord[] }) {
   return (
     <div>
       <h4 className="text-sm font-medium text-slate-200">
-        Ejercicio registrado frente al plan
+        {tr("Ejercicio registrado frente al plan")}
       </h4>
       <p className="text-xs text-slate-400">
-        Una sesión sin registro no demuestra que no se haya realizado.
+        {tr("Una sesión sin registro no demuestra que no se haya realizado.")}
       </p>
       {records.length === 0 ? (
         <p className="mt-2 text-xs italic text-slate-400">
-          Sin sesiones planificadas hasta este día.
+          {tr("Sin sesiones planificadas hasta este día.")}
         </p>
       ) : (
         <>
           <p className="mt-2 text-base tabular-nums text-slate-50">
-            {recorded} de {records.length} sesiones con registro
+            {recorded} {tr("de")} {records.length} {tr("sesiones con registro")}
           </p>
           <ExerciseBars records={records} />
           <p className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-[11px] text-slate-400">
             <span className="flex items-center gap-1.5">
-              <span className="h-2 w-4 rounded-sm bg-teal-400" /> Registrado
+              <span className="h-2 w-4 rounded-sm bg-teal-400" />{" "}
+              {tr("Registrado")}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-4 rounded-sm border border-slate-500" />{" "}
-              Planificado
+              {tr("Planificado")}
             </span>
             <span className="flex items-center gap-1.5">
               <span className="h-2 w-4 rounded-sm border border-dashed border-amber-300" />{" "}
-              Sin registro
+              {tr("Sin registro")}
             </span>
           </p>
         </>
@@ -136,10 +140,10 @@ function ExerciseBlock({ records }: { records: ExerciseRecord[] }) {
   );
 }
 
-const MODALITY_LABELS: Record<string, string> = {
+const MODALITY_LABELS: Record<string, string> = translated({
   resistance: "Resistencia",
   aerobic: "Aeróbico",
-};
+});
 
 /**
  * Planned vs recorded duration per session. The track length is the plan;
@@ -174,7 +178,7 @@ function ExerciseBars({ records }: { records: ExerciseRecord[] }) {
           <li key={record.id} className="text-xs">
             <div className="flex justify-between gap-2 text-slate-300">
               <span>
-                Día {record.mission_day} ·{" "}
+                {tr("Día")} {record.mission_day} ·{" "}
                 {MODALITY_LABELS[record.modality] ?? record.modality}
               </span>
               <span
@@ -185,8 +189,13 @@ function ExerciseBars({ records }: { records: ExerciseRecord[] }) {
                 }
               >
                 {isRecorded
-                  ? `${done ?? "?"} de ${planned ?? "?"} min`
-                  : `sin registro · plan ${planned ?? "?"} min`}
+                  ? tr("{{done}} de {{planned}} min", {
+                      done: done ?? "?",
+                      planned: planned ?? "?",
+                    })
+                  : tr("sin registro · plan {{value0}} min", {
+                      value0: String(planned ?? "?"),
+                    })}
               </span>
             </div>
             <div
@@ -194,8 +203,19 @@ function ExerciseBars({ records }: { records: ExerciseRecord[] }) {
               role="img"
               aria-label={
                 isRecorded
-                  ? `Día ${record.mission_day}: ${done ?? "duración desconocida"} minutos registrados de ${planned ?? "una duración no planificada"}`
-                  : `Día ${record.mission_day}: sesión planificada sin registro`
+                  ? tr(
+                      "Día {{value0}}: {{value1}} minutos registrados de {{value2}}",
+                      {
+                        value0: String(record.mission_day),
+                        value1: String(done ?? tr("duración desconocida")),
+                        value2: String(
+                          planned ?? tr("una duración no planificada"),
+                        ),
+                      },
+                    )
+                  : tr("Día {{value0}}: sesión planificada sin registro", {
+                      value0: String(record.mission_day),
+                    })
               }
             >
               {planned !== null ? (
@@ -241,12 +261,16 @@ function StatTile({
   const missing = !latest || latest.value === null;
   return (
     <div className={`hud-panel p-3 pl-4 ${missing ? "hud-panel-empty" : ""}`}>
-      <h4 className="text-xs leading-snug text-slate-300">{indicator.label}</h4>
+      <h4 className="text-xs leading-snug text-slate-300">
+        {tr(indicator.label)}
+      </h4>
       {missing ? (
         <>
-          <p className="mt-2 font-display text-xl text-slate-500">Sin dato</p>
+          <p className="mt-2 font-display text-xl text-slate-500">
+            {tr("Sin dato")}
+          </p>
           <p className="mt-1 line-clamp-2 text-[11px] text-slate-400">
-            {latest?.missing_reason ?? "No hay mediciones hasta este día."}
+            {latest?.missing_reason ?? tr("No hay mediciones hasta este día.")}
           </p>
         </>
       ) : (
@@ -271,7 +295,7 @@ function StatTile({
             </div>
           ) : null}
           <p className="mt-1 text-[11px] text-slate-400">
-            Medido el día {latest.mission_day}
+            {tr("Medido el día")} {latest.mission_day}
           </p>
         </>
       )}
@@ -286,10 +310,10 @@ function ExerciseTile({ records }: { records: ExerciseRecord[] }) {
   ).length;
   return (
     <div className="hud-panel col-span-2 p-3 pl-4">
-      <h4 className="text-xs text-slate-300">Ejercicio</h4>
+      <h4 className="text-xs text-slate-300">{tr("Ejercicio")}</h4>
       {records.length === 0 ? (
         <p className="mt-2 text-xs text-slate-400">
-          Sin sesiones planificadas hasta este día.
+          {tr("Sin sesiones planificadas hasta este día.")}
         </p>
       ) : (
         <div className="mt-2 flex items-center gap-3">
@@ -310,7 +334,9 @@ function ExerciseTile({ records }: { records: ExerciseRecord[] }) {
               ))}
             </div>
             <p className="mt-1 text-[11px] text-slate-400">
-              sesiones con registro. Sin registro no significa que no se hizo.
+              {tr(
+                "sesiones con registro. Sin registro no significa que no se hizo.",
+              )}
             </p>
           </div>
         </div>
@@ -338,9 +364,12 @@ export function EvaluationTab({
   const { data_quality, evidence_applicability, model_limitations } =
     assessment.evidence_context;
   const limitationGroups = [
-    { label: "Calidad de datos", items: data_quality },
-    { label: "Aplicabilidad de la evidencia", items: evidence_applicability },
-    { label: "Límites del modelo", items: model_limitations },
+    { label: tr("Calidad de datos"), items: data_quality },
+    {
+      label: tr("Aplicabilidad de la evidencia"),
+      items: evidence_applicability,
+    },
+    { label: tr("Límites del modelo"), items: model_limitations },
   ];
   const limitationCount = limitationGroups.reduce(
     (total, group) => total + group.items.length,
@@ -350,7 +379,7 @@ export function EvaluationTab({
   return (
     <div className="space-y-4">
       <p className="text-[15px] leading-relaxed text-slate-100">
-        {assessment.summary}
+        {tr(assessment.summary)}
       </p>
 
       {assessment.findings.length > 0 ? (
@@ -370,14 +399,14 @@ export function EvaluationTab({
             >
               <div className="flex items-center justify-between gap-2">
                 <span className="text-sm font-semibold text-slate-50">
-                  {finding.title}
+                  {tr(finding.title)}
                 </span>
                 <Tag tone={ATTENTION_TONES[finding.attention]}>
                   {ATTENTION_LABELS[finding.attention]}
                 </Tag>
               </div>
               <p className="mt-1 text-sm text-slate-300">
-                {finding.description}
+                {tr(finding.description)}
               </p>
             </li>
           ))}
@@ -397,7 +426,7 @@ export function EvaluationTab({
         <ExerciseTile records={assessment.exercise_records} />
       </div>
 
-      <Collapsible title="Ver el detalle de los datos">
+      <Collapsible title={tr("Ver el detalle de los datos")}>
         <div className="space-y-4 pt-1">
           {regionIndicators.map((indicator) => (
             <IndicatorBlock
@@ -412,9 +441,13 @@ export function EvaluationTab({
         </div>
       </Collapsible>
 
-      <Collapsible title="Límites y fuentes">
+      <Collapsible title={tr("Límites y fuentes")}>
         <div className="space-y-2 pt-1">
-          <Collapsible title={`Límites de interpretación (${limitationCount})`}>
+          <Collapsible
+            title={tr("Límites de interpretación ({{value0}})", {
+              value0: String(limitationCount),
+            })}
+          >
             <dl className="space-y-2">
               {limitationGroups.map(({ label, items }) => (
                 <div key={label}>
@@ -423,17 +456,21 @@ export function EvaluationTab({
                   </dt>
                   {items.length === 0 ? (
                     <dd className="text-xs italic text-slate-400">
-                      Sin elementos declarados.
+                      {tr("Sin elementos declarados.")}
                     </dd>
                   ) : (
-                    items.map((item) => <dd key={item}>• {item}</dd>)
+                    items.map((item) => <dd key={item}>• {tr(item)}</dd>)
                   )}
                 </div>
               ))}
             </dl>
           </Collapsible>
 
-          <Collapsible title={`Fuentes (${assessment.sources.length})`}>
+          <Collapsible
+            title={tr("Fuentes ({{value0}})", {
+              value0: String(assessment.sources.length),
+            })}
+          >
             <ul className="space-y-2">
               {assessment.sources.map((source) => (
                 <li key={source.id}>
@@ -445,7 +482,7 @@ export function EvaluationTab({
                         rel="noreferrer"
                         className="underline decoration-slate-500 hover:text-sky-300"
                       >
-                        {source.title}
+                        {tr(source.title)}
                       </a>
                     ) : (
                       source.title
@@ -453,14 +490,16 @@ export function EvaluationTab({
                   </p>
                   <p className="text-xs text-slate-400">
                     {source.locator}
-                    {source.review_status === "reviewed" ? " · revisado" : ""}
+                    {source.review_status === "reviewed"
+                      ? tr(" · revisado")
+                      : ""}
                   </p>
                 </li>
               ))}
             </ul>
           </Collapsible>
 
-          <Collapsible title="Orientación operativa de esta evaluación">
+          <Collapsible title={tr("Orientación operativa de esta evaluación")}>
             <GuidanceCard assessment={assessment} />
           </Collapsible>
         </div>

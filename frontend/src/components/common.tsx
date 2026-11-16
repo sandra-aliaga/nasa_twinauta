@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 
 import type { ApiError } from "../api";
+import { tr } from "../i18n";
 
 /** Neutral message block for loading, empty and informative states. */
 export function Notice({
@@ -22,7 +23,7 @@ export function Notice({
       role={tone === "error" ? "alert" : "status"}
       className={`rounded-lg border px-4 py-3 text-sm ${tones[tone]}`}
     >
-      <p className="font-medium">{title}</p>
+      <p className="font-medium">{tr(title)}</p>
       {children ? <div className="mt-1 opacity-90">{children}</div> : null}
     </div>
   );
@@ -37,22 +38,24 @@ export function ErrorNotice({
   onRetry?: () => void;
 }) {
   return (
-    <Notice title={error.message} tone="error">
+    <Notice title={tr(error.message)} tone="error">
       {error.details.length > 0 ? (
         <ul className="list-disc pl-5">
           {error.details.map((detail) => (
-            <li key={detail}>{detail}</li>
+            <li key={detail}>{tr(detail)}</li>
           ))}
         </ul>
       ) : null}
-      <p className="mt-1 text-xs opacity-70">Código: {error.code}</p>
+      <p className="mt-1 text-xs opacity-70">
+        {tr("Código:")} {error.code}
+      </p>
       {onRetry ? (
         <button
           type="button"
           onClick={onRetry}
           className="mt-2 rounded-md border border-rose-300/40 px-3 py-1 text-xs hover:bg-rose-500/20"
         >
-          Reintentar
+          {tr("Reintentar")}
         </button>
       ) : null}
     </Notice>
@@ -107,7 +110,7 @@ export function Collapsible({
         <span className="mr-2 inline-block transition group-open:rotate-90">
           ›
         </span>
-        {title}
+        {tr(title)}
       </summary>
       <div className="px-4 pb-3 text-sm text-slate-300">{children}</div>
     </details>
@@ -145,5 +148,7 @@ export function Skeleton({
  * prototype and is stated once at product level, not on every element.
  */
 export function ReviewedTag({ status }: { status: "pending" | "reviewed" }) {
-  return status === "reviewed" ? <Tag tone="emerald">Revisado</Tag> : null;
+  return status === "reviewed" ? (
+    <Tag tone="emerald">{tr("Revisado")}</Tag>
+  ) : null;
 }

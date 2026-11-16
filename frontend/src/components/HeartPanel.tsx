@@ -9,6 +9,7 @@ import {
   ObservedExercisePanel,
 } from "./ObservedDataPanels";
 import { ErrorNotice, Skeleton } from "./common";
+import { tr } from "../i18n";
 
 // The corpus is about muscle; these searches find its cardiovascular papers.
 const HEART_QUERIES = ["cardiovascular", "cardiac"];
@@ -53,12 +54,12 @@ export function HeartPanel({
               d="M8 14s-5.5-3.4-5.5-7.3A3 3 0 0 1 8 5a3 3 0 0 1 5.5 1.7C13.5 10.6 8 14 8 14z"
             />
           </svg>
-          Corazón
+          {tr("Corazón")}
         </h2>
         <button
           type="button"
           onClick={onClose}
-          aria-label="Cerrar región"
+          aria-label={tr("Cerrar región")}
           className="rounded-md px-2 text-slate-400 hover:bg-slate-800 hover:text-slate-100"
         >
           ×
@@ -71,12 +72,12 @@ export function HeartPanel({
           style={{ "--rail": "var(--color-step-next)" } as CSSProperties}
         >
           <p className="text-sm font-semibold text-slate-50">
-            Frecuencia cardíaca durante ejercicio
+            {tr("Frecuencia cardíaca durante ejercicio")}
           </p>
           <p className="mt-1 text-xs text-slate-300">
-            Reproducción de una prueba real en cinta de PhysioNet, con tiempo,
-            unidad y procedencia de cada medición. Esta fuente terrestre se
-            consulta de forma independiente de los estudios musculares.
+            {tr(
+              "Reproducción de una prueba real en cinta de PhysioNet, con tiempo, unidad y procedencia de cada medición. Esta fuente terrestre se consulta de forma independiente de los estudios musculares.",
+            )}
           </p>
         </div>
 
@@ -91,17 +92,21 @@ export function HeartPanel({
 
         <section>
           <h3 className="text-sm font-medium text-slate-100">
-            Estudios sobre el sistema cardiovascular
+            {tr("Estudios sobre el sistema cardiovascular")}
           </h3>
           {papers === null || papers.status === "loading" ? (
-            <Skeleton lines={3} label="Cargando estudios" className="mt-2" />
+            <Skeleton
+              lines={3}
+              label={tr("Cargando estudios")}
+              className="mt-2"
+            />
           ) : papers.status === "error" ? (
             <div className="mt-2">
               <ErrorNotice error={papers.error} />
             </div>
           ) : papers.data.length === 0 ? (
             <p className="mt-2 text-xs text-slate-400">
-              El corpus actual no tiene estudios cardiovasculares.
+              {tr("El corpus actual no tiene estudios cardiovasculares.")}
             </p>
           ) : (
             <ul className="mt-2 space-y-2">
@@ -119,7 +124,7 @@ export function HeartPanel({
                       {paper.title}
                     </span>
                     <span className="mt-0.5 block text-xs text-slate-400">
-                      {paper.year} · Abrir en la biblioteca
+                      {paper.year} {tr("· Abrir en la biblioteca")}
                     </span>
                   </button>
                 </li>
@@ -127,8 +132,9 @@ export function HeartPanel({
             </ul>
           )}
           <p className="mt-2 text-[11px] text-slate-400">
-            El corpus se armó para el músculo; estos son los estudios que
-            también tratan lo cardiovascular.
+            {tr(
+              "El corpus se armó para el músculo; estos son los estudios que también tratan lo cardiovascular.",
+            )}
           </p>
         </section>
       </div>
