@@ -2,6 +2,12 @@
 
 Proyecto HTML con un mundo 3D de bloques, astronauta articulado, terreno que se construye, camara orbital, lecturas flotantes, grafo expandible visualmente y biblioteca de libros. Toda la geometria es original y procedural; no utiliza recursos de Minecraft. Como fondos tenues al 24 % de opacidad, incorpora cinco imagenes extraidas del PDF proporcionado por la usuaria. Three.js se reutiliza desde la dependencia instalada del proyecto y se distribuye con su licencia MIT.
 
+## Archivos conservados
+
+El repositorio conserva el HTML, JavaScript, imagenes, Three.js con su licencia y `music.wav`, necesario para exportar con sonido. Los MP4, WebM y ZIP generados se retiraron del arbol actual y estan excluidos por `.gitignore`. Para recrear el video, seguir los pasos de apertura, exportacion y conversion siguientes. La grabacion final de la app se carga localmente y tampoco debe versionarse.
+
+Los archivos exportados siguen presentes en commits anteriores. Para descargar solo la version actual sin ese historial pesado, usar `git clone --depth 1 https://github.com/sandra-aliaga/nasa_twinauta.git` una vez publicado el commit de limpieza. Retirarlos tambien del historial requeriria una operacion separada que reescribe commits.
+
 ## Abrir
 
 Desde esta carpeta:
@@ -63,4 +69,4 @@ Fuente: `/home/leeeen/descargas/TwinNauta NASA Space Apps.pdf` (16 paginas). Se 
 
 Los candidatos de radiacion, sueño o vestibular de la propuesta original no se presentan como modulos implementados. Se conserva el alcance muscular actual.
 
-La camara usa una trayectoria continua en tiempo global. Los objetos entran y salen con interpolacion suave, los titulos se desvanecen y los fondos se mezclan progresivamente. El astronauta permanece visible y camina entre las estaciones. La version anterior del video y del codigo se conserva en `version-anterior/`.
+La camara usa una trayectoria continua en tiempo global. Los objetos entran y salen con interpolacion suave, los titulos se desvanecen y los fondos se mezclan progresivamente. El astronauta permanece visible y camina entre las estaciones. El codigo de la version anterior se conserva en `version-anterior/`; sus videos exportados tambien se excluyen del repositorio.

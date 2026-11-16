@@ -9,3 +9,9 @@ __pycache__/
 .pytest_cache/
 node_modules/
 dist/
+
+# Generated video exports; keep the sources used to recreate them.
+/presentacion/video-voxel-30s/**/*.mp4
+/presentacion/video-voxel-30s/**/*.webm
+/presentacion/video-voxel-30s/**/*.mov
+/presentacion/video-voxel-30s/**/*.zip
