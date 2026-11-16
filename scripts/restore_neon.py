@@ -33,9 +33,12 @@ def backup_rows() -> dict[str, tuple[list[str], list[str]]]:
         ["pg_restore", "--data-only", "--file=-", str(BACKUP)],
         capture_output=True,
         text=True,
+        check=False,
     )
     if result.returncode:
-        raise RuntimeError("No se pudo leer el respaldo. Usa pg_restore 18 o posterior.")
+        raise RuntimeError(
+            "No se pudo leer el respaldo. Usa pg_restore 18 o posterior."
+        )
     tables = {}
     active = None
     for line in result.stdout.splitlines():
@@ -92,7 +95,9 @@ def main() -> None:
                 verify_rows(connection, tables)
                 print("La base ya coincide con el respaldo; no se modifico nada.")
                 return
-            raise ValueError("La base contiene tablas. No se borrara ni sobrescribira nada.")
+            raise ValueError(
+                "La base contiene tablas. No se borrara ni sobrescribira nada."
+            )
     print("Respaldo integro; conexion directa correcta; base de destino vacia.")
     if not args.restore:
         print("Comprobacion terminada. Anade --restore para cargar el respaldo.")
@@ -125,6 +130,7 @@ def main() -> None:
         ],
         env=env,
         capture_output=True,
+        check=False,
     )
     if result.returncode:
         raise RuntimeError(
@@ -142,7 +148,9 @@ if __name__ == "__main__":
     except (OSError, ValueError, RuntimeError, psycopg.Error) as error:
         # Driver errors can include connection details; never print them.
         message = (
-            str(error) if isinstance(error, (ValueError, RuntimeError)) else type(error).__name__
+            str(error)
+            if isinstance(error, (ValueError, RuntimeError))
+            else type(error).__name__
         )
         print(f"No se completo la operacion: {message}")
         raise SystemExit(1) from None
