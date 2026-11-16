@@ -13,7 +13,7 @@ import en from "./locales/en.json";
 export const LANGUAGES = ["es", "en"] as const;
 export type Language = (typeof LANGUAGES)[number];
 
-const STORAGE_KEY = "twinauta.language";
+const STORAGE_KEY = "twinauta.language.v2";
 
 function initialLanguage(): Language {
   try {
@@ -22,7 +22,7 @@ function initialLanguage(): Language {
   } catch {
     // Storage can be blocked; start in the default language.
   }
-  return "es";
+  return "en";
 }
 
 void i18n.use(initReactI18next).init({
