@@ -5,6 +5,7 @@ import type { components } from "../api/schema";
 import { useLoad } from "../hooks/useLoad";
 import { ErrorNotice, Skeleton } from "./common";
 import { ObservedExercisePanel } from "./ObservedDataPanels";
+import { tr, formatNumber } from "../i18n";
 
 type Reference = components["schemas"]["ReferenceDashboard"];
 
@@ -32,8 +33,7 @@ export function useReferenceDashboard() {
   );
 }
 
-const number = (value: number) =>
-  value.toLocaleString("es", { maximumFractionDigits: 2 });
+const number = (value: number) => formatNumber(value);
 
 /** Source clocks are preserved; measurements never inherit the virtual mission day. */
 export function ReferenceDashboard({
@@ -46,13 +46,14 @@ export function ReferenceDashboard({
   const state = useReferenceDashboard();
   const { subject, setSubject } = useContext(ParticipantContext);
   if (!state || state.status === "loading")
-    return <Skeleton lines={4} label="Cargando mediciones originales" />;
+    return <Skeleton lines={4} label={tr("Cargando mediciones originales")} />;
   if (state.status === "error") return <ErrorNotice error={state.error} />;
   const data = state.data;
   const participant =
     data.participants.find((item) => item.id === subject) ??
     data.participants[0];
-  if (!participant) return <p>No hay mediciones pareadas en el depósito.</p>;
+  if (!participant)
+    return <p>{tr("No hay mediciones pareadas en el depósito.")}</p>;
   const first = participant.measurements[0];
   const last = participant.measurements[1];
   const delta = ((last.value - first.value) / first.value) * 100;
@@ -63,26 +64,34 @@ export function ReferenceDashboard({
   if (compact)
     return (
       <section className="space-y-2 text-xs">
-        <p className="text-slate-400">Resultados reales de referencia</p>
+        <p className="text-slate-400">
+          {tr("Resultados reales de referencia")}
+        </p>
         <div className="grid grid-cols-2 gap-2">
           <div className="hud-panel p-3">
-            <p>Torque · participante {participant.id}</p>
+            <p>
+              {tr("Torque · participante")} {participant.id}
+            </p>
             <p className="mt-2 font-display text-xl text-slate-50">
               {number(last.value)} <span className="text-xs">N·m</span>
             </p>
-            <p className="mt-1 text-slate-400">NASA MR079G · {last.date}</p>
+            <p className="mt-1 text-slate-400">
+              {tr("NASA MR079G ·")} {last.date}
+            </p>
           </div>
           <div className="hud-panel p-3">
-            <p>Área del cuádriceps</p>
+            <p>{tr("Área del cuádriceps")}</p>
             <p className="mt-2 font-display text-xl text-slate-50">
               {quadriceps ? number(quadriceps.value) : "—"}{" "}
-              <span className="text-xs">% basal/día</span>
+              <span className="text-xs">{tr("% basal/día")}</span>
             </p>
-            <p className="mt-1 text-slate-400">Scott 2020 · tasa grupal, n=9</p>
+            <p className="mt-1 text-slate-400">
+              {tr("Scott 2020 · tasa grupal, n=9")}
+            </p>
           </div>
         </div>
         <p className="text-slate-400">
-          Torque individual y área grupal de estudios distintos.
+          {tr("Torque individual y área grupal de estudios distintos.")}
         </p>
       </section>
     );
@@ -90,16 +99,16 @@ export function ReferenceDashboard({
   return (
     <div className="space-y-5 text-sm">
       <p className="text-xs text-step-now">
-        DATOS OBSERVADOS Y RESULTADOS PUBLICADOS
+        {tr("DATOS OBSERVADOS Y RESULTADOS PUBLICADOS")}
       </p>
       {view !== "actions" ? (
         <>
           <section className="hud-panel space-y-3 p-4">
             <h3 className="font-display text-base text-slate-50">
-              Torque de extensión de rodilla
+              {tr("Torque de extensión de rodilla")}
             </h3>
             <label className="block text-xs text-slate-300">
-              Participante NASA
+              {tr("Participante NASA")}
               <select
                 value={participant.id}
                 onChange={(event) => setSubject(event.target.value)}
@@ -119,7 +128,7 @@ export function ReferenceDashboard({
                   className="rounded border border-slate-700 p-3"
                 >
                   <p className="text-xs text-slate-400">
-                    Evaluación {index + 1} · {measurement.date}
+                    {tr("Evaluación")} {index + 1} · {measurement.date}
                   </p>
                   <p className="mt-1 font-display text-2xl text-slate-50">
                     {number(measurement.value)}{" "}
@@ -139,42 +148,45 @@ export function ReferenceDashboard({
                     target="_blank"
                     rel="noreferrer"
                   >
-                    CSV NASA · fila {measurement.source_row}
+                    {tr("CSV NASA · fila")} {measurement.source_row}
                   </a>
                 </div>
               ))}
             </div>
             <p className="text-slate-200">
-              Cambio entre evaluaciones:{" "}
+              {tr("Cambio entre evaluaciones:")}{" "}
               <strong>
                 {delta > 0 ? "+" : ""}
                 {number(delta)} %
               </strong>
             </p>
             <p className="text-xs text-slate-400">
-              Calculado como (segunda − primera) / primera. No hay mediciones
-              intermedias.
+              {tr(
+                "Calculado como (segunda − primera) / primera. No hay mediciones intermedias.",
+              )}
             </p>
             <p className="text-xs text-slate-300">
-              Biodex · extensión de rodilla a 60°/s · cinco repeticiones.
+              {tr(
+                "Biodex · extensión de rodilla a 60°/s · cinco repeticiones.",
+              )}
             </p>
             <details className="text-xs text-slate-400">
               <summary className="cursor-pointer">
-                Método y fechas del depósito
+                {tr("Método y fechas del depósito")}
               </summary>
               {data.torque_limitations.map((text) => (
                 <p className="mt-1" key={text}>
-                  {text}
+                  {tr(text)}
                 </p>
               ))}
             </details>
           </section>
           <section className="hud-panel space-y-3 p-4">
             <h3 className="font-display text-base text-slate-50">
-              Cambio de área muscular durante reposo en cama
+              {tr("Cambio de área muscular durante reposo en cama")}
             </h3>
             <p className="text-xs text-slate-300">
-              70 días · MRI · nueve participantes · Scott 2020
+              {tr("70 días · MRI · nueve participantes · Scott 2020")}
             </p>
             <div className="grid grid-cols-2 gap-2">
               {data.muscle_statistics.map((statistic) => (
@@ -184,19 +196,22 @@ export function ReferenceDashboard({
                 >
                   <p className="text-slate-300">
                     {statistic.anatomy === "quadriceps"
-                      ? "Cuádriceps"
-                      : "Sóleo"}
+                      ? tr("Cuádriceps")
+                      : tr("Sóleo")}
                   </p>
                   <p className="mt-1 font-display text-2xl text-slate-50">
                     {number(statistic.value)}
                   </p>
-                  <p className="text-xs text-slate-400">% del basal por día</p>
+                  <p className="text-xs text-slate-400">
+                    {tr("% del basal por día")}
+                  </p>
                 </div>
               ))}
             </div>
             <p className="text-xs text-slate-400">
-              Tasas publicadas del grupo; describen el área transversal respecto
-              al basal. No son mediciones actuales del participante de torque.
+              {tr(
+                "Tasas publicadas del grupo; describen el área transversal respecto al basal. No son mediciones actuales del participante de torque.",
+              )}
             </p>
             <a
               className="text-xs text-sky-300"
@@ -204,7 +219,7 @@ export function ReferenceDashboard({
               target="_blank"
               rel="noreferrer"
             >
-              Estudio y suplemento · eTable 3
+              {tr("Estudio y suplemento · eTable 3")}
             </a>
           </section>
         </>
@@ -212,18 +227,19 @@ export function ReferenceDashboard({
       {view !== "evaluation" ? (
         <section className="hud-panel space-y-3 p-4">
           <h3 className="font-display text-base text-slate-50">
-            Ejercicio y función muscular: comparación publicada
+            {tr("Ejercicio y función muscular: comparación publicada")}
           </h3>
           <p className="text-xs text-slate-300">
-            SPRINT 2024 · 70 días de reposo en cama · extensión de rodilla a
-            60°/s
+            {tr(
+              "SPRINT 2024 · 70 días de reposo en cama · extensión de rodilla a 60°/s",
+            )}
           </p>
           <table className="w-full text-left text-xs text-slate-200">
             <thead>
               <tr>
-                <th className="py-2">Grupo</th>
-                <th>Antes</th>
-                <th>Después</th>
+                <th className="py-2">{tr("Grupo")}</th>
+                <th>{tr("Antes")}</th>
+                <th>{tr("Después")}</th>
               </tr>
             </thead>
             <tbody>
@@ -234,7 +250,9 @@ export function ReferenceDashboard({
                 return (
                   <tr key={group}>
                     <td className="py-3">
-                      {group === "BR" ? "Sin ejercicio" : "Con ejercicio"}
+                      {group === "BR"
+                        ? tr("Sin ejercicio")
+                        : tr("Con ejercicio")}
                     </td>
                     {points.map((point) => (
                       <td key={point.id}>
@@ -248,8 +266,9 @@ export function ReferenceDashboard({
             </tbody>
           </table>
           <p className="text-xs text-slate-400">
-            N·m · media ± desviación estándar · nueve participantes por grupo.
-            Son grupos distintos del depósito Campaign 17.
+            {tr(
+              "N·m · media ± desviación estándar · nueve participantes por grupo. Son grupos distintos del depósito Campaign 17.",
+            )}
           </p>
           <a
             className="text-xs text-sky-300"
@@ -257,28 +276,34 @@ export function ReferenceDashboard({
             target="_blank"
             rel="noreferrer"
           >
-            Consultar protocolo y resultados · Tabla 1
+            {tr("Consultar protocolo y resultados · Tabla 1")}
           </a>
           {view === "actions" ? (
             <div className="space-y-2 border-t border-slate-700 pt-3">
-              <h4 className="font-medium text-slate-50">Siguientes pasos</h4>
+              <h4 className="font-medium text-slate-50">
+                {tr("Siguientes pasos")}
+              </h4>
               <ol className="list-decimal space-y-2 pl-4 text-slate-300">
                 <li>
-                  Revisar las evaluaciones de torque con el mismo método y sus
-                  fechas.
+                  {tr(
+                    "Revisar las evaluaciones de torque con el mismo método y sus fechas.",
+                  )}
                 </li>
                 <li>
-                  Contrastar la función con el tamaño muscular: no cambian
-                  necesariamente en la misma proporción.
+                  {tr(
+                    "Contrastar la función con el tamaño muscular: no cambian necesariamente en la misma proporción.",
+                  )}
                 </li>
                 <li>
-                  Consultar el protocolo de ejercicio y revisar su aplicabilidad
-                  con el responsable de salud de la misión.
+                  {tr(
+                    "Consultar el protocolo de ejercicio y revisar su aplicabilidad con el responsable de salud de la misión.",
+                  )}
                 </li>
               </ol>
               <p className="text-xs text-slate-400">
-                El depósito no contiene sesiones realizadas; esta comparación no
-                calcula cumplimiento ni prescribe una dosis individual.
+                {tr(
+                  "El depósito no contiene sesiones realizadas; esta comparación no calcula cumplimiento ni prescribe una dosis individual.",
+                )}
               </p>
             </div>
           ) : null}

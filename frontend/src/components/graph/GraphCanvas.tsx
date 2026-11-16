@@ -1,3 +1,4 @@
+import { tr, useLanguage } from "../../i18n";
 import "@xyflow/react/dist/style.css";
 
 import {
@@ -41,7 +42,7 @@ function TwinNodeView({ data, selected }: NodeProps<TwinNode>) {
         {KIND_LABELS[data.kind]}
       </div>
       <p className="mt-0.5 line-clamp-2 text-xs font-medium leading-snug text-slate-100">
-        {data.label}
+        {tr(data.label)}
       </p>
       <Handle
         type="source"
@@ -69,9 +70,10 @@ export function GraphCanvas({
   selectedNodeId = null,
   onSelectNode,
 }: GraphCanvasProps) {
+  const language = useLanguage();
   const { nodes, edges } = useMemo(
     () => toFlow(graph, { compact, focusNodeId: selectedNodeId }),
-    [graph, compact, selectedNodeId],
+    [graph, compact, selectedNodeId, language],
   );
   const shownNodes = useMemo(
     () =>

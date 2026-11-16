@@ -1,4 +1,5 @@
 import type { Region } from "../api";
+import { tr } from "../i18n";
 
 /**
  * Frontend-owned mapping from semantic region ids to selectable shapes.
@@ -32,7 +33,7 @@ export function BodyMockup({
         viewBox="0 0 222 420"
         className="h-[min(70vh,560px)] w-auto"
         role="group"
-        aria-label="Silueta del cuerpo con regiones seleccionables"
+        aria-label={tr("Silueta del cuerpo con regiones seleccionables")}
       >
         {/* Static silhouette: not selectable, not anatomical. */}
         <g className="fill-slate-800 stroke-slate-600" strokeWidth={1.5}>
@@ -58,7 +59,9 @@ export function BodyMockup({
                 role="button"
                 tabIndex={0}
                 aria-pressed={selected}
-                aria-label={`Seleccionar ${region.label}`}
+                aria-label={tr("Seleccionar {{label}}", {
+                  label: tr(region.label),
+                })}
                 onClick={() => onSelect(region.id)}
                 onKeyDown={(event) => {
                   if (event.key === "Enter" || event.key === " ") {
@@ -73,7 +76,7 @@ export function BodyMockup({
                 }`}
                 strokeWidth={1.5}
               >
-                <title>{region.label}</title>
+                <title>{tr(region.label)}</title>
                 {REGION_SHAPES[region.id].map((d) => (
                   <path key={d} d={d} />
                 ))}
@@ -91,15 +94,16 @@ export function BodyMockup({
               onClick={() => onSelect(region.id)}
               className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-sky-400"
             >
-              {region.label}
+              {tr(region.label)}
             </button>
           ))}
         </div>
       ) : null}
 
       <p className="max-w-sm text-center text-xs text-slate-400">
-        Maqueta 2D sin precisión anatómica. El modelo 3D y su licencia están
-        pendientes. Seleccione el muslo para elegir el cuádriceps.
+        {tr(
+          "Maqueta 2D sin precisión anatómica. El modelo 3D y su licencia están pendientes. Seleccione el muslo para elegir el cuádriceps.",
+        )}
       </p>
     </div>
   );

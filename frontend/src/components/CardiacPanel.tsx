@@ -15,6 +15,7 @@ import { useTelemetry } from "../hooks/useTelemetry";
 import { REFERENCE_RECORDINGS } from "../lib/config";
 import { ORIGIN_LABELS } from "../lib/labels";
 import { Collapsible, ErrorNotice, Notice, Skeleton, Tag } from "./common";
+import { tr } from "../i18n";
 
 // Visible span of the chart; it matches the API window size.
 const VIEW_SPAN_S = 120;
@@ -49,7 +50,10 @@ export function CardiacPanel({
       }
     }
     if (caseRecordingId && dataSource.kind !== "api") {
-      list.push({ id: caseRecordingId, label: "Grabación asociada al caso" });
+      list.push({
+        id: caseRecordingId,
+        label: "Grabación asociada al caso",
+      });
     }
     return list;
   }, [caseRecordingId]);
@@ -65,7 +69,7 @@ export function CardiacPanel({
 
   return (
     <section
-      aria-label="Frecuencia cardíaca didáctica"
+      aria-label={tr("Frecuencia cardíaca didáctica")}
       ref={sectionRef}
       className={
         embedded
@@ -79,12 +83,12 @@ export function CardiacPanel({
             embedded ? "sr-only" : "text-sm font-semibold text-slate-100"
           }
         >
-          Frecuencia cardíaca (didáctica)
+          {tr("Frecuencia cardíaca (didáctica)")}
         </h2>
         <div className="flex min-w-0 flex-wrap items-center gap-2">
           {options.length > 1 ? (
             <label className="flex min-w-0 items-center gap-2 text-xs text-slate-400">
-              Grabación
+              {tr("Grabación")}
               <select
                 value={recordingId ?? ""}
                 onChange={(event) => setRecordingId(event.target.value)}
@@ -92,7 +96,7 @@ export function CardiacPanel({
               >
                 {options.map((option) => (
                   <option key={option.id} value={option.id}>
-                    {option.label}
+                    {tr(option.label)}
                   </option>
                 ))}
               </select>
@@ -104,7 +108,7 @@ export function CardiacPanel({
               onClick={onClose}
               className="rounded-md px-3 py-1.5 text-sm text-slate-400 hover:bg-slate-800 hover:text-slate-100"
             >
-              Cerrar
+              {tr("Cerrar")}
             </button>
           )}
         </div>
@@ -119,7 +123,7 @@ export function CardiacPanel({
         />
       ) : (
         <p className="mt-2 text-xs text-slate-400">
-          No hay grabaciones disponibles para este caso.
+          {tr("No hay grabaciones disponibles para este caso.")}
         </p>
       )}
     </section>
@@ -176,7 +180,9 @@ function RecordingPlayer({
   }, [points]);
 
   if (state.status === "loading") {
-    return <Skeleton lines={4} label="Cargando metadatos" className="mt-3" />;
+    return (
+      <Skeleton lines={4} label={tr("Cargando metadatos")} className="mt-3" />
+    );
   }
   if (state.status === "error") {
     return (
@@ -212,19 +218,21 @@ function RecordingPlayer({
   return (
     <div className="mt-2 space-y-3">
       <div className="flex flex-wrap gap-1">
-        <Tag tone="violet">Ejercicio en Tierra</Tag>
+        <Tag tone="violet">{tr("Ejercicio en Tierra")}</Tag>
         <Tag>
           {recording.origin === "synthetic"
-            ? "Participante sintético"
-            : `Participante ${recording.participant_id}`}
+            ? tr("Participante sintético")
+            : tr("Participante {{value0}}", {
+                value0: String(recording.participant_id),
+              })}
         </Tag>
         <Tag tone={recording.origin === "human_dataset" ? "sky" : "amber"}>
           {ORIGIN_LABELS[recording.origin]}
         </Tag>
         <Tag>
           {recording.content_mode === "illustrative"
-            ? "Contenido ilustrativo"
-            : "Basado en evidencia"}
+            ? tr("Contenido ilustrativo")
+            : tr("Basado en evidencia")}
         </Tag>
       </div>
 
@@ -259,7 +267,7 @@ function RecordingPlayer({
                 stroke="#64748b"
                 fontSize={11}
                 label={{
-                  value: "lpm",
+                  value: tr("lpm"),
                   angle: -90,
                   position: "insideLeft",
                   fill: "#94a3b8",
@@ -277,8 +285,8 @@ function RecordingPlayer({
                 labelFormatter={(label) => `t = ${String(label)} s`}
                 formatter={(value) =>
                   value === null || value === undefined
-                    ? ["sin medición", "FC"]
-                    : [`${String(value)} lpm`, "FC"]
+                    ? [tr("sin medición"), tr("FC")]
+                    : [`${String(value)} ${tr("lpm")}`, tr("FC")]
                 }
               />
               {missing.map((p, index) => (
@@ -292,7 +300,7 @@ function RecordingPlayer({
                     index === 0 ||
                     missing[index - 1].time_s < p.time_s - 2 * gapStep
                       ? {
-                          value: "sin dato",
+                          value: tr("sin dato"),
                           fill: "#94a3b8",
                           fontSize: 10,
                           position: "top",
@@ -319,7 +327,7 @@ function RecordingPlayer({
 
         <div className="space-y-2 text-sm">
           <p className="text-xs text-slate-400">
-            Lectura en t = {Math.round(cursor)} s
+            {tr("Lectura en t =")} {Math.round(cursor)} s
           </p>
           <p
             className="text-2xl font-semibold text-slate-100"
@@ -328,23 +336,29 @@ function RecordingPlayer({
             {current === null
               ? "—"
               : current.value === null
-                ? "Sin medición"
-                : `${current.value} lpm`}
+                ? tr("Sin medición")
+                : `${current.value} ${tr("lpm")}`}
           </p>
           {current?.value === null && current.missing_reason ? (
             <p className="text-xs text-slate-400">
-              Motivo: {current.missing_reason}
+              {tr("Motivo:")} {tr(current.missing_reason)}
             </p>
           ) : null}
           {finished ? (
             <p className="text-xs text-slate-300" role="status">
-              Grabación terminada.
+              {tr("Grabación terminada.")}
             </p>
           ) : null}
           <p className="text-xs text-slate-400">
             {complete
-              ? `${points.length} muestras · ${missingTotal} sin medición`
-              : `Cargando ventanas… ${Math.round(loadedUntil)} de ${Math.round(endS)} s`}
+              ? tr("{{value0}} muestras · {{value1}} sin medición", {
+                  value0: String(points.length),
+                  value1: String(missingTotal),
+                })
+              : tr("Cargando ventanas… {{value0}} de {{value1}} s", {
+                  value0: String(Math.round(loadedUntil)),
+                  value1: String(Math.round(endS)),
+                })}
           </p>
         </div>
       </div>
@@ -358,10 +372,10 @@ function RecordingPlayer({
           }}
           className="rounded-md bg-sky-500/20 px-3 py-1 text-sm text-sky-100 hover:bg-sky-500/30"
         >
-          {playing ? "Pausa" : finished ? "Repetir" : "Reproducir"}
+          {playing ? tr("Pausa") : finished ? tr("Repetir") : tr("Reproducir")}
         </button>
         <label className="flex min-w-48 flex-1 items-center gap-2 text-xs text-slate-400">
-          <span className="sr-only">Posición en la grabación</span>
+          <span className="sr-only">{tr("Posición en la grabación")}</span>
           <input
             type="range"
             min={startS}
@@ -378,7 +392,7 @@ function RecordingPlayer({
             {Math.round(cursor)} / {Math.round(endS)} s
           </span>
         </label>
-        <div role="group" aria-label="Velocidad" className="flex gap-1">
+        <div role="group" aria-label={tr("Velocidad")} className="flex gap-1">
           {SPEEDS.map((value) => (
             <button
               key={value}
@@ -399,18 +413,23 @@ function RecordingPlayer({
 
       {windowError ? <ErrorNotice error={windowError} /> : null}
 
-      <Notice title="No es una medición del astronauta virtual">
+      <Notice title={tr("No es una medición del astronauta virtual")}>
         {recording.origin === "synthetic"
-          ? `Señal sintética de maquetación (${recording.dataset_id}); no es una medición de ninguna persona. `
-          : `Procede de otro participante y otro dataset (${recording.dataset_id}). `}
-        El tiempo está en segundos desde el inicio de la prueba y no corresponde
-        a días de misión. Los huecos de la línea son valores ausentes en la
-        fuente; no se interpolan.
+          ? tr(
+              "Señal sintética de maquetación ({{value0}}); no es una medición de ninguna persona. ",
+              { value0: String(recording.dataset_id) },
+            )
+          : tr("Procede de otro participante y otro dataset ({{value0}}). ", {
+              value0: String(recording.dataset_id),
+            })}
+        {tr(
+          "El tiempo está en segundos desde el inicio de la prueba y no corresponde a días de misión. Los huecos de la línea son valores ausentes en la fuente; no se interpolan.",
+        )}
       </Notice>
 
       {source ? (
         <p className="text-xs text-slate-400">
-          Fuente:{" "}
+          {tr("Fuente:")}{" "}
           {source.url ? (
             <a
               href={source.url}
@@ -418,21 +437,21 @@ function RecordingPlayer({
               rel="noreferrer noopener"
               className="text-sky-300 underline-offset-2 hover:underline"
             >
-              {source.title}
+              {tr(source.title)}
             </a>
           ) : (
-            source.title
+            tr(source.title)
           )}
-          {source.license ? ` · Licencia ${source.license}` : ""}
+          {source.license ? ` · ${tr("Licencia")} ${source.license}` : ""}
         </p>
       ) : null}
 
-      <Collapsible title="Ver datos de la ventana visible">
+      <Collapsible title={tr("Ver datos de la ventana visible")}>
         <table className="w-full text-left text-xs">
           <thead className="text-slate-400">
             <tr>
-              <th className="py-1 font-normal">Tiempo (s)</th>
-              <th className="py-1 font-normal">FC (lpm)</th>
+              <th className="py-1 font-normal">{tr("Tiempo (s)")}</th>
+              <th className="py-1 font-normal">{tr("FC (lpm)")}</th>
             </tr>
           </thead>
           <tbody>
@@ -443,7 +462,9 @@ function RecordingPlayer({
                   <td className="py-0.5 tabular-nums">{p.time_s}</td>
                   <td className="py-0.5 tabular-nums">
                     {p.value ??
-                      `sin medición (${p.missing_reason ?? "sin motivo"})`}
+                      tr("sin medición ({{value0}})", {
+                        value0: String(p.missing_reason ?? tr("sin motivo")),
+                      })}
                   </td>
                 </tr>
               ))}
@@ -461,11 +482,18 @@ function chartLabel(
 ): string {
   const reading =
     current === null
-      ? "sin lectura"
+      ? tr("sin lectura")
       : current.value === null
-        ? "sin medición"
-        : `${current.value} latidos por minuto`;
-  return `Frecuencia cardíaca entre ${Math.round(start)} y ${Math.round(end)} segundos; lectura actual: ${reading}.`;
+        ? tr("sin medición")
+        : tr("{{value0}} latidos por minuto", { value0: current.value });
+  return tr(
+    "Frecuencia cardíaca entre {{value0}} y {{value1}} segundos; lectura actual: {{value2}}.",
+    {
+      value0: String(Math.round(start)),
+      value1: String(Math.round(end)),
+      value2: String(reading),
+    },
+  );
 }
 
 /**

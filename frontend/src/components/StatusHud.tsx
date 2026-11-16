@@ -10,6 +10,7 @@ import {
 import { useLoad } from "../hooks/useLoad";
 import { REFERENCE_RECORDINGS } from "../lib/config";
 import { ReferenceDashboard } from "./ReferenceDashboard";
+import { tr } from "../i18n";
 
 const rail = (color: string) => ({ "--rail": color }) as CSSProperties;
 
@@ -48,7 +49,7 @@ export function StatusHud({
         id="hud-title"
         className="font-display text-sm font-medium text-slate-50"
       >
-        Datos de investigación
+        {tr("Datos de investigación")}
       </h2>
       <PulseExample onOpen={onOpenHeartRate} />
       <ReferenceDashboard compact />
@@ -93,12 +94,12 @@ function PulseExample({ onOpen }: { onOpen?: () => void }) {
       <div className="hud-panel hud-panel-empty col-span-2 p-2.5 pl-3.5">
         <h3 className="flex items-center gap-1.5 text-[11px] text-slate-300">
           <HeartIcon />
-          Pulso
+          {tr("Pulso")}
         </h3>
         <p className="mt-1 text-xs text-slate-400">
           {sample?.status === "loading"
-            ? "Cargando ejemplo…"
-            : "Sin señal de pulso disponible en este modo."}
+            ? tr("Cargando ejemplo…")
+            : tr("Sin señal de pulso disponible en este modo.")}
         </p>
       </div>
     );
@@ -118,27 +119,32 @@ function PulseExample({ onOpen }: { onOpen?: () => void }) {
       type="button"
       onClick={onOpen}
       style={railStyle}
-      className="hud-panel col-span-2 p-2.5 pl-3.5 text-left"
-      aria-label={`Pulso de ejemplo en Tierra: ${Math.round(current.value)} latidos por minuto. Abrir la zona del corazón.`}
+      className="hud-panel col-span-2 block w-full min-w-0 p-2.5 pl-3.5 text-left"
+      aria-label={tr(
+        "Pulso de ejemplo en Tierra: {{value0}} latidos por minuto. Abrir la zona del corazón.",
+        { value0: String(Math.round(current.value)) },
+      )}
     >
       <span className="flex items-center justify-between gap-2 text-[11px] text-slate-300">
         <span className="flex items-center gap-1.5">
           <HeartIcon />
-          Pulso
+          {tr("Pulso")}
         </span>
         <span className="rounded-full bg-step-next/20 px-2 py-0.5 text-[10px] font-medium text-step-next">
-          Ejemplo en Tierra
+          {tr("Ejemplo en Tierra")}
         </span>
       </span>
       <span className="mt-1 flex items-end gap-3">
         <span className="font-display text-2xl leading-none text-slate-50">
           {Math.round(current.value)}
-          <span className="ml-1 font-sans text-[11px] text-slate-400">lpm</span>
+          <span className="ml-1 font-sans text-[11px] text-slate-400">
+            {tr("lpm")}
+          </span>
         </span>
         <svg
           viewBox="0 0 200 38"
           preserveAspectRatio="none"
-          className="h-9 min-w-0 flex-1"
+          className="h-9 w-0 min-w-0 flex-1"
           aria-hidden="true"
         >
           <polyline
@@ -157,7 +163,7 @@ function PulseExample({ onOpen }: { onOpen?: () => void }) {
         </svg>
       </span>
       <span className="mt-1 block text-[11px] text-slate-400">
-        De otra persona en cinta, no del astronauta.
+        {tr("De otra persona en cinta, no del astronauta.")}
       </span>
     </button>
   );

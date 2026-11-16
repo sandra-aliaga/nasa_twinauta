@@ -1,3 +1,4 @@
+import { msg } from "../i18n";
 /**
  * Frontend-owned anatomy asset and mapping from semantic region ids to GLB
  * mesh names. The backend only knows region ids (contract 0.2).
@@ -11,8 +12,9 @@ export const MODEL_URL =
   "/models/full-body-muscular-system-superficial-layer.min.glb";
 
 /** Declared in the GLB asset metadata (asset.copyright). */
-export const MODEL_CREDIT =
-  "Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0).";
+export const MODEL_CREDIT = msg(
+  "Modelo anatómico: Innerscene Corp, dominio público (CC0 1.0).",
+);
 
 /**
  * Both sides form one region: the contract has no laterality.
@@ -31,8 +33,9 @@ export const REGION_MESHES: Record<string, string[]> = {
 
 /** Honest notes about what the 3D representation does not show. */
 export const REGION_MODEL_NOTES: Record<string, string> = {
-  quadriceps:
+  quadriceps: msg(
     "El modelo solo representa la capa superficial: el vasto intermedio no aparece, aunque forma parte del cuádriceps.",
+  ),
 };
 
 /** Colors mark interaction state only; they never encode risk or severity. */

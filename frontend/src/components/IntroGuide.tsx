@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
+import { tr, msg } from "../i18n";
 
 const SEEN_KEY = "twinauta.introSeen";
 
@@ -127,18 +128,24 @@ const ART_MAP = (
 
 const STEPS: Step[] = [
   {
-    title: "Mira el gemelo",
-    body: "Es un astronauta virtual de práctica. Las balizas marcan las zonas donde hay algo por revisar.",
+    title: msg("Mira el gemelo"),
+    body: msg(
+      "Es un astronauta virtual de práctica. Las balizas marcan las zonas donde hay algo por revisar.",
+    ),
     art: ART_BEACON,
   },
   {
-    title: "Toca una zona",
-    body: "Verás tres pasos, siempre en este orden: qué pasa, qué puede pasar y qué hacer.",
+    title: msg("Toca una zona"),
+    body: msg(
+      "Verás tres pasos, siempre en este orden: qué pasa, qué puede pasar y qué hacer.",
+    ),
     art: ART_STEPS,
   },
   {
-    title: "Pregunta de dónde sale",
-    body: "Cada paso trae su mapa de datos y estudios. Nada aquí es un diagnóstico ni reemplaza al equipo médico.",
+    title: msg("Pregunta de dónde sale"),
+    body: msg(
+      "Cada paso trae su mapa de datos y estudios. Nada aquí es un diagnóstico ni reemplaza al equipo médico.",
+    ),
     art: ART_MAP,
   },
 ];
@@ -211,7 +218,7 @@ export function IntroGuide({
             onClick={close}
             className="text-xs text-slate-400 hover:text-slate-100"
           >
-            Saltar
+            {tr("Saltar")}
           </button>
         </div>
 
@@ -223,17 +230,20 @@ export function IntroGuide({
             id="intro-title"
             className="mt-3 font-display text-xl text-slate-50"
           >
-            {current.title}
+            {tr(current.title)}
           </h2>
           <p className="mx-auto mt-2 max-w-[19rem] text-sm leading-relaxed text-slate-300">
-            {current.body}
+            {tr(current.body)}
           </p>
         </div>
 
         <div
           className="mt-5 flex justify-center gap-1.5"
           role="img"
-          aria-label={`Paso ${step + 1} de ${STEPS.length}`}
+          aria-label={tr("Paso {{current}} de {{total}}", {
+            current: step + 1,
+            total: STEPS.length,
+          })}
         >
           {STEPS.map((item, index) => (
             <span
@@ -252,7 +262,7 @@ export function IntroGuide({
               onClick={() => setStep(step - 1)}
               className="rounded-full border border-slate-700 px-4 py-2 text-sm text-slate-200 hover:border-slate-500"
             >
-              Atrás
+              {tr("Atrás")}
             </button>
           ) : null}
           <button
@@ -260,7 +270,7 @@ export function IntroGuide({
             onClick={() => (last ? close() : setStep(step + 1))}
             className="flex-1 rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 hover:bg-sky-400"
           >
-            {last ? "Empezar" : "Siguiente"}
+            {last ? tr("Empezar") : tr("Siguiente")}
           </button>
         </div>
       </div>

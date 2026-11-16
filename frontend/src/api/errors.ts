@@ -1,5 +1,4 @@
 import type { ApiErrorBody } from "./types";
-
 /** Error raised by any data source, normalized to the shared contract shape. */
 export class ApiError extends Error {
   readonly status: number | null;

@@ -16,6 +16,7 @@ import {
   REVIEW_LABELS,
 } from "../../lib/labels";
 import { ErrorNotice, Notice, ReviewedTag, Skeleton, Tag } from "../common";
+import { tr } from "../../i18n";
 
 /** Proposed link to a 0.2 action; absent in the implemented contract. */
 type StepWithLink = GuidanceStep & { action_id?: string | null };
@@ -44,7 +45,7 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
   const [index, setIndex] = useState(0);
 
   if (examples === null || examples.status === "loading") {
-    return <Skeleton lines={3} label="Cargando orientación" />;
+    return <Skeleton lines={3} label={tr("Cargando orientación")} />;
   }
   if (examples.status === "error")
     return <ErrorNotice error={examples.error} />;
@@ -56,18 +57,18 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
     <section className="space-y-3 rounded-lg border border-dashed border-amber-300/40 p-3 text-sm">
       <div className="flex flex-wrap items-center justify-between gap-2">
         <h4 className="text-sm font-medium text-slate-100">
-          Orientación contextual
+          {tr("Orientación contextual")}
         </h4>
         {isDemo ? (
-          <Tag tone="amber">Demostración · ejemplo del contrato</Tag>
+          <Tag tone="amber">{tr("Demostración · ejemplo del contrato")}</Tag>
         ) : (
-          <Tag>Orientación congelada de esta evaluación</Tag>
+          <Tag>{tr("Orientación congelada de esta evaluación")}</Tag>
         )}
       </div>
       {isDemo ? (
         <>
           <label className="flex flex-col gap-1 text-xs text-slate-400">
-            Variante documentada
+            {tr("Variante documentada")}
             <select
               value={index}
               onChange={(event) => setIndex(Number(event.target.value))}
@@ -76,16 +77,15 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
               {examples.data.map((item, i) => (
                 <option key={`${item.status}-${i}`} value={i}>
                   {GUIDANCE_STATUS_LABELS[item.status]}:{" "}
-                  {item.reason ?? item.summary}
+                  {tr(item.reason ?? item.summary)}
                 </option>
               ))}
             </select>
           </label>
           <p className="text-xs text-slate-400">
-            Este ejemplo no corresponde a la evaluación abierta; sirve para ver
-            cómo se presentará cada estado. Los enlaces a acciones se resuelven
-            por identificador contra la evaluación abierta solo para la
-            demostración.
+            {tr(
+              "Este ejemplo no corresponde a la evaluación abierta; sirve para ver cómo se presentará cada estado. Los enlaces a acciones se resuelven por identificador contra la evaluación abierta solo para la demostración.",
+            )}
           </p>
         </>
       ) : null}
@@ -94,31 +94,36 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
         <Tag tone={guidance.status === "complete" ? "sky" : "slate"}>
           {GUIDANCE_STATUS_LABELS[guidance.status]}
         </Tag>
-        <Tag>Atención: {GUIDANCE_ATTENTION_LABELS[guidance.attention]}</Tag>
+        <Tag>
+          {tr("Atención:")} {GUIDANCE_ATTENTION_LABELS[guidance.attention]}
+        </Tag>
         {guidance.module_id ? (
           <Tag>
-            Módulo{" "}
-            {(modules?.status === "ready"
-              ? modules.data.modules.find((m) => m.id === guidance.module_id)
-                  ?.label
-              : undefined) ?? guidance.module_id}{" "}
+            {tr("Módulo")}{" "}
+            {tr(
+              (modules?.status === "ready"
+                ? modules.data.modules.find((m) => m.id === guidance.module_id)
+                    ?.label
+                : undefined) ?? guidance.module_id,
+            )}{" "}
             · v{guidance.module_version}
           </Tag>
         ) : (
-          <Tag>Sin módulo</Tag>
+          <Tag>{tr("Sin módulo")}</Tag>
         )}
       </div>
-      <p className="text-slate-200">{guidance.summary}</p>
+      <p className="text-slate-200">{tr(guidance.summary)}</p>
       {guidance.reason ? (
         <p className="text-xs text-slate-400">
-          <span className="text-slate-400">Motivo: </span>
-          {guidance.reason}
+          <span className="text-slate-400">{tr("Motivo:")} </span>
+          {tr(guidance.reason)}
         </p>
       ) : null}
       {guidance.status === "not_supported" ? (
-        <Notice title="Región sin cobertura">
-          No hay un módulo implementado para esta región. No se interpreta y no
-          significa que esté sana.
+        <Notice title={tr("Región sin cobertura")}>
+          {tr(
+            "No hay un módulo implementado para esta región. No se interpreta y no significa que esté sana.",
+          )}
         </Notice>
       ) : null}
 
@@ -129,7 +134,7 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
               <span className="text-slate-300">
                 {APPLICABILITY_LABELS[item.status]}:{" "}
               </span>
-              <span className="text-slate-400">{item.explanation}</span>
+              <span className="text-slate-400">{tr(item.explanation)}</span>
             </li>
           ))}
         </ul>
@@ -143,15 +148,19 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
               className="rounded-md border border-slate-800 p-2 text-xs"
             >
               <div className="flex flex-wrap items-center gap-1">
-                <span className="font-medium text-slate-100">{step.title}</span>
+                <span className="font-medium text-slate-100">
+                  {tr(step.title)}
+                </span>
                 <Tag>{STEP_KIND_LABELS[step.kind]}</Tag>
                 <Tag tone={step.eligibility === "eligible" ? "sky" : "slate"}>
                   {ELIGIBILITY_LABELS[step.eligibility]}
                 </Tag>
                 <ReviewedTag status={step.review_status} />
               </div>
-              <p className="mt-1 text-slate-300">{step.description}</p>
-              <p className="mt-0.5 text-slate-400">{step.eligibility_reason}</p>
+              <p className="mt-1 text-slate-300">{tr(step.description)}</p>
+              <p className="mt-0.5 text-slate-400">
+                {tr(step.eligibility_reason)}
+              </p>
               {(step as StepWithLink).action_id !== undefined ? (
                 <LinkedAction
                   step={step as StepWithLink}
@@ -164,20 +173,20 @@ export function GuidanceCard({ assessment }: { assessment: Assessment }) {
         </ul>
       ) : (
         <p className="text-xs italic text-slate-400">
-          Sin pasos para este estado.
+          {tr("Sin pasos para este estado.")}
         </p>
       )}
 
       {guidance.limitations.length > 0 ? (
         <ul className="list-disc space-y-0.5 pl-4 text-xs text-orange-200/80">
           {guidance.limitations.map((item) => (
-            <li key={item}>{item}</li>
+            <li key={item}>{tr(item)}</li>
           ))}
         </ul>
       ) : null}
       <p className="text-[11px] text-slate-400">
-        Corpus {guidance.corpus_version} · reglas{" "}
-        {guidance.rules_version ?? "sin versión"}
+        {tr("Corpus")} {guidance.corpus_version} {tr("· reglas")}{" "}
+        {guidance.rules_version ?? tr("sin versión")}
       </p>
     </section>
   );
@@ -201,8 +210,12 @@ function LinkedAction({
     return (
       <p className="mt-1 text-slate-400">
         {step.kind === "studied_intervention"
-          ? "Sin acción enlazada: describe lo que se estudió, no algo que hacer."
-          : "Sin acción enlazada: orientación de lectura, sin seguimiento de ejecución."}
+          ? tr(
+              "Sin acción enlazada: describe lo que se estudió, no algo que hacer.",
+            )
+          : tr(
+              "Sin acción enlazada: orientación de lectura, sin seguimiento de ejecución.",
+            )}
       </p>
     );
   }
@@ -210,9 +223,13 @@ function LinkedAction({
   if (!action) {
     return (
       <p className="mt-1 text-amber-200">
-        La acción enlazada ({step.action_id}) no está en la evaluación abierta.
-        El ejemplo pertenece a {guidanceAssessmentId}; con datos reales sería un
-        error de contrato y no se inventa la acción.
+        {tr("La acción enlazada (")}
+        {step.action_id}
+        {tr(") no está en la evaluación abierta. El ejemplo pertenece a")}{" "}
+        {guidanceAssessmentId}
+        {tr(
+          "; con datos reales sería un error de contrato y no se inventa la acción.",
+        )}
       </p>
     );
   }
@@ -220,21 +237,27 @@ function LinkedAction({
   return (
     <div className="mt-2 rounded-md border border-sky-500/30 p-2">
       <p className="text-slate-400">
-        Acción enlazada (estado vigente en la evaluación abierta)
+        {tr("Acción enlazada (estado vigente en la evaluación abierta)")}
       </p>
       <div className="mt-1 flex flex-wrap items-center gap-1">
-        <span className="text-slate-100">{action.title}</span>
-        <Tag>Ejecución: {EXECUTION_LABELS[action.execution_status]}</Tag>
-        <Tag>Versión del registro {action.revision}</Tag>
+        <span className="text-slate-100">{tr(action.title)}</span>
+        <Tag>
+          {tr("Ejecución:")} {EXECUTION_LABELS[action.execution_status]}
+        </Tag>
+        <Tag>
+          {tr("Versión del registro")} {action.revision}
+        </Tag>
       </div>
       <p className="mt-1 text-slate-400">
-        La ejecución se registra en la pestaña de acciones; este paso no la
-        modifica.
+        {tr(
+          "La ejecución se registra en la pestaña de acciones; este paso no la modifica.",
+        )}
       </p>
       {mismatches.length > 0 ? (
         <p className="mt-1 text-amber-200">
-          El paso no coincide con la acción en {mismatches.join(" y ")};
-          prevalece la acción.
+          {tr("El paso no coincide con la acción en")}{" "}
+          {mismatches.map((value) => tr(value)).join(tr(" y "))}
+          {tr("; prevalece la acción.")}
         </p>
       ) : null}
     </div>
@@ -244,6 +267,6 @@ function LinkedAction({
 function mismatchedFields(step: StepWithLink, action: Action): string[] {
   const fields: string[] = [];
   if (step.eligibility !== action.eligibility) fields.push("elegibilidad");
-  if (step.review_status !== action.review_status) fields.push("revisión");
+  if (step.review_status !== action.review_status) fields.push(tr("revisión"));
   return fields;
 }

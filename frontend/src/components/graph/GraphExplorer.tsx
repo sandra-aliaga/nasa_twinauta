@@ -16,6 +16,7 @@ import {
 } from "../../lib/labels";
 import { ErrorNotice, Notice, ReviewedTag, Skeleton, Tag } from "../common";
 import { GraphCanvas } from "./GraphCanvas";
+import { tr } from "../../i18n";
 
 export type GraphMode = "3d" | "flat";
 /** "studies": literature of the corpus; "case": the assessment's own graph. */
@@ -83,9 +84,13 @@ export function GraphExplorer({
           onClick={onBack}
           className="rounded-md border border-slate-700 px-3 py-1 text-sm text-slate-200 hover:border-slate-500"
         >
-          ← Volver al cuerpo
+          {tr("← Volver al cuerpo")}
         </button>
-        <div role="group" aria-label="Vista del grafo" className="flex gap-1">
+        <div
+          role="group"
+          aria-label={tr("Vista del grafo")}
+          className="flex gap-1"
+        >
           {(Object.keys(VIEW_LABELS) as GraphView[]).map((item) => (
             <button
               key={item}
@@ -105,7 +110,7 @@ export function GraphExplorer({
         {can3d ? (
           <div
             role="group"
-            aria-label="Qué muestra el mapa"
+            aria-label={tr("Qué muestra el mapa")}
             className="flex rounded-full bg-slate-800 p-0.5 text-xs"
           >
             {sourceOptions.map((item) => (
@@ -120,7 +125,7 @@ export function GraphExplorer({
                     : "text-slate-300 hover:text-slate-50"
                 }`}
               >
-                {item === "studies" ? "Estudios" : "Datos del caso"}
+                {item === "studies" ? tr("Estudios") : tr("Datos del caso")}
               </button>
             ))}
           </div>
@@ -128,7 +133,7 @@ export function GraphExplorer({
         {can3d && !showStudies ? (
           <div
             role="group"
-            aria-label="Tipo de mapa"
+            aria-label={tr("Tipo de mapa")}
             className="ml-auto flex rounded-full bg-slate-800 p-0.5 text-xs"
           >
             {(["3d", "flat"] as const).map((item) => (
@@ -143,7 +148,7 @@ export function GraphExplorer({
                     : "text-slate-300 hover:text-slate-50"
                 }`}
               >
-                {item === "3d" ? "Mapa 3D" : "Mapa plano"}
+                {item === "3d" ? "Mapa 3D" : tr("Mapa plano")}
               </button>
             ))}
           </div>
@@ -151,8 +156,8 @@ export function GraphExplorer({
         {graph && !showStudies ? (
           <Tag tone={graph.content_mode === "illustrative" ? "amber" : "sky"}>
             {graph.content_mode === "illustrative"
-              ? "Contenido ilustrativo"
-              : "Basado en evidencia"}
+              ? tr("Contenido ilustrativo")
+              : tr("Basado en evidencia")}
           </Tag>
         ) : null}
       </div>
@@ -168,7 +173,7 @@ export function GraphExplorer({
           />
         ) : state === null || state.status === "loading" ? (
           <div className="p-6">
-            <Skeleton lines={5} label="Cargando grafo" />
+            <Skeleton lines={5} label={tr("Cargando grafo")} />
           </div>
         ) : state.status === "error" ? (
           <div className="p-6">
@@ -176,9 +181,10 @@ export function GraphExplorer({
           </div>
         ) : state.data.nodes.length === 0 ? (
           <div className="p-6">
-            <Notice title="Sin relaciones para esta vista">
-              No hay nodos ni relaciones para «{VIEW_LABELS[view]}» en esta
-              evaluación.
+            <Notice title={tr("Sin relaciones para esta vista")}>
+              {tr("No hay nodos ni relaciones para «")}
+              {VIEW_LABELS[view]}
+              {tr("» en esta evaluación.")}
             </Notice>
           </div>
         ) : (
@@ -191,7 +197,7 @@ export function GraphExplorer({
                       type="button"
                       onClick={() => setSelectedId(node.id)}
                     >
-                      {KIND_LABELS[node.kind]}: {node.label}
+                      {KIND_LABELS[node.kind]}: {tr(node.label)}
                     </button>
                   </li>
                 ))}
@@ -213,8 +219,10 @@ export function GraphExplorer({
             ) : (
               <p className="pointer-events-none absolute right-4 top-4 rounded-md bg-slate-900/80 px-3 py-2 text-xs text-slate-300">
                 {is3d
-                  ? "Toca una tarjeta para ver de dónde sale. Arrastra para girar."
-                  : "Selecciona un nodo para ver su descripción y fuentes."}
+                  ? tr(
+                      "Toca una tarjeta para ver de dónde sale. Arrastra para girar.",
+                    )
+                  : tr("Selecciona un nodo para ver su descripción y fuentes.")}
               </p>
             )}
           </>
@@ -241,7 +249,7 @@ function StudiesChrome({
   if (studies === null || studies.status === "loading") {
     return (
       <div className="p-6">
-        <Skeleton lines={5} label="Cargando estudios" />
+        <Skeleton lines={5} label={tr("Cargando estudios")} />
       </div>
     );
   }
@@ -256,8 +264,10 @@ function StudiesChrome({
   if (page.nodes.length === 0) {
     return (
       <div className="pointer-events-auto p-6">
-        <Notice title="Sin estudios para esta vista">
-          El corpus no tiene estudios relacionados con esta zona en esta vista.
+        <Notice title={tr("Sin estudios para esta vista")}>
+          {tr(
+            "El corpus no tiene estudios relacionados con esta zona en esta vista.",
+          )}
         </Notice>
       </div>
     );
@@ -280,31 +290,32 @@ function StudiesChrome({
         {page.nodes.map((item) => (
           <li key={item.id}>
             <button type="button" onClick={() => onSelect(item.id)}>
-              {NODE_KIND_LABELS[item.kind]}: {item.label}
+              {NODE_KIND_LABELS[item.kind]}: {tr(item.label)}
             </button>
           </li>
         ))}
       </ul>
       <div className="pointer-events-auto absolute bottom-4 right-4 max-w-xs rounded-lg border border-slate-800 bg-slate-900/90 px-3 py-2 text-xs text-slate-300">
         <p className="font-medium text-slate-100">
-          {page.counts.papers_returned} estudios del corpus
-          {page.page.has_more ? " (hay más en la biblioteca)" : ""}
+          {page.counts.papers_returned} {tr("estudios del corpus")}
+          {page.page.has_more ? tr(" (hay más en la biblioteca)") : ""}
         </p>
         <p className="mt-1 text-[11px] leading-snug text-slate-400">
-          {page.counts.papers_reviewed_returned} con revisión documental.{" "}
-          {page.nodes.filter((item) => item.kind === "claim").length} síntesis o
-          límites vinculados.
+          {page.counts.papers_reviewed_returned}{" "}
+          {tr("con revisión documental.")}{" "}
+          {page.nodes.filter((item) => item.kind === "claim").length}{" "}
+          {tr("síntesis o límites vinculados.")}
         </p>
         <details className="mt-1 text-[11px] leading-snug text-slate-400">
           <summary className="cursor-pointer">
-            Alcance de las conexiones
+            {tr("Alcance de las conexiones")}
           </summary>
-          <p>{page.scope_description}</p>
+          <p>{tr(page.scope_description)}</p>
         </details>
       </div>
       {node ? (
         <section
-          aria-label="Detalle del nodo"
+          aria-label={tr("Detalle del nodo")}
           className="pointer-events-auto absolute right-4 top-4 max-h-[calc(100%-2rem)] w-80 animate-slide-in-right overflow-y-auto rounded-lg border border-slate-700 bg-slate-900/95 p-4 text-sm shadow-xl"
         >
           <div className="flex items-start justify-between gap-2">
@@ -313,13 +324,13 @@ function StudiesChrome({
                 {NODE_KIND_LABELS[node.kind]}
               </p>
               <h3 className="mt-1 font-semibold text-slate-100">
-                {node.label}
+                {tr(node.label)}
               </h3>
             </div>
             <button
               type="button"
               onClick={() => onSelect(null)}
-              aria-label="Cerrar detalle"
+              aria-label={tr("Cerrar detalle")}
               className="rounded px-2 text-slate-400 hover:text-slate-100"
             >
               ×
@@ -334,7 +345,7 @@ function StudiesChrome({
               onClick={() => onOpenPaper(node.paper_id ?? "")}
               className="mt-3 w-full rounded-full bg-sky-500 px-3 py-1.5 text-xs font-semibold text-slate-950 hover:bg-sky-400"
             >
-              Abrir el estudio en la biblioteca
+              {tr("Abrir el estudio en la biblioteca")}
             </button>
           ) : null}
           {links.length > 0 ? (
@@ -344,8 +355,10 @@ function StudiesChrome({
                   <span className="text-slate-400">
                     {RELATION_LABELS[edge.relation]}:
                   </span>{" "}
-                  {labelOf(
-                    edge.source === selectedId ? edge.target : edge.source,
+                  {tr(
+                    labelOf(
+                      edge.source === selectedId ? edge.target : edge.source,
+                    ),
                   )}{" "}
                   <Tag
                     tone={edge.basis === "llm_suggestion" ? "amber" : "subtle"}
@@ -359,7 +372,7 @@ function StudiesChrome({
         </section>
       ) : (
         <p className="pointer-events-none absolute right-4 top-4 rounded-md bg-slate-900/80 px-3 py-2 text-xs text-slate-300">
-          Toca una tarjeta para ver de qué trata. Arrastra para girar.
+          {tr("Toca una tarjeta para ver de qué trata. Arrastra para girar.")}
         </p>
       )}
     </>
@@ -372,7 +385,7 @@ function Legend({ graph }: { graph: Graph }) {
   return (
     <div className="pointer-events-auto absolute bottom-4 right-4 max-w-xs rounded-lg border border-slate-800 bg-slate-900/90 px-3 py-2 text-xs text-slate-300">
       <p className="mb-1 text-[10px] uppercase tracking-wide text-slate-400">
-        Tipos de nodo
+        {tr("Tipos de nodo")}
       </p>
       <ul className="flex flex-wrap gap-x-3 gap-y-1">
         {kinds.map((kind) => (
@@ -383,8 +396,9 @@ function Legend({ graph }: { graph: Graph }) {
         ))}
       </ul>
       <p className="mt-2 text-[10px] leading-snug text-slate-400">
-        Las flechas muestran de dónde sale cada dato o regla; no indican
-        causalidad. Los colores agrupan tipos, no niveles de riesgo.
+        {tr(
+          "Las flechas muestran de dónde sale cada dato o regla; no indican causalidad. Los colores agrupan tipos, no niveles de riesgo.",
+        )}
       </p>
     </div>
   );
@@ -415,7 +429,7 @@ function NodeDetail({
 
   return (
     <section
-      aria-label="Detalle del nodo"
+      aria-label={tr("Detalle del nodo")}
       className="pointer-events-auto absolute right-4 top-4 max-h-[calc(100%-2rem)] w-80 animate-slide-in-right overflow-y-auto rounded-lg border border-slate-700 bg-slate-900/95 p-4 text-sm shadow-xl"
     >
       <div className="flex items-start justify-between gap-2">
@@ -426,23 +440,25 @@ function NodeDetail({
             />
             {KIND_LABELS[node.kind]}
           </p>
-          <h3 className="mt-1 font-semibold text-slate-100">{node.label}</h3>
+          <h3 className="mt-1 font-semibold text-slate-100">
+            {tr(node.label)}
+          </h3>
         </div>
         <button
           type="button"
           onClick={onClose}
-          aria-label="Cerrar detalle"
+          aria-label={tr("Cerrar detalle")}
           className="rounded px-2 text-slate-400 hover:text-slate-100"
         >
           ×
         </button>
       </div>
-      <p className="mt-2 text-slate-300">{node.description}</p>
+      <p className="mt-2 text-slate-300">{tr(node.description)}</p>
 
       {sources.length > 0 ? (
         <div className="mt-3">
           <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-            Fuentes
+            {tr("Fuentes")}
           </h4>
           <ul className="mt-1 space-y-2">
             {sources.map((source) => (
@@ -454,14 +470,14 @@ function NodeDetail({
                     rel="noreferrer noopener"
                     className="text-sky-300 underline-offset-2 hover:underline"
                   >
-                    {source.title}
+                    {tr(source.title)}
                   </a>
                 ) : (
-                  <span className="text-slate-200">{source.title}</span>
+                  <span className="text-slate-200">{tr(source.title)}</span>
                 )}
                 <p className="text-xs text-slate-400">
                   {source.locator}
-                  {source.review_status === "reviewed" ? " · revisado" : ""}
+                  {source.review_status === "reviewed" ? tr(" · revisado") : ""}
                 </p>
               </li>
             ))}
@@ -472,7 +488,7 @@ function NodeDetail({
       {claims.length > 0 ? (
         <div className="mt-3">
           <h4 className="text-xs font-medium uppercase tracking-wide text-slate-400">
-            Afirmaciones relacionadas
+            {tr("Afirmaciones relacionadas")}
           </h4>
           <ul className="mt-1 space-y-3">
             {claims.map((claim) => (
@@ -480,7 +496,7 @@ function NodeDetail({
                 key={claim.id}
                 className="rounded-md border border-slate-800 p-2"
               >
-                <p className="text-slate-200">{claim.statement}</p>
+                <p className="text-slate-200">{tr(claim.statement)}</p>
                 <div className="mt-1 flex flex-wrap gap-1">
                   <Tag tone="violet">{CLAIM_KIND_LABELS[claim.kind]}</Tag>
                   <Tag
@@ -491,7 +507,7 @@ function NodeDetail({
                   <ReviewedTag status={claim.review_status} />
                 </div>
                 <p className="mt-1 text-xs text-slate-400">
-                  {claim.population}
+                  {tr(claim.population)}
                   {claim.sample_size !== null
                     ? ` · n = ${claim.sample_size}`
                     : ""}
@@ -499,7 +515,7 @@ function NodeDetail({
                 {claim.limitations.length > 0 ? (
                   <ul className="mt-1 list-disc pl-4 text-xs text-orange-200/80">
                     {claim.limitations.map((limit) => (
-                      <li key={limit}>{limit}</li>
+                      <li key={limit}>{tr(limit)}</li>
                     ))}
                   </ul>
                 ) : null}
@@ -511,7 +527,9 @@ function NodeDetail({
 
       {sources.length === 0 && claims.length === 0 ? (
         <p className="mt-3 text-xs text-slate-400">
-          Este nodo no tiene fuentes ni afirmaciones asociadas en el contrato.
+          {tr(
+            "Este nodo no tiene fuentes ni afirmaciones asociadas en el contrato.",
+          )}
         </p>
       ) : null}
     </section>

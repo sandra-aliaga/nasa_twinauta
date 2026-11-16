@@ -1,3 +1,4 @@
+import { msg } from "../i18n";
 /**
  * Reference scenario request values. They mirror
  * contracts/examples/assessment-request.json and are placeholders until the
@@ -17,7 +18,7 @@ export const INITIAL_MISSION_DAY = 10;
 export const REFERENCE_RECORDINGS = [
   {
     id: "physionet_treadmill_1_0_1_2_1",
-    label: "Referencia real: prueba en cinta (PhysioNet)",
+    label: msg("Referencia real: prueba en cinta (PhysioNet)"),
   },
 ] as const;
 

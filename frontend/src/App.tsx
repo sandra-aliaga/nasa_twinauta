@@ -21,6 +21,7 @@ import {
   INITIAL_MISSION_DAY,
   REFERENCE_START_DAY,
 } from "./lib/config";
+import { tr, useLanguage } from "./i18n";
 
 // Heavy views (graph library, charts) load only when first opened.
 const HeartPanel = lazy(() =>
@@ -46,6 +47,7 @@ const TAB_TO_VIEW: Record<PanelTab, GraphView> = {
 
 /** Main screen: body in the center, contextual panel, optional cardiac panel. */
 export default function App() {
+  const language = useLanguage();
   const catalog = useCatalog();
   const [caseId, setCaseId] = useState<string | null>(null);
   const [day, setDay] = useState(INITIAL_MISSION_DAY);
@@ -94,7 +96,7 @@ export default function App() {
       return studies?.status === "ready" ? studyMap(studies.data) : null;
     }
     return graphState?.status === "ready" ? caseMap(graphState.data) : null;
-  }, [graphView, graphSource, studies, graphState]);
+  }, [graphView, graphSource, studies, graphState, language]);
 
   const cases = catalog.status === "ready" ? catalog.data.cases : [];
   const selectedCase = cases.find((item) => item.id === caseId) ?? null;
@@ -169,7 +171,11 @@ export default function App() {
     return (
       <Shell>
         <div className="m-auto">
-          <Skeleton lines={4} label="Cargando catálogos" className="w-72" />
+          <Skeleton
+            lines={4}
+            label={tr("Cargando catálogos")}
+            className="w-72"
+          />
         </div>
       </Shell>
     );
@@ -273,7 +279,8 @@ export default function App() {
             <Suspense fallback={<ViewSkeleton />}>
               {libraryOpen ? (
                 <ExplorerView
-                  regionId={regionId}
+                  // The heart zone is frontend-only: never sent as a region.
+                  regionId={regionId === HEART_ZONE_ID ? null : regionId}
                   assessmentId={
                     state.status === "ready"
                       ? state.assessment.assessment_id
@@ -397,11 +404,12 @@ function ZonePrompt({
   return (
     <div className="space-y-4">
       <h2 className="font-display text-lg leading-snug text-slate-50">
-        Toca una zona del cuerpo para ver qué pasa ahí
+        {tr("Toca una zona del cuerpo para ver qué pasa ahí")}
       </h2>
       <p className="text-sm text-slate-300">
-        Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y
-        qué hacer.
+        {tr(
+          "Cada zona te cuenta tres cosas, en orden: qué pasa, qué puede pasar y qué hacer.",
+        )}
       </p>
       <ul className="space-y-2">
         {regions.map((region) => {
@@ -422,16 +430,16 @@ function ZonePrompt({
               >
                 <span>
                   <span className="block font-medium text-slate-50">
-                    {region.label}
+                    {tr(region.label)}
                   </span>
                   <span className="block text-xs text-slate-300">
                     {flagged && findingTitle
-                      ? findingTitle
-                      : "Datos de investigación disponibles"}
+                      ? tr(findingTitle)
+                      : tr("Datos de investigación disponibles")}
                   </span>
                 </span>
                 <span className="shrink-0 rounded-full bg-sky-500 px-3 py-1 text-xs font-semibold text-slate-950">
-                  Ver zona
+                  {tr("Ver zona")}
                 </span>
               </button>
             </li>
@@ -448,13 +456,15 @@ function ZonePrompt({
               }
             >
               <span>
-                <span className="block font-medium text-slate-50">Corazón</span>
+                <span className="block font-medium text-slate-50">
+                  {tr("Corazón")}
+                </span>
                 <span className="block text-xs text-slate-300">
-                  Pulso de ejemplo y estudios
+                  {tr("Pulso de ejemplo y estudios")}
                 </span>
               </span>
               <span className="shrink-0 rounded-full bg-step-next px-3 py-1 text-xs font-semibold text-slate-950">
-                Ver zona
+                {tr("Ver zona")}
               </span>
             </button>
           </li>
@@ -467,7 +477,7 @@ function ZonePrompt({
 function ViewSkeleton() {
   return (
     <div className="p-6">
-      <Skeleton lines={5} label="Cargando vista" />
+      <Skeleton lines={5} label={tr("Cargando vista")} />
     </div>
   );
 }
