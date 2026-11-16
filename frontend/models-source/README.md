@@ -1,6 +1,6 @@
 # Modelo anatómico: original y versión publicada
 
-`full-body-muscular-system-superficial-layer.glb` es el original (16 MB, Innerscene Corp, CC0 1.0 según `asset.copyright`). No se sirve: Vite solo publica `public/`.
+El GLB original de Innerscene Corp (CC0 1.0 según `asset.copyright`) no se incluye en Git por su tamaño. La app sirve la versión optimizada en `public/models/`.
 
 La app carga `public/models/full-body-muscular-system-superficial-layer.min.glb` (2,6 MB), generado así:
 

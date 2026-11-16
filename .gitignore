@@ -19,4 +19,9 @@ dist/
 # Local source clips and screen recordings; preserve recreation instructions.
 /presentacion/videos/
 /output/playwright/
+.playwright-cli/*.webm
+/presentacion/videos-promo-en/*.mp4
+/presentacion/pitch-2026-11-15/*.pptx
+/presentacion/pitch-2026-11-15/version-anterior/*.pptx
+/frontend/models-source/*.glb
 .neon

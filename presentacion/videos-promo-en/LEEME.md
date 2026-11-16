@@ -28,7 +28,7 @@ Dos piezas de 20 segundos, 1920 × 1080, 30 fps, completamente en inglés y sin 
 
 ## Archivos y edición
 
-Abrir `index.html` para reproducir las dos piezas. Los storyboards muestran seis momentos de cada película. `render_films.py` contiene guiones, posiciones, efectos, movimiento de cámara y configuración de exportación.
+Los videos de salida no se incluyen en Git por su tamaño. Los storyboards muestran seis momentos de cada película. `render_films.py` contiene guiones, posiciones, efectos, movimiento de cámara y configuración de exportación. Ejecuta el render para obtener los MP4 locales y reproducirlos.
 
 Para regenerar, con Python, Pillow y FFmpeg disponibles:
 

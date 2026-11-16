@@ -3,7 +3,7 @@
 Current presentation: **TwinNauta_pitch_EN.pdf** (11 slides).
 
 - **TwinNauta_sources_EN.pdf**: three source slides, kept outside the main pitch.
-- **TwinNauta_pitch_EN.pptx**: editable English deck, including the source appendix.
+- Editable PowerPoint exports are generated locally and excluded from Git because of their size.
 - **pitch_script_5_minutes_EN.md**: English speaking guide; 607 words and a 300-second rehearsal plan.
 
 The cover preserves the original project name, subtitle and illustration. The last two main slides adapt “From space to the hospital” and “TwinNauta in Arequipa” from pages 4–5 of the supplied five-page PDF, preserving their substantive content. The regional application is clearly framed as a proposed pilot. Our overlapping Earth-transition slide, numerical comparison and generic closing were removed from the main pitch.
