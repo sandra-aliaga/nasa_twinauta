@@ -1,6 +1,25 @@
 # Base compartida para frontend
 
-Archivo actual: [twinauta-documentary-reviewed-20261115.dump](twinauta-documentary-reviewed-20261115.dump), formato custom de PostgreSQL 18.6. Usar PostgreSQL 18 y sus herramientas createdb, pg_restore y psql.
+Archivo actual: [twinnauta-current-20261116.dump](twinnauta-current-20261116.dump), PostgreSQL 18.6.
+Se compararon las siete tablas con la base local actual y se comprobo una restauracion
+independiente: 27 papers, 52 analisis, 2 evaluaciones, 3 seguimientos de acciones y
+1 contexto preparado; migracion `0005_prepared_contexts`.
+[Verificacion](current-verification.json). El respaldo anterior tenia solo una
+evaluacion y un seguimiento de accion.
+
+Para restaurar en la base configurada en `.env.local`, desde la raiz:
+
+```bash
+backend/.venv/bin/python scripts/restore_neon.py --restore
+```
+
+Sin `--restore` solo comprueba. El comando verifica SHA-256 y las filas restauradas,
+usa la conexion directa privada y rechaza una base ocupada con contenido diferente.
+No imprime credenciales. Repetirlo sobre el mismo contenido no modifica nada.
+
+## Respaldo historico del 15 de noviembre
+
+Archivo: [twinauta-documentary-reviewed-20261115.dump](twinauta-documentary-reviewed-20261115.dump), formato custom de PostgreSQL 18.6. Usar PostgreSQL 18 y sus herramientas createdb, pg_restore y psql.
 
 Incluye esquema `0005_prepared_contexts`, caso virtual, 27 papers, 26 resúmenes documentales publicados y 26 análisis anteriores conservados (52 filas), seis estadísticas agregadas, evaluación `assessment_demo_001`, seguimiento de su acción y contexto con las tres secciones/grafos. No incluye roles globales, contraseñas, .env, clave DeepSeek ni modelo 3D.
 

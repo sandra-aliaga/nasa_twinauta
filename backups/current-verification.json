@@ -1,0 +1,23 @@
+{
+  "verified_at_utc": "2026-11-16T04:19:56.220352+00:00",
+  "backup": "backups/twinnauta-current-20261116.dump",
+  "sha256": "70e5d97741117428dc04f8cfcb9f694bdff7218434d30520395bd5f7915153b8",
+  "migration": "0005_prepared_contexts",
+  "table_counts": {
+    "action_states": 3,
+    "alembic_version": 1,
+    "assessments": 2,
+    "demo_cases": 1,
+    "literature_analyses": 52,
+    "literature_papers": 27,
+    "prepared_contexts": 1
+  },
+  "independent_local_restore": true,
+  "all_rows_compared_to_archive": true,
+  "repeated_restore_is_noop": true,
+  "nonmatching_nonempty_database_refused": true,
+  "neon_restored": true,
+  "neon_all_rows_match_archive": true,
+  "comparison_timezone": "America/Lima",
+  "neon_verified_at_utc": "2026-11-16T04:21:53.651534+00:00"
+}

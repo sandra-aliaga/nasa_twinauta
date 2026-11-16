@@ -12,11 +12,14 @@ BACKEND_DIR = Path(__file__).resolve().parents[1]
 class Settings(BaseSettings):
     """Load PostgreSQL and browser-origin settings from the environment."""
 
-    model_config = SettingsConfigDict(env_file=BACKEND_DIR / ".env", extra="ignore")
+    model_config = SettingsConfigDict(
+        env_file=(BACKEND_DIR / ".env", BACKEND_DIR.parent / ".env.local"), extra="ignore"
+    )
 
     database_url: SecretStr = SecretStr(
         "postgresql+psycopg://twinauta:twinauta@localhost:5432/twinauta"
     )
+    database_url_unpooled: SecretStr | None = None
     cors_origins: list[str] = ["http://localhost:5173", "http://127.0.0.1:5173"]
     analysis_provider: Literal["disabled", "ollama", "openai_compatible"] = "disabled"
     analysis_url: str | None = None
@@ -27,10 +30,12 @@ class Settings(BaseSettings):
     analysis_thinking: Literal["enabled", "disabled"] | None = None
     scientific_bundle_path: Path | None = None
 
-    @field_validator("database_url")
+    @field_validator("database_url", "database_url_unpooled")
     @classmethod
-    def normalize_database_url(cls, value: SecretStr) -> SecretStr:
+    def normalize_database_url(cls, value: SecretStr | None) -> SecretStr | None:
         """Accept provider URLs while selecting the psycopg driver explicitly."""
+        if value is None:
+            return None
         url = value.get_secret_value()
         for prefix in ("postgres://", "postgresql://"):
             if url.startswith(prefix):

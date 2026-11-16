@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TwinNauta · cinematic cut</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background: #03050c;
+        overflow: hidden;
+      }
+      body {
+        font-family: Arial, sans-serif;
+        color: #f7faff;
+      }
+      #stage {
+        position: absolute;
+        width: 1920px;
+        height: 1080px;
+        transform-origin: top left;
+        overflow: hidden;
+        background: #03050c;
+      }
+      .scene {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        overflow: hidden;
+      }
+      .media {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform-origin: center;
+      }
+      .shade {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(2, 5, 14, 0.82),
+          rgba(2, 5, 14, 0.05) 83%
+        );
+      }
+      .brand {
+        position: absolute;
+        top: 60px;
+        left: 76px;
+        font-size: 26px;
+        font-weight: 700;
+        letter-spacing: -0.6px;
+      }
+      .brand::before {
+        content: "";
+        display: inline-block;
+        width: 15px;
+        height: 15px;
+        border: 2px solid #83e8fa;
+        border-radius: 50%;
+        margin-right: 13px;
+        box-shadow: 0 0 28px #70c8ff;
+      }
+      .eyebrow {
+        color: #8deaff;
+        font-size: 22px;
+        letter-spacing: 6px;
+        text-transform: uppercase;
+      }
+      .copy {
+        position: absolute;
+        left: 90px;
+        top: 265px;
+      }
+      h1,
+      h2,
+      p {
+        margin: 0;
+      }
+      h1 {
+        font-size: 146px;
+        font-weight: 800;
+        letter-spacing: -7px;
+        line-height: 0.95;
+      }
+      h2 {
+        font-size: 106px;
+        font-weight: 800;
+        letter-spacing: -5px;
+        line-height: 1.02;
+      }
+      .accent {
+        color: #8deaff;
+      }
+      .letter {
+        display: inline-block;
+        white-space: pre;
+      }
+      .sub {
+        margin-top: 30px;
+        color: #becbdf;
+        font-size: 29px;
+        line-height: 1.4;
+        max-width: 640px;
+      }
+      .rule {
+        width: 115px;
+        height: 4px;
+        margin: 30px 0;
+        background: #8deaff;
+        transform-origin: left;
+      }
+      .number {
+        font-size: 22px;
+        letter-spacing: 6px;
+        color: #8deaff;
+        margin-bottom: 35px;
+      }
+      .question {
+        position: absolute;
+        left: 90px;
+        top: 275px;
+        width: 680px;
+      }
+      .detail {
+        position: absolute;
+        width: 1050px;
+        height: 720px;
+        top: 160px;
+        left: 825px;
+        overflow: hidden;
+        border-radius: 22px;
+        border: 1px solid #647cff70;
+        box-shadow: 0 40px 140px #0009;
+        background: #0c1027;
+        transform-origin: center;
+      }
+      .detail img {
+        position: absolute;
+        max-width: none;
+      }
+      .stamp {
+        position: absolute;
+        left: 860px;
+        top: 920px;
+        color: #a8b9d4;
+        font-size: 21px;
+        letter-spacing: 1px;
+      }
+      .capture-label {
+        position: absolute;
+        right: 58px;
+        top: 76px;
+        padding: 16px 24px;
+        border: 2px solid #a7f2ff;
+        border-left: 7px solid #a7f2ff;
+        border-radius: 10px;
+        background: #08273bf5;
+        box-shadow:
+          0 6px 30px #0009,
+          0 0 22px #6edcff35;
+        color: #effcff;
+        font-size: 29px;
+        font-weight: 700;
+        letter-spacing: 0.8px;
+        z-index: 2;
+      }
+      .ambient {
+        position: absolute;
+        width: 950px;
+        height: 950px;
+        right: -150px;
+        top: -120px;
+        background: radial-gradient(circle, #4b53dc30, transparent 65%);
+      }
+      .footer {
+        position: absolute;
+        bottom: 38px;
+        left: 76px;
+        right: 76px;
+        display: flex;
+        justify-content: space-between;
+        color: #92a4c5;
+        font-size: 18px;
+        letter-spacing: 3px;
+      }
+      #progress {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 100%;
+        background: #8deaff;
+        transform-origin: left;
+      }
+      .blackout {
+        position: absolute;
+        inset: 0;
+        background: #000;
+        opacity: 0;
+      }
+      #ai-label {
+        position: absolute;
+        right: 44px;
+        bottom: 28px;
+        padding: 10px 17px;
+        border-radius: 7px;
+        border: 1px solid #ffd37c;
+        background: #231807f2;
+        box-shadow: 0 0 20px #ffc36235;
+        font-size: 23px;
+        font-weight: 600;
+        color: #ffe4ac;
+        letter-spacing: 0.5px;
+        z-index: 100;
+      }
+      .center {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        text-align: center;
+      }
+      .logo {
+        font-size: 146px;
+        font-weight: 800;
+        letter-spacing: -8px;
+      }
+      .orbit {
+        width: 155px;
+        height: 155px;
+        border: 2px solid #8deaff60;
+        border-radius: 50%;
+        position: relative;
+        margin-bottom: 34px;
+      }
+      .orbit::before {
+        content: "";
+        position: absolute;
+        inset: 30px -30px;
+        border: 3px solid #8deaff;
+        border-radius: 50%;
+        transform: rotate(-32deg);
+      }
+      .orbit::after {
+        content: "";
+        position: absolute;
+        inset: 52px;
+        background: #e3f9ff;
+        border-radius: 50%;
+        box-shadow: 0 0 65px #83cfff;
+      }
+      .graph-title {
+        position: absolute;
+        left: 90px;
+        top: 150px;
+        font-size: 80px;
+        line-height: 1;
+        letter-spacing: -4px;
+      }
+      .chain {
+        position: absolute;
+        left: 90px;
+        bottom: 92px;
+        display: flex;
+        gap: 24px;
+        align-items: center;
+        padding: 24px 32px;
+        border: 1px solid #7ddfff60;
+        background: #080c20ed;
+        border-radius: 50px;
+        font-size: 24px;
+      }
+      .chain i {
+        width: 70px;
+        height: 2px;
+        background: #8deaff;
+        transform-origin: left;
+      }
+      .chain b {
+        color: #8deaff;
+        font-weight: 400;
+      }
+      .earth-copy {
+        position: absolute;
+        left: 85px;
+        bottom: 100px;
+      }
+      .earth-copy h2 {
+        font-size: 90px;
+      }
+      #play {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 20;
+        padding: 14px 22px;
+        color: #081024;
+        background: #9dedff;
+        border: 0;
+        border-radius: 30px;
+        font-size: 18px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <audio
+      id="score"
+      src="/output/playwright/twinnauta-score.wav"
+      preload="auto"
+    ></audio>
+    <div id="stage">
+      <section class="scene" id="opening">
+        <video class="media" id="astronaut" muted preload="auto"></video>
+        <div class="shade"></div>
+        <div class="copy">
+          <div class="eyebrow">LONG-DURATION MISSIONS</div>
+          <div class="rule"></div>
+          <h1 data-type="FAR FROM|EARTH."></h1>
+          <p class="sub" id="opening-sub">
+            Your body changes.<br />Every decision matters.
+          </p>
+        </div>
+        <div class="blackout" id="opening-black"></div>
+      </section>
+      <section class="scene" id="reveal">
+        <div class="center">
+          <div class="orbit"></div>
+          <div class="logo">TwinNauta</div>
+          <p class="eyebrow" style="margin-top: 30px">
+            FROM MEASUREMENTS TO EVIDENCE
+          </p>
+        </div>
+      </section>
+      <section class="scene" id="dashboard">
+        <img
+          class="media"
+          id="app"
+          src="/output/playwright/dashboard-4k.jpg"
+          alt="Actual TwinNauta dashboard screenshot"
+          style="inset: 4%; width: 92%; height: 92%; border-radius: 16px"
+        />
+        <div class="capture-label">Actual app screenshot</div>
+        <div
+          style="
+            position: absolute;
+            left: 68px;
+            bottom: 150px;
+            font-size: 60px;
+            font-weight: 700;
+            letter-spacing: -2px;
+            text-shadow: 0 2px 24px #000;
+          "
+        >
+          A clearer view.<br /><span class="accent">A better question.</span>
+        </div>
+      </section>
+      <section class="scene" id="status">
+        <div class="capture-label">Actual app screenshot</div>
+        <div class="ambient"></div>
+        <div class="question">
+          <p class="number">01 / UNDERSTAND</p>
+          <h2>What is<br /><span class="accent">happening?</span></h2>
+          <div class="rule"></div>
+          <p class="sub">Explore measurements.<br />Trace every source.</p>
+        </div>
+        <div class="detail"><img src="/output/playwright/state-4k.jpg" /></div>
+        <p class="stamp">REAL NASA REFERENCE DATA · INDIVIDUAL TORQUE</p>
+      </section>
+      <section class="scene" id="scenario">
+        <div class="capture-label">Actual app screenshot</div>
+        <div class="ambient"></div>
+        <div class="question">
+          <p class="number">02 / EXPLORE</p>
+          <h2>What could<br /><span class="accent">happen?</span></h2>
+          <div class="rule"></div>
+          <p class="sub">
+            Compare published outcomes.<br />Understand their limits.
+          </p>
+        </div>
+        <div class="detail">
+          <img src="/output/playwright/actions-4k.jpg" />
+        </div>
+        <p class="stamp">SPRINT · PUBLISHED GROUP COMPARISON</p>
+      </section>
+      <section class="scene" id="actions">
+        <div class="capture-label">Actual app screenshot</div>
+        <div class="ambient"></div>
+        <div class="question">
+          <p class="number">03 / PROCEED</p>
+          <h2>What can<br /><span class="accent">I do?</span></h2>
+          <div class="rule"></div>
+          <p class="sub">
+            Review next steps.<br />Follow the supporting evidence.
+          </p>
+        </div>
+        <div class="detail">
+          <img src="/output/playwright/actions-4k.jpg" />
+        </div>
+        <p class="stamp">DOCUMENTED STEPS · HUMAN REVIEW</p>
+      </section>
+      <section class="scene" id="graph">
+        <video
+          class="media"
+          id="graph-video"
+          muted
+          preload="auto"
+          src="/output/playwright/recorrido-ingles.webm"
+        ></video>
+        <div
+          style="
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(#03050cd9, transparent 40%, #03050ca0);
+          "
+        ></div>
+        <h2 class="graph-title">
+          A number is only the start.<br /><span class="accent"
+            >Follow the evidence.</span
+          >
+        </h2>
+        <div class="chain">
+          <span>MEASUREMENTS</span><i></i><b>CONNECTED STUDIES</b><i></i
+          ><span>NEXT STEPS</span>
+        </div>
+      </section>
+      <section class="scene" id="paper">
+        <img
+          class="media"
+          id="paper-image"
+          src="/output/playwright/paper-4k.jpg"
+          alt="Actual TwinNauta scientific library screenshot"
+        />
+        <div class="capture-label">Actual app screenshot</div>
+        <div
+          class="shade"
+          style="
+            background: linear-gradient(
+              90deg,
+              #03050cfa,
+              #03050cca 40%,
+              transparent 60%
+            );
+          "
+        ></div>
+        <div class="question" style="top: 300px">
+          <p class="number">THE SCIENTIFIC LIBRARY</p>
+          <h2>Open the<br /><span class="accent">research.</span></h2>
+          <p class="sub">
+            Findings. Methods. Limits.<br />Always linked to the source.
+          </p>
+        </div>
+      </section>
+      <section class="scene" id="earth">
+        <video
+          class="media"
+          id="hospital"
+          muted
+          preload="auto"
+          src="/output/playwright/hospital-misti-5s.mp4"
+        ></video>
+        <div
+          class="shade"
+          style="background: linear-gradient(transparent 40%, #03050cf5)"
+        ></div>
+        <div class="earth-copy">
+          <p class="eyebrow" style="margin-bottom: 25px">FROM SPACE TO EARTH</p>
+          <h2>
+            The challenge<br /><span class="accent"
+              >is closer than we think.</span
+            >
+          </h2>
+          <p class="sub" style="max-width: 1500px">
+            Our vision: exploring hospital applications in Arequipa.
+          </p>
+        </div>
+      </section>
+      <section class="scene" id="closing">
+        <div class="ambient"></div>
+        <div class="center">
+          <div class="orbit"></div>
+          <div class="logo">TwinNauta</div>
+          <p class="sub" style="max-width: none">
+            Understand. Explore. Act with evidence.
+          </p>
+          <p
+            class="accent"
+            style="font-size: 66px; letter-spacing: -2px; margin-top: 60px"
+          >
+            <span style="font-size: 32px; letter-spacing: 4px; color: #f7faff">
+              TRY NOW <span aria-hidden="true">→</span>
+            </span>
+            twinnauta.health
+          </p>
+        </div>
+      </section>
+      <div class="brand">TwinNauta</div>
+      <div class="footer">
+        <span>NASA SPACE APPS</span
+        ><span id="footer-right">HEALTH · KNOWLEDGE · AUTONOMY</span>
+      </div>
+      <div id="progress"></div>
+      <div id="ai-label">AI-generated footage</div>
+    </div>
+    <button id="play">Play 30s</button>
+    <script>
+      const root = document.querySelector("#stage");
+      const scenes = [
+        ["opening", 0, 4.6],
+        ["reveal", 4.6, 6.2],
+        ["dashboard", 6.2, 8],
+        ["status", 8, 10.8],
+        ["scenario", 10.8, 13.6],
+        ["actions", 13.6, 16.4],
+        ["graph", 16.4, 20.7],
+        ["paper", 20.7, 23.4],
+        ["earth", 23.4, 27],
+        ["closing", 27, 30.5],
+      ];
+      const clamp = (x) => Math.max(0, Math.min(1, x));
+      const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+      document.querySelectorAll("[data-type]").forEach((el) => {
+        let index = 0;
+        el.innerHTML = el.dataset.type
+          .split("|")
+          .map((line) =>
+            [...line]
+              .map(
+                (char) =>
+                  `<span class="letter" data-index="${index++}">${char === " " ? "&nbsp;" : char}</span>`,
+              )
+              .join(""),
+          )
+          .join("<br>");
+      });
+      function resize() {
+        root.style.transform = `scale(${Math.min(innerWidth / 1920, innerHeight / 1080)})`;
+      }
+      addEventListener("resize", resize);
+      resize();
+      let realtime = false;
+      async function positionVideo(id, time, active, exact, rate = 1) {
+        const video = document.getElementById(id);
+        if (!video.src || video.readyState < 1) return;
+        if (!active) {
+          video.pause();
+          video.dataset.active = "false";
+          return;
+        }
+        const target = Math.min(Math.max(0, time), video.duration - 0.05);
+        if (exact) {
+          video.pause();
+          if (Math.abs(video.currentTime - target) > 0.009) {
+            await new Promise((resolve) => {
+              video.addEventListener("seeked", resolve, { once: true });
+              video.currentTime = target;
+            });
+          }
+        } else if (active) {
+          video.playbackRate = rate;
+          if (video.dataset.active !== "true") {
+            video.dataset.active = "true";
+            if (Math.abs(video.currentTime - target) > 0.12)
+              video.currentTime = target;
+            video
+              .play()
+              .catch((error) =>
+                console.warn("Video playback failed", id, error),
+              );
+          }
+        }
+      }
+      window.renderAt = async function (t, exact = true) {
+        for (const [id, start, end] of scenes) {
+          const el = document.getElementById(id),
+            local = t - start;
+          const enter = ease(local / 0.5),
+            leave = 1 - ease((t - end + 0.18) / 0.32);
+          el.style.opacity = enter * leave;
+          el.style.zIndex = String(Math.round(start));
+          el.style.transform = `translateY(${(1 - enter) * 26}px)`;
+          const copy = el.querySelector(".question,.earth-copy,.graph-title");
+          if (copy) {
+            copy.style.transform = `translateY(${(1 - ease((local - 0.12) / 0.65)) * 45}px)`;
+            copy.style.opacity = ease((local - 0.12) / 0.45);
+          }
+          const detail = el.querySelector(".detail");
+          if (detail) {
+            detail.style.transform = `perspective(1800px) translateX(${(1 - enter) * 110}px) rotateY(${(1 - enter) * -8}deg) scale(${0.95 + 0.05 * enter})`;
+          }
+          const rule = el.querySelector(".rule");
+          if (rule)
+            rule.style.transform = `scaleX(${ease((local - 0.3) / 0.7)})`;
+        }
+        document.querySelectorAll(".letter").forEach((el) => {
+          const p = ease((t - 0.35 - Number(el.dataset.index) * 0.073) / 0.32);
+          el.style.opacity = p;
+          el.style.transform = `translateY(${(1 - p) * 32}px)`;
+          el.style.filter = `blur(${(1 - p) * 9}px)`;
+        });
+        document.querySelector("#opening-sub").style.opacity = ease(
+          (t - 2.1) / 0.7,
+        );
+        document.querySelector("#opening-black").style.opacity = ease(
+          (t - 3.65) / 0.92,
+        );
+        document.querySelector("#astronaut").style.transform =
+          `scale(${1 + 0.035 * clamp(t / 4.6)})`;
+        document.querySelector("#reveal .center").style.transform =
+          `scale(${0.9 + 0.1 * ease((t - 4.6) / 1.2)})`;
+        document.querySelector("#app").style.transform =
+          `scale(${1 + 0.035 * ease((t - 6.2) / 1.8)})`;
+        for (const [id, top] of [
+          ["status", -640],
+          ["scenario", -640],
+          ["actions", -1280],
+        ]) {
+          const img = document.querySelector(`#${id} .detail img`);
+          img.style.width = "4500px";
+          img.style.left = "-3500px";
+          img.style.top = `${top - 12 * clamp((t - scenes.find((s) => s[0] === id)[1]) / 2.8)}px`;
+        }
+        document.querySelector("#graph-video").style.transform =
+          `scale(${1.12 + 0.1 * ease((t - 16.4) / 4.3)}) translateX(5%)`;
+        document
+          .querySelectorAll(".chain i")
+          .forEach(
+            (el, i) =>
+              (el.style.transform = `scaleX(${ease((t - 17 - i * 0.4) / 0.8)})`),
+          );
+        document.querySelector("#paper-image").style.transform =
+          `scale(${1.25 + 0.025 * ease((t - 20.7) / 2.7)}) translateX(8%)`;
+        document.querySelector("#hospital").style.transform =
+          `scale(${1 + 0.025 * clamp((t - 23.4) / 3.6)})`;
+        document.querySelector("#closing .center").style.transform =
+          `scale(${0.94 + 0.06 * ease((t - 27) / 2)})`;
+        document.querySelector("#progress").style.transform =
+          `scaleX(${clamp(t / 30)})`;
+        document.querySelector(".brand").style.opacity = t < 6.2 ? 0 : 1;
+        document.querySelector(".footer").style.opacity = t < 6.2 ? 0 : 0.8;
+        const ai = t < 4.6 || (t >= 23.4 && t < 27);
+        document.querySelector("#ai-label").style.opacity = ai ? 1 : 0;
+        document.querySelector("#footer-right").style.opacity = ai ? 0 : 1;
+        await Promise.all([
+          positionVideo("astronaut", 3 + Math.min(t, 4.6), t < 4.6, exact),
+          positionVideo(
+            "graph-video",
+            16 + Math.max(0, t - 16.4) * 0.78,
+            t >= 16.4 && t < 20.7,
+            exact,
+            0.78,
+          ),
+          positionVideo(
+            "hospital",
+            Math.max(0, t - 23.4) * 1.3,
+            t >= 23.4 && t < 27,
+            exact,
+            1.3,
+          ),
+        ]);
+      };
+      window.ready = (async () => {
+        const files = await fetch("/output/playwright/media.json").then((r) =>
+          r.json(),
+        );
+        document.querySelector("#astronaut").src = files.astronaut;
+        await Promise.all(
+          [...document.querySelectorAll("video")].map(
+            (v) =>
+              new Promise((resolve) => {
+                if (v.readyState >= 2) return resolve();
+                v.addEventListener("loadeddata", resolve, { once: true });
+                v.addEventListener("error", resolve, { once: true });
+              }),
+          ),
+        );
+        await document.fonts.ready;
+        await Promise.all([...document.images].map((img) => img.decode()));
+        await Promise.all([
+          positionVideo("astronaut", 3, true, true),
+          positionVideo("graph-video", 16, true, true),
+          positionVideo("hospital", 0, true, true),
+        ]);
+        await window.renderAt(0);
+      })();
+      document.querySelector("#play").onclick = async () => {
+        await window.ready;
+        document.querySelector("#play").style.display = "none";
+        const score = document.querySelector("#score");
+        score.currentTime = 0;
+        score.volume = 0.75;
+        await score
+          .play()
+          .catch((error) => console.warn("Music playback failed", error));
+        realtime = true;
+        const start = performance.now();
+        async function frame(now) {
+          const t = (now - start) / 1000;
+          await window.renderAt(t, false);
+          if (t < 30 && realtime) requestAnimationFrame(frame);
+        }
+        requestAnimationFrame(frame);
+      };
+    </script>
+  </body>
+</html>

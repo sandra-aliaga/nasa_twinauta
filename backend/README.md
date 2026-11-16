@@ -14,6 +14,25 @@ El modelo científico sigue pendiente: los escenarios devuelven `insufficient_da
 
 ## Instalación y arranque
 
+### Conexion con Neon
+
+El proyecto Neon se vincula desde la raiz del repositorio. `neon deploy` actualiza
+las conexiones en `.env.local`, excluido de Git. El backend lee primero
+`backend/.env` y despues `.env.local` de la raiz; las variables del proceso tienen
+prioridad sobre ambos archivos. El archivo local anterior se conserva.
+
+`DATABASE_URL` se usa para las consultas de la aplicacion.
+`DATABASE_URL_UNPOOLED`, si existe, se usa exclusivamente para Alembic con la
+conexion directa. En Render, configurar estas variables en el servicio del
+backend; el frontend nunca debe recibir credenciales PostgreSQL.
+
+La configuracion Neon de la raiz mantiene PostgreSQL y no habilita servicios
+adicionales. Conectar no aplica migraciones ni importa el respaldo; esas
+operaciones son pasos separados. Formato del backend: `make backend-format`;
+comprobacion: `make backend-check`. Formato de los archivos de configuracion Neon:
+`frontend/node_modules/.bin/prettier --write neon.ts package.json package-lock.json`
+(usar `--check` en lugar de `--write` para comprobar).
+
 ### Síntesis contextual y contrato vigentes
 
 La API actual es 0.3.0, con [OpenAPI completo](../contracts/openapi.yaml) y [entrega frontend](../docs/ENTREGA_FRONTEND.md). `GET /api/v1/cases/{case_id}/assessments` descubre las evaluaciones disponibles; `GET /api/v1/assessments/{id}/context` sirve las tres secciones, sus grafos de citas, fragmentos, pasos y procedencia. La evaluación instalada `assessment_demo_001` tiene contenido disponible. Una evaluación nueva sin preparación devuelve `unavailable`, sin generar IA ni heredar la síntesis de otro caso.

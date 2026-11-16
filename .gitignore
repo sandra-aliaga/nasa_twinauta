@@ -15,3 +15,8 @@ dist/
 /presentacion/video-voxel-30s/**/*.webm
 /presentacion/video-voxel-30s/**/*.mov
 /presentacion/video-voxel-30s/**/*.zip
+
+# Local source clips and screen recordings; preserve recreation instructions.
+/presentacion/videos/
+/output/playwright/
+.neon

@@ -19,7 +19,10 @@ def run_migrations_offline() -> None:
 
 def run_migrations_online() -> None:
     """Apply migrations to the explicitly configured database."""
-    engine = create_database_engine(get_settings())
+    settings = get_settings()
+    if settings.database_url_unpooled is not None:
+        settings = settings.model_copy(update={"database_url": settings.database_url_unpooled})
+    engine = create_database_engine(settings)
     try:
         with engine.connect() as connection:
             context.configure(connection=connection, target_metadata=target_metadata)
